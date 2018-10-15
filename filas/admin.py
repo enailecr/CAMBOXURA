@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Fila, AgentesDinamicos, MembrosDinamicos
 
-# Register your models here.
+admin.site.register(Fila)
+admin.site.register(AgentesDinamicos)
+admin.site.register(MembrosDinamicos)

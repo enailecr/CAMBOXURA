@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import CondicaoTempo, GrupoTempo
 
-# Register your models here.
+admin.site.register(CondicaoTempo)
+admin.site.register(GrupoTempo)

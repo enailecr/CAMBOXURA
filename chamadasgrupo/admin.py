@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import ChamadaEmGrupo, ListaExtensao
 
-# Register your models here.
+admin.site.register(ChamadaEmGrupo)
+admin.site.register(ListaExtensao)

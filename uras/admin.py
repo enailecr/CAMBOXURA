@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import URA, OpcaoURA
 
-# Register your models here.
+admin.site.register(URA)
+admin.site.register(OpcaoURA)

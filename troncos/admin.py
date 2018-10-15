@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import Tronco, TroncoSIP, TroncoIAX, TroncoCustomizado, RegraManipulaNum
 
-# Register your models here.
+admin.site.register(Tronco)
+admin.site.register(TroncoSIP)
+admin.site.register(TroncoIAX)
+admin.site.register(TroncoCustomizado)
+admin.site.register(RegraManipulaNum)
