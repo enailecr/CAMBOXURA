@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'destinos',
+    'usuarios',
     'anuncios',
     'numeros',
     'uras',
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'troncos',
     'dashboard',
     'musicas',
+
 ]
 
 MIDDLEWARE = [
