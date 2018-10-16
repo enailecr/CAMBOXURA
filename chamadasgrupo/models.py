@@ -2,6 +2,7 @@ from django.db import models
 from destinos.models import Destino
 from anuncios.models import Anuncio
 from numeros.models import NumeroEntrada
+from musicas.models import Musica
 
 ESTRATEGIA_CHOICES = (
     ('1','ringall'),
@@ -33,7 +34,7 @@ class ChamadaEmGrupo(Destino):
     estrategia = models.CharField(max_length=1,choices = ESTRATEGIA_CHOICES, null=False, blank=False)
     tempoChamada = models.IntegerField()
     anuncioCG = models.ForeignKey(Anuncio, on_delete=models.CASCADE,related_name='anuncioCG')
-    #musicaEspera =
+    musicaEspera = models.ForeignKey(Musica, on_delete=models.CASCADE)
     prefixCID = models.CharField(max_length=10)
     infoAlerta = models.CharField(max_length=70)
     igConfigCF = models.BooleanField()
