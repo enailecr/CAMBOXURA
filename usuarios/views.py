@@ -6,7 +6,7 @@ def login(request):
 def add(request):
     return render(request, 'cadastroUsuario.html')
 
-@require_POST
+#@require_POST
 def usuario_novo(request):
     try:
         usuario_aux = User.objects.get(username=request.POST['usuario'])
@@ -24,7 +24,7 @@ def usuario_novo(request):
         novoUsuario.save()
         return redirect ('/contas/login/')
 
-@login_required
+#@login_required
 def usuario_edita(request):
     data = {}
     usuario = request.user
