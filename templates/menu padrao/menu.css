@@ -24,14 +24,14 @@
 }
 #cssmenu > ul > li {
   list-style: inside none;
-  float: left;
+  float: right;
   display: inline-block;
   position: relative;
   margin: 0;
   padding: 0;
 }
 #cssmenu.align-center > ul {
-  text-align: center;
+  text-align: left;
 }
 #cssmenu.align-center > ul > li {
   float: none;
