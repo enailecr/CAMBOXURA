@@ -28,22 +28,24 @@
                         <a href="/"><img class="logo-img logo-img-main" src="{% static 'img/logo.png' %}" alt="camtecnologia Logo"></a>
                         <h2 class="title">Cadastro de Usuário </h2>
                 </div>
+                
                 <div class="card-body">
-                    <form method="POST">
+                    <form action="{% url 'usuario_novo' %}" method="POST">
+                            {% csrf_token %}
                         <div class="form-row">
                             <div class="name">Nome</div>
                             <div class="value">
-                                <input class="input--style-6" type="text" name="name">
+                                <input class="input--style-6" type="text" name="nome">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="name">Usuario</div>
                             <div class="value">
-                                <input class="input--style-6" type="text" name="username">
+                                <input class="input--style-6" type="text" name="usuario">
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="name">Email address</div>
+                            <div class="name">Endereço de Email</div>
                             <div class="value">
                                 <div class="input-group">
                                     <input class="input--style-6" type="email" name="email" placeholder="example@email.com">
@@ -53,7 +55,7 @@
                         <div class="form-row">
                             <div class="name">Senha</div>
                             <div class="value">
-                                <input class="input--style-6" type="password" name="password">
+                                <input class="input--style-6" type="password" name="senha">
                             </div>
                         </div>
                         <!-- <div class="form-row">

@@ -1,4 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render , redirect
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 def login(request):
     return render(request, 'login.html')
@@ -6,7 +9,7 @@ def login(request):
 def add(request):
     return render(request, 'cadastroUsuario.html')
 
-#@require_POST
+@require_POST
 def usuario_novo(request):
     try:
         usuario_aux = User.objects.get(username=request.POST['usuario'])
@@ -24,7 +27,7 @@ def usuario_novo(request):
         novoUsuario.save()
         return redirect ('/contas/login/')
 
-#@login_required
+@login_required
 def usuario_edita(request):
     data = {}
     usuario = request.user
