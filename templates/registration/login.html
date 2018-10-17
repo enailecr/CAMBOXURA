@@ -34,15 +34,27 @@
     <div class="container">
 
       <div id="login">
+        {% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
 
-        <form action="javascript:void(0);" method="get">
-
+{% if next %}
+    {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</p>
+    {% else %}
+    <p>Please login to see this page.</p>
+    {% endif %}
+{% endif %}
+        <form action="{% url 'login' %}" method="post">
+          {% csrf_token %}
           <fieldset class="clearfix">
             <img class="logo-img logo-img-main" src="{% static 'img/logo.png' %}" alt="camtecnologia Logo">
 
-            <p><span class="fontawesome-user"></span><input type="text" value="Username" onBlur="if(this.value == '') this.value = 'Username'" onFocus="if(this.value == 'Username') this.value = ''" required></p> <!-- JS because of IE support; better: placeholder="Username" -->
-            <p><span class="fontawesome-lock"></span><input type="password"  value="Password" onBlur="if(this.value == '') this.value = 'Password'" onFocus="if(this.value == 'Password') this.value = ''" required></p> <!-- JS because of IE support; better: placeholder="Password" -->
-            <p><input type="submit" value="login"></p>
+            <p><span class="fontawesome-user"></span><input name="username" type="text" value="Username" onBlur="if(this.value == '') this.value = 'Username'" onFocus="if(this.value == 'Username') this.value = ''" required></p> <!-- JS because of IE support; better: placeholder="Username" -->
+            <p><span class="fontawesome-lock"></span><input name="password" type="password"  value="Password" onBlur="if(this.value == '') this.value = 'Password'" onFocus="if(this.value == 'Password') this.value = ''" required></p> <!-- JS because of IE support; better: placeholder="Password" -->
+            <p><input type="submit" value="Login"></p>
+            
 
           </fieldset>
 

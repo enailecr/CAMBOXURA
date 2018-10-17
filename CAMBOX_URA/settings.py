@@ -143,5 +143,5 @@ STATICFILES_DIRS = [
 	"static",
 ]
 LOGIN_URL = '/contas/login/'
-LOGIN_REDIRECT_URL = '/menu/'
+LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/'
