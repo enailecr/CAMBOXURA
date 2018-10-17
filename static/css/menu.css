@@ -24,7 +24,7 @@
 }
 #cssmenu > ul > li {
   list-style: inside none;
-  float: left;
+  float: right;
   display: inline-block;
   position: relative;
   margin: 0;
