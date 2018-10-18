@@ -13,11 +13,11 @@ def add(request):
     data = {'form' : form}
     return render(request, 'cadastroNumero.html', data)
 
-# @login_required
-# def list(request):
-#     table = DispositivoTable(Dispositivo.objects.all())
-#     RequestConfig(request, paginate={'per_page': 10}).configure(table)
-#     return render(request, 'menu-3d.html', {'table': table})
+@login_required
+def list(request):
+    #  table = DispositivoTable(Dispositivo.objects.all())
+    #  RequestConfig(request, paginate={'per_page': 10}).configure(table)
+    return render(request, 'num.html')
 
 # @login_required
 # def dispositivo_busca(request):
