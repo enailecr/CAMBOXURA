@@ -151,7 +151,7 @@
   background: linear-gradient(top, #3c3c3c 0%, #222222 100%);
 }
 #cssmenu > ul > li > a:hover {
-  background: #080808;
+  background: #3c3c3c;
   color: #ffffff;
 }
 #cssmenu ul ul a:hover {
@@ -160,8 +160,6 @@
 #cssmenu > ul > li.has-sub > a:hover:before {
   border-top: 5px solid #ca0b0b;
 }
-
-
 
 @media all and (max-width: 690px) {
   ul.cssmenu {  height: auto; }
