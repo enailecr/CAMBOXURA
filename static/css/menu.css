@@ -158,5 +158,35 @@
   color: #ffffff;
 }
 #cssmenu > ul > li.has-sub > a:hover:before {
-  border-top: 5px solid #ffffff;
+  border-top: 5px solid #ca0b0b;
+}
+
+
+
+@media all and (max-width: 690px) {
+  ul.cssmenu {  height: auto; }
+  ul.cssmenu > li {  float: none; width: 100%; }
+  ul.cssmenu a { line-height: 40px; }
+  ul.cssmenu ul { position: relative; }
+
+  ul.cssmenu li.tap { background: #3c3c3c;  }
+  ul.cssmenu li.tap ul { display: block;  }
+
+  #cssmenu > ul > li > a {
+    outline: none;
+    display: block;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
+    border-right: 1px solid #3f3f3f;
+    color: #080808;
+    padding: 12px 20px;
+  }
+
+@media all and (min-width: 691px) {
+  ul.cssmenu li:hover { background: #3c3c3c;  }
+  ul.cssmenu li:hover ul { display: block;  }
 }
