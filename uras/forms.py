@@ -1,7 +1,7 @@
 from django.forms import ModelForm
-from .models import ura
+from .models import URA
 
-class ContatoForm(ModelForm):
+class UraForm(ModelForm):
     class Meta:
-        model = ura
+        model = URA
         fields = '__all__'

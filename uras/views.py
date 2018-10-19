@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-
+from .forms import UraForm
 @login_required
 def add(request):
-    form = uraForm()
+    form = UraForm()
     data = {'form' : form}
     return render(request, 'UraNovo.html', data)
 
@@ -13,7 +13,7 @@ def list(request):
 
 @login_required
 def ura_novo(request):
-    form = uraForm(request.POST or None)
+    form = UraForm(request.POST or None)
     if form.is_valid():
         form.save()
     return redirect ('/uras/')
