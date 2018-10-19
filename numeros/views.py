@@ -4,7 +4,7 @@ from .models import NumeroEntrada
 from .forms import NumeroEntradaForm
 from django.contrib.auth.decorators import login_required
 import re
-from django_tables2 import RequestConfig
+#from django_tables2 import RequestConfig
 #from .tables import DispositivoTable
 
 @login_required
