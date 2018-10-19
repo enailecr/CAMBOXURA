@@ -11,7 +11,7 @@ import re
 def add(request):
     form = NumeroEntradaForm()
     data = {'form' : form}
-    return render(request, 'cadastroNumero.html', data)
+    return render(request, 'CadastroNumero.html', data)
 
 @login_required
 def list(request):
