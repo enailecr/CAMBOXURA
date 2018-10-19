@@ -24,5 +24,5 @@ class ChamadaEmGrupoForm(ModelForm):
             'destino': ('Destino se não houver resposta'),
         }
 
-class ListaExtensaoForm(ModelForm):
-    class Meta:
+# class ListaExtensaoForm(ModelForm):
+#     class Meta:
