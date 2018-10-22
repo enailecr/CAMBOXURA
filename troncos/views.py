@@ -1,6 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import TroncoSIPForm,TroncoIAXForm,TroncoCustomizadoForm
+from .models import Tronco
+import re
+from django_tables2 import RequestConfig
+from .tables import TroncoTable
 
 #TroncoSIP
 @login_required
@@ -26,7 +30,9 @@ def addtroncocustomizado(request):
 
 @login_required
 def list(request):
-    return render(request, 'troncos.html')
+    table = TroncoTable(Tronco.objects.all())
+    RequestConfig(request, paginate={'per_page': 10}).configure(table)
+    return render(request, 'troncos.html', {'table': table})
 
 #TroncoSIP
 @login_required
