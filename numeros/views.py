@@ -4,8 +4,8 @@ from .models import NumeroEntrada
 from .forms import NumeroEntradaForm
 from django.contrib.auth.decorators import login_required
 import re
-#from django_tables2 import RequestConfig
-#from .tables import DispositivoTable
+from django_tables2 import RequestConfig
+from .tables import NumeroTable
 
 @login_required
 def add(request):
@@ -15,9 +15,9 @@ def add(request):
 
 @login_required
 def list(request):
-    #  table = DispositivoTable(Dispositivo.objects.all())
-    #  RequestConfig(request, paginate={'per_page': 10}).configure(table)
-    return render(request, 'num.html')
+    table = NumeroTable(NumeroEntrada.objects.all())
+    RequestConfig(request, paginate={'per_page': 10}).configure(table)
+    return render(request, 'num.html', {'table': table})
 
 # @login_required
 # def dispositivo_busca(request):

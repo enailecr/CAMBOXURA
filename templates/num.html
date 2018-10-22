@@ -1,5 +1,5 @@
 {% extends "menu.html" %}
-
+{% load render_table from django_tables2 %}
 
 {% block content %}
 <div >
@@ -10,8 +10,9 @@
         </div></caption>
     
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-   <!-- colocar o render table aqui  -->
     
+   <!-- colocar o render table aqui  -->
+   {% render_table table %}
     </table>
     </div>
 {% endblock %}
