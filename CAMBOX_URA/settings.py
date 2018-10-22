@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'troncos',
     'dashboard',
     'musicas',
+    'django_tables2',
 
 ]
 
