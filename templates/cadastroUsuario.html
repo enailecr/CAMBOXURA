@@ -33,57 +33,50 @@
                 
                 
                 <div class="card-body">
-                    <form action="{% url 'usuario_novo' %}" method="POST">
+                        <form class="contact100-form validate-form" method="post" action="{% url 'usuario_novo' %}">
+                                <span class="contact100-form-title">
+                                </span>
                             {% csrf_token %}
                         <div class="form-row">
-                            <div class="name">Nome</div>
-                            <div class="value">
-                                <input class="input--style-6" type="text" name="nome">
-                            </div>
+                                <div class="wrap-input100 validate-input" data-validate = "Digite um nome">
+                                        <input class="input100" type="text" name="nome" placeholder="Nome">
+                                        <span class="focus-input100"></span>
+                                        <span class="symbol-input100">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
                         </div>
                         <div class="form-row">
-                            <div class="name">Usuario</div>
-                            <div class="value">
-                                <input class="input--style-6" type="text" name="usuario">
-                            </div>
+                                <div class="wrap-input100 validate-input" data-validate = "Digite um usuario">
+                                        <input class="input100" type="text" name="usuario" placeholder="Usuario">
+                                        <span class="focus-input100"></span>
+                                        <span class="symbol-input100">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
                         </div>
                         <div class="form-row">
-                            <div class="name">Endereço de Email</div>
-                            <div class="value">
-                                <div class="input-group">
-                                    <input class="input--style-6" type="email" name="email" placeholder="example@email.com">
-                                </div>
-                            </div>
+                                <div class="wrap-input100 validate-input" data-validate = "Digite uma senha">
+                                        <input class="input100" type="password" maxlength="8" name="senha" placeholder="Senha">
+                                        <span class="focus-input100"></span>
+                                        <span class="symbol-input100">
+                                            <i class="fa fa-key" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
                         </div>
                         <div class="form-row">
-                            <div class="name">Senha</div>
-                            <div class="value">
-                                <input class="input--style-6" type="password" name="senha">
-                            </div>
+                                <div class="wrap-input100 validate-input" data-validate = "Digite um email valido: ex@abc.xyz">
+                                        <input class="input100" type="text" name="email" placeholder="Email">
+                                        <span class="focus-input100"></span>
+                                        <span class="symbol-input100">
+                                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
                         </div>
-                        <!-- <div class="form-row">
-                            <div class="name">Message</div>
-                            <div class="value">
-                                <div class="input-group">
-                                    <textarea class="textarea--style-6" name="message" placeholder="Message sent to the employer"></textarea>
-                                </div>
-                            </div>
-                        </div> -->
-                        <!-- <div class="form-row">
-                            <div class="name">Upload CV</div>
-                            <div class="value">
-                                <div class="input-group js-input-file">
-                                    <input class="input-file" type="file" name="file_cv" id="file">
-                                    <label class="label--file" for="file">Choose file</label>
-                                    <span class="input-file__info">No file chosen</span>
-                                </div>
-                                <div class="label--desc">Upload your CV/Resume or any other relevant file. Max file size 50 MB</div>
-                            </div>
-                        </div>
-                    </form>
-                </div> -->
+                        
                 <div class="card-footer">
-                    <button class="btn btn--radius-2 btn--blue-2" type="submit">Cadastrar</button>
+                    <div class="container-contact100-form-btn">
+                    <button class="contact100-form-btn--radius-2" type="submit">Cadastrar</button>
                     
                 </div>
                 
@@ -97,8 +90,32 @@
 
     <!-- Main JS-->
     <script src="{% static 'js/global.js' %}"></script>
+    <script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+
+	<script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js"></script>
+
+	<script src="{% static 'vendor/select2/select2.min.js' %}"></script>
+	<script src="{% static 'vendor/tilt/tilt.jquery.min.js' %}"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+
+	<script src="{% static 'js/main.js' %}"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
 
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
+</html>
 </html>
 <!-- end document-->
