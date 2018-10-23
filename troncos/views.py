@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .forms import TroncoSIPForm,TroncoIAXForm,TroncoCustomizadoForm
+from .forms import TroncoSIPForm,TroncoIAXForm,TroncoCustomizadoForm,TroncoForm
 from .models import Tronco
 import re
 from django_tables2 import RequestConfig
@@ -57,3 +57,23 @@ def troncocustomizado_novo(request):
     if form.is_valid():
         form.save()
     return redirect ('/troncos/')
+
+@login_required
+def tronco_edita(request, id):
+    data = {}
+    tronco = Tronco.objects.get(id=id)
+    form = TroncoForm(request.POST or None, instance=tronco)
+    data['tronco'] = tronco
+    data['form'] = form
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('/troncos/')
+    else:
+        return render(request, 'editaTronco.html', data)
+
+@login_required
+def tronco_remove(request, id):
+    tronco = Tronco.objects.get(id=id)
+    tronco.delete()
+    return redirect('/troncos/')
