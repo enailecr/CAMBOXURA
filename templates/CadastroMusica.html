@@ -28,7 +28,7 @@
             <body>
                     <div id="divCenter">
                             <h1>Adicionar Música:</h1>
-        <form action="{% url 'musica_novo'%}" method="POST">
+        <form action="{% url 'categoria_novo'%}" method="POST">
         {% csrf_token %}
         {{form.as_p}}
         <button type="submit">Cadastrar</button>
