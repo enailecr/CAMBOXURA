@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import StreamingForm, MusicaForm
-from .models import Musica
+from .models import Musica, Streaming
 import re
 from django_tables2 import RequestConfig
 from .tables import MusicaTable
 
 @login_required
-def addmusica(request):
+def addcategoria(request):
     form = MusicaForm()
     data = {'form' : form}
     return render(request, 'CadastroMusica.html', data)
@@ -25,7 +25,7 @@ def list(request):
     return render(request, 'musicas.html', {'table': table})
 
 @login_required
-def musica_novo(request):
+def categoria_novo(request):
     form = MusicaForm(request.POST or None)
     if form.is_valid():
         form.save()
@@ -37,3 +37,23 @@ def streaming_novo(request):
     if form.is_valid():
         form.save()
     return redirect ('/musicas/')
+
+@login_required
+def musica_edita(request, id):
+    data = {}
+    musica = Musica.objects.get(id=id)
+    form = MusicaForm(request.POST or None, instance=musica)
+    data['streaming'] = musica
+    data['form'] = form
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('/musicas/')
+    else:
+        return render(request, 'editaMusica.html', data)
+
+@login_required
+def musica_remove(request, id):
+    musica = Musica.objects.get(id=id)
+    musica.delete()
+    return redirect('/musicas/')

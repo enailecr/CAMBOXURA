@@ -1,11 +1,14 @@
 from django.urls import path, include
 from django.conf.urls import include, url
-from .views import list, addmusica, addstreaming ,streaming_novo, musica_novo
+from .views import list, addcategoria, addstreaming ,streaming_novo, categoria_novo,musica_edita,musica_remove
 
 urlpatterns = [
     path(r'', list),
-    path(r'addmusica/',addmusica),
+    path(r'addcategoria/',addcategoria),
     path(r'addstreaming/',addstreaming),
-    url(r'musica_novo/',musica_novo, name='musica_novo'),
-    url(r'streaming_novo/',streaming_novo, name='streaming_novo'),
+    url(r'categoria-novo/',categoria_novo, name='categoria_novo'),
+    url(r'streaming-novo/',streaming_novo, name='streaming_novo'),
+    url(r'musica-edita/(?P<id>\d+)/$', musica_edita, name='musica_edita'),
+    url(r'musica-remove/(?P<id>\d+)/$', musica_remove, name='musica_remove'),
+
 ]
