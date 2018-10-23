@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'dashboard',
     'musicas',
     'django_tables2',
+    'bootstrap3',
     # 'django_filters',
 
 ]
