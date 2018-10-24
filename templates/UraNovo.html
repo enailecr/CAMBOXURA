@@ -12,29 +12,263 @@
             <meta http-equiv="content-type" content="text/html;charset=utf-8" />
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-                <style type="text/css">
-                    * { margin: 0; padding: 0; font-family:Arial; font-size:9pt;}
-                    #divCenter { 
-                            background-color: #e1e1e1; 
-                            width: 400px; 
-                            height: 456px; 
-                            left: 50%; 
-                            margin: -130px 0 0 -210px; 
-                            padding:10px;
-                            position: absolute; 
-                            top: 50%; }
-                </style>
             </head>
             <body>
                     <div id="divCenter">
-                            <h1>Adicionar URA:</h1>
-        <form action="{% url 'ura_novo'%}" method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit">Cadastrar</button>
-        </form>  
-        </div>
-        </body> 
+                            <div align="center"><h2>Adicionar URA:</h2></div>
+        <form action="Script_do_Formulario.php" method="POST">
+        
+            <fieldset>
+                <table cellspacing="10">
+                    <tr>
+                        <td>
+                                <label for="anuncio">Anúncio:</label>
+                               </td>
+                               <td align="left">
+                                <select name="anuncio"> 
+                                <option value="nem">Nenhum</option> 
+                               </select>
+                </td>
+                  </tr>
+                 <tr>
+                    <td>
+                     <label for="descrição">Descrição: </label>
+                    </td>
+                    <td align="left">
+                     <input type="text" name="descrição">
+                    </td>
+                   </tr>
+                   <tr>
+                        <td>
+                         <label for="timeout">Timeout: </label>
+                        </td>
+                        <td align="left">
+                         <input type="text" name="timeout">
+                        </td>
+                       </tr>
+                    <tr>
+                        <td>
+                            <label for="tent_inv">Tentativas Inválidas</label>
+                        </td>
+                        <td align="left">
+                                <select name="tent_inv"> 
+                                <option value="dis">Disabled</option>
+                                <option value="00">00</option> 
+                                <option value="01">01</option> 
+                                <option value="02">02</option> 
+                                <option value="03">03</option> 
+                                <option value="04">04</option> 
+                                <option value="05">05</option> 
+                                <option value="06">06</option> 
+                                <option value="07">07</option> 
+                                <option value="08">08</option> 
+                                <option value="09">09</option> 
+                                <option value="10">10</option> 
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                            <td>
+                                    <label for="invrerecor">Gravação de Repetição Inválida:</label>
+                                   </td>
+                                   <td align="left">
+                                    <select name="invrerecor"> 
+                                    <option value="nem">Padrão</option> 
+                                   </select>
+                    </td>
+                      </tr>
+                      <tr>
+                            <td>
+                                    <label for="app_ann_inv">Anexar Anúncio em Inválido: </label>
+                                   </td>
+                        <td>
+                            <form>
+                                <INPUT TYPE="checkbox" NAME="app_ann_inv" VALUE="op1">
+                                </form>
+                        </td>
+                       </tr>
+                   <tr>
+                        <td>
+                                <label for="tent_in">Retornar em Inválido: </label>
+                               </td>
+                    <td>
+                        <form>
+                            <INPUT TYPE="checkbox" NAME="ReturnInvalid" VALUE="op1">
+                            </form>
+                    </td>
+                   </tr>
+                   <tr>
+                        <td>
+                         <label for="gravinvalid">Gravação Inválida:</label>
+                        </td>
+                        <td align="left">
+                         <select name="gravinvalid"> 
+                         <option value="def">Padrão</option>  
+                        </select>
+                        </td>
+                    </tr>
+                    <tr>
+                            <td>
+                             <label for="destin">Destino Inválido:</label>
+                            </td>
+                            <td align="left">
+                             <select name="destin"> 
+                             <option value="def">==escolha um==</option>  
+                            </select>
+                            </td>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <label for="timeout_ret">Retentativas de Tempo Esgotado</label>
+                                </td>
+                                <td align="left">
+                                        <select name="timeout_ret"> 
+                                        <option value="dis">Disabled</option>
+                                        <option value="00">00</option> 
+                                        <option value="01">01</option> 
+                                        <option value="02">02</option> 
+                                        <option value="03">03</option> 
+                                        <option value="04">04</option> 
+                                        <option value="05">05</option> 
+                                        <option value="06">06</option> 
+                                        <option value="07">07</option> 
+                                        <option value="08">08</option> 
+                                        <option value="09">09</option> 
+                                        <option value="10">10</option> 
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                    <td>
+                                            <label for="append_anon_timout">Anexar Anúncio no Tempo Limite: </label>
+                                           </td>
+                                <td>
+                                    <form>
+                                        <INPUT TYPE="checkbox" NAME="append_anon_timout" VALUE="op1">
+                                        </form>
+                                </td>
+                               </tr>
+                               <tr>
+                                    <td>
+                                            <label for="return_timout">Retorno no Tempo Esgotado: </label>
+                                           </td>
+                                <td>
+                                    <form>
+                                        <INPUT TYPE="checkbox" NAME="append_anon_timout" VALUE="op1">
+                                        </form>
+                                </td>
+                               </tr>
+                               <tr>
+                                    <td>
+                                     <label for="timeout_record">Gravação de Tempo Esgotado:</label>
+                                    </td>
+                                    <td align="left">
+                                     <select name="timeout_record"> 
+                                     <option value="def">Padrão</option>  
+                                    </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                         <label for="timeout_dest">Destino de Tempo Esgotado:</label>
+                                        </td>
+                                        <td align="left">
+                                         <select name="timeout_dest"> 
+                                         <option value="def">==escolha um==</option>  
+                                        </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                            <td>
+                                                    <label for="return_ura">Retorna para URA após Caixa Postal: </label>
+                                                   </td>
+                                        <td>
+                                            <form>
+                                                <INPUT TYPE="checkbox" NAME="append_anon_timout" VALUE="op1">
+                                                </form>
+                                        </td>
+                                       </tr>
+                </table>
+               </fieldset>
+               
+               <br />
+               <!-- ENDEREÇO -->
+               <fieldset>
+          
+                <table cellspacing="10">
+               
+                        <tr>
+                                <td>
+                                 <label for="nome">Nome: </label>
+                                </td>
+                                <td align="left">
+                                 <input type="text" name="nome">
+                                </td>
+                               </tr>
+                               <tr>
+                                    <td>
+                                     <label for="descricao">Descrição: </label>
+                                    </td>
+                                    <td align="left">
+                                     <input type="text" name="descricao">
+                                    </td>
+                                   </tr>
+                </table>
+               </fieldset>
+               <br />
+
+               <br />
+               <!-- ENDEREÇO -->
+               <fieldset>
+          
+                <table cellspacing="10">
+                        <div id="divCenter">
+                                <tr>
+                                        <td>
+                                         <label for="nome">Nome: </label>
+                                        </td>
+                                        <td align="left">
+                                         <input type="text" name="nome">
+                                        </td>
+                        
+
+                                        <td>
+                                        <label for="destino">Destino: </label>
+                                        </td>
+                                        <td align="left">
+                                            <select name="tipo_destino"> 
+                                            <option value="def">==escolha um==</option>  
+                                        </select>
+                                        </td>
+                                        <td>
+                                            <select hidden name="destino">
+                                            <option value="def">==escolha um==</option>
+                                            </select>
+                                        </td>
+                                        
+                                        <td>
+                                                <label for="returna">Retornar: </label>
+                                               </td>
+                                    <td>
+                                        <form>
+                                            <INPUT TYPE="checkbox" NAME="retorna" VALUE="op1">
+                                            </form>
+                                    </td>
+                                    </tr>
+                </table>
+               </fieldset>
+               <br />
+               
+               
+               <br />
+               <input type="submit">
+               <input type="reset" value="Limpar">
+               </form>
+<button type="submit">Cadastrar</button>
+</form>  
+</div>
+
+</body> 
     
     </table>
     </div>
