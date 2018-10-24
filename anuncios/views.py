@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .forms import AnuncioForm
+from .models import Anuncio 
+import re
+from django_tables2 import RequestConfig
+from .tables import AnuncioTable
 
 @login_required
 def add(request):
@@ -10,7 +14,9 @@ def add(request):
 
 @login_required
 def list(request):
-    return render(request, 'anuncios.html')
+    table = AnuncioTable(Anuncio.objects.all())
+    RequestConfig(request, paginate={'per_page': 10}).configure(table)
+    return render(request, 'anuncios.html',{'table': table})
 
 @login_required
 def anuncio_novo(request):
