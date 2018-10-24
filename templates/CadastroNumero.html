@@ -17,7 +17,8 @@
             <body>
                     <div id="divCenter">
                             <div align="center"><h2>Adicionar Número:</h2></div>
-                    <form action="Script_do_Formulario.php" method="POST">
+                    <form action="{% url 'numero_novo' %}" method="POST">
+                        {% csrf_token %}
 
                             <br />
                             <fieldset>
@@ -37,7 +38,7 @@
                                                   <label for="descricao">Origem: </label>
                                                  </td>
                                                  <td align="left">
-                                                  <input type="text" name="descricao">
+                                                  <input type="text" name="origem">
                                                  </td>
                                                 </tr>
                                                 <tr>
@@ -45,9 +46,9 @@
                                                                 <label for="atendido">Atendido: </label>
                                                                </td>
                                                     <td>
-                                                        <form>
-                                                            <INPUT TYPE="checkbox" NAME="atendido" VALUE="op1">
-                                                            </form>
+                                                       
+                                                            <INPUT TYPE="checkbox" name="atendido"VALUE="True" >
+                                                            
                                                     </td>
                                                    </tr>
                                                    <tr>
@@ -55,9 +56,9 @@
                                                                 <label for="return_ura">Grava chamada: </label>
                                                                </td>
                                                     <td>
-                                                        <form>
-                                                            <INPUT TYPE="checkbox" NAME="grava_chamada" VALUE="op1">
-                                                            </form>
+                                                   
+                                                            <INPUT TYPE="checkbox" name="grava_chamada" VALUE="True">
+                                                 
                                                     </td>
                                                    </tr>
                              </table>

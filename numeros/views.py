@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import NumeroEntrada
-from .forms import NumeroEntradaForm
 from django.contrib.auth.decorators import login_required
 import re
 from django_tables2 import RequestConfig
@@ -9,9 +8,7 @@ from .tables import NumeroTable
 
 @login_required
 def add(request):
-    form = NumeroEntradaForm()
-    data = {'form' : form}
-    return render(request, 'CadastroNumero.html', data)
+    return render(request, 'CadastroNumero.html')
 
 @login_required
 def list(request):
@@ -35,9 +32,23 @@ def list(request):
 
 @login_required
 def numero_novo(request):
-    form = NumeroEntradaForm(request.POST or None)
-    if form.is_valid():
-        form.save()
+    numero = request.POST['numero']
+    origem = request.POST['origem']
+    if 'atendido' in request.POST: 
+        atendido = request.POST['atendido']
+    else:
+        atendido = False
+    if 'grava_chamada' in request.POST:   
+        gravaChamada = request.POST['grava_chamada']
+    else:
+        gravaChamada = False
+    #destino = request.POST['nome']
+
+    numeroEntrada = NumeroEntrada(numero=numero, origem = origem, atendido=atendido, gravaChamada=gravaChamada)
+
+    # form = NumeroEntradaForm(request.POST or None)
+    # if form.is_valid():
+    numeroEntrada.save()
     return redirect ('/numeros/')
 
 @login_required
