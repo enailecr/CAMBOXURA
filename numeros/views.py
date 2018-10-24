@@ -54,14 +54,27 @@ def numero_novo(request):
 @login_required
 def numero_edita(request, id):
     data = {}
+    
     numero = NumeroEntrada.objects.get(id=id)
-    form = NumeroEntradaForm(request.POST or None, instance=numero)
     data['numero'] = numero
-    data['form'] = form
     if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-            return redirect('/numeros/')
+        numero = NumeroEntrada.objects.get(id=id)
+        origem = request.POST['origem']
+        if 'atendido' in request.POST: 
+                atendido = request.POST['atendido']
+        else:
+                atendido = False
+        if 'grava_chamada' in request.POST:   
+                gravaChamada = request.POST['grava_chamada']
+        else:
+                gravaChamada = False
+
+        numero.origem = origem
+        numero.atendido = atendido
+        numero.gravaChamada = gravaChamada
+        numero.save()        
+        return redirect('/numeros/')
+        
     else:
         return render(request, 'editaNumero.html', data)
 
