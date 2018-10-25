@@ -4,7 +4,8 @@ from musicas.models import MusicaCategoria
 
 class Anuncio(Destino):
     descricao = models.CharField(max_length=50, blank=False, null=False)
-    gravacaoAn = models.ForeignKey('Gravacao', on_delete=models.CASCADE,)
+    #coloquei como null= true
+    gravacaoAn = models.ForeignKey('Gravacao', on_delete=models.CASCADE,null=True)
     repeticao = models.IntegerField(blank=True, null=True)
     pula = models.BooleanField()
     retornaURA = models.BooleanField()
