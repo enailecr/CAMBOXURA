@@ -17,6 +17,8 @@
                     <div id="divCenter">
                         <div align="center"><h2>Adicionar Anúncio:</h2></div>
                         <br />
+                        <form action="{% url 'anuncio_novo' %}" method="POST">
+                            {% csrf_token %}
                         <fieldset>
                         
                         <table cellspacing="10">
@@ -57,9 +59,7 @@
                                 <label for="pular">Permitir Pular: </label>
                             </td>
                         <td>
-                            <form>
                                 <INPUT TYPE="checkbox" NAME="pular" VALUE="op1">    
-                                </form>
                         </td>
                         <td></td>
                             </tr>
@@ -68,9 +68,7 @@
                                 <label for="retorna">Retornar para URA: </label>
                             </td>
                         <td>
-                            <form>
                                 <INPUT TYPE="checkbox" NAME="retorna" VALUE="op1">    
-                                </form>
                         </td>
                         <td></td>
                             </tr>
@@ -79,9 +77,7 @@
                                 <label for="resposta">Canal não Responder: </label>
                             </td>
                         <td>
-                            <form>
                                 <INPUT TYPE="checkbox" NAME="resposta" VALUE="op1">    
-                                </form>
                         </td>
                         <td></td>
                             </tr>
@@ -108,5 +104,6 @@
     
     </table>
     <button type="submit">Cadastrar</button>
+</form>
     </div>
 {% endblock %}
