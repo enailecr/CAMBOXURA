@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render ,redirect
 from django.contrib.auth.decorators import login_required
 
 from .models import Anuncio 
@@ -8,7 +8,7 @@ from .tables import AnuncioTable
 
 @login_required
 def add(request):
-    return render(request, 'CadastroAnuncio.html', data)
+    return render(request, 'CadastroAnuncio.html')
 
 @login_required
 def list(request):
@@ -19,7 +19,7 @@ def list(request):
 @login_required
 def anuncio_novo(request):
     descricao = request.POST['descricao']
-    repeticao = request.POST['repeticao']
+    # repeticao = request.POST['repeticao']
     if 'pular' in request.POST: 
         pula = request.POST['pular']
     else:
@@ -32,8 +32,7 @@ def anuncio_novo(request):
         canalNaoResp = request.POST['resposta']
     else:
         canalNaoResp = False
-    #destino = request.POST['nome']
-
-    anuncio = Anuncio(descricao=descricao, repeticao = repeticao, pula=pular, retornaURA=retorna, canalNaoResp=resposta)
+    #destino = request.POST['nome']   repeticao = repeticao,
+    anuncio = Anuncio(descricao=descricao, pula=pula,retornaURA=retornaURA, canalNaoResp=canalNaoResp )
     anuncio.save()
     return redirect ('/anuncios/')
