@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .forms import CondicaoTempoForm
 from .models import CondicaoTempo 
 import re
 from django_tables2 import RequestConfig
@@ -9,9 +8,7 @@ from .tables import CondicaoTempoTable
 
 @login_required
 def add(request):
-    form = CondicaoTempoForm()
-    data = {'form' : form}
-    return render(request, 'CadastroCondicoesTempo.html', data)
+    return render(request, 'CadastroCondicoesTempo.html')
 
 @login_required
 def list(request):
@@ -21,7 +18,59 @@ def list(request):
 
 @login_required
 def condicoestempo_novo(request):
-    form = CondicaoTempoForm(request.POST or None)
-    if form.is_valid():
-        form.save()
+    nome = request.POST['nome']
+    horaInicio = request.POST['hora_inicio']
+    horaFim = request.POST['hora_termino']
+    diaSemanaInicio = request.POST['dia_semana_ini']
+    diaSemanaFim = request.POST['dia_semana_ter']
+    diaMesInicio = request.POST['dia_mes_inicio']
+    diaMesFim = request.POST['dia_mes_termina']
+    mesIncio = request.POST['mes_inicio']
+    mesFim = request.POST['mes_termino']
+
+    #destino = request.POST['nome']   
+    condicoestempo = CondicaoTempo(nome=nome, horaInicio=horaInicio,horaFim=horaFim, diaSemanaInicio=diaSemanaInicio,
+    diaSemanaFim=diaSemanaFim, diaMesInicio=diaMesInicio, diaMesFim= diaMesFim,mesIncio=mesIncio,mesFim=mesFim)
+    condicoestempo.save()
     return redirect ('/condicoestempo/')
+
+@login_required
+def condicoestempo_edita(request, id):
+    data = {}
+    condicoestempo = CondicaoTempo.objects.get(id=id)
+    data['condicoestempo'] = condicoestempo
+    if request.method == 'POST':
+        condicoestempo = CondicaoTempo.objects.get(id=id)
+    
+        nome = request.POST['nome']
+        horaInicio = request.POST['hora_inicio']
+        horaFim = request.POST['hora_termino']
+        diaSemanaInicio = request.POST['dia_semana_ini']
+        diaSemanaFim = request.POST['dia_semana_ter']
+        diaMesInicio = request.POST['dia_mes_inicio']
+        diaMesFim = request.POST['dia_mes_termina']
+        mesIncio = request.POST['mes_inicio']
+        mesFim = request.POST['mes_termino']
+        #destino = request.POST['nome'] 
+        
+        condicoestempo.nome= nome
+        condicoestempo.horaInicio = horaInicio
+        condicoestempo.horaFim = horaFim
+        condicoestempo.diaSemanaInicio = diaSemanaInicio
+        condicoestempo.diaSemanaFim = diaSemanaFim
+        condicoestempo.diaMesInicio = diaMesInicio
+        condicoestempo.diaMesFim = diaMesFim
+        condicoestempo.mesIncio = mesIncio
+        condicoestempo.mesFim = mesFim
+
+        condicoestempo.save()        
+        return redirect('/condicoestempo/')
+    else:
+        return render(request, 'editaCondicaoTempo.html', data)
+
+
+@login_required
+def condicoestempo_remove(request, id):
+    condicoestempo = CondicaoTempo.objects.get(id=id)
+    condicoestempo.delete()
+    return redirect('/condicoestempo/')
