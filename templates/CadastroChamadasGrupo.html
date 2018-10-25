@@ -12,30 +12,250 @@
             <meta http-equiv="content-type" content="text/html;charset=utf-8" />
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-                <style type="text/css">
-                    * { margin: 0; padding: 0; font-family:Arial; font-size:9pt;}
-                    #divCenter { 
-                            background-color: #e1e1e1; 
-                            width: 400px; 
-                            height: 425px; 
-                            left: 50%; 
-                            margin: -130px 0 0 -210px; 
-                            padding:10px;
-                            position: absolute; 
-                            top: 50%; }
-                </style>
             </head>
             <body>
                     <div id="divCenter">
-                            <h1>Adicionar Chamada em Grupo:</h1>
-        <form action="{% url 'chamadasgrupo_novo'%}" method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit">Cadastrar</button>
-        </form>  
+                        <div align="center"><h2>Adicionar Chamada em Grupo:</h2></div>
+                        <form action="{% url 'chamadasgrupo_novo' %}" method="POST">
+                                {% csrf_token %}
+                        <br />
+                        <fieldset>
+                        
+                        <table cellspacing="10">
+                
+                        <tr>
+                                <td>
+                                <label for="descricao">Descrição do Grupo: </label>
+                                </td>
+                                <td align="left">
+                                <input type="text" name="descricao">
+                                </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="estrategia">Estratégia Ring</label>
+                            </td>
+                            <td align="left">
+                                    <select name="estrategia"> 
+                                    <option value="ring">ringall</option>
+                                </select>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                            <label for="tempo">Tempo Ring: </label>
+                            </td>
+                            <td align="left">
+                            <input type="text" name="tempo">
+                            </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                            <td>
+                                    <label for="listao">Lista de Extensão: </label>
+                                </td>
+                                <td align="left">
+                                        <textarea rows="10" cols="25">
+                                                </textarea>
+                                </td>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <label for="extensao_rapida">Extensão de Escolha Rápida</label>
+                                </td>
+                                <td align="left">
+                                        <select name="extensao_rapida"> 
+                                        <option value="thg">1021 (Thiago Maluf)</option>
+                                    </select>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                    <td>
+                                        <label for="anuncio">Anúncio</label>
+                                    </td>
+                                    <td align="left">
+                                            <select name="anuncio"> 
+                                            <option value="nem">Nenhum</option>
+                                        </select>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                            <label for="tocar">Tocar Musica em Espera</label>
+                                        </td>
+                                        <td align="left">
+                                                <select name="tocar"> 
+                                                <option value="ring">Ring</option>
+                                                <option value="age">Agencia-hold</option>
+                                                <option value="cam">CAM-Hold</option>
+                                                <option value="def">Padrão</option>
+                                                <option value="nem">Nenhum</option>
+                                            </select>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                            <td>
+                                            <label for="prefixo">Prefixo de Nome CID: </label>
+                                            </td>
+                                            <td align="left">
+                                            <input type="text" name="prefixo">
+                                            </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                            <td>
+                                            <label for="info_alerta">Informação de Alerta: </label>
+                                            </td>
+                                            <td align="left">
+                                            <input type="text" name="info_alerta">
+                                            </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                            <td>
+                                                    <label for="ig_config">Ignorar Configurações CF: </label>
+                                                   </td>
+                                        <td>
+                                           
+                                                <INPUT TYPE="checkbox" name="ig_config"VALUE="True" >
+                                                
+                                        </td>
+                                        <td></td>
+                                       </tr>
+                                       <tr>
+                                            <td>
+                                                    <label for="ig_agen">Ignorar Agente Ocupado: </label>
+                                                   </td>
+                                        <td>
+                                           
+                                                <INPUT TYPE="checkbox" name="ig_agen"VALUE="True" >
+                                                
+                                        </td>
+                                        <td></td>
+                                       </tr>
+                                       <tr>
+                                            <td>
+                                                    <label for="chamada">Permitir Atender Chamada: </label>
+                                                   </td>
+                                        <td>
+                                           
+                                                <INPUT TYPE="checkbox" name="chamada"VALUE="True" >
+                                                
+                                        </td>
+                                        <td></td>
+                                       </tr>
+                                       <tr>
+                                            <td>
+                                                    <label for="confirm_chamada">Confirmar Chamadas: </label>
+                                                   </td>
+                                        <td>
+                                           
+                                                <INPUT TYPE="checkbox" name="confirm_chamada"VALUE="True" >
+                                                
+                                        </td>
+                                        <td></td>
+                                       </tr>
+                                       <tr>
+                                            <td>
+                                                <label for="remoto">Anúncio Remoto</label>
+                                            </td>
+                                            <td align="left">
+                                                    <select name="remoto"> 
+                                                    <option value="def">Padrão</option>
+                                                </select>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                                <td>
+                                                    <label for="tardio">Anúncio Tardio</label>
+                                                </td>
+                                                <td align="left">
+                                                        <select name="tardio"> 
+                                                        <option value="def">Padrão</option>
+                                                    </select>
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        </table>
+                                    </fieldset>
+                <br/>
+                <fieldset>
+          
+                        <table cellspacing="10">
+                                <tr>
+                                        <td>
+                                            <label for="modo">Modo</label>
+                                        </td>
+                                        <td align="left">
+                                                <select name="modo"> 
+                                                <option value="def">Padrão</option>
+                                                <option value="cid">Valor Fixo de CID</option>
+                                                <option value="exc">Valor Fixo de CID de Chamadas de Fora</option>
+                                                <option value="usa">Usar Número Discado</option>
+                                                <option value="for">Forçar Número Discado</option>
+                                            </select>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+
+                                    </tr>
+                                    <tr>
+                                            <td>
+                                            <label for="val_cid">Valor Fixo de CID: </label>
+                                            </td>
+                                            <td align="left">
+                                            <input type="text" name="val_cid">
+                                            </td>
+                                        <td></td>
+                                        <td></td>
+
+                                    </tr> 
+                                    <tr>
+                                            <td>
+                                                <label for="grav">Gravar Chamadas</label>
+                                            </td>
+                                            <td align="left">
+                                                    <select name="grav"> 
+                                                    <option value="sempre">Sempre</option>
+                                                    <option value="sob">Sob Demanda</option>
+                                                    <option value="nunca">Nunca</option>
+                                                </select>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+
+                                        </tr>   
+                                        <tr>
+                                                <td>
+                                                    <label for="dest">Destino se não Houver Resposta</label>
+                                                </td>
+                                                <td align="left">
+                                                        <select name="dest"> 
+                                                        <option value="chose">===escolha um===</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    </td>
+                                                    <td align="left">
+                                                            <select hidden name="dest"> 
+                                                            <option value="chose">IVR CAM</option>
+                                                        </select>
+                                                    </td>
+                                            </tr>    
+                                        </fieldset>
+                                        <br/>      
+        
         </div>
         </body> 
     
     </table>
+    
     </div>
+    <button type="submit">Cadastrar</button>
 {% endblock %}
