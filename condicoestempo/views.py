@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .forms import CondicaoTempoForm
+from .models import CondicaoTempo 
+import re
+from django_tables2 import RequestConfig
+from .tables import CondicaoTempoTable
 
 
 @login_required
@@ -11,7 +15,9 @@ def add(request):
 
 @login_required
 def list(request):
-    return render(request, 'condicoesTempo.html')
+    table = CondicaoTempoTable(CondicaoTempo.objects.all())
+    RequestConfig(request, paginate={'per_page': 10}).configure(table)
+    return render(request, 'condicoesTempo.html',{'table': table})
 
 @login_required
 def condicoestempo_novo(request):
