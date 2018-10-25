@@ -1,0 +1,121 @@
+{% extends "menu.html" %}
+
+
+{% block content %}
+
+<div>
+        <table id="CAMTecnoligaTabela">
+    
+      <caption><div align="right">
+        </div></caption>
+    
+            <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+            <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            </head>
+            <body>
+                    <div id="divCenter">
+                        <div align="center"><h2>Adicionar Anúncio:</h2></div>
+                        <br />
+                        <form action="{% url 'anuncio_edita' anuncio.id %}" method="POST">
+                            {% csrf_token %}
+                        <fieldset>
+                        
+                        <table cellspacing="10">
+                
+                        <tr>
+                                <td>
+                                <label for="descricao">Descrição: </label>
+                                </td>
+                                <td align="left">
+                                <input type="text" name="descricao" value="{{anuncio.descricao}}" >
+                                </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="gravaçao">Gravação</label>
+                            </td>
+                            <td align="left">
+                                    <select name="gravacao"> 
+                                    <option value="nem">Nenhum</option>
+                                </select>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="repeticao">Repetição</label>
+                            </td>
+                            <td align="left">
+                                    <select name="repeticao"> 
+                                    <option value="des">Desabilitado</option>
+                                </select>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="pular">Permitir Pular: </label>
+                            </td>
+                        <td>
+                                {%if anuncio.pula %}
+                                <INPUT TYPE="checkbox" NAME="pular" VALUE="True" checked>   
+                                {% else %}
+                                <INPUT TYPE="checkbox" NAME="pular" VALUE="True">   
+                                {%endif%}
+                        </td>
+                        <td></td>
+                            </tr>
+                        <tr>
+                            <td>
+                                <label for="retorna">Retornar para URA: </label>
+                            </td>
+                        <td>
+                                {%if anuncio.retornaURA %}
+                                <INPUT TYPE="checkbox" NAME="retorna" VALUE="True" checked>    
+                                {% else %}
+                                <INPUT TYPE="checkbox" NAME="retorna" VALUE="True">    
+                                {%endif%}
+                        </td>
+                        <td></td>
+                            </tr>
+                        <tr>
+                            <td>
+                                <label for="resposta">Canal não Responder: </label>
+                            </td>
+                        <td>
+                                {%if anuncio.canalNaoResp %}
+                                <INPUT TYPE="checkbox" NAME="resposta" VALUE="True" checked>    
+                                {% else %}
+                                <INPUT TYPE="checkbox" NAME="resposta" VALUE="True">    
+                                {%endif%}
+                        </td>
+                        <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="destino">Destino após Reprodução</label>
+                                </td>
+                                <td align="left">
+                                        <select name="destino"> 
+                                        <option value="ram">Ramais</option>
+                                    </select>
+                                </td>
+                                <td align="left">
+                                        <select name="destino"> 
+                                        <option value="check">Escolha um</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </fieldset>
+                        <br />
+        </div>
+
+        </body> 
+    
+    </table>
+    <button type="submit">Salvar Alterações</button>
+</form>
+    </div>
+{% endblock %}
