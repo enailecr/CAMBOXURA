@@ -1,0 +1,390 @@
+{% extends "menu.html" %}
+
+
+{% block content %}
+
+<div >
+        <table id="CAMTecnoligaTabela">
+    
+      <caption><div align="right">
+        </div></caption>
+    
+            <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+            <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            </head>
+            <body>
+                    <div id="divCenter">
+                            <div align="center"><h2>Adicionar Condição de Tempo:</h2></div>
+                <form action="{% url 'condicoestempo_edita' condicoestempo.id %}" method="post">
+                    {% csrf_token %}
+                        <fieldset>
+                         <table cellspacing="10">
+                          <tr>
+                           <td>
+                            <label for="nome">Nome para Condição de Tempo: </label>
+                           </td>
+                           <td align="left">
+                            <input type="text" name="nome">
+                           </td>
+                          </tr>
+                          <tr>
+                            <td>
+                             <label for="dest_coin">Destino se o Horário Coincidir:</label>
+                            </td>
+                            <td align="left">
+                             <select name="dest_coin"> 
+                             <option value="ac">Acre</option> 
+                             <option value="al">Alagoas</option> 
+                             <option value="am">Amazonas</option> 
+                             <option value="ap">Amapá</option> 
+                             <option value="ba">Bahia</option> 
+                             <option value="ce">Ceará</option> 
+                             <option value="df">Distrito Federal</option> 
+                             <option value="es">Espírito Santo</option> 
+                             <option value="go">Goiás</option> 
+                             <option value="ma">Maranhão</option> 
+                             <option value="mt">Mato Grosso</option> 
+                             <option value="ms">Mato Grosso do Sul</option> 
+                             <option value="mg">Minas Gerais</option> 
+                             <option value="pa">Pará</option> 
+                             <option value="pb">Paraíba</option> 
+                             <option value="pr">Paraná</option> 
+                             <option value="pe">Pernambuco</option> 
+                             <option value="pi">Piauí</option> 
+                             <option value="rj">Rio de Janeiro</option> 
+                             <option value="rn">Rio Grande do Norte</option> 
+                             <option value="ro">Rondônia</option> 
+                             <option value="rs">Rio Grande do Sul</option> 
+                             <option value="rr">Roraima</option> 
+                             <option value="sc">Santa Catarina</option> 
+                             <option value="se">Sergipe</option> 
+                             <option value="sp">São Paulo</option> 
+                             <option value="to">Tocantins</option> 
+                            </select>
+                            </td>
+                            <td>
+                                <label for="dest_coin"></label>
+                               </td>
+                               <td align="left">
+                                <select name="dest_coin"> 
+                                <option value="ac">Acre</option> 
+                                <option value="al">Alagoas</option> 
+                                <option value="am">Amazonas</option> 
+                                <option value="ap">Amapá</option> 
+                                <option value="ba">Bahia</option> 
+                                <option value="ce">Ceará</option> 
+                                <option value="df">Distrito Federal</option> 
+                                <option value="es">Espírito Santo</option> 
+                                <option value="go">Goiás</option> 
+                                <option value="ma">Maranhão</option> 
+                                <option value="mt">Mato Grosso</option> 
+                                <option value="ms">Mato Grosso do Sul</option> 
+                                <option value="mg">Minas Gerais</option> 
+                                <option value="pa">Pará</option> 
+                                <option value="pb">Paraíba</option> 
+                                <option value="pr">Paraná</option> 
+                                <option value="pe">Pernambuco</option> 
+                                <option value="pi">Piauí</option> 
+                                <option value="rj">Rio de Janeiro</option> 
+                                <option value="rn">Rio Grande do Norte</option> 
+                                <option value="ro">Rondônia</option> 
+                                <option value="rs">Rio Grande do Sul</option> 
+                                <option value="rr">Roraima</option> 
+                                <option value="sc">Santa Catarina</option> 
+                                <option value="se">Sergipe</option> 
+                                <option value="sp">São Paulo</option> 
+                                <option value="to">Tocantins</option> 
+                               </select>
+                               </td>
+                           </tr>
+                        
+                           <tr>
+                            <td>
+                             <label for="dest_coin">Destino se o não Horário Coincidir:</label>
+                            </td>
+                            <td align="left">
+                             <select name="dest_ncoin"> 
+                             <option value="ac">Acre</option> 
+                             <option value="al">Alagoas</option> 
+                             <option value="am">Amazonas</option> 
+                             <option value="ap">Amapá</option> 
+                             <option value="ba">Bahia</option> 
+                             <option value="ce">Ceará</option> 
+                             <option value="df">Distrito Federal</option> 
+                             <option value="es">Espírito Santo</option> 
+                             <option value="go">Goiás</option> 
+                             <option value="ma">Maranhão</option> 
+                             <option value="mt">Mato Grosso</option> 
+                             <option value="ms">Mato Grosso do Sul</option> 
+                             <option value="mg">Minas Gerais</option> 
+                             <option value="pa">Pará</option> 
+                             <option value="pb">Paraíba</option> 
+                             <option value="pr">Paraná</option> 
+                             <option value="pe">Pernambuco</option> 
+                             <option value="pi">Piauí</option> 
+                             <option value="rj">Rio de Janeiro</option> 
+                             <option value="rn">Rio Grande do Norte</option> 
+                             <option value="ro">Rondônia</option> 
+                             <option value="rs">Rio Grande do Sul</option> 
+                             <option value="rr">Roraima</option> 
+                             <option value="sc">Santa Catarina</option> 
+                             <option value="se">Sergipe</option> 
+                             <option value="sp">São Paulo</option> 
+                             <option value="to">Tocantins</option> 
+                            </select>
+                            </td>
+                            <td>
+                                <label for="dest_ncoin"></label>
+                               </td>
+                               <td align="left">
+                                <select name="dest_coin"> 
+                                <option value="ac">Acre</option> 
+                                <option value="al">Alagoas</option> 
+                                <option value="am">Amazonas</option> 
+                                <option value="ap">Amapá</option> 
+                                <option value="ba">Bahia</option> 
+                                <option value="ce">Ceará</option> 
+                                <option value="df">Distrito Federal</option> 
+                                <option value="es">Espírito Santo</option> 
+                                <option value="go">Goiás</option> 
+                                <option value="ma">Maranhão</option> 
+                                <option value="mt">Mato Grosso</option> 
+                                <option value="ms">Mato Grosso do Sul</option> 
+                                <option value="mg">Minas Gerais</option> 
+                                <option value="pa">Pará</option> 
+                                <option value="pb">Paraíba</option> 
+                                <option value="pr">Paraná</option> 
+                                <option value="pe">Pernambuco</option> 
+                                <option value="pi">Piauí</option> 
+                                <option value="rj">Rio de Janeiro</option> 
+                                <option value="rn">Rio Grande do Norte</option> 
+                                <option value="ro">Rondônia</option> 
+                                <option value="rs">Rio Grande do Sul</option> 
+                                <option value="rr">Roraima</option> 
+                                <option value="sc">Santa Catarina</option> 
+                                <option value="se">Sergipe</option> 
+                                <option value="sp">São Paulo</option> 
+                                <option value="to">Tocantins</option> 
+                               </select>
+                               </td>
+                           </tr>
+                         </table>
+                        </fieldset>
+                        
+                        <br />
+                        <!-- ENDEREÇO -->
+                        <fieldset>
+                   
+                         <table cellspacing="10">
+                        
+                            <tr>
+                                <td>
+                                 <label for="hora_inicio">Hora de Início:</label>
+                                </td>
+                                <td align="left">
+                                        <input type = "time" name="hora_inicio" value="{{condicoestempo.horaInicio}}">
+                                </td>
+                               </tr>
+                          <tr>
+                                <td>
+                                        <label for="hora_termino">Hora de Término:</label>
+                                       </td>
+                                       <td align="left">
+                                           <input type = "time" name="hora_termino" value="{{condicoestempo.horaFim}}">
+                                       </td>
+                                          
+                          </tr>
+                          <tr>
+                           <td>
+                            <label for="dia_semana_ini">Dia de Semana que Inicia:</label>
+                           </td>
+                           <td align="left">
+                            <select name="dia_semana_ini" >
+                                <option selected="selected"  >
+                                            {{condicoestempo.diaSemanaInicio}}
+                                </option> 
+                                <option value="seg">segunda-feira</option> 
+                                <option value="ter">terça-feira</option> 
+                                <option value="qua">quarta-feira</option> 
+                                <option value="qui">quinta-feira</option> 
+                                <option value="sex">sexta-feira</option> 
+                                <option value="sab">sábado</option> 
+                                <option value="dom">domingo</option>  
+                           </select>
+                           </td>
+                          </tr>
+                          <tr>
+                           <td>
+                                <label for="dia_semana_ter">Dia de Semana que Termina:</label>
+                            </td>
+                            <td align="left">
+                             <select name="dia_semana_ter" > 
+                                 <option selected="selected" >
+                                            {{condicoestempo.diaSemanaFim}}
+                                 </option>
+                                 <option value="seg">segunda-feira</option> 
+                                 <option value="ter">terça-feira</option> 
+                                 <option value="qua">quarta-feira</option> 
+                                 <option value="qui">quinta-feira</option> 
+                                 <option value="sex">sexta-feira</option> 
+                                 <option value="sab">sábado</option> 
+                                 <option value="dom">domingo</option>  
+                            </select>
+                           </td>
+                          </tr>
+                          <tr>
+                                <td>
+                                        <label for="dia_mes_inicio">Dia do Mês que Inicia:</label>
+                                       </td>
+                                       <td align="left">
+                                        <select name="dia_mes_inicio" > 
+                                        <option selected="selected">
+                                                        {{condicoestempo.diaMesInicio}}
+                                        </option>    
+                                        <option value="00">00</option> 
+                                        <option value="01">01</option> 
+                                        <option value="02">02</option> 
+                                        <option value="03">03</option> 
+                                        <option value="04">04</option> 
+                                        <option value="05">05</option> 
+                                        <option value="06">06</option> 
+                                        <option value="07">07</option> 
+                                        <option value="08">08</option> 
+                                        <option value="09">09</option> 
+                                        <option value="10">10</option> 
+                                        <option value="11">11</option> 
+                                        <option value="12">12</option> 
+                                        <option value="13">13</option> 
+                                        <option value="14">14</option> 
+                                        <option value="15">15</option> 
+                                        <option value="16">16</option> 
+                                        <option value="17">17</option> 
+                                        <option value="18">18</option> 
+                                        <option value="19">19</option> 
+                                        <option value="20">20</option> 
+                                        <option value="21">21</option> 
+                                        <option value="22">22</option> 
+                                        <option value="23">23</option> 
+                                        <option value="24">24</option> 
+                                        <option value="25">25</option> 
+                                        <option value="26">26</option> 
+                                        <option value="27">27</option> 
+                                        <option value="28">28</option> 
+                                        <option value="29">29</option> 
+                                        <option value="30">30</option> 
+                                        <option value="31">31</option>
+                                       </select>
+                        </td>
+                          </tr>
+                          <tr>
+                                <td>
+                                        <label for="dia_mes_termina">Dia do Mês que Termina:</label>
+                                       </td>
+                                       <td align="left">
+                                        <select name="dia_mes_termina" > 
+                                        <option selected="selected"  >
+                                                        {{condicoestempo.diaMesFim}}
+                                        </option>
+                                        <option value="00">00</option> 
+                                        <option value="01">01</option> 
+                                        <option value="02">02</option> 
+                                        <option value="03">03</option> 
+                                        <option value="04">04</option> 
+                                        <option value="05">05</option> 
+                                        <option value="06">06</option> 
+                                        <option value="07">07</option> 
+                                        <option value="08">08</option> 
+                                        <option value="09">09</option> 
+                                        <option value="10">10</option> 
+                                        <option value="11">11</option> 
+                                        <option value="12">12</option> 
+                                        <option value="13">13</option> 
+                                        <option value="14">14</option> 
+                                        <option value="15">15</option> 
+                                        <option value="16">16</option> 
+                                        <option value="17">17</option> 
+                                        <option value="18">18</option> 
+                                        <option value="19">19</option> 
+                                        <option value="20">20</option> 
+                                        <option value="21">21</option> 
+                                        <option value="22">22</option> 
+                                        <option value="23">23</option> 
+                                        <option value="24">24</option> 
+                                        <option value="25">25</option> 
+                                        <option value="26">26</option> 
+                                        <option value="27">27</option> 
+                                        <option value="28">28</option> 
+                                        <option value="29">29</option> 
+                                        <option value="30">30</option> 
+                                        <option value="31">31</option>
+                                       </select>
+                        </td>
+                          </tr>
+                          <tr>
+                                <td>
+                                        <label for="mes_inicio">Mês que Inicia:</label>
+                                       </td>
+                                       <td align="left">
+                                        <select name="mes_inicio">
+                                        <option selected="selected" >
+                                                        {{condicoestempo.mesIncio}}
+                                        </option>
+                                        <option value="jan">Janeiro</option> 
+                                        <option value="fev">Fevereiro</option> 
+                                        <option value="mar">Março</option> 
+                                        <option value="abr">Abril</option> 
+                                        <option value="mai">Maio</option> 
+                                        <option value="jun">Junho</option> 
+                                        <option value="jul">Julho</option> 
+                                        <option value="ago">Agosto</option> 
+                                        <option value="set">Setembro</option> 
+                                        <option value="out">Outubro</option> 
+                                        <option value="nov">Novembro</option> 
+                                        <option value="dez">Dezembro</option> 
+                                       </select>
+                        </td>
+                          </tr>
+                          <tr>
+                                <td>
+                                        <label for="mes_termino">Mês que Termina:</label>
+                                       </td>
+                                       <td align="left">
+                                        <select name="mes_termino"  > 
+                                        <option selected="selected" >
+                                                        {{condicoestempo.mesFim}}
+                                        </option>    
+                                        <option value="jan">Janeiro</option> 
+                                        <option value="fev">Fevereiro</option> 
+                                        <option value="mar">Março</option> 
+                                        <option value="abr">Abril</option> 
+                                        <option value="mai">Maio</option> 
+                                        <option value="jun">Junho</option> 
+                                        <option value="jul">Julho</option> 
+                                        <option value="ago">Agosto</option> 
+                                        <option value="set">Setembro</option> 
+                                        <option value="out">Outubro</option> 
+                                        <option value="nov">Novembro</option> 
+                                        <option value="dez">Dezembro</option> 
+                                       </select>
+                        </td>
+                          </tr>
+                         </table>
+                        </fieldset>
+                        <br />
+                        
+                        
+                        <br />
+                       
+                        <!-- <input type="reset" value="Limpar"> -->
+                        <button type="submit">Salvar Alterações</button>
+                        </form>
+        
+      
+        </div>
+    
+        </body> 
+    
+    </table>
+    </div>
+{% endblock %}
