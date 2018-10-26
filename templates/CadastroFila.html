@@ -12,30 +12,2139 @@
             <meta http-equiv="content-type" content="text/html;charset=utf-8" />
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-                <style type="text/css">
-                    * { margin: 0; padding: 0; font-family:Arial; font-size:9pt;}
-                    #divCenter { 
-                            background-color: #e1e1e1; 
-                            width: 400px; 
-                            height: 1255px; 
-                            left: 50%; 
-                            margin: -130px 0 0 -210px; 
-                            padding:10px;
-                            position: absolute; 
-                            top: 50%; }
-                </style>
             </head>
             <body>
                     <div id="divCenter">
-                            <h1>Adicionar Fila:</h1>
+                            <div align="center"><h2>Adicionar Fila:</h2></div>
         <form action="{% url 'fila_novo'%}" method="POST">
         {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit">Cadastrar</button>
-        </form>  
+        <br/>
+        
+                <table cellspacing="10">
+                    <tr>
+                            <td>
+                                <label for="tipo">Tipo</label>
+                            </td>
+                            <td align="left">
+                                    <select name="tipo"> 
+                                    <option value="def">------</option>
+                                    <option value="gra">Gravação</option>
+                                    <option value="ura">URA</option>
+                                    <option value="fil">Fila</option>
+                                    <option value="grp">Chamada em Grupo</option>
+                                    <option value="tmp">Condições de Tempo</option>
+                                    <option value="tro">Tronco</option>
+                                </select>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                                <td>
+                                <label for="nome">Nome: </label>
+                                </td>
+                                <td align="left">
+                                <input type="text" name="nome">
+                                </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                                <td>
+                                <label for="senha">Senha: </label>
+                                </td>
+                                <td align="left">
+                                <input type="text" name="senha">
+                                </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                                <td>
+                                        <label for="disc_disp">Gerar Dicas de Dispositivo: </label>
+                                        </td>
+                            <td>
+                                
+                                    <INPUT TYPE="checkbox" name="disc_disp"VALUE="True" >
+                                    
+                            </td>
+                            <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                        <label for="conf_cham">Confirmação de Chamada: </label>
+                                        </td>
+                            <td>
+                                
+                                    <INPUT TYPE="checkbox" name="conf_cham"VALUE="True" >
+                                    
+                            </td>
+                            <td></td>
+                            </tr>
+                            <tr>
+                                    <td>
+                                            <label for="anun">Anuncio de Confirmação de Chamada</label>
+                                        </td>
+                                        <td align="left">
+                                                <select name="anun"> 
+                                                <option value="pad">Padrão</option>
+                                            </select>
+                                        </td>
+                    <td></td>
+                </tr>
+                <tr>
+                        <td>
+                        <label for="prefix">Prefixo de Nome CID: </label>
+                        </td>
+                        <td align="left">
+                        <input type="text" name="prefix">
+                        </td>
+                    <td></td>
+                </tr>
+                <tr>
+                        <td>
+                            <label for="prefix_tempo">Prefixo de Tempo de Espera</label>
+                        </td>
+                        <td align="left">
+                                <select name="prefix_tempo"> 
+                                <option value="n">Não</option>
+                                <option value="s">Sim</option>
+                            </select>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                            <td>
+                            <label for="info">Informação de Alerta: </label>
+                            </td>
+                            <td align="left">
+                            <input type="text" name="info">
+                            </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                            <td>
+                                    <label for="agnt_estatico">Agentes Estáticos: </label>
+                                </td>
+                                <td align="left">
+                                        <textarea rows="10" cols="25">
+                                                </textarea>
+                                </td>
+                                <td></td>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <label for="extensao_rapida">Escolha de Extensão Rápida</label>
+                                </td>
+                                <td align="left">
+                                        <select name="extensao_rapida"> 
+                                        <option value="thg">1021 (Thiago Maluf)</option>
+                                    </select>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                    <td>
+                                            <label for="mbm_dinamicos">Membros Dinâmicos: </label>
+                                        </td>
+                                        <td align="left">
+                                                <textarea rows="10" cols="25">
+                                                        </textarea>
+                                        </td>
+                                        <td></td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                            <label for="extensao_rapida">Escolha de Extensão Rápida</label>
+                                        </td>
+                                        <td align="left">
+                                                <select name="extensao_rapida"> 
+                                                <option value="thg">1021 (Thiago Maluf)</option>
+                                            </select>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <br />
+                                            <table cellspacing="10">
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                                <td>
+                                                                <label for="prefix">Prefixo de Nome CID: </label>
+                                                                </td>
+                                                                <td align="left">
+                                                                <input type="text" name="prefix">
+                                                                </td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                                <td>
+                                                                    <label for="prefix_tempo">Prefixo de Tempo de Espera</label>
+                                                                </td>
+                                                                <td align="left">
+                                                                        <select name="prefix_tempo"> 
+                                                                        <option value="n">Não</option>
+                                                                        <option value="s">Sim</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                    <td>
+                                                                    <label for="info">Informação de Alerta: </label>
+                                                                    </td>
+                                                                    <td align="left">
+                                                                    <input type="text" name="info">
+                                                                    </td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                    <td>
+                                                                            <label for="agnt_estatico">Agentes Estáticos: </label>
+                                                                        </td>
+                                                                        <td align="left">
+                                                                                <textarea rows="10" cols="25">
+                                                                                        </textarea>
+                                                                        </td>
+                                                                        <td></td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td>
+                                                                            <label for="extensao_rapida">Escolha de Extensão Rápida</label>
+                                                                        </td>
+                                                                        <td align="left">
+                                                                                <select name="extensao_rapida"> 
+                                                                                <option value="thg">1021 (Thiago Maluf)</option>
+                                                                            </select>
+                                                                        </td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                            <td>
+                                                                                    <label for="mbm_dinamicos">Membros Dinâmicos: </label>
+                                                                                </td>
+                                                                                <td align="left">
+                                                                                        <textarea rows="10" cols="25">
+                                                                                                </textarea>
+                                                                                </td>
+                                                                                <td></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                                <td>
+                                                                                    <label for="extensao_rapida">Escolha de Extensão Rápida</label>
+                                                                                </td>
+                                                                                <td align="left">
+                                                                                        <select name="extensao_rapida"> 
+                                                                                        <option value="thg">1021 (Thiago Maluf)</option>
+                                                                                    </select>
+                                                                                </td>
+                                                                                <td></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                    <td>
+                                                                                        <label for="restringir">Restringir Agentes Dinâmicos</label>
+                                                                                    </td>
+                                                                                    <td align="left">
+                                                                                            <select name="restringir"> 
+                                                                                            <option value="n">Não</option>
+                                                                                            <option value="s">Sim</option>
+                                                                                        </select>
+                                                                                    </td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                        <td>
+                                                                                            <label for="restricoes">Restrições de Agentes</label>
+                                                                                        </td>
+                                                                                        <td align="left">
+                                                                                                <select name="restricoes"> 
+                                                                                                <option value="cha">Chamar como Discado</option>
+                                                                                                <option value="sem">Sem Siga-me ou Reencaminhamento de Chamadas</option>
+                                                                                                <option value="ape">Apenas Extenções</option>
+                                                                                            </select>
+                                                                                        </td>
+                                                                                        <td></td>
+                                                                                    </tr>
+                                                <br/>
+                                        <br/>
+                                        
+                                        <table cellspacing="10">
+                                                <tr>
+                                                        <td>
+                                                            <label for="estrat_ring">Estratégia Ring</label>
+                                                        </td>
+                                                        <td align="left">
+                                                                <select name="estrat_ring"> 
+                                                                <option value="ring">ringall</option>
+                                                            </select>
+                                                        </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td>
+                                                                    <label for="p_auto">Preenchimento Automático: </label>
+                                                                    </td>
+                                                        <td>
+                                                            
+                                                                <INPUT TYPE="checkbox" name="p_auto"VALUE="True" >
+                                                                
+                                                        </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                                <td>
+                                                                    <label for="ignorar">Ignorar Agentes Ocupados</label>
+                                                                </td>
+                                                                <td align="left">
+                                                                        <select name="ignorar"> 
+                                                                        <option value="n">Não</option>
+                                                                        <option value="s">Sim</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                    <td>
+                                                                        <label for="peso">Peso da Fila</label>
+                                                                    </td>
+                                                                    <td align="left">
+                                                                            <select name="peso"> 
+                                                                            <option value="0">0</option>
+                                                                            <option value="1">1</option>
+                                                                            <option value="2">2</option>
+                                                                            <option value="3">3</option>
+                                                                            <option value="4">4</option>
+                                                                            <option value="5">5</option>
+                                                                            <option value="6">6</option>
+                                                                            <option value="7">7</option>
+                                                                            <option value="8">8</option>
+                                                                            <option value="9">9</option>
+                                                                            <option value="10">10</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td>
+                                                                            <label for="musica">Música em Espera</label>
+                                                                        </td>
+                                                                        <td align="left">
+                                                                                <select name="musica"> 
+                                                                                <option value="herdar">Herdar</option>
+                                                                                <option value="agencia">Agencia-hold</option>
+                                                                                <option value="cam">CAM-Hold</option>
+                                                                                <option value="padrao">Padrão</option>
+                                                                                <option value="nenhum">Nenhuma</option>
+                                                                            </select>
+                                                                        </td>
+                                                                        <td align="left">
+                                                                                <select name="musica"> 
+                                                                                <option value="moh">Apenas MOH</option>
+                                                                                <option value="agent">Agente Tocando</option>
+                                                                                <option value="toc">Apenas Tocas</option>
+                                                                            </select>
+                                                                        </td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                            <td>
+                                                                                <label for="anuncio">Anúncio de União</label>
+                                                                            </td>
+                                                                            <td align="left">
+                                                                                    <select name="anuncio"> 
+                                                                                    <option value="nenhum">Nenhum</option>
+                                                                                </select>
+                                                                            </td>
+                                                                            <td align="left">
+                                                                                    <select name="anuncio"> 
+                                                                                    <option value="sempre">Sempre</option>
+                                                                                    <option value="agents">Quando não há Agentes Livres</option>
+                                                                                    <option value="pronto">Quando não há Agentes Prontos</option>
+                                                                                </select>
+                                                                            </td>
+                                                                            <td></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                                <td>
+                                                                                    <label for="grav">Gravação da chamada</label>
+                                                                                </td>
+                                                                                <td align="left">
+                                                                                        <select name="grav"> 
+                                                                                                <option value="n">Não</option>
+                                                                                                <option value="w">wav</option>
+                                                                                                <option value="w49">wav49</option>
+                                                                                                <option value="gsm">gsm</option>
+                                                                                    </select>
+                                                                                </td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                        </tr>   
+                                                                        <tr>
+                                                                                <td>
+                                                                                    <label for="modo_grav">Modo de Gravação</label>
+                                                                                </td>
+                                                                                <td align="left">
+                                                                                        <select name="modo_grav"> 
+                                                                                        <option value="tempo_esp">Inclui Tempo de Espera</option>
+                                                                                        <option value="resp">Após Respondido</option>
+                                                                                    </select>
+                                                                                </td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                    <td>
+                                                                                        <label for="vol_cham">Ajuste de Volume do Chamador</label>
+                                                                                    </td>
+                                                                                    <td align="left">
+                                                                                            <select name="vol_cham"> 
+                                                                                            <option value="sem">Sem ajuste</option>
+                                                                                            <option value="-4">-4</option>
+                                                                                            <option value="-3">-3</option>
+                                                                                            <option value="-2">-2</option>
+                                                                                            <option value="-1">-1</option>
+                                                                                            <option value="+1">+1</option>
+                                                                                            <option value="+2">+2</option>
+                                                                                            <option value="+3">+3</option>
+                                                                                            <option value="+4">+4</option>
+                                                                                        </select>
+                                                                                    </td>
+                                                                                    <td></td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                        <td>
+                                                                                            <label for="vol_agent">Ajuste de Volume do Agente</label>
+                                                                                        </td>
+                                                                                        <td align="left">
+                                                                                                <select name="vol_agent"> 
+                                                                                                <option value="sem">Sem ajuste</option>
+                                                                                                <option value="-4">-4</option>
+                                                                                                <option value="-3">-3</option>
+                                                                                                <option value="-2">-2</option>
+                                                                                                <option value="-1">-1</option>
+                                                                                                <option value="+1">+1</option>
+                                                                                                <option value="+2">+2</option>
+                                                                                                <option value="+3">+3</option>
+                                                                                                <option value="+4">+4</option>
+                                                                                            </select>
+                                                                                        </td>
+                                                                                        <td></td>
+                                                                                        <td></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                            <td>
+                                                                                                    <label for="mcrol">Marcar Chamadas Respondidas em outro Lugar: </label>
+                                                                                                    </td>
+                                                                                        <td>
+                                                                                            
+                                                                                                <INPUT TYPE="checkbox" name="mcrol"VALUE="True" >
+                                                                                                
+                                                                                        </td>
+                                                                                        <td></td>
+                                                                                        <td></td>
+                                                                                        </tr>
+                                            <td>
+                                                <label for="restringir">Restringir Agentes Dinâmicos</label>
+                                            </td>
+                                            <td align="left">
+                                                    <select name="restringir"> 
+                                                    <option value="n">Não</option>
+                                                    <option value="s">Sim</option>
+                                                </select>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                                <td>
+                                                    <label for="restricoes">Restrições de Agentes</label>
+                                                </td>
+                                                <td align="left">
+                                                        <select name="restricoes"> 
+                                                        <option value="cha">Chamar como Discado</option>
+                                                        <option value="sem">Sem Siga-me ou Reencaminhamento de Chamadas</option>
+                                                        <option value="ape">Apenas Extenções</option>
+                                                    </select>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+        <br/>
+<br />
+
+<table cellspacing="10">
+        <tr><br />
+            
+                <table cellspacing="10">
+                                <td></td>
+                            </tr>
+                            <tr>
+                                    <td>
+                                    <label for="prefix">Prefixo de Nome CID: </label>
+                                    </td>
+                                    <td align="left">
+                                    <input type="text" name="prefix">
+                                    </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                    <td>
+                                        <label for="prefix_tempo">Prefixo de Tempo de Espera</label>
+                                    </td>
+                                    <td align="left">
+                                            <select name="prefix_tempo"> 
+                                            <option value="n">Não</option>
+                                            <option value="s">Sim</option>
+                                        </select>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                        <label for="info">Informação de Alerta: </label>
+                                        </td>
+                                        <td align="left">
+                                        <input type="text" name="info">
+                                        </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                                <label for="agnt_estatico">Agentes Estáticos: </label>
+                                            </td>
+                                            <td align="left">
+                                                    <textarea rows="10" cols="25">
+                                                            </textarea>
+                                            </td>
+                                    </tr>
+                                    <tr>
+                                            <td>
+                                                <label for="extensao_rapida">Escolha de Extensão Rápida</label>
+                                            </td>
+                                            <td align="left">
+                                                    <select name="extensao_rapida"> 
+                                                    <option value="thg">1021 (Thiago Maluf)</option>
+                                                </select>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                                <td>
+                                                        <label for="mbm_dinamicos">Membros Dinâmicos: </label>
+                                                    </td>
+                                                    <td align="left">
+                                                            <textarea rows="10" cols="25">
+                                                                    </textarea>
+                                                    </td>
+                                            </tr>
+                                            <tr>
+                                                    <td>
+                                                        <label for="extensao_rapida">Escolha de Extensão Rápida</label>
+                                                    </td>
+                                                    <td align="left">
+                                                            <select name="extensao_rapida"> 
+                                                            <option value="thg">1021 (Thiago Maluf)</option>
+                                                        </select>
+                                                    </td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                        <td>
+                                                            <label for="restringir">Restringir Agentes Dinâmicos</label>
+                                                        </td>
+                                                        <td align="left">
+                                                                <select name="restringir"> 
+                                                                <option value="n">Não</option>
+                                                                <option value="s">Sim</option>
+                                                            </select>
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td>
+                                                                <label for="restricoes">Restrições de Agentes</label>
+                                                            </td>
+                                                            <td align="left">
+                                                                    <select name="restricoes"> 
+                                                                    <option value="cha">Chamar como Discado</option>
+                                                                    <option value="sem">Sem Siga-me ou Reencaminhamento de Chamadas</option>
+                                                                    <option value="ape">Apenas Extenções</option>
+                                                                </select>
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+                    <br/>
+            <br />
+            
+            <table cellspacing="10">
+                    <tr>
+                            <td>
+                                <label for="estrat_ring">Estratégia Ring</label>
+                            </td>
+                            <td align="left">
+                                    <select name="estrat_ring"> 
+                                    <option value="ring">ringall</option>
+                                </select>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                                <td>
+                                        <label for="p_auto">Preenchimento Automático: </label>
+                                        </td>
+                            <td>
+                                
+                                    <INPUT TYPE="checkbox" name="p_auto"VALUE="True" >
+                                    
+                            </td>
+                            <td></td>
+                            <td></td>
+                            </tr>
+                            <tr>
+                                    <td>
+                                        <label for="ignorar">Ignorar Agentes Ocupados</label>
+                                    </td>
+                                    <td align="left">
+                                            <select name="ignorar"> 
+                                            <option value="n">Não</option>
+                                            <option value="s">Sim</option>
+                                        </select>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                            <label for="peso">Peso da Fila</label>
+                                        </td>
+                                        <td align="left">
+                                                <select name="peso"> 
+                                                <option value="0">0</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                            </select>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                            <td>
+                                                <label for="musica">Música em Espera</label>
+                                            </td>
+                                            <td align="left">
+                                                    <select name="musica"> 
+                                                    <option value="herdar">Herdar</option>
+                                                    <option value="agencia">Agencia-hold</option>
+                                                    <option value="cam">CAM-Hold</option>
+                                                    <option value="padrao">Padrão</option>
+                                                    <option value="nenhum">Nenhuma</option>
+                                                </select>
+                                            </td>
+                                            <td align="left">
+                                                    <select name="musica"> 
+                                                    <option value="moh">Apenas MOH</option>
+                                                    <option value="agent">Agente Tocando</option>
+                                                    <option value="toc">Apenas Tocas</option>
+                                                </select>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                                <td>
+                                                    <label for="anuncio">Anúncio de União</label>
+                                                </td>
+                                                <td align="left">
+                                                        <select name="anuncio"> 
+                                                        <option value="nenhum">Nenhum</option>
+                                                    </select>
+                                                </td>
+                                                <td align="left">
+                                                        <select name="anuncio"> 
+                                                        <option value="sempre">Sempre</option>
+                                                        <option value="agents">Quando não há Agentes Livres</option>
+                                                        <option value="pronto">Quando não há Agentes Prontos</option>
+                                                    </select>
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                    <td>
+                                                        <label for="grav">Gravação da chamada</label>
+                                                    </td>
+                                                    <td align="left">
+                                                            <select name="grav"> 
+                                                                    <option value="n">Não</option>
+                                                                    <option value="w">wav</option>
+                                                                    <option value="w49">wav49</option>
+                                                                    <option value="gsm">gsm</option>
+                                                        </select>
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                            </tr>   
+                                            <tr>
+                                                    <td>
+                                                        <label for="modo_grav">Modo de Gravação</label>
+                                                    </td>
+                                                    <td align="left">
+                                                            <select name="modo_grav"> 
+                                                            <option value="tempo_esp">Inclui Tempo de Espera</option>
+                                                            <option value="resp">Após Respondido</option>
+                                                        </select>
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                        <td>
+                                                            <label for="vol_cham">Ajuste de Volume do Chamador</label>
+                                                        </td>
+                                                        <td align="left">
+                                                                <select name="vol_cham"> 
+                                                                <option value="sem">Sem ajuste</option>
+                                                                <option value="-4">-4</option>
+                                                                <option value="-3">-3</option>
+                                                                <option value="-2">-2</option>
+                                                                <option value="-1">-1</option>
+                                                                <option value="+1">+1</option>
+                                                                <option value="+2">+2</option>
+                                                                <option value="+3">+3</option>
+                                                                <option value="+4">+4</option>
+                                                            </select>
+                                                        </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td>
+                                                                <label for="vol_agent">Ajuste de Volume do Agente</label>
+                                                            </td>
+                                                            <td align="left">
+                                                                    <select name="vol_agent"> 
+                                                                    <option value="sem">Sem ajuste</option>
+                                                                    <option value="-4">-4</option>
+                                                                    <option value="-3">-3</option>
+                                                                    <option value="-2">-2</option>
+                                                                    <option value="-1">-1</option>
+                                                                    <option value="+1">+1</option>
+                                                                    <option value="+2">+2</option>
+                                                                    <option value="+3">+3</option>
+                                                                    <option value="+4">+4</option>
+                                                                </select>
+                                                            </td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                                <td>
+                                                                        <label for="mcrol">Marcar Chamadas Respondidas em outro Lugar: </label>
+                                                                        </td>
+                                                            <td>
+                                                                
+                                                                    <INPUT TYPE="checkbox" name="mcrol"VALUE="True" >
+                                                                    
+                                                            </td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            </tr>
+                <td>
+                    <label for="estrat_ring">Estratégia Ring</label>
+                </td>
+                <td align="left">
+                        <select name="estrat_ring"> 
+                        <option value="ring">ringall</option>
+                    </select>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                    <td>
+                            <label for="p_auto">Preenchimento Automático: </label>
+                            </td>
+                <td>
+                    
+                        <INPUT TYPE="checkbox" name="p_auto"VALUE="True" > 
+                </td>
+                <td></td>
+                <td></td>
+                </tr>
+                <tr>
+                        <td>
+                            <label for="ignorar">Ignorar Agentes Ocupados</label>
+                        </td>
+                        <td align="left">
+                                <select name="ignorar"> 
+                                <option value="n">Não</option>
+                                <option value="s">Sim</option>
+                            </select>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                            <td>
+                                <label for="peso">Peso da Fila</label>
+                            </td>
+                            <td align="left">
+                                    <select name="peso"> 
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <label for="musica">Música em Espera</label>
+                                </td>
+                                <td align="left">
+                                        <select name="musica"> 
+                                        <option value="herdar">Herdar</option>
+                                        <option value="agencia">Agencia-hold</option>
+                                        <option value="cam">CAM-Hold</option>
+                                        <option value="padrao">Padrão</option>
+                                        <option value="nenhum">Nenhuma</option>
+                                    </select>
+                                </td>
+                                <td align="left">
+                                        <select name="musica"> 
+                                        <option value="moh">Apenas MOH</option>
+                                        <option value="agent">Agente Tocando</option>
+                                        <option value="toc">Apenas Tocas</option>
+                                    </select>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                    <td>
+                                        <label for="anuncio">Anúncio de União</label>
+                                    </td>
+                                    <td align="left">
+                                            <select name="anuncio"> 
+                                            <option value="nenhum">Nenhum</option>
+                                        </select>
+                                    </td>
+                                    <td align="left">
+                                            <select name="anuncio"> 
+                                            <option value="sempre">Sempre</option>
+                                            <option value="agents">Quando não há Agentes Livres</option>
+                                            <option value="pronto">Quando não há Agentes Prontos</option>
+                                        </select>
+                                        <td></td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                            <label for="grav">Gravação da chamada</label>
+                                        </td>
+                                        <td align="left">
+                                                <select name="grav"> 
+                                                        <option value="n">Não</option>
+                                                        <option value="w">wav</option>
+                                                        <option value="w49">wav49</option>
+                                                        <option value="gsm">gsm</option>
+                                            </select>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                </tr>   
+                                <tr>
+                                        <td>
+                                            <label for="modo_grav">Modo de Gravação</label>
+                                        </td>
+                                        <td align="left">
+                                                <select name="modo_grav"> 
+                                                <option value="tempo_esp">Inclui Tempo de Espera</option>
+                                                <option value="resp">Após Respondido</option>
+                                            </select>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                            <td>
+                                                <label for="vol_cham">Ajuste de Volume do Chamador</label>
+                                            </td>
+                                            <td align="left">
+                                                    <select name="vol_cham"> 
+                                                    <option value="sem">Sem ajuste</option>
+                                                    <option value="-4">-4</option>
+                                                    <option value="-3">-3</option>
+                                                    <option value="-2">-2</option>
+                                                    <option value="-1">-1</option>
+                                                    <option value="+1">+1</option>
+                                                    <option value="+2">+2</option>
+                                                    <option value="+3">+3</option>
+                                                    <option value="+4">+4</option>
+                                                </select>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                                <td>
+                                                    <label for="vol_agent">Ajuste de Volume do Agente</label>
+                                                </td>
+                                                <td align="left">
+                                                        <select name="vol_agent"> 
+                                                        <option value="sem">Sem ajuste</option>
+                                                        <option value="-4">-4</option>
+                                                        <option value="-3">-3</option>
+                                                        <option value="-2">-2</option>
+                                                        <option value="-1">-1</option>
+                                                        <option value="+1">+1</option>
+                                                        <option value="+2">+2</option>
+                                                        <option value="+3">+3</option>
+                                                        <option value="+4">+4</option>
+                                                    </select>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                    <td>
+                                                            <label for="mcrol">Marcar Chamadas Respondidas em outro Lugar: </label>
+                                                            </td>
+                                                <td>
+                                                    
+                                                        <INPUT TYPE="checkbox" name="mcrol"VALUE="True" >
+                                                        
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                </tr>
+        <br/>
+        <br/>
+        
+                <table cellspacing="10">
+                        <tr>
+                                <td>
+                                    <label for="max_temp">Tempo Máximo de Espera</label>
+                                </td>
+                                <td align="left">
+                                        <select name="max_temp"> 
+                                                <option value="ilimitado">ilimitado</option>
+                                                <option value="1">1 segundo</option>
+                                                <option value="2">2 segundos</option>
+                                                <option value="3">3 segundos</option>
+                                                <option value="4">4 segundos</option>
+                                                <option value="5">5 segundos</option>
+                                                <option value="6">6 segundos</option>
+                                                <option value="7">7 segundos</option>
+                                                <option value="8">8 segundos</option>
+                                                <option value="9">9 segundos</option>
+                                                <option value="10">10 segundos</option>
+                                                <option value="11">10 segundos</option>
+                                                <option value="12">12 segundos</option>
+                                                <option value="13">13 segundos</option>
+                                                <option value="14">14 segundos</option>
+                                                <option value="15">15 segundos</option>
+                                                <option value="16">16 segundos</option>
+                                                <option value="17">17 segundos</option>
+                                                <option value="18">18 segundos</option>
+                                                <option value="19">19 segundos</option>
+                                                <option value="20">21 segundos</option>
+                                                <option value="21">21 segundos</option>
+                                                <option value="22">22 segundos</option>
+                                                <option value="23">23 segundos</option>
+                                                <option value="24">24 segundos</option>
+                                                <option value="25">25 segundos</option>
+                                                <option value="26">27 segundos</option>
+                                                <option value="28">28 segundos</option>
+                                                <option value="29">29 segundos</option>
+                                                <option value="30">30 segundos</option>
+                                                <option value="31">31 segundos</option>
+                                                <option value="32">32 segundos</option>
+                                                <option value="33">33 segundos</option>
+                                                <option value="33">33 segundos</option>
+                                                <option value="34">34 segundos</option>
+                                                <option value="35">35 segundos</option>
+                                                <option value="36">36 segundos</option>
+                                                <option value="37">37 segundos</option>
+                                                <option value="38">38 segundos</option>
+                                                <option value="39">39 segundos</option>
+                                                <option value="40">40 segundos</option>
+                                                <option value="41">41 segundos</option>
+                                                <option value="42">42 segundos</option>
+                                                <option value="43">43 segundos</option>
+                                                <option value="44">44 segundos</option>
+                                                <option value="45">45 segundos</option>
+                                                <option value="46">46 segundos</option>
+                                                <option value="47">47 segundos</option>
+                                                <option value="48">48 segundos</option>
+                                                <option value="49">49 segundos</option>
+                                                <option value="50">50 segundos</option>
+                                                <option value="51">51 segundos</option>
+                                                <option value="52">52 segundos</option>
+                                                <option value="53">53 segundos</option>
+                                                <option value="54">54 segundos</option>
+                                                <option value="55">55 segundos</option>
+                                                <option value="56">57 segundos</option>
+                                                <option value="58">58 segundos</option>
+                                                <option value="59">59 segundos</option>
+                                                <option value="1m">1 minuto</option>
+                                                <option value="1m2">1 minuto, 20 segundos</option>
+                                                <option value="1m4">1 minuto, 40 segundos</option>
+                                                <option value="2m">2 minutos</option>
+                                                <option value="3m2">3 minutos, 20 segundos</option>
+                                                <option value="3m4">3 minutos, 40 segundos</option>
+                                                <option value="4m">4 minutos</option>
+                                                <option value="4m2">4 minutos, 20 segundos</option>
+                                                <option value="4m4">4 minutos, 40 segundos</option>
+                                                <option value="5m">5 minutos</option>
+                                                <option value="6m">6 minutos</option>
+                                                <option value="7m">7 minutos</option>
+                                                <option value="8m">8 minutos</option>
+                                                <option value="9m">9 minutos</option>
+                                                <option value="10m">10 minutos</option>
+                                                <option value="11m">11 minutos</option>
+                                                <option value="12m">12 minutos</option>
+                                                <option value="13m">13 minutos</option>
+                                                <option value="14m">14 minutos</option>
+                                                <option value="15m">15 minutos</option>
+                                                <option value="16m">16 minutos</option>
+                                                <option value="17m">17 minutos</option>
+                                                <option value="18m">18 minutos</option>
+                                                <option value="19m">19 minutos</option>
+                                                <option value="20m">20 minutos</option>
+                                                <option value="21m">21 minutos</option>
+                                                <option value="22m">22 minutos</option>
+                                                <option value="23m">23 minutos</option>
+                                                <option value="24m">24 minutos</option>
+                                                <option value="25m">25 minutos</option>
+                                                <option value="26m">26 minutos</option>
+                                                <option value="27m">27 minutos</option>
+                                                <option value="28m">28 minutos</option>
+                                                <option value="29m">29 minutos</option>
+                                                <option value="30m">30 minutos</option>
+                                                <option value="31m">31 minutos</option>
+                                                <option value="32m">32 minutos</option>
+                                                <option value="33m">33 minutos</option>
+                                                <option value="34m">34 minutos</option>
+                                                <option value="35m">35 minutos</option>
+                                                <option value="36m">36 minutos</option>
+                                                <option value="37m">37 minutos</option>
+                                                <option value="38m">38 minutos</option>
+                                                <option value="39m">39 minutos</option>
+                                                <option value="40m">40 minutos</option>
+                                                <option value="41m">41 minutos</option>
+                                                <option value="42m">42 minutos</option>
+                                                <option value="43m">43 minutos</option>
+                                                <option value="44m">44 minutos</option>
+                                                <option value="45m">45 minutos</option>
+                                                <option value="46m">46 minutos</option>
+                                                <option value="47m">47 minutos</option>
+                                                <option value="48m">48 minutos</option>
+                                                <option value="49m">49 minutos</option>
+                                                <option value="50m">50 minutos</option>
+                                                <option value="51m">51 minutos</option>
+                                                <option value="52m">52 minutos</option>
+                                                <option value="53m">53 minutos</option>
+                                                <option value="54m">54 minutos</option>
+                                                <option value="55m">55 minutos</option>
+                                                <option value="56m">56 minutos</option>
+                                                <option value="57m">57 minutos</option>
+                                                <option value="58m">58 minutos</option>
+                                                <option value="59m">59 minutos</option>
+                                                <option value="1h">1 hora</option>
+                                                <option value="1h5">1 hora, 5 minutos</option>
+                                                <option value="1h10">1 hora, 10 minutos</option>
+                                                <option value="1h15">1 hora, 15 minutos</option>
+                                                <option value="1h20">1 hora, 20 minutos</option>
+                                                <option value="1h25">1 hora, 25 minutos</option>
+                                                <option value="1h30">1 hora, 30 minutos</option>
+                                                <option value="1h35">1 hora, 35 minutos</option>
+                                                <option value="1h40">1 hora, 40 minutos</option>
+                                                <option value="1h45">1 hora, 45 minutos</option>
+                                                <option value="1h50">1 hora, 50 minutos</option>
+                                                <option value="1h55">1 hora, 55 minutos</option>
+                                                <option value="2h">2 horas</option>
+                                        </td>
+                                        <td></td>
+                        </tr>
+                        <tr>
+                                <td>
+                                        <label for="modo_max_esp">Modo Máximo de Espera</label>
+                                    </td>
+                                    <td align="left">
+                                            <select name="modo_max_esp"> 
+                                            <option value="estrito">Estrito</option>
+                                            <option value="solto">Solto</option>
+                                        </select>
+                                    </td> 
+                                    <td></td>                           
+                        </tr>
+                        <tr>
+                                <td>
+                                    <label for="limit_temp">Tempo Limite do Agente</label>
+                                </td>
+                                <td align="left">
+                                         <select name="limit_temp"> 
+                                                <option value="ilimitado">ilimitado</option>
+                                                <option value="1">1 segundo</option>
+                                                <option value="2">2 segundos</option>
+                                                <option value="3">3 segundos</option>
+                                                <option value="4">4 segundos</option>
+                                                <option value="5">5 segundos</option>
+                                                <option value="6">6 segundos</option>
+                                                <option value="7">7 segundos</option>
+                                                <option value="8">8 segundos</option>
+                                                <option value="9">9 segundos</option>
+                                                <option value="10">10 segundos</option>
+                                                <option value="11">10 segundos</option>
+                                                <option value="12">12 segundos</option>
+                                                <option value="13">13 segundos</option>
+                                                <option value="14">14 segundos</option>
+                                                <option value="15">15 segundos</option>
+                                                <option value="16">16 segundos</option>
+                                                <option value="17">17 segundos</option>
+                                                <option value="18">18 segundos</option>
+                                                <option value="19">19 segundos</option>
+                                                <option value="20">21 segundos</option>
+                                                <option value="21">21 segundos</option>
+                                                <option value="22">22 segundos</option>
+                                                <option value="23">23 segundos</option>
+                                                <option value="24">24 segundos</option>
+                                                <option value="25">25 segundos</option>
+                                                <option value="26">27 segundos</option>
+                                                <option value="28">28 segundos</option>
+                                                <option value="29">29 segundos</option>
+                                                <option value="30">30 segundos</option>
+                                                <option value="31">31 segundos</option>
+                                                <option value="32">32 segundos</option>
+                                                <option value="33">33 segundos</option>
+                                                <option value="33">33 segundos</option>
+                                                <option value="34">34 segundos</option>
+                                                <option value="35">35 segundos</option>
+                                                <option value="36">36 segundos</option>
+                                                <option value="37">37 segundos</option>
+                                                <option value="38">38 segundos</option>
+                                                <option value="39">39 segundos</option>
+                                                <option value="40">40 segundos</option>
+                                                <option value="41">41 segundos</option>
+                                                <option value="42">42 segundos</option>
+                                                <option value="43">43 segundos</option>
+                                                <option value="44">44 segundos</option>
+                                                <option value="45">45 segundos</option>
+                                                <option value="46">46 segundos</option>
+                                                <option value="47">47 segundos</option>
+                                                <option value="48">48 segundos</option>
+                                                <option value="49">49 segundos</option>
+                                                <option value="50">50 segundos</option>
+                                                <option value="51">51 segundos</option>
+                                                <option value="52">52 segundos</option>
+                                                <option value="53">53 segundos</option>
+                                                <option value="54">54 segundos</option>
+                                                <option value="55">55 segundos</option>
+                                                <option value="56">57 segundos</option>
+                                                <option value="58">58 segundos</option>
+                                                <option value="59">59 segundos</option>
+                                                <option value="1m">1 minuto, 1 segundo</option>
+                                                <option value="m2">1 minuto, 2 segundos</option>
+                                                <option value="m3">1 minuto, 3 segundos</option>
+                                                <option value="m4">1 minuto, 4 segundos</option>
+                                                <option value="m5">1 minuto, 5 segundos</option>
+                                                <option value="m6">1 minuto, 6 segundos</option>
+                                                <option value="m7">1 minuto, 7 segundos</option>
+                                                <option value="m8">1 minuto, 8 segundos</option>
+                                                <option value="m9">1 minuto, 9 segundos</option>
+                                                <option value="m10">1 minuto, 10 segundos</option>
+                                                <option value="m11">1 minuto, 11 segundos</option>
+                                                <option value="m12">1 minuto, 12 segundos</option>
+                                                <option value="m13">1 minuto, 13 segundos</option>
+                                                <option value="m14">1 minuto, 14 segundos</option>
+                                                <option value="m15">1 minuto, 15 segundos</option>
+                                                <option value="m16">1 minuto, 16 segundos</option>
+                                                <option value="m17">1 minuto, 17 segundos</option>
+                                                <option value="m18">1 minuto, 18 segundos</option>
+                                                <option value="m19">1 minuto, 19 segundos</option>
+                                                <option value="m20">1 minuto, 21 segundos</option>
+                                                <option value="m21">1 minuto, 21 segundos</option>
+                                                <option value="m22">1 minuto, 22 segundos</option>
+                                                <option value="m23">1 minuto, 23 segundos</option>
+                                                <option value="m24">1 minuto, 24 segundos</option>
+                                                <option value="m25">1 minuto, 25 segundos</option>
+                                                <option value="m26">1 minuto, 27 segundos</option>
+                                                <option value="m28">1 minuto, 28 segundos</option>
+                                                <option value="m29">1 minuto, 29 segundos</option>
+                                                <option value="m30">1 minuto, 30 segundos</option>
+                                                <option value="m31">1 minuto, 31 segundos</option>
+                                                <option value="m32">1 minuto, 32 segundos</option>
+                                                <option value="m33">1 minuto, 33 segundos</option>
+                                                <option value="m34">1 minuto, 34 segundos</option>
+                                                <option value="m35">1 minuto, 35 segundos</option>
+                                                <option value="m36">1 minuto, 36 segundos</option>
+                                                <option value="m37">1 minuto, 37 segundos</option>
+                                                <option value="m38">1 minuto, 38 segundos</option>
+                                                <option value="m39">1 minuto, 39 segundos</option>
+                                                <option value="m40">1 minuto, 40 segundos</option>
+                                                <option value="m41">1 minuto, 41 segundos</option>
+                                                <option value="m42">1 minuto, 42 segundos</option>
+                                                <option value="m43">1 minuto, 43 segundos</option>
+                                                <option value="m44">1 minuto, 44 segundos</option>
+                                                <option value="m45">1 minuto, 45 segundos</option>
+                                                <option value="m46">1 minuto, 46 segundos</option>
+                                                <option value="m47">1 minuto, 47 segundos</option>
+                                                <option value="m48">1 minuto, 48 segundos</option>
+                                                <option value="m49">1 minuto, 49 segundos</option>
+                                                <option value="m50">1 minuto, 50 segundos</option>
+                                                <option value="m51">1 minuto, 51 segundos</option>
+                                                <option value="m52">1 minuto, 52 segundos</option>
+                                                <option value="m53">1 minuto, 53 segundos</option>
+                                                <option value="m54">1 minuto, 54 segundos</option>
+                                                <option value="m55">1 minuto, 55 segundos</option>
+                                                <option value="m56">1 minuto, 57 segundos</option>
+                                                <option value="m58">1 minuto, 58 segundos</option>
+                                                <option value="m59">1 minuto, 59 segundos</option>
+                                            
+                                    </select>
+                                </td>
+                                <td></td>
+                        </tr> 
+                        <tr>
+                                <td>
+                                        <label for="rest_agnt">Reinício do Tempo Limite do Agente</label>
+                                    </td>
+                                    <td align="left">
+                                            <select name="rest_agnt"> 
+                                            <option value="n">Não</option>
+                                            <option value="s">Sim</option>
+                                        </select>
+                                    </td> 
+                                    <td></td>                           
+                        </tr> 
+                        <tr>
+                                <td>
+                                        <label for="retentativa">Retentativa</label>
+                                    </td>
+                                    <td align="left">
+                                            <select name="retentativa"> 
+                                                    <option value="no">Sem Retentativa</option>
+                                                    <option value="1">1 segundo</option>
+                                                    <option value="2">2 segundos</option>
+                                                    <option value="3">3 segundos</option>
+                                                    <option value="4">4 segundos</option>
+                                                    <option value="5">5 segundos</option>
+                                                    <option value="6">6 segundos</option>
+                                                    <option value="7">7 segundos</option>
+                                                    <option value="8">8 segundos</option>
+                                                    <option value="9">9 segundos</option>
+                                                    <option value="10">10 segundos</option>
+                                                    <option value="11">10 segundos</option>
+                                                    <option value="12">12 segundos</option>
+                                                    <option value="13">13 segundos</option>
+                                                    <option value="14">14 segundos</option>
+                                                    <option value="15">15 segundos</option>
+                                                    <option value="16">16 segundos</option>
+                                                    <option value="17">17 segundos</option>
+                                                    <option value="18">18 segundos</option>
+                                                    <option value="19">19 segundos</option>
+                                                    <option value="20">21 segundos</option>
+                                                    <option value="21">21 segundos</option>
+                                                    <option value="22">22 segundos</option>
+                                                    <option value="23">23 segundos</option>
+                                                    <option value="24">24 segundos</option>
+                                                    <option value="25">25 segundos</option>
+                                                    <option value="26">27 segundos</option>
+                                                    <option value="28">28 segundos</option>
+                                                    <option value="29">29 segundos</option>
+                                                    <option value="30">30 segundos</option>
+                                                    <option value="31">31 segundos</option>
+                                                    <option value="32">32 segundos</option>
+                                                    <option value="33">33 segundos</option>
+                                                    <option value="33">33 segundos</option>
+                                                    <option value="34">34 segundos</option>
+                                                    <option value="35">35 segundos</option>
+                                                    <option value="36">36 segundos</option>
+                                                    <option value="37">37 segundos</option>
+                                                    <option value="38">38 segundos</option>
+                                                    <option value="39">39 segundos</option>
+                                                    <option value="40">40 segundos</option>
+                                                    <option value="41">41 segundos</option>
+                                                    <option value="42">42 segundos</option>
+                                                    <option value="43">43 segundos</option>
+                                                    <option value="44">44 segundos</option>
+                                                    <option value="45">45 segundos</option>
+                                                    <option value="46">46 segundos</option>
+                                                    <option value="47">47 segundos</option>
+                                                    <option value="48">48 segundos</option>
+                                                    <option value="49">49 segundos</option>
+                                                    <option value="50">50 segundos</option>
+                                                    <option value="51">51 segundos</option>
+                                                    <option value="52">52 segundos</option>
+                                                    <option value="53">53 segundos</option>
+                                                    <option value="54">54 segundos</option>
+                                                    <option value="55">55 segundos</option>
+                                                    <option value="56">57 segundos</option>
+                                                    <option value="58">58 segundos</option>
+                                                    <option value="59">59 segundos</option>
+                                                    <option value="60">60 segundos</option>    
+                                        </select>
+                                    </td>    
+                                    <td></td>                        
+                        </tr> 
+                        <tr>
+                                <td>
+                                        <label for="temp_conclu">Tempo de Conclusão</label>
+                                    </td>
+                                    <td align="left">
+                                            <select name="temp_conclu"> 
+                                                    <option value="no">Sem Retentativa</option>
+                                                    <option value="1">1 segundo</option>
+                                                    <option value="2">2 segundos</option>
+                                                    <option value="3">3 segundos</option>
+                                                    <option value="4">4 segundos</option>
+                                                    <option value="5">5 segundos</option>
+                                                    <option value="6">6 segundos</option>
+                                                    <option value="7">7 segundos</option>
+                                                    <option value="8">8 segundos</option>
+                                                    <option value="9">9 segundos</option>
+                                                    <option value="10">10 segundos</option>
+                                                    <option value="11">10 segundos</option>
+                                                    <option value="12">12 segundos</option>
+                                                    <option value="13">13 segundos</option>
+                                                    <option value="14">14 segundos</option>
+                                                    <option value="15">15 segundos</option>
+                                                    <option value="16">16 segundos</option>
+                                                    <option value="17">17 segundos</option>
+                                                    <option value="18">18 segundos</option>
+                                                    <option value="19">19 segundos</option>
+                                                    <option value="20">21 segundos</option>
+                                                    <option value="21">21 segundos</option>
+                                                    <option value="22">22 segundos</option>
+                                                    <option value="23">23 segundos</option>
+                                                    <option value="24">24 segundos</option>
+                                                    <option value="25">25 segundos</option>
+                                                    <option value="26">27 segundos</option>
+                                                    <option value="28">28 segundos</option>
+                                                    <option value="29">29 segundos</option>
+                                                    <option value="30">30 segundos</option>
+                                                    <option value="31">31 segundos</option>
+                                                    <option value="32">32 segundos</option>
+                                                    <option value="33">33 segundos</option>
+                                                    <option value="33">33 segundos</option>
+                                                    <option value="34">34 segundos</option>
+                                                    <option value="35">35 segundos</option>
+                                                    <option value="36">36 segundos</option>
+                                                    <option value="37">37 segundos</option>
+                                                    <option value="38">38 segundos</option>
+                                                    <option value="39">39 segundos</option>
+                                                    <option value="40">40 segundos</option>
+                                                    <option value="41">41 segundos</option>
+                                                    <option value="42">42 segundos</option>
+                                                    <option value="43">43 segundos</option>
+                                                    <option value="44">44 segundos</option>
+                                                    <option value="45">45 segundos</option>
+                                                    <option value="46">46 segundos</option>
+                                                    <option value="47">47 segundos</option>
+                                                    <option value="48">48 segundos</option>
+                                                    <option value="49">49 segundos</option>
+                                                    <option value="50">50 segundos</option>
+                                                    <option value="51">51 segundos</option>
+                                                    <option value="52">52 segundos</option>
+                                                    <option value="53">53 segundos</option>
+                                                    <option value="54">54 segundos</option>
+                                                    <option value="55">55 segundos</option>
+                                                    <option value="56">57 segundos</option>
+                                                    <option value="58">58 segundos</option>
+                                                    <option value="59">59 segundos</option>
+                                                    <option value="60">60 segundos</option>
+                                                    <option value="1m">1 minuto</option>
+                                                    <option value="1m2">1 minuto, 30 segundos</option>
+                                                    <option value="2m">2 minutos</option>
+                                                    <option value="2m2">2 minutos, 30 segundos</option>
+                                                    <option value="3m">3 minutos</option>
+                                                    <option value="3m2">3 minutos, 30 segundos</option>
+                                                    <option value="4m">4 minutos</option>
+                                                    <option value="4m2">4 minutos, 30 segundos</option>
+                                                    <option value="5m">5 minutos</option>
+                                                    <option value="5m2">5 minutos, 30 segundos</option>
+                                                    <option value="6m">6 minutos</option>
+                                                    <option value="6m2">6 minutos, 30 segundos</option>
+                                                    <option value="7m">7 minutos</option>
+                                                    <option value="7m2">7 minutos, 30 segundos</option>
+                                                    <option value="8m">8 minutos</option>
+                                                    <option value="8m2">8 minuto, 30 segundos</option>
+                                                    <option value="9m">9 minutos</option>
+                                                    <option value="9m2">9 minutos, 30 segundos</option>
+                                                    <option value="10m">10 minutos</option>
+                                                    <option value="10m2">10 minutos, 30 segundos</option>
+                                                    <option value="11m">11 minutos</option>
+                                                    <option value="11m2">11 minutos, 30 segundos</option>
+                                                    <option value="12m">12 minutos</option>
+                                                    <option value="12m2">12 minutos, 30 segundos</option>
+                                                    <option value="13m">13 minutos</option>
+                                                    <option value="13m2">13 minutos, 30 segundos</option>
+                                                    <option value="14m">14 minutos</option>
+                                                    <option value="14m2">14 minutos, 30 segundos</option>
+                                                    <option value="15m">15 minutos</option>
+                                                    <option value="15m2">15 minutos, 30 segundos</option>
+                                                    <option value="16m">16 minutos</option>
+                                                    <option value="16m2">16 minutos, 30 segundos</option>
+                                                    <option value="17m">17 minutos</option>
+                                                    <option value="17m2">17 minutos, 30 segundos</option>
+                                                    <option value="18m">18 minutos</option>
+                                                    <option value="18m2">18 minutos, 30 segundos</option>
+                                                    <option value="19m">19 minutos</option>
+                                                    <option value="19m2">19 minutos, 30 segundos</option>
+                                                    <option value="20m">20 minutos</option>
+                                                    <option value="20m2">20 minutos, 30 segundos</option>
+                                                    <option value="21m">21 minutos</option>
+                                                    <option value="21m2">21 minutos, 30 segundos</option>
+                                                    <option value="22m">22 minutos</option>
+                                                    <option value="22m2">22 minutos, 30 segundos</option>
+                                                    <option value="23m">23 minutos</option>
+                                                    <option value="23m2">23 minutos, 30 segundos</option>
+                                                    <option value="24m">24 minutos</option>
+                                                    <option value="24m2">24 minutos, 30 segundos</option>
+                                                    <option value="25m">25 minutos</option>
+                                                    <option value="25m2">25 minutos, 30 segundos</option>
+                                                    <option value="26m">26 minutos</option>
+                                                    <option value="26m2">26 minutos, 30 segundos</option>
+                                                    <option value="27m">27 minutos</option>
+                                                    <option value="27m2">27 minutos, 30 segundos</option>
+                                                    <option value="28m">28 minutos</option>
+                                                    <option value="28m2">28 minutos, 30 segundos</option>
+                                                    <option value="29m">29 minutos</option>
+                                                    <option value="29m2">29 minutos, 30 segundos</option>
+                                                    <option value="30m">30 minutos</option>
+                                                    <option value="30m2">30 minutos, 30 segundos</option>
+                                                    <option value="31m">31 minutos</option>
+                                                    <option value="31m2">31 minutos, 30 segundos</option>
+                                                    <option value="32m">32 minutos</option>
+                                                    <option value="32m2">32 minutos, 30 segundos</option>
+                                                    <option value="33m">33 minutos</option>
+                                                    <option value="33m2">33 minutos, 30 segundos</option>
+                                                    <option value="34m">34 minutos</option>
+                                                    <option value="34m2">34 minutos, 30 segundos</option>
+                                                    <option value="35m">35 minutos</option>
+                                                    <option value="35m2">35 minutos, 30 segundos</option>
+                                                    <option value="36m">36 minutos</option>
+                                                    <option value="36m2">36 minutos, 30 segundos</option>
+                                                    <option value="37m">37 minutos</option>
+                                                    <option value="37m2">37 minutos, 30 segundos</option>
+                                                    <option value="38m">38 minutos</option>
+                                                    <option value="38m2">38 minutos, 30 segundos</option>
+                                                    <option value="39m">39 minutos</option>
+                                                    <option value="39m2">39 minutos, 30 segundos</option>
+                                                    <option value="40m">40 minutos</option>
+                                                    <option value="40m2">40 minuto, 30 segundos</option>
+                                                    <option value="41m">41 minutos</option>
+                                                    <option value="41m2">41 minuto, 30 segundos</option>
+                                                    <option value="42m">42 minutos</option>
+                                                    <option value="42m2">42 minuto, 30 segundos</option>
+                                                    <option value="43m">43 minutos</option>
+                                                    <option value="43m2">43 minutos, 30 segundos</option>
+                                                    <option value="44m">44 minutos</option>
+                                                    <option value="44m2">44 minutos, 30 segundos</option>
+                                                    <option value="45m">45 minutos</option>
+                                                    <option value="45m2">45 minutos, 30 segundos</option>
+                                                    <option value="46m">46 minutos</option>
+                                                    <option value="46m2">46 minutos, 30 segundos</option>
+                                                    <option value="47m">47 minutos</option>
+                                                    <option value="47m2">47 minutos, 30 segundos</option>
+                                                    <option value="48m">48 minutos</option>
+                                                    <option value="48m2">48 minutos, 30 segundos</option>
+                                                    <option value="49m">49 minutos</option>
+                                                    <option value="49m2">49 minutos, 30 segundos</option>
+                                                    <option value="50m">50 minutos</option>
+                                                    <option value="50m2">50 minutos, 30 segundos</option>
+                                                    <option value="51m">51 minutos</option>
+                                                    <option value="51m2">51 minutos, 30 segundos</option>
+                                                    <option value="52m">52 minutos</option>
+                                                    <option value="52m2">52 minutos, 30 segundos</option>
+                                                    <option value="53m">53 minutos</option>
+                                                    <option value="53m2">53 minutos, 30 segundos</option>
+                                                    <option value="54m">54 minutos</option>
+                                                    <option value="54m2">54 minutos, 30 segundos</option>
+                                                    <option value="55m">55 minutos</option>
+                                                    <option value="55m2">55 minutos, 30 segundos</option>
+                                                    <option value="56m">56 minutos</option>
+                                                    <option value="56m2">56 minutos, 30 segundos</option>
+                                                    <option value="57m">57 minutos</option>
+                                                    <option value="57m2">57 minutos, 30 segundos</option>
+                                                    <option value="58m">58 minutos</option>
+                                                    <option value="58m2">58 minuto2, 30 segundos</option>
+                                                    <option value="59m">59 minutos</option>    
+                                                    <option value="59m2">59 minutos, 30 segundos</option>
+                                        </select>
+                                    </td> 
+                                    <td></td>                           
+                        </tr> 
+                        <tr>
+                                <td>
+                                        <label for="delay">Delay de Membro</label>
+                                    </td>
+                                    <td align="left">
+                                            <select name="delay"> 
+                                                    <option value="0">0 segundo</option>
+                                                    <option value="1">1 segundo</option>
+                                                    <option value="2">2 segundos</option>
+                                                    <option value="3">3 segundos</option>
+                                                    <option value="4">4 segundos</option>
+                                                    <option value="5">5 segundos</option>
+                                                    <option value="6">6 segundos</option>
+                                                    <option value="7">7 segundos</option>
+                                                    <option value="8">8 segundos</option>
+                                                    <option value="9">9 segundos</option>
+                                                    <option value="10">10 segundos</option>
+                                                    <option value="11">10 segundos</option>
+                                                    <option value="12">12 segundos</option>
+                                                    <option value="13">13 segundos</option>
+                                                    <option value="14">14 segundos</option>
+                                                    <option value="15">15 segundos</option>
+                                                    <option value="16">16 segundos</option>
+                                                    <option value="1m">1 minuto</option>
+                                                    <option value="1m2">1 minuto, 30 segundos</option>
+                                                    <option value="2m">2 minutos</option>
+                                                    <option value="2m2">2 minutos, 30 segundos</option>
+                                                    <option value="3m">3 minutos</option>
+                                                    <option value="3m2">3 minutos, 30 segundos</option>
+                                                    <option value="4m">4 minutos</option>
+                                                    <option value="4m2">4 minutos, 30 segundos</option>
+                                                    <option value="5m">5 minutos</option>
+                                                    <option value="5m2">5 minutos, 30 segundos</option>
+                                                    <option value="6m">6 minutos</option>
+                                                    <option value="6m2">6 minutos, 30 segundos</option>
+                                                    <option value="7m">7 minutos</option>
+                                                    <option value="7m2">7 minutos, 30 segundos</option>
+                                                    <option value="8m">8 minutos</option>
+                                                    <option value="8m2">8 minuto, 30 segundos</option>
+                                                    <option value="9m">9 minutos</option>
+                                                    <option value="9m2">9 minutos, 30 segundos</option>
+                                                    <option value="10m">10 minutos</option>
+                                                    <option value="10m2">10 minutos, 30 segundos</option>
+                                                    <option value="11m">11 minutos</option>
+                                                    <option value="11m2">11 minutos, 30 segundos</option>
+                                                    <option value="12m">12 minutos</option>
+                                                    <option value="12m2">12 minutos, 30 segundos</option>
+                                                    <option value="13m">13 minutos</option>
+                                                    <option value="13m2">13 minutos, 30 segundos</option>
+                                                    <option value="14m">14 minutos</option>
+                                                    <option value="14m2">14 minutos, 30 segundos</option>
+                                                    <option value="15m">15 minutos</option>
+                                                    <option value="15m2">15 minutos, 30 segundos</option>
+                                                    <option value="16m">16 minutos</option>
+                                                    <option value="16m2">16 minutos, 30 segundos</option>
+                                                    <option value="17m">17 minutos</option>
+                                                    <option value="17m2">17 minutos, 30 segundos</option>
+                                                    <option value="18m">18 minutos</option>
+                                                    <option value="18m2">18 minutos, 30 segundos</option>
+                                                    <option value="19m">19 minutos</option>
+                                                    <option value="19m2">19 minutos, 30 segundos</option>
+                                                    <option value="20m">20 minutos</option>    <option value="17">17 segundos</option>
+                                                    <option value="18">18 segundos</option>
+                                                    <option value="19">19 segundos</option>
+                                                    <option value="20">21 segundos</option>
+                                                    <option value="21">21 segundos</option>
+                                                    <option value="22">22 segundos</option>
+                                                    <option value="23">23 segundos</option>
+                                                    <option value="24">24 segundos</option>
+                                                    <option value="25">25 segundos</option>
+                                                    <option value="26">27 segundos</option>
+                                                    <option value="28">28 segundos</option>
+                                                    <option value="29">29 segundos</option>
+                                                    <option value="30">30 segundos</option>
+                                                    <option value="31">31 segundos</option>
+                                                    <option value="32">32 segundos</option>
+                                                    <option value="33">33 segundos</option>
+                                                    <option value="33">33 segundos</option>
+                                                    <option value="34">34 segundos</option>
+                                                    <option value="35">35 segundos</option>
+                                                    <option value="36">36 segundos</option>
+                                                    <option value="37">37 segundos</option>
+                                                    <option value="38">38 segundos</option>
+                                                    <option value="39">39 segundos</option>
+                                                    <option value="40">40 segundos</option>
+                                                    <option value="41">41 segundos</option>
+                                                    <option value="42">42 segundos</option>
+                                                    <option value="43">43 segundos</option>
+                                                    <option value="44">44 segundos</option>
+                                                    <option value="45">45 segundos</option>
+                                                    <option value="46">46 segundos</option>
+                                                    <option value="47">47 segundos</option>
+                                                    <option value="48">48 segundos</option>
+                                                    <option value="49">49 segundos</option>
+                                                    <option value="50">50 segundos</option>
+                                                    <option value="51">51 segundos</option>
+                                                    <option value="52">52 segundos</option>
+                                                    <option value="53">53 segundos</option>
+                                                    <option value="54">54 segundos</option>
+                                                    <option value="55">55 segundos</option>
+                                                    <option value="56">57 segundos</option>
+                                                    <option value="58">58 segundos</option>
+                                                    <option value="59">59 segundos</option>
+                                                    <option value="60">60 segundos</option>    
+                                        </select>
+                                    </td>  
+                                    <td></td>                          
+                        </tr>
+                        <tr>
+                                <td>
+                                        <label for="agnt_a">Agente de Anúncio</label>
+                                    </td>
+                                    <td align="left">
+                                            <select name="agnt_a"> 
+                                            <option value="nem">Nenhum</option>
+                                        </select>
+                                    </td>   
+                                    <td></td>                         
+                        </tr> 
+                        <tr>
+                                <td>
+                                        <label for="report_time">Reportar Tempo de Espera</label>
+                                    </td>
+                                    <td align="left">
+                                            <select name="report_time"> 
+                                            <option value="n">Não</option>
+                                            <option value="s">Sim</option>
+                                        </select>
+                                    </td>  
+                                    <td></td>                          
+                        </tr> 
+                        <tr>
+                                <td>
+                                        <label for="pausa_auto">Pausa Automática</label>
+                                    </td>
+                                    <td align="left">
+                                            <select name="pausa_auto"> 
+                                            <option value="n">Não</option>
+                                            <option value="s">Sim, nessa fila apenas</option>
+                                            <option value="s-all">Sim, em todas as filas</option>
+                                        </select>
+                                    </td>   
+                                    <td></td>                         
+                        </tr> 
+                        <tr>
+                                <td>
+                                        <label for="pausa_ocup">Pausa Automática em Ocupado</label>
+                                    </td>
+                                    <td align="left">
+                                            <select name="pausa_ocup"> 
+                                            <option value="n">Não</option>
+                                            <option value="s">Sim</option>
+                                        </select>
+                                    </td>        
+                                    <td></td>                    
+                        </tr> 
+                        <tr>
+                                <td>
+                                        <label for="pausa_ocup">Pausa Automática em Ocupado</label>
+                                    </td>
+                                    <td align="left">
+                                            <select name="pausa_ocup"> 
+                                            <option value="n">Não</option>
+                                            <option value="s">Sim</option>
+                                        </select>
+                                    </td>  
+                                    <td></td>                          
+                        </tr>
+                        <tr>
+                                <td>
+                                        <label for="pausa_ind">Pausa Automática em Indisponível</label>
+                                    </td>
+                                    <td align="left">
+                                            <select name="pausa_ind"> 
+                                            <option value="n">Não</option>
+                                            <option value="s">Sim</option>
+                                        </select>
+                                    </td> 
+                                    <td></td>                           
+                        </tr>
+                        <tr>
+                                <td>
+                                <label for="delay_pausa">Delay de Pausa Automático: </label>
+                                </td>
+                                <td align="left">
+                                <input type="text" name="delay_pausa">
+                                </td>
+                            <td></td>
+                        </tr>
+                    <br/>
+    <br/>
+
+        <table cellspacing="10">
+                <tr>
+                        <td>
+                        <label for="max_callers">Máximo de Chamadores: </label>
+                        </td>
+                        <td align="left">
+                                <select name="max_callers"> 
+                                        <option value="0">0 </option>
+                                        <option value="1">1 </option>
+                                        <option value="2">2 </option>
+                                        <option value="3">3 </option>
+                                        <option value="4">4 </option>
+                                        <option value="5">5 </option>
+                                        <option value="6">6 </option>
+                                        <option value="7">7 </option>
+                                        <option value="8">8 </option>
+                                        <option value="9">9 </option>
+                                        <option value="10">10 </option>
+                                        <option value="11">10 </option>
+                                        <option value="12">12 </option>
+                                        <option value="13">13 </option>
+                                        <option value="14">14 </option>
+                                        <option value="15">15 </option>
+                                        <option value="16">16 </option>
+                                        <option value="17">17 </option>
+                                        <option value="18">18 </option>
+                                        <option value="19">19 </option>
+                                        <option value="20">20 </option>
+                                        <option value="21">21 </option>
+                                        <option value="22">22 </option>
+                                        <option value="23">23 </option>
+                                        <option value="24">24 </option>
+                                        <option value="25">25 </option>
+                                        <option value="26">27 </option>
+                                        <option value="28">28 </option>
+                                        <option value="29">29 </option>
+                                        <option value="30">30 </option>
+                                        <option value="31">31 </option>
+                                        <option value="32">32 </option>
+                                        <option value="33">33 </option>
+                                        <option value="33">33 </option>
+                                        <option value="34">34 </option>
+                                        <option value="35">35 </option>
+                                        <option value="36">36 </option>
+                                        <option value="37">37 </option>
+                                        <option value="38">38 </option>
+                                        <option value="39">39 </option>
+                                        <option value="40">40 </option>
+                                        <option value="41">41 </option>
+                                        <option value="42">42 </option>
+                                        <option value="43">43 </option>
+                                        <option value="44">44 </option>
+                                        <option value="45">45 </option>
+                                        <option value="46">46 </option>
+                                        <option value="47">47 </option>
+                                        <option value="48">48 </option>
+                                        <option value="49">49 </option>
+                                        <option value="50">50 </option>
+                        </td>
+                    <td></td>
+                </tr>
+                <tr>
+                        <td>
+                                <label for="join_empty">Entrada Vazia</label>
+                            </td>
+                            <td align="left">
+                                    <select name="join_empty"> 
+                                    <option value="s">Sim</option>
+                                    <option value="n">Não</option>
+                                    <option value="estrito">Estrito</option>
+                                    <option value="plus_ultra">Ultra Estrito</option>
+                                    <option value="solto">Solto</option>
+                                </select>
+                            </td>  
+                            <td></td>                          
+                </tr>
+                <tr>
+                        <td>
+                                <label for="leaven_empty">Deixar Vazia</label>
+                            </td>
+                            <td align="left">
+                                    <select name="leave_empty"> 
+                                    <option value="s">Sim</option>
+                                    <option value="n">Não</option>
+                                    <option value="estrito">Estrito</option>
+                                    <option value="plus_ultra">Ultra Estrito</option>
+                                    <option value="solto">Solto</option>
+                                </select>
+                            </td>  
+                            <td></td>                                                     
+                </tr>
+                <tr>
+                        <td>
+                                <label for="penalty">Limite de Penalidades de Membros</label>
+                            </td>
+                            <td align="left">
+                                    <select name="penalty"> 
+                                    <option value="honor">Penalidades de Honra</option>
+                                    <option value="1">1 </option>
+                                    <option value="2">2 </option>
+                                    <option value="3">3 </option>
+                                    <option value="4">4 </option>
+                                    <option value="5">5 </option>
+                                    <option value="6">6 </option>
+                                    <option value="7">7 </option>
+                                    <option value="8">8 </option>
+                                    <option value="9">9 </option>
+                                    <option value="10">10 </option>
+                                    <option value="11">10 </option>
+                                    <option value="12">12 </option>
+                                    <option value="13">13 </option>
+                                    <option value="14">14 </option>
+                                    <option value="15">15 </option>
+                                    <option value="16">16 </option>
+                                    <option value="17">17 </option>
+                                    <option value="18">18 </option>
+                                    <option value="19">19 </option>
+                                    <option value="20">20 </option>
+                                </select>
+                            </td> 
+                            <td></td>                           
+                </tr>
+            <br/>  
+                    <br/>
+                            <tr>
+                                <td>
+                                        <label for="frequency">Frequência</label>
+                                    </td>
+                                    <td align="left">
+                                            <select name="frequency">
+                                                    <option value="0">0 segundo</option>
+                                                    <option value="15">15 segundos</option>
+                                                    <option value="30">30 segundos</option>
+                                                    <option value="45">45 segundos</option>
+                                                    <option value="1m">1 minuto</option>
+                                                    <option value="1m1">1 minuto, 15 segundos</option>
+                                                    <option value="1m2">1 minuto, 30 segundos</option>
+                                                    <option value="1m4">1 minuto, 45 segundos</option>
+                                                    <option value="2m">2 minutos</option>
+                                                    <option value="2m1">2 minutos, 15 segundos</option>
+                                                    <option value="2m2">2 minutos, 30 segundos</option>
+                                                    <option value="2m4">2 minutos, 45 segundos</option>
+                                                    <option value="3m">3 minutos</option>
+                                                    <option value="3m1">3 minutos, 15 segundos</option>
+                                                    <option value="3m2">3 minutos, 30 segundos</option>
+                                                    <option value="3m4">3 minutos, 45 segundos</option>
+                                                    <option value="4m">4 minutos</option>
+                                                    <option value="4m1">4 minutos, 15 segundos</option>
+                                                    <option value="4m2">4 minutos, 30 segundos</option>
+                                                    <option value="4m4">4 minutos, 45 segundos</option>
+                                                    <option value="5m">5 minutos</option>
+                                                    <option value="5m1">5 minutos, 15 segundos</option>
+                                                    <option value="5m2">5 minutos, 30 segundos</option>
+                                                    <option value="5m4">5 minutos, 45 segundos</option>
+                                                    <option value="6m">6 minutos</option>
+                                                    <option value="6m1">6 minutos, 15 segundos</option>
+                                                    <option value="6m2">6 minutos, 30 segundos</option>
+                                                    <option value="6m4">6 minutos, 45 segundos</option>
+                                                    <option value="7m">7 minutos</option>
+                                                    <option value="7m1">7 minutos, 15 segundos</option>
+                                                    <option value="7m2">7 minutos, 30 segundos</option>
+                                                    <option value="7m4">7 minutos, 45 segundos</option>
+                                                    <option value="8m">8 minutos</option>
+                                                    <option value="8m1">8 minuto, 15 segundos</option>
+                                                    <option value="8m2">8 minuto, 30 segundos</option>
+                                                    <option value="8m4">8 minuto, 45 segundos</option>
+                                                    <option value="9m">9 minutos</option>
+                                                    <option value="9m1">9 minutos, 15 segundos</option>
+                                                    <option value="9m2">9 minutos, 30 segundos</option>
+                                                    <option value="9m4">9 minutos, 45 segundos</option>
+                                                    <option value="10m">10 minutos</option>
+                                                    <option value="10m1">10 minutos, 15 segundos</option>
+                                                    <option value="10m2">10 minutos, 30 segundos</option>
+                                                    <option value="10m4">10 minutos, 45 segundos</option>
+                                                    <option value="11m">11 minutos</option>
+                                                    <option value="11m1">11 minutos, 15 segundos</option>
+                                                    <option value="11m2">11 minutos, 30 segundos</option>
+                                                    <option value="11m4">11 minutos, 45 segundos</option>
+                                                    <option value="12m">12 minutos</option>
+                                                    <option value="12m1">12 minutos, 15 segundos</option>
+                                                    <option value="12m2">12 minutos, 30 segundos</option>
+                                                    <option value="12m4">12 minutos, 45 segundos</option>
+                                                    <option value="13m">13 minutos</option>
+                                                    <option value="13m1">13 minutos, 15 segundos</option>
+                                                    <option value="13m2">13 minutos, 30 segundos</option>
+                                                    <option value="13m4">13 minutos, 45 segundos</option>
+                                                    <option value="14m">14 minutos</option>
+                                                    <option value="14m1">14 minutos, 15 segundos</option>
+                                                    <option value="14m2">14 minutos, 30 segundos</option>
+                                                    <option value="14m4">14 minutos, 45 segundos</option>
+                                                    <option value="15m">15 minutos</option>
+                                                    <option value="15m1">15 minutos, 15 segundos</option>
+                                                    <option value="15m2">15 minutos, 30 segundos</option>
+                                                    <option value="15m4">15 minutos, 45 segundos</option>
+                                                    <option value="16m">16 minutos</option>
+                                                    <option value="16m1">16 minutos, 15 segundos</option>
+                                                    <option value="16m2">16 minutos, 30 segundos</option>
+                                                    <option value="16m4">16 minutos, 45 segundos</option>
+                                                    <option value="17m">17 minutos</option>
+                                                    <option value="17m1">17 minutos, 15 segundos</option>
+                                                    <option value="17m2">17 minutos, 30 segundos</option>
+                                                    <option value="17m4">17 minutos, 45 segundos</option>
+                                                    <option value="18m">18 minutos</option>
+                                                    <option value="18m1">18 minutos, 15 segundos</option>
+                                                    <option value="18m2">18 minutos, 30 segundos</option>
+                                                    <option value="18m4">18 minutos, 45 segundos</option>
+                                                    <option value="19m">19 minutos</option>
+                                                    <option value="19m1">19 minutos, 15 segundos</option>
+                                                    <option value="19m2">19 minutos, 30 segundos</option>
+                                                    <option value="19m1">19 minutos, 4 segundos</option>
+                                                    <option value="20m">20 minutos</option>
+                                            </select> 
+                                    </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                    <td>
+                                            <label for="position">Anunciar Posição</label>
+                                        </td>
+                                        <td align="left">
+                                                <select name="position"> 
+                                                    <option value="n">Não</option>
+                                                    <option value="s">Sim</option>
+                                            </select>
+                                        </td>  
+                                        <td></td>                                                     
+                            </tr>
+                            <tr>
+                                    <td>
+                                            <label for="position">Anunciar Tempo de Espera</label>
+                                        </td>
+                                        <td align="left">
+                                                <select name="position"> 
+                                                    <option value="n">Não</option>
+                                                    <option value="s">Sim</option>
+                                                    <option value="once">Uma Vez</option>
+                                            </select>
+                                        </td>  
+                                        <td></td>                                                     
+                            </tr>
+                            
+                            
+        <br/> 
+                <table cellspacing="10"> 
+                    <tr>
+                            <td>
+                                    <label for="break_out">Menu de Saída IVR</label>
+                                </td>
+                                <td align="left">
+                                        <select name="break_out"> 
+                                            <option value="none">Nenhum</option>
+                                            <option value="ivr">IVR CAM</option>
+                                            <option value="unamed">Sem Nome</option>
+                                    </select>
+                                </td>  
+                                <td></td>                                                     
+                    </tr>
+                    <tr>
+                            <td>
+                                    <label for="r_frequency">Repetir Frequência</label>
+                                </td>
+                                <td align="left">
+                                        <select name="r_frequency">
+                                                <option value="0">0 segundo</option>
+                                                <option value="15">15 segundos</option>
+                                                <option value="30">30 segundos</option>
+                                                <option value="45">45 segundos</option>
+                                                <option value="1m">1 minuto</option>
+                                                <option value="1m1">1 minuto, 15 segundos</option>
+                                                <option value="1m2">1 minuto, 30 segundos</option>
+                                                <option value="1m4">1 minuto, 45 segundos</option>
+                                                <option value="2m">2 minutos</option>
+                                                <option value="2m1">2 minutos, 15 segundos</option>
+                                                <option value="2m2">2 minutos, 30 segundos</option>
+                                                <option value="2m4">2 minutos, 45 segundos</option>
+                                                <option value="3m">3 minutos</option>
+                                                <option value="3m1">3 minutos, 15 segundos</option>
+                                                <option value="3m2">3 minutos, 30 segundos</option>
+                                                <option value="3m4">3 minutos, 45 segundos</option>
+                                                <option value="4m">4 minutos</option>
+                                                <option value="4m1">4 minutos, 15 segundos</option>
+                                                <option value="4m2">4 minutos, 30 segundos</option>
+                                                <option value="4m4">4 minutos, 45 segundos</option>
+                                                <option value="5m">5 minutos</option>
+                                                <option value="5m1">5 minutos, 15 segundos</option>
+                                                <option value="5m2">5 minutos, 30 segundos</option>
+                                                <option value="5m4">5 minutos, 45 segundos</option>
+                                                <option value="6m">6 minutos</option>
+                                                <option value="6m1">6 minutos, 15 segundos</option>
+                                                <option value="6m2">6 minutos, 30 segundos</option>
+                                                <option value="6m4">6 minutos, 45 segundos</option>
+                                                <option value="7m">7 minutos</option>
+                                                <option value="7m1">7 minutos, 15 segundos</option>
+                                                <option value="7m2">7 minutos, 30 segundos</option>
+                                                <option value="7m4">7 minutos, 45 segundos</option>
+                                                <option value="8m">8 minutos</option>
+                                                <option value="8m1">8 minuto, 15 segundos</option>
+                                                <option value="8m2">8 minuto, 30 segundos</option>
+                                                <option value="8m4">8 minuto, 45 segundos</option>
+                                                <option value="9m">9 minutos</option>
+                                                <option value="9m1">9 minutos, 15 segundos</option>
+                                                <option value="9m2">9 minutos, 30 segundos</option>
+                                                <option value="9m4">9 minutos, 45 segundos</option>
+                                                <option value="10m">10 minutos</option>
+                                                <option value="10m1">10 minutos, 15 segundos</option>
+                                                <option value="10m2">10 minutos, 30 segundos</option>
+                                                <option value="10m4">10 minutos, 45 segundos</option>
+                                                <option value="11m">11 minutos</option>
+                                                <option value="11m1">11 minutos, 15 segundos</option>
+                                                <option value="11m2">11 minutos, 30 segundos</option>
+                                                <option value="11m4">11 minutos, 45 segundos</option>
+                                                <option value="12m">12 minutos</option>
+                                                <option value="12m1">12 minutos, 15 segundos</option>
+                                                <option value="12m2">12 minutos, 30 segundos</option>
+                                                <option value="12m4">12 minutos, 45 segundos</option>
+                                                <option value="13m">13 minutos</option>
+                                                <option value="13m1">13 minutos, 15 segundos</option>
+                                                <option value="13m2">13 minutos, 30 segundos</option>
+                                                <option value="13m4">13 minutos, 45 segundos</option>
+                                                <option value="14m">14 minutos</option>
+                                                <option value="14m1">14 minutos, 15 segundos</option>
+                                                <option value="14m2">14 minutos, 30 segundos</option>
+                                                <option value="14m4">14 minutos, 45 segundos</option>
+                                                <option value="15m">15 minutos</option>
+                                                <option value="15m1">15 minutos, 15 segundos</option>
+                                                <option value="15m2">15 minutos, 30 segundos</option>
+                                                <option value="15m4">15 minutos, 45 segundos</option>
+                                                <option value="16m">16 minutos</option>
+                                                <option value="16m1">16 minutos, 15 segundos</option>
+                                                <option value="16m2">16 minutos, 30 segundos</option>
+                                                <option value="16m4">16 minutos, 45 segundos</option>
+                                                <option value="17m">17 minutos</option>
+                                                <option value="17m1">17 minutos, 15 segundos</option>
+                                                <option value="17m2">17 minutos, 30 segundos</option>
+                                                <option value="17m4">17 minutos, 45 segundos</option>
+                                                <option value="18m">18 minutos</option>
+                                                <option value="18m1">18 minutos, 15 segundos</option>
+                                                <option value="18m2">18 minutos, 30 segundos</option>
+                                                <option value="18m4">18 minutos, 45 segundos</option>
+                                                <option value="19m">19 minutos</option>
+                                                <option value="19m1">19 minutos, 15 segundos</option>
+                                                <option value="19m2">19 minutos, 30 segundos</option>
+                                                <option value="19m1">19 minutos, 4 segundos</option>
+                                                <option value="20m">20 minutos</option>
+                                        </select> 
+                                </td>
+                            <td></td>
+                        </tr>
+        <br/>  
+                    <br/> 
+                        <table cellspacing="10"> 
+                                <tr>
+                                        <td>
+                                                <label for="event_called">Quando o Evento é Chamado</label>
+                                            </td>
+                                            <td align="left">
+                                                    <select name="event_called"> 
+                                                        <option value="hab">Habilitado</option>
+                                                        <option value="des">Desabilitado</option>
+                                                </select>
+                                            </td>  
+                                            <td></td>                                                     
+                                </tr>
+                                <tr>
+                                        <td>
+                                                <label for="status">Evento do Status do Membro</label>
+                                            </td>
+                                            <td align="left">
+                                                    <select name="event_status"> 
+                                                        <option value="hab">Habilitado</option>
+                                                        <option value="des">Desabilitado</option>
+                                                </select>
+                                            </td>  
+                                            <td></td>                                                     
+                                </tr>
+                                <tr>
+                                        <td>
+                                                <label for="service_level">Nível de Serviço</label>
+                                            </td>
+                                            <td align="left">
+                                                    <select name="service_level"> 
+                                                            <option value="15">15 segundos</option>
+                                                            <option value="30">30 segundos</option>
+                                                            <option value="45">45 segundos</option>
+                                                            <option value="1m">1 minuto</option>
+                                                            <option value="1m1">1 minuto, 15 segundos</option>
+                                                            <option value="1m2">1 minuto, 30 segundos</option>
+                                                            <option value="1m4">1 minuto, 45 segundos</option>
+                                                            <option value="2m">2 minutos</option>
+                                                            <option value="2m1">2 minutos, 15 segundos</option>
+                                                            <option value="2m2">2 minutos, 30 segundos</option>
+                                                            <option value="2m4">2 minutos, 45 segundos</option>
+                                                            <option value="3m">3 minutos</option>
+                                                            <option value="3m1">3 minutos, 15 segundos</option>
+                                                            <option value="3m2">3 minutos, 30 segundos</option>
+                                                            <option value="3m4">3 minutos, 45 segundos</option>
+                                                            <option value="4m">4 minutos</option>
+                                                            <option value="4m1">4 minutos, 15 segundos</option>
+                                                            <option value="4m2">4 minutos, 30 segundos</option>
+                                                            <option value="4m4">4 minutos, 45 segundos</option>
+                                                            <option value="5m">5 minutos</option>
+                                                </select>
+                                            </td>  
+                                            <td></td>                                                     
+                                </tr>
+                                <tr>
+                                        <td>
+                                        <label for="nome">Filtro de Agente Regex: </label>
+                                        </td>
+                                        <td align="left">
+                                        <input type="text" name="nome">
+                                        </td>
+                                    <td></td>
+                                </tr>
+                    <br/>
+            <br/> 
+            <table cellspacing="10">
+                    <tr>
+                            <td>
+                            <label for="fail">Fracasso sobre Destino: </label>
+                            <td align="left">
+                                    <select name="fail"> 
+                                        <option value="def">===escolha um===</option>
+                                </select>
+                            </td>
+                            <td align="left">
+                                    <select hidden name="fail"> 
+                                        <option value="ivr">IVR CAM</option>
+                                </select>
+                            </td>
+                        <td></td>
+                    </tr>
+                <br/> 
+            <br/> 
+                    <table cellspacing="10">
+                        <tr> 
+                        <td>
+                                    <label for="run">Run: </label>
+                                    <td align="left">
+                                            <select name="run"> 
+                                                <option value="nunca">Nunca</option>
+                                                <option value="hora">De hora em hora</option>
+                                                <option value="day">Diariamente</option>
+                                                <option value="week">Semanalmente</option>
+                                                <option value="mes">Mensalmente</option>
+                                                <option value="ano">Anualmente</option>
+                                                <option value="reboot">Reboot</option>
+                                                <option value="costum">Costumizar</option>
+                                        </select>
+                                    </td>
+                                </tr>
+
+            <br/>
         </div>
         </body> 
     
     </table>
     </div>
+    <button type="submit">Cadastrar</button>
+
 {% endblock %}
+<fieldset>
