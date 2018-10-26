@@ -1,6 +1,6 @@
 import django_tables2 as tables
 #import django_filters
-from .models import CondicaoTempo
+from .models import CondicaoTempo ,GrupoTempo
 
 from django.db import models
 from django.utils import six
@@ -20,5 +20,5 @@ class CondicaoTempoTable(tables.Table):
     #     verbose_name=''
     #     )
     class Meta:
-        model = CondicaoTempo
-        fields = ('nome','editar','excluir')
+        model = GrupoTempo
+        fields = ('horaInicio','editar','excluir')

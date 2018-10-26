@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render ,redirect
 from django.contrib.auth.decorators import login_required
-from .models import CondicaoTempo 
+from .models import CondicaoTempo, GrupoTempo
 import re
 from django_tables2 import RequestConfig
 from .tables import CondicaoTempoTable
@@ -12,13 +12,13 @@ def add(request):
 
 @login_required
 def list(request):
-    table = CondicaoTempoTable(CondicaoTempo.objects.all())
+    table = CondicaoTempoTable(GrupoTempo.objects.all())
     RequestConfig(request, paginate={'per_page': 10}).configure(table)
     return render(request, 'condicoesTempo.html',{'table': table})
 
 @login_required
 def condicoestempo_novo(request):
-    nome = request.POST['nome']
+    #nome = request.POST['nome']
     horaInicio = request.POST['hora_inicio']
     horaFim = request.POST['hora_termino']
     diaSemanaInicio = request.POST['dia_semana_ini']
@@ -29,7 +29,7 @@ def condicoestempo_novo(request):
     mesFim = request.POST['mes_termino']
 
     #destino = request.POST['nome']   
-    condicoestempo = CondicaoTempo(nome=nome, horaInicio=horaInicio,horaFim=horaFim, diaSemanaInicio=diaSemanaInicio,
+    condicoestempo = GrupoTempo( horaInicio=horaInicio,horaFim=horaFim, diaSemanaInicio=diaSemanaInicio,
     diaSemanaFim=diaSemanaFim, diaMesInicio=diaMesInicio, diaMesFim= diaMesFim,mesIncio=mesIncio,mesFim=mesFim)
     condicoestempo.save()
     return redirect ('/condicoestempo/')

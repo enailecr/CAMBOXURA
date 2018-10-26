@@ -62,4 +62,5 @@ class GrupoTempo(Destino):
     diaMesFim = models.CharField(max_length=2, choices=DIAS_CHOICES)
     mesIncio = models.CharField(max_length=9, choices=MONTH_CHOICES)
     mesFim = models.CharField(max_length=9, choices=MONTH_CHOICES)
-    condTempo = models.ForeignKey('CondicaoTempo', on_delete=models.CASCADE,)
+    #null para teste
+    condTempo = models.ForeignKey('CondicaoTempo', on_delete=models.CASCADE,null= True)
