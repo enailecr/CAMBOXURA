@@ -37,10 +37,10 @@ def condicoestempo_novo(request):
 @login_required
 def condicoestempo_edita(request, id):
     data = {}
-    condicoestempo = CondicaoTempo.objects.get(id=id)
+    condicoestempo = GrupoTempo.objects.get(id=id)
     data['condicoestempo'] = condicoestempo
     if request.method == 'POST':
-        condicoestempo = CondicaoTempo.objects.get(id=id)
+        condicoestempo = GrupoTempo.objects.get(id=id)
     
         nome = request.POST['nome']
         horaInicio = request.POST['hora_inicio']
@@ -71,6 +71,6 @@ def condicoestempo_edita(request, id):
 
 @login_required
 def condicoestempo_remove(request, id):
-    condicoestempo = CondicaoTempo.objects.get(id=id)
+    condicoestempo = GrupoTempo.objects.get(id=id)
     condicoestempo.delete()
     return redirect('/condicoestempo/')
