@@ -22,12 +22,14 @@ class TroncoSIP(Tronco):
     nomeTronco = models.CharField(max_length=40, null=True, blank=True)
     detalhesPEER = models.TextField(null=True, blank=True)
     contextoUsuario = models.CharField(max_length=40, null=True, blank=True)
+    detalhesUsuario = models.TextField(null=True, blank=True)
     stringRegistro = models.TextField(null=True, blank=True)
 
 class TroncoIAX(Tronco):
     nomeTronco = models.CharField(max_length=40, null=True, blank=True)
     detalhesPEER = models.TextField(null=True, blank=True)
     contextoUsuario = models.CharField(max_length=40, null=True, blank=True)
+    detalhesUsuario = models.TextField(null=True, blank=True)
     stringRegistro = models.TextField(null=True, blank=True)
 
 class TroncoCustomizado(Tronco):

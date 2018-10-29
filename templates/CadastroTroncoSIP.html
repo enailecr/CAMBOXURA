@@ -5,10 +5,10 @@
 
 <div >
     <table id="CAMTecnoligaTabela">
-    
+
       <caption><div align="right">
         </div></caption>
-    
+
             <meta http-equiv="content-type" content="text/html;charset=utf-8" />
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -16,18 +16,18 @@
             <body>
                     <div id="divCenter">
                             <div align="center"><h2>Adicionar Tronco SIP:</h2></div>
-                    <form action="Script_do_Formulario.php" method="POST">
-
+                    <form action="{% url 'troncosip_novo' %}" method="POST">
+                      {% csrf_token %}
                             <br />
-                       
+
                              <table cellspacing="10">
-                            
+
                                      <tr>
                                              <td>
                                               <label for="nome_tronco">Nome do Tronco: </label>
                                              </td>
                                              <td align="left">
-                                              <input type="text" name="numero">
+                                              <input type="text" name="nome">
                                              </td>
                                              <td></td>
                                             </tr>
@@ -45,11 +45,11 @@
                                                             <label for="op_cid">Opções CID</label>
                                                         </td>
                                                         <td align="left">
-                                                                <select name="op_cid"> 
-                                                                <option value="per">Permitir Qualquer ID</option>
-                                                                <option value="blo">Bloquear Ids Extrangeiros</option> 
-                                                                <option value="rem">Remover CNAM</option> 
-                                                                <option value="for">Forçar Tronco CID</option> 
+                                                                <select name="op_cid">
+                                                                <option value="1">Permitir Qualquer ID</option>
+                                                                <option value="2">Bloquear Ids Extrangeiros</option>
+                                                                <option value="3">Remover CNAM</option>
+                                                                <option value="4">Forçar Tronco CID</option>
                                                             </select>
                                                         </td>
                                                         <td></td>
@@ -71,9 +71,9 @@
                                                                  <input type="text" name="op_asterisk">
                                                                 </td>
                                                             <td>
-                                                                <form>
+
                                                                     <INPUT TYPE="checkbox" NAME="op_asterisk" VALUE="op1">Sobrescrever
-                                                                    </form>
+
                                                             </td>
                                                                </tr>
                                                                <tr>
@@ -81,9 +81,9 @@
                                                                             <label for="continua">Continuar se ocupado: </label>
                                                                            </td>
                                                                 <td>
-                                                                    <form>
-                                                                        <INPUT TYPE="checkbox" NAME="grava_chamada" VALUE="op1">Marque para sempre tentar o próximo tronco
-                                                                        </form>
+
+                                                                        <INPUT TYPE="checkbox" NAME="continua_ocup" VALUE="True">Marque para sempre tentar o próximo tronco
+
                                                                 </td>
                                                                 <td></td>
                                                                </tr>
@@ -92,17 +92,16 @@
                                                                             <label for="continua">Desabilitar o Tronco: </label>
                                                                            </td>
                                                                 <td>
-                                                                    <form>
-                                                                        <INPUT TYPE="checkbox" NAME="grava_chamada" VALUE="op1">Desabilitado    
-                                                                        </form>
+
+                                                                        <INPUT TYPE="checkbox" NAME="desab_tronco" VALUE="True">Desabilitado
+
                                                                 </td>
                                                                 <td></td>
                                                                </tr>
                              </table>
         <br />
-          
+
              <table cellspacing="10">
-                                   
                 <tr>
                   <td>
                    <label for="precedente">(</label>
@@ -126,11 +125,23 @@
                                             <input type="text" name="match" placeholder="Padrão Equivalente">
                                         </td>
                             </tr>
-                             
+
             </table>
             <br />
             <br />
-        
+            <table cellspacing="10">
+              <tr>
+            <td>
+             <label for="prefi">Prefixo de chamadas de saída: </label>
+            </td>
+            <td align="left">
+             <input type="text" name="prefixo_saida">
+            </td>
+          </tr>
+
+          </table>
+          <br />
+          <br />
             <table cellspacing="10">
                     <div id="divCenter">
                             <tr>
@@ -140,13 +151,13 @@
                                     <td align="left">
                                         <input type="text" name="nome_tronco">
                                     </td>
-                    
+
 
                                     <td>
                                     <label for="contexto">Contexto do Usuário: </label>
                                     </td>
                                     <td align="left">
-                                            <input type="text" name="nome_tronco">
+                                            <input type="text" name="contexto">
                                     </td>
                                 </tr>
                             <tr>
@@ -154,7 +165,7 @@
                                     <label for="detalhes_peer">Detalhes do PEER: </label>
                                 </td>
                                 <td align="left">
-                                        <textarea rows="10" cols="25">
+                                        <textarea rows="10" cols="25" name="detalhes_PEER">
                                                 </textarea>
                                 </td>
 
@@ -162,7 +173,7 @@
                                         <label for="detalhes_usuário">Detalhes do Usuário: </label>
                                     </td>
                                     <td align="left">
-                                            <textarea rows="10" cols="25">
+                                            <textarea rows="10" cols="25" name="detalhes_usuarios">
                                                     host=***provider ip address***
                                                     username=***userid***
                                                     secret=***password***
@@ -182,9 +193,9 @@
                             </tr>
             </table>
             <br />
-         
+
         <button type="submit">Cadastrar</button>
-        </form>  
+        </form>
      </div>
-    </body> 
+    </body>
 {% endblock %}
