@@ -20,17 +20,17 @@ def list(request):
 @login_required
 def chamadasgrupo_novo(request):
     descricao = request.POST['descricao']
-    estrategia = request.POST['estrategia'] 
+    #estrategia = request.POST['estrategia'] 
     tempoChamada = request.POST['tempoChamada']
-    anuncioCG = request.POST['anuncioCG']
-    musicaEspera = request.POST['musicaEspera']
+    #anuncioCG = request.POST['anuncioCG']
+    #musicaEspera = request.POST['musicaEspera']
     prefixCID = request.POST['prefixCID']
     infoAlerta = request.POST['infoAlerta']
-    anuncioRemoto = request.POST['anuncioRemoto']
-    anuncioTardio = request.POST['anuncioTardio']
-    modo = request.POST['modo']
+    #anuncioRemoto = request.POST['anuncioRemoto']
+    #anuncioTardio = request.POST['anuncioTardio']
+    #modo = request.POST['modo']
     valorFixoCID = request.POST['valorFixoCID']
-    gravarChamadas = request.POST['gravarChamadas']
+    #gravarChamadas = request.POST['gravarChamadas']
 
     if 'igConfigCF' in request.POST: 
         igConfigCF = request.POST['igConfigCF']
@@ -47,14 +47,14 @@ def chamadasgrupo_novo(request):
     else:
         atendeChamada = False
 
-    #destino = request.POST['nome']   repeticao = repeticao,
-    chamadasgrupo = ChamadaEmGrupo(descricao=descricao, estrategia=estrategia,tempoChamada=tempoChamada, prefixCID=prefixCID, infoAlerta=infoAlerta, modo=modo ,valorFixoCID=valorFixoCID,
-     gravarChamadas=gravarChamadas,igConfigCF=igConfigCF,igAgentOcupado=igAgentOcupado, atendeChamada=atendeChamada)
-    anuncio = Anuncio(anuncioRemoto=anuncioRemoto, anuncioCG=anuncioCG, anuncioTardio=anuncioTardio)
-    musica = Musica( musicaEspera=musicaEspera)
-    musica.save()
+    #destino = request.POST['nome']   estrategia=estrategia, modo=modo ,gravarChamadas=gravarChamadas
+    chamadasgrupo = ChamadaEmGrupo(descricao=descricao, tempoChamada=tempoChamada, prefixCID=prefixCID, infoAlerta=infoAlerta,valorFixoCID=valorFixoCID,
+    igConfigCF=igConfigCF,igAgentOcupado=igAgentOcupado, atendeChamada=atendeChamada)
+    #anuncio = Anuncio(anuncioRemoto=anuncioRemoto, anuncioCG=anuncioCG, anuncioTardio=anuncioTardio)
+    #musica = Musica( musicaEspera=musicaEspera)
+   # musica.save()
     chamadasgrupo.save()
-    anuncio.save()
+    #anuncio.save()
     return redirect ('/chamadasgrupo/')
 
 @login_required
