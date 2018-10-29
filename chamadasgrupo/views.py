@@ -2,7 +2,7 @@ from django.shortcuts import render ,redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
-from .models import ChamadaEmGrupo 
+from .models import ChamadaEmGrupo, Anuncio, Musica
 import re
 from django_tables2 import RequestConfig
 from .tables import ChamadaEmGrupoTable
@@ -48,11 +48,13 @@ def chamadasgrupo_novo(request):
         atendeChamada = False
 
     #destino = request.POST['nome']   repeticao = repeticao,
-    chamadasgrupo = ChamadaEmGrupo(descricao=descricao, estrategia=estrategia,tempoChamada=tempoChamada, anuncioCG=anuncioCG,
-     musicaEspera=musicaEspera, prefixCID=prefixCID, infoAlerta=infoAlerta, anuncioRemoto=anuncioRemoto, anuncioTardio=anuncioTardio,
-     modo=modo,valorFixoCID=valorFixoCID,gravarChamadas=gravarChamadas,igConfigCF=igConfigCF,igAgentOcupado=igAgentOcupado,
-     atendeChamada=atendeChamada)
+    chamadasgrupo = ChamadaEmGrupo(descricao=descricao, estrategia=estrategia,tempoChamada=tempoChamada, prefixCID=prefixCID, infoAlerta=infoAlerta, modo=modo ,valorFixoCID=valorFixoCID,
+     gravarChamadas=gravarChamadas,igConfigCF=igConfigCF,igAgentOcupado=igAgentOcupado, atendeChamada=atendeChamada)
+    anuncio = Anuncio(anuncioRemoto=anuncioRemoto, anuncioCG=anuncioCG, anuncioTardio=anuncioTardio)
+    musica = Musica( musicaEspera=musicaEspera)
+    musica.save()
     chamadasgrupo.save()
+    anuncio.save()
     return redirect ('/chamadasgrupo/')
 
 @login_required
@@ -100,8 +102,8 @@ def chamadasgrupo_edita(request, id):
         chamadasgrupo.musicaEspera = musicaEspera
         chamadasgrupo.prefixCID = prefixCID
         chamadasgrupo.infoAlerta = infoAlerta
-        chamadasgrupo.anuncioRemoto = anuncioRemoto
-        chamadasgrupo.anuncioTardio = anuncioTardio
+        # chamadasgrupo.anuncioRemoto = anuncioRemoto
+        # chamadasgrupo.anuncioTardio = anuncioTardio
         chamadasgrupo.modo = modo
         chamadasgrupo.valorFixoCID = valorFixoCID
         chamadasgrupo.gravarChamadas = gravarChamadas
