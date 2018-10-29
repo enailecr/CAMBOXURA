@@ -117,9 +117,33 @@ def troncoiax_novo(request):
 #TroncoCustomizado
 @login_required
 def troncocustomizado_novo(request):
-    form = TroncoCustomizadoForm(request.POST or None)
-    if form.is_valid():
-        form.save()
+    nome = request.POST['nome']
+    callerIDSaida = request.POST['callerids']
+    opcoesCID = request.POST['op_cid']
+    maxCanais = request.POST['max_canais']
+    opcoesDiskAsterisk = request.POST['op_asterisk']
+    if 'continua_ocup' in request.POST:
+        contSeOcup = request.POST['continua_ocup']
+    else:
+        contSeOcup = False
+    if 'desab_tronco' in request.POST:
+        desabTronco = request.POST['desab_tronco']
+    else:
+        desabTronco = False
+    prefixChamSaida = request.POST['prefixo_saida']
+
+    stringChamada = request.POST['string_chamada']
+
+    troncoCustom = TroncoCustomizado(nome=nome, opcoesCID=opcoesCID,contSeOcup=contSeOcup,desabTronco=desabTronco, prefixChamSaida=prefixChamSaida)
+    troncoCustom.save()
+
+    troncoCustom.callerIDSaida = callerIDSaida
+    troncoCustom.maxCanais = maxCanais
+    troncoCustom.opcoesDiskAsterisk = opcoesDiskAsterisk
+    troncoCustom.stringChamada = stringChamada
+
+    troncoCustom.save()
+
     return redirect ('/troncos/')
 
 @login_required
