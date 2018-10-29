@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import TroncoSIPForm,TroncoIAXForm,TroncoCustomizadoForm,TroncoForm
-from .models import Tronco, TroncoSIP
+from .models import Tronco, TroncoSIP, TroncoIAX, TroncoCustomizado
 import re
 from django_tables2 import RequestConfig
 from .tables import TroncoTable
@@ -77,9 +77,41 @@ def troncosip_novo(request):
 #TroncoIAX
 @login_required
 def troncoiax_novo(request):
-    form = TroncoIAXForm(request.POST or None)
-    if form.is_valid():
-        form.save()
+    nome = request.POST['nome']
+    callerIDSaida = request.POST['callerids']
+    opcoesCID = request.POST['op_cid']
+    maxCanais = request.POST['max_canais']
+    opcoesDiskAsterisk = request.POST['op_asterisk']
+    if 'continua_ocup' in request.POST:
+        contSeOcup = request.POST['continua_ocup']
+    else:
+        contSeOcup = False
+    if 'desab_tronco' in request.POST:
+        desabTronco = request.POST['desab_tronco']
+    else:
+        desabTronco = False
+    prefixChamSaida = request.POST['prefixo_saida']
+
+    nomeTronco = request.POST['nome_tronco']
+    detalhesPEER = request.POST['detalhes_PEER']
+    contextoUsuario = request.POST['contexto']
+    detalhesUsuario = request.POST['detalhes_usuarios']
+    stringRegistro = request.POST['string_reg']
+
+    troncoIAX = TroncoIAX(nome=nome, opcoesCID=opcoesCID,contSeOcup=contSeOcup,desabTronco=desabTronco, prefixChamSaida=prefixChamSaida)
+    troncoIAX.save()
+
+    troncoIAX.callerIDSaida = callerIDSaida
+    troncoIAX.maxCanais = maxCanais
+    troncoIAX.opcoesDiskAsterisk = opcoesDiskAsterisk
+    troncoIAX.nomeTronco = nomeTronco
+    troncoIAX.detalhesPEER = detalhesPEER
+    troncoIAX.contextoUsuario = contextoUsuario
+    troncoIAX.detalhesUsuario = detalhesUsuario
+    troncoIAX.stringRegistro = stringRegistro
+
+    troncoIAX.save()
+
     return redirect ('/troncos/')
 
 #TroncoCustomizado
