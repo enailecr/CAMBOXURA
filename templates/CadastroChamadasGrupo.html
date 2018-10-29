@@ -44,10 +44,10 @@
                         </tr>
                         <tr>
                             <td>
-                            <label for="tempo">Tempo Ring: </label>
+                            <label for="tempoChamada">Tempo Ring: </label>
                             </td>
                             <td align="left">
-                            <input type="text" name="tempo">
+                            <input type="text" name="tempoChamada">
                             </td>
                         <td></td>
                     </tr>
@@ -59,6 +59,7 @@
                                         <textarea rows="10" cols="25">
                                                 </textarea>
                                 </td>
+                                <td></td>
                         </tr>
                         <tr>
                                 <td>
@@ -73,10 +74,10 @@
                             </tr>
                             <tr>
                                     <td>
-                                        <label for="anuncio">Anúncio</label>
+                                        <label for="anuncioCG">Anúncio</label>
                                     </td>
                                     <td align="left">
-                                            <select name="anuncio"> 
+                                            <select name="anuncioCG"> 
                                             <option value="nem">Nenhum</option>
                                         </select>
                                     </td>
@@ -84,10 +85,10 @@
                                 </tr>
                                 <tr>
                                         <td>
-                                            <label for="tocar">Tocar Musica em Espera</label>
+                                            <label for="musicaEspera">Tocar Musica em Espera</label>
                                         </td>
                                         <td align="left">
-                                                <select name="tocar"> 
+                                                <select name="musicaEspera"> 
                                                 <option value="ring">Ring</option>
                                                 <option value="age">Agencia-hold</option>
                                                 <option value="cam">CAM-Hold</option>
@@ -99,51 +100,51 @@
                                     </tr>
                                     <tr>
                                             <td>
-                                            <label for="prefixo">Prefixo de Nome CID: </label>
+                                            <label for="prefixCID">Prefixo de Nome CID: </label>
                                             </td>
                                             <td align="left">
-                                            <input type="text" name="prefixo">
+                                            <input type="text" name="prefixCID">
                                             </td>
                                         <td></td>
                                     </tr>
                                     <tr>
                                             <td>
-                                            <label for="info_alerta">Informação de Alerta: </label>
+                                            <label for="infoAlerta">Informação de Alerta: </label>
                                             </td>
                                             <td align="left">
-                                            <input type="text" name="info_alerta">
+                                            <input type="text" name="infoAlerta">
                                             </td>
                                         <td></td>
                                     </tr>
                                     <tr>
                                             <td>
-                                                    <label for="ig_config">Ignorar Configurações CF: </label>
+                                                    <label for="igConfigCF">Ignorar Configurações CF: </label>
                                                    </td>
                                         <td>
                                            
-                                                <INPUT TYPE="checkbox" name="ig_config"VALUE="True" >
+                                                <INPUT TYPE="checkbox" name="igConfigCF"VALUE="True" >
                                                 
                                         </td>
                                         <td></td>
                                        </tr>
                                        <tr>
                                             <td>
-                                                    <label for="ig_agen">Ignorar Agente Ocupado: </label>
+                                                    <label for="igAgentOcupado">Ignorar Agente Ocupado: </label>
                                                    </td>
                                         <td>
                                            
-                                                <INPUT TYPE="checkbox" name="ig_agen"VALUE="True" >
+                                                <INPUT TYPE="checkbox" name="igAgentOcupado"VALUE="True" >
                                                 
                                         </td>
                                         <td></td>
                                        </tr>
                                        <tr>
                                             <td>
-                                                    <label for="chamada">Permitir Atender Chamada: </label>
+                                                    <label for="atendeChamada">Permitir Atender Chamada: </label>
                                                    </td>
                                         <td>
                                            
-                                                <INPUT TYPE="checkbox" name="chamada"VALUE="True" >
+                                                <INPUT TYPE="checkbox" name="atendeChamada"VALUE="True" >
                                                 
                                         </td>
                                         <td></td>
@@ -161,7 +162,7 @@
                                        </tr>
                                        <tr>
                                             <td>
-                                                <label for="remoto">Anúncio Remoto</label>
+                                                <label for="anuncioRemoto">Anúncio Remoto</label>
                                             </td>
                                             <td align="left">
                                                     <select name="remoto"> 
@@ -172,10 +173,10 @@
                                         </tr>
                                         <tr>
                                                 <td>
-                                                    <label for="tardio">Anúncio Tardio</label>
+                                                    <label for="anuncioTardio">Anúncio Tardio</label>
                                                 </td>
                                                 <td align="left">
-                                                        <select name="tardio"> 
+                                                        <select name="anuncioTardio"> 
                                                         <option value="def">Padrão</option>
                                                     </select>
                                                 </td>
@@ -204,7 +205,7 @@
                                     </tr>
                                     <tr>
                                             <td>
-                                            <label for="val_cid">Valor Fixo de CID: </label>
+                                            <label for="valorFixoCID">Valor Fixo de CID: </label>
                                             </td>
                                             <td align="left">
                                             <input type="text" name="val_cid">
@@ -215,10 +216,10 @@
                                     </tr> 
                                     <tr>
                                             <td>
-                                                <label for="grav">Gravar Chamadas</label>
+                                                <label for="gravarChamadas">Gravar Chamadas</label>
                                             </td>
                                             <td align="left">
-                                                    <select name="grav"> 
+                                                    <select name="gravarChamadas"> 
                                                     <option value="sempre">Sempre</option>
                                                     <option value="sob">Sob Demanda</option>
                                                     <option value="nunca">Nunca</option>
@@ -254,4 +255,6 @@
     
     </div>
     <button type="submit">Cadastrar</button>
+
+</form>
 {% endblock %}
