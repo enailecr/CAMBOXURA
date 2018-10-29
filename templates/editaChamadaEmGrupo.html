@@ -1,0 +1,260 @@
+{% extends "menu.html" %}
+
+
+{% block content %}
+
+<div >
+        <table id="CAMTecnoligaTabela">
+    
+      <caption><div align="right">
+        </div></caption>
+    
+            <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+            <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            </head>
+            <body>
+                    <div id="divCenter">
+                        <div align="center"><h2>Adicionar Chamada em Grupo:</h2></div>
+                        <form action="{% url 'chamadasgrupo_edita' chamadasgrupo.id %}" method="POST">
+                                {% csrf_token %}
+                        <br />
+                        
+                        <table cellspacing="10">
+                
+                        <tr>
+                                <td>
+                                <label for="descricao">Descrição do Grupo: </label>
+                                </td>
+                                <td align="left">
+                                <input type="text" name="descricao">
+                                </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="estrategia">Estratégia Ring</label>
+                            </td>
+                            <td align="left">
+                                    <select name="estrategia"> 
+                                    <option value="ring">ringall</option>
+                                </select>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                            <label for="tempoChamada">Tempo Ring: </label>
+                            </td>
+                            <td align="left">
+                            <input type="number" name="tempoChamada">
+                            </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                            <td>
+                                    <label for="listao">Lista de Extensão: </label>
+                                </td>
+                                <td align="left">
+                                        <textarea rows="10" cols="25">
+                                                </textarea>
+                                </td>
+                                <td></td>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <label for="extensao_rapida">Extensão de Escolha Rápida</label>
+                                </td>
+                                <td align="left">
+                                        <select name="extensao_rapida"> 
+                                        <option value="thg">1021 (Thiago Maluf)</option>
+                                    </select>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                    <td>
+                                        <label for="anuncioCG">Anúncio</label>
+                                    </td>
+                                    <td align="left">
+                                            <select name="anuncioCG"> 
+                                            <option value="null">Nenhum</option>
+                                        </select>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                            <label for="musicaEspera">Tocar Musica em Espera</label>
+                                        </td>
+                                        <td align="left">
+                                                <select name="musicaEspera"> 
+                                                <option value="ring">Ring</option>
+                                                <option value="age">Agencia-hold</option>
+                                                <option value="cam">CAM-Hold</option>
+                                                <option value="def">Padrão</option>
+                                                <option value="nem">Nenhum</option>
+                                            </select>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                            <td>
+                                            <label for="prefixCID">Prefixo de Nome CID: </label>
+                                            </td>
+                                            <td align="left">
+                                            <input type="text" name="prefixCID">
+                                            </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                            <td>
+                                            <label for="infoAlerta">Informação de Alerta: </label>
+                                            </td>
+                                            <td align="left">
+                                            <input type="text" name="infoAlerta">
+                                            </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                            <td>
+                                                    <label for="igConfigCF">Ignorar Configurações CF: </label>
+                                                   </td>
+                                        <td>
+                                           
+                                                <INPUT TYPE="checkbox" name="igConfigCF"VALUE="True" >
+                                                
+                                        </td>
+                                        <td></td>
+                                       </tr>
+                                       <tr>
+                                            <td>
+                                                    <label for="igAgentOcupado">Ignorar Agente Ocupado: </label>
+                                                   </td>
+                                        <td>
+                                           
+                                                <INPUT TYPE="checkbox" name="igAgentOcupado"VALUE="True" >
+                                                
+                                        </td>
+                                        <td></td>
+                                       </tr>
+                                       <tr>
+                                            <td>
+                                                    <label for="atendeChamada">Permitir Atender Chamada: </label>
+                                                   </td>
+                                        <td>
+                                           
+                                                <INPUT TYPE="checkbox" name="atendeChamada"VALUE="True" >
+                                                
+                                        </td>
+                                        <td></td>
+                                       </tr>
+                                       <tr>
+                                            <td>
+                                                    <label for="confirm_chamada">Confirmar Chamadas: </label>
+                                                   </td>
+                                        <td>
+                                           
+                                                <INPUT TYPE="checkbox" name="confirm_chamada"VALUE="True" >
+                                                
+                                        </td>
+                                        <td></td>
+                                       </tr>
+                                       <tr>
+                                            <td>
+                                                <label for="anuncioRemoto">Anúncio Remoto</label>
+                                            </td>
+                                            <td align="left">
+                                                    <select name="anuncioRemoto"> 
+                                                    <option value="def">Padrão</option>
+                                                </select>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                                <td>
+                                                    <label for="anuncioTardio">Anúncio Tardio</label>
+                                                </td>
+                                                <td align="left">
+                                                        <select name="anuncioTardio"> 
+                                                        <option value="def">Padrão</option>
+                                                    </select>
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        </table>
+                <br/>
+          
+                        <table cellspacing="10">
+                                <tr>
+                                        <td>
+                                            <label for="modo">Modo</label>
+                                        </td>
+                                        <td align="left">
+                                                <select name="modo"> 
+                                                <option value="def">Padrão</option>
+                                                <option value="cid">Valor Fixo de CID</option>
+                                                <option value="exc">Valor Fixo de CID de Chamadas de Fora</option>
+                                                <option value="usa">Usar Número Discado</option>
+                                                <option value="for">Forçar Número Discado</option>
+                                            </select>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+
+                                    </tr>
+                                    <tr>
+                                            <td>
+                                            <label for="valorFixoCID">Valor Fixo de CID: </label>
+                                            </td>
+                                            <td align="left">
+                                            <input type="text" name="valorFixoCID">
+                                            </td>
+                                        <td></td>
+                                        <td></td>
+
+                                    </tr> 
+                                    <tr>
+                                            <td>
+                                                <label for="gravarChamadas">Gravar Chamadas</label>
+                                            </td>
+                                            <td align="left">
+                                                    <select name="gravarChamadas"> 
+                                                    <option value="sempre">Sempre</option>
+                                                    <option value="sob">Sob Demanda</option>
+                                                    <option value="nunca">Nunca</option>
+                                                </select>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+
+                                        </tr>   
+                                        <tr>
+                                                <td>
+                                                    <label for="dest">Destino se não Houver Resposta</label>
+                                                </td>
+                                                <td align="left">
+                                                        <select name="dest"> 
+                                                        <option value="chose">===escolha um===</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    </td>
+                                                    <td align="left">
+                                                            <select hidden name="dest"> 
+                                                            <option value="chose">IVR CAM</option>
+                                                        </select>
+                                                    </td>
+                                            </tr>    
+                                        <br/>      
+        
+        </div>
+        </body> 
+    
+    </table>
+    
+    </div>
+    <button type="submit">Salvar Alterações</button>
+
+</form>
+{% endblock %}
