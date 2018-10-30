@@ -27,7 +27,7 @@
                                 <label for="descricao">Descrição do Grupo: </label>
                                 </td>
                                 <td align="left">
-                                <input type="text" name="descricao">
+                                <input type="text" name="descricao" value="{{chamadasgrupo.descricao}}">
                                 </td>
                             <td></td>
                         </tr>
@@ -47,7 +47,7 @@
                             <label for="tempoChamada">Tempo Ring: </label>
                             </td>
                             <td align="left">
-                            <input type="number" name="tempoChamada">
+                            <input type="number" name="tempoChamada" value="{{chamadasgrupo.tempoChamada}}">
                             </td>
                         <td></td>
                     </tr>
@@ -89,6 +89,9 @@
                                         </td>
                                         <td align="left">
                                                 <select name="musicaEspera"> 
+                                                <option selected="selected"  >
+                                                                {{chamadasgrupo.musicaEspera}}
+                                                </option> 
                                                 <option value="ring">Ring</option>
                                                 <option value="age">Agencia-hold</option>
                                                 <option value="cam">CAM-Hold</option>
@@ -103,7 +106,7 @@
                                             <label for="prefixCID">Prefixo de Nome CID: </label>
                                             </td>
                                             <td align="left">
-                                            <input type="text" name="prefixCID">
+                                            <input type="text" name="prefixCID" value="{{chamadasgrupo.prefixCID}}">
                                             </td>
                                         <td></td>
                                     </tr>
@@ -112,7 +115,7 @@
                                             <label for="infoAlerta">Informação de Alerta: </label>
                                             </td>
                                             <td align="left">
-                                            <input type="text" name="infoAlerta">
+                                            <input type="text" name="infoAlerta" value="{{chamadasgrupo.infoAlerta}}">
                                             </td>
                                         <td></td>
                                     </tr>
@@ -121,9 +124,11 @@
                                                     <label for="igConfigCF">Ignorar Configurações CF: </label>
                                                    </td>
                                         <td>
-                                           
+                                                {%if chamadasgrupo.igConfigCF %}
+                                                    <INPUT TYPE="checkbox" name="igConfigCF"VALUE="True" checked>
+                                                {% else %}
                                                 <INPUT TYPE="checkbox" name="igConfigCF"VALUE="True" >
-                                                
+                                                {%endif%}
                                         </td>
                                         <td></td>
                                        </tr>
@@ -132,9 +137,11 @@
                                                     <label for="igAgentOcupado">Ignorar Agente Ocupado: </label>
                                                    </td>
                                         <td>
-                                           
-                                                <INPUT TYPE="checkbox" name="igAgentOcupado"VALUE="True" >
-                                                
+                                                {%if chamadasgrupo.igAgentOcupado %}
+                                                    <INPUT TYPE="checkbox" name="igAgentOcupado"VALUE="True" checked >
+                                                {% else %}
+                                                    <INPUT TYPE="checkbox" name="igAgentOcupado"VALUE="True" >
+                                                {%endif%}
                                         </td>
                                         <td></td>
                                        </tr>
@@ -143,9 +150,11 @@
                                                     <label for="atendeChamada">Permitir Atender Chamada: </label>
                                                    </td>
                                         <td>
-                                           
-                                                <INPUT TYPE="checkbox" name="atendeChamada"VALUE="True" >
-                                                
+                                                {%if chamadasgrupo.atendeChamada %}
+                                                    <INPUT TYPE="checkbox" name="atendeChamada"VALUE="True" checked>
+                                                {% else %}
+                                                    <INPUT TYPE="checkbox" name="atendeChamada"VALUE="True" >
+                                                {%endif%}
                                         </td>
                                         <td></td>
                                        </tr>
@@ -154,9 +163,11 @@
                                                     <label for="confirm_chamada">Confirmar Chamadas: </label>
                                                    </td>
                                         <td>
-                                           
-                                                <INPUT TYPE="checkbox" name="confirm_chamada"VALUE="True" >
-                                                
+                                                {%if chamadasgrupo.confirm_chamada %}
+                                                    <INPUT TYPE="checkbox" name="confirm_chamada"VALUE="True" checked>
+                                                {% else %}
+                                                    <INPUT TYPE="checkbox" name="confirm_chamada"VALUE="True" >
+                                                {%endif%}
                                         </td>
                                         <td></td>
                                        </tr>

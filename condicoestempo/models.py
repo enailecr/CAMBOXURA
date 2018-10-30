@@ -56,8 +56,8 @@ class CondicaoTempo(Destino):
 class GrupoTempo(Destino):
     horaInicio = models.TimeField()
     horaFim = models.TimeField()
-    diaSemanaInicio = models.CharField(max_length=9, choices=SEMANA_CHOICES)
-    diaSemanaFim = models.CharField(max_length=9, choices=SEMANA_CHOICES)
+    diaSemanaInicio = models.CharField(max_length=13, choices=SEMANA_CHOICES)
+    diaSemanaFim = models.CharField(max_length=13, choices=SEMANA_CHOICES)
     diaMesInicio = models.CharField(max_length=2, choices=DIAS_CHOICES)
     diaMesFim = models.CharField(max_length=2, choices=DIAS_CHOICES)
     mesIncio = models.CharField(max_length=9, choices=MONTH_CHOICES)
