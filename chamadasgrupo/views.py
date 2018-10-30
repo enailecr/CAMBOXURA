@@ -47,9 +47,14 @@ def chamadasgrupo_novo(request):
     else:
         atendeChamada = False
 
+    if 'confirm_chamada' in request.POST:   
+        confirmaChamada = request.POST['confirm_chamada']
+    else:
+        confirmaChamada = False
+
     #destino = request.POST['nome']   estrategia=estrategia, modo=modo ,gravarChamadas=gravarChamadas
     chamadasgrupo = ChamadaEmGrupo(descricao=descricao, tempoChamada=tempoChamada, prefixCID=prefixCID, infoAlerta=infoAlerta,valorFixoCID=valorFixoCID,
-    igConfigCF=igConfigCF,igAgentOcupado=igAgentOcupado, atendeChamada=atendeChamada)
+    igConfigCF=igConfigCF,igAgentOcupado=igAgentOcupado, atendeChamada=atendeChamada,confirmaChamada=confirmaChamada)
     #anuncio = Anuncio(anuncioRemoto=anuncioRemoto, anuncioCG=anuncioCG, anuncioTardio=anuncioTardio)
     #musica = Musica( musicaEspera=musicaEspera)
    # musica.save()
@@ -96,10 +101,9 @@ def chamadasgrupo_edita(request, id):
         #destino = request.POST['nome']   repeticao = repeticao,
         
         chamadasgrupo.estrategia = estrategia
-        chamadasgrupo.repeticao = repeticao
         chamadasgrupo.tempoChamada = tempoChamada
-        chamadasgrupo.anuncioCG = anuncioCG
-        chamadasgrupo.musicaEspera = musicaEspera
+        # deve ser anuncio e nao chamadasgrupo.anuncioCG = anuncioCG
+        #deve ser musica e nao chamadasgrupo.musicaEspera = musicaEspera
         chamadasgrupo.prefixCID = prefixCID
         chamadasgrupo.infoAlerta = infoAlerta
         # chamadasgrupo.anuncioRemoto = anuncioRemoto
