@@ -3,6 +3,7 @@ from destinos.models import Destino
 from anuncios.models import Anuncio
 from numeros.models import NumeroEntrada
 from uras.models import URA
+from musicas.models import Musica
 
 RESTRICOESAGENTE_CHOICES = (
     ('1', 'Chamada como discada'),
@@ -22,8 +23,8 @@ ESTRATEGIACHAMADA_CHOICES = (
 )
 
 IGNORAAGENTOCUP_CHOICES = (
-    ('1', 'Sim'),
-    ('2', 'Não'),
+    ('1', 'Não'),
+    ('2', 'Sim'),
     ('3', 'Sim + (chamadaemuso=não)'),
     ('4', 'Somente chamada em fila (chamadaemuso=não)'),
 )
@@ -132,7 +133,7 @@ class Fila(Destino):
     preenchAuto = models.BooleanField()
     igAgentesOcup = models.CharField(max_length=1,choices = IGNORAAGENTOCUP_CHOICES, blank=False, null=False)
     pesoFila = models.IntegerField()
-    #musEspera =
+    musEspera = models.ForeignKey(Musica, on_delete=models.SET_NULL, null = True)
     tipoMus = models.CharField(max_length=1,choices = TIPOMUS_CHOICES, blank=False, null=False)
     anuncUniao = models.ForeignKey(Anuncio, on_delete=models.CASCADE, null = True, related_name='anuncUniaoFila')
     quandoAnun = models.CharField(max_length=1,choices = QUANDOANUNCIO_CHOICES, blank=False, null=False)
