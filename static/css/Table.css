@@ -51,14 +51,14 @@ thead a{
   color: #fff;
   text-decoration:none;
 }
-tr:hover {
+/* tr:hover {
   background-color:#3d80df;
   color: #fff;
-}
-thead tr:hover {
+} */
+/* thead tr:hover {
   background-color: transparent;
   color: inherit;
-}
+} */
 tr:nth-child(even) {
     background-color: #E67F81;
 }

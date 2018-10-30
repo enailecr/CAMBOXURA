@@ -3,4 +3,4 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def list(request):
-    return render(request, 'menu.html')
+    return render(request, 'dashboard.html')

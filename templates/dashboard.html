@@ -1,0 +1,96 @@
+
+{% extends "menu.html" %}
+
+
+
+{% block content %}
+       
+       <table>
+   <div align="center">
+   <tr>
+        <td>
+                <div align="justify">
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+          google.charts.load("current", {packages:["corechart"]});
+          google.charts.setOnLoadCallback(drawChart);
+          function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+              ['Status', 'Valor'],
+              ['Ocupado',     88],
+              ['Disponível',      143],
+            ]);
+    
+            var options = {
+              title: 'CPU',
+              colors: ['7f0000','ff9999'],
+              pieHole: 0.3,
+            };
+    
+            var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+            chart.draw(data, options);
+          }
+        </script>
+       
+        <div id="donutchart" style="width:360px; height: 250px;"></div>
+        </div>
+        </td>
+        <td>
+                <div align="center">
+        <script type="text/javascript">
+            google.charts.load("current", {packages:["corechart"]});
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+              var data = google.visualization.arrayToDataTable([
+                ['Status', 'Valor'],
+                ['Ocupado',     100],
+                ['Disponível',      676],
+              ]);
+      
+              var options = {
+                title: 'RAM',
+                colors: ['7f0000','ff9999'],
+                pieHole: 0.3,
+              };
+      
+              var chart = new google.visualization.PieChart(document.getElementById('donutRAM'));
+              chart.draw(data, options);
+            }
+          </script>
+           <div id="donutRAM" style="width:360px; height: 250px;"></div>
+           </div>
+        </td>
+        <td>
+                <div align="center">
+        <script type="text/javascript">
+            google.charts.load("current", {packages:["corechart"]});
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+              var data = google.visualization.arrayToDataTable([
+                ['Status', 'Valor'],
+                ['Ocupado',     754],
+                ['Disponível',      3376],
+              ]);
+      
+              var options = {
+                title: 'SWAP',
+                colors: ['7f0000','ff9999'],
+                pieHole: 0.3,
+              };
+      
+              var chart = new google.visualization.PieChart(document.getElementById('donutSWAP'));
+              chart.draw(data, options);
+            }
+          </script>
+           <div id="donutSWAP" style="width:360px; height: 250px;"></div>
+           </div>
+        </td>
+    </tr>
+</div>
+</table>
+
+
+
+{% endblock %}
+
+
