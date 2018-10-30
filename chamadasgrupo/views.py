@@ -97,7 +97,11 @@ def chamadasgrupo_edita(request, id):
             atendeChamada = request.POST['atendeChamada']
         else:
             atendeChamada = False
-
+        
+        if 'confirm_chamada' in request.POST:   
+            confirmaChamada = request.POST['confirm_chamada']
+        else:
+            confirmaChamada = False
         #destino = request.POST['nome']   repeticao = repeticao,
         
         chamadasgrupo.estrategia = estrategia
@@ -114,6 +118,8 @@ def chamadasgrupo_edita(request, id):
         chamadasgrupo.igConfigCF = igConfigCF
         chamadasgrupo.igAgentOcupado = igAgentOcupado
         chamadasgrupo.atendeChamada = atendeChamada
+
+        chamadasgrupo.confirmaChamada = confirmaChamada
 
         chamadasgrupo.save()        
         return redirect('/chamadasgrupo/')
