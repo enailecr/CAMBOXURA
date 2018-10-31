@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .forms import TroncoSIPForm,TroncoIAXForm,TroncoCustomizadoForm,TroncoForm
+from django.http import HttpResponse
 from .models import Tronco, TroncoSIP, TroncoIAX, TroncoCustomizado
 import re
 from django_tables2 import RequestConfig
@@ -9,23 +9,17 @@ from .tables import TroncoTable
 #TroncoSIP
 @login_required
 def addtroncosip(request):
-    form = TroncoSIPForm()
-    data = {'form' : form}
-    return render(request, 'CadastroTroncoSIP.html', data)
+    return render(request, 'CadastroTroncoSIP.html')
 
 #TroncoIAX
 @login_required
 def addtroncoiax(request):
-    form = TroncoIAXForm()
-    data = {'form' : form}
-    return render(request, 'CadastroTroncoIAX.html', data)
+    return render(request, 'CadastroTroncoIAX.html')
 
 #TroncoCustomizado
 @login_required
 def addtroncocustomizado(request):
-    form = TroncoCustomizadoForm()
-    data = {'form' : form}
-    return render(request, 'CadastroTroncoCustomizado.html', data)
+    return render(request, 'CadastroTroncoCustomizado.html')
 
 
 @login_required
@@ -46,6 +40,7 @@ def troncosip_novo(request):
         contSeOcup = request.POST['continua_ocup']
     else:
         contSeOcup = False
+
     if 'desab_tronco' in request.POST:
         desabTronco = request.POST['desab_tronco']
     else:
@@ -150,12 +145,9 @@ def troncocustomizado_novo(request):
 def tronco_edita(request, id):
     data = {}
     tronco = Tronco.objects.get(id=id)
-    form = TroncoForm(request.POST or None, instance=tronco)
     data['tronco'] = tronco
-    data['form'] = form
     if request.method == 'POST':
-        if form.is_valid():
-            form.save()
+        
             return redirect('/troncos/')
     else:
         return render(request, 'editaTronco.html', data)
