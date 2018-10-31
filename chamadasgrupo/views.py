@@ -30,7 +30,7 @@ def chamadasgrupo_novo(request):
     #anuncioTardio = request.POST['anuncioTardio']
     modo = request.POST['modo']
     valorFixoCID = request.POST['valorFixoCID']
-    #gravarChamadas = request.POST['gravarChamadas']
+    gravarChamadas = request.POST['gravarChamadas']
 
     if 'igConfigCF' in request.POST: 
         igConfigCF = request.POST['igConfigCF']
@@ -52,8 +52,8 @@ def chamadasgrupo_novo(request):
     else:
         confirmaChamada = False
 
-    #destino = request.POST['nome']   gravarChamadas=gravarChamadas
-    chamadasgrupo = ChamadaEmGrupo(descricao=descricao, modo=modo , estrategia=estrategia, tempoChamada=tempoChamada, prefixCID=prefixCID, infoAlerta=infoAlerta,valorFixoCID=valorFixoCID,
+    #destino = request.POST['nome']  
+    chamadasgrupo = ChamadaEmGrupo(descricao=descricao, gravarChamadas=gravarChamadas, modo=modo , estrategia=estrategia, tempoChamada=tempoChamada, prefixCID=prefixCID, infoAlerta=infoAlerta,valorFixoCID=valorFixoCID,
     igConfigCF=igConfigCF,igAgentOcupado=igAgentOcupado, atendeChamada=atendeChamada,confirmaChamada=confirmaChamada)
     #anuncio = Anuncio(anuncioRemoto=anuncioRemoto, anuncioCG=anuncioCG, anuncioTardio=anuncioTardio)
     # musica = Musica( musicaEspera=musicaEspera)

@@ -53,7 +53,7 @@
                                         
                                         document.getElementById("estrategia").value = {{chamadasgrupo.estrategia}};
                                         document.getElementById("modo").value = {{chamadasgrupo.modo}};
-
+                                        document.getElementById("gravarChamadas").value = {{chamadasgrupo.gravarChamadas}};
                                     }
                                 </script>
 
@@ -248,10 +248,10 @@
                                                 <label for="gravarChamadas">Gravar Chamadas</label>
                                             </td>
                                             <td align="left">
-                                                    <select name="gravarChamadas"> 
-                                                    <option value="sempre">Sempre</option>
-                                                    <option value="sob">Sob Demanda</option>
-                                                    <option value="nunca">Nunca</option>
+                                                    <select name="gravarChamadas" id="gravarChamadas"> 
+                                                    <option value="1">Sempre</option>
+                                                    <option value="2">Sob Demanda</option>
+                                                    <option value="3">Nunca</option>
                                                 </select>
                                             </td>
                                             <td></td>
