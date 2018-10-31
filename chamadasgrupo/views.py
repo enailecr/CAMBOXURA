@@ -103,7 +103,7 @@ def chamadasgrupo_edita(request, id):
         else:
             confirmaChamada = False
         #destino = request.POST['nome']   repeticao = repeticao,
-        
+        chamadasgrupo.descricao =descricao
         chamadasgrupo.estrategia = estrategia
         chamadasgrupo.tempoChamada = tempoChamada
         # deve ser anuncio e nao chamadasgrupo.anuncioCG = anuncioCG
