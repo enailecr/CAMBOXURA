@@ -12,25 +12,37 @@
             <meta http-equiv="content-type" content="text/html;charset=utf-8" />
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-                <style type="text/css">
-                    * { margin: 0; padding: 0; font-family:Arial; font-size:9pt;}
-                    #divCenter { 
-                            background-color: #e1e1e1; 
-                            width: 400px; 
-                            height: 90px; 
-                            left: 50%; 
-                            margin: -130px 0 0 -210px; 
-                            padding:10px;
-                            position: absolute; 
-                            top: 50%; }
-                </style>
             </head>
             <body>
                     <div id="divCenter">
-                            <h1>Editar Música:</h1>
+                            <div align="center"><h2>Editar Música:</h2></div>
         <form action="{% url 'musica_edita' streaming.id %}" method="POST">
         {% csrf_token %}
-        {{form.as_p}}
+        <table cellspacing="10">
+                <tr>
+                        <td>
+                        <label for="nome">Nome: </label>
+                        </td>
+                        <td align="left">
+                        <input type="text" name="nome" value="{{streaming.nome}}">
+                        </td>
+                    <td></td>
+                </tr>
+                <tr>
+                        <td>
+                            <label for="exerand">ExecRandom: </label>
+                        </td>
+                    <td>
+                            {%if streaming.exerand %}
+                            <INPUT TYPE="checkbox" NAME="exerand" VALUE="TRUE" checked>
+                            {% else %}
+                            <INPUT TYPE="checkbox" NAME="exerand" VALUE="TRUE">
+                            {%endif%}
+                    </td>
+                    <td></td>
+                        </tr>
+                <tr>
+                    <br />
         <button type="submit">Salvar Alterações</button>
         </form>  
         </div>
