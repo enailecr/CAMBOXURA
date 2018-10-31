@@ -52,6 +52,7 @@
                                     function devolveValores() {
                                         
                                         document.getElementById("estrategia").value = {{chamadasgrupo.estrategia}};
+                                        document.getElementById("modo").value = {{chamadasgrupo.modo}};
 
                                     }
                                 </script>
@@ -219,12 +220,12 @@
                                             <label for="modo">Modo</label>
                                         </td>
                                         <td align="left">
-                                                <select name="modo"> 
-                                                <option value="def">Padrão</option>
-                                                <option value="cid">Valor Fixo de CID</option>
-                                                <option value="exc">Valor Fixo de CID de Chamadas de Fora</option>
-                                                <option value="usa">Usar Número Discado</option>
-                                                <option value="for">Forçar Número Discado</option>
+                                                <select name="modo"id="modo"> 
+                                                <option value="1">Padrão</option>
+                                                <option value="2">Valor Fixo de CID</option>
+                                                <option value="3">Valor Fixo de CID de Chamadas de Fora</option>
+                                                <option value="4">Usar Número Discado</option>
+                                                <option value="5">Forçar Número Discado</option>
                                             </select>
                                         </td>
                                         <td></td>

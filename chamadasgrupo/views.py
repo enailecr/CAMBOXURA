@@ -28,7 +28,7 @@ def chamadasgrupo_novo(request):
     infoAlerta = request.POST['infoAlerta']
     #anuncioRemoto = request.POST['anuncioRemoto']
     #anuncioTardio = request.POST['anuncioTardio']
-    #modo = request.POST['modo']
+    modo = request.POST['modo']
     valorFixoCID = request.POST['valorFixoCID']
     #gravarChamadas = request.POST['gravarChamadas']
 
@@ -52,12 +52,12 @@ def chamadasgrupo_novo(request):
     else:
         confirmaChamada = False
 
-    #destino = request.POST['nome']   modo=modo ,gravarChamadas=gravarChamadas
-    chamadasgrupo = ChamadaEmGrupo(descricao=descricao, estrategia=estrategia, tempoChamada=tempoChamada, prefixCID=prefixCID, infoAlerta=infoAlerta,valorFixoCID=valorFixoCID,
+    #destino = request.POST['nome']   gravarChamadas=gravarChamadas
+    chamadasgrupo = ChamadaEmGrupo(descricao=descricao, modo=modo , estrategia=estrategia, tempoChamada=tempoChamada, prefixCID=prefixCID, infoAlerta=infoAlerta,valorFixoCID=valorFixoCID,
     igConfigCF=igConfigCF,igAgentOcupado=igAgentOcupado, atendeChamada=atendeChamada,confirmaChamada=confirmaChamada)
     #anuncio = Anuncio(anuncioRemoto=anuncioRemoto, anuncioCG=anuncioCG, anuncioTardio=anuncioTardio)
-    #musica = Musica( musicaEspera=musicaEspera)
-   # musica.save()
+    # musica = Musica( musicaEspera=musicaEspera)
+    # musica.save()
     chamadasgrupo.save()
     #anuncio.save()
     return redirect ('/chamadasgrupo/')
