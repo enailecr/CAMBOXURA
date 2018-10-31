@@ -11,9 +11,11 @@
     
             <meta http-equiv="content-type" content="text/html;charset=utf-8" />
             <head>
+               
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
             </head>
-            <body>
+            <body onload="devolveestrategia()">
+               
                     <div id="divCenter">
                         <div align="center"><h2>Adicionar Chamada em Grupo:</h2></div>
                         <form action="{% url 'chamadasgrupo_edita' chamadasgrupo.id %}" method="POST">
@@ -36,10 +38,7 @@
                                 <label for="estrategia">Estratégia Ring</label>
                             </td>
                             <td align="left">
-                                    <select name="estrategia"> 
-                                            <option selected="selected"  >
-                                                    {{chamadasgrupo.estrategia}}
-                                            </option> 
+                                    <select name="estrategia" id="estrategia"> 
                                             <option value="1">ringall</option>
                                             <option value="2">ringall-prim</option>
                                             <option value="3">hunt</option>
@@ -49,6 +48,12 @@
                                             <option value="7">firstavaible</option>
                                             <option value="8">firstnotonphone</option>
                                 </select>
+                                <script>
+                                    function devolveestrategia() {
+                                        document.getElementById("estrategia").value = {{chamadasgrupo.estrategia}};
+                                    }
+                                </script>
+
                             </td>
                             <td></td>
                         </tr>

@@ -20,7 +20,7 @@ def list(request):
 @login_required
 def chamadasgrupo_novo(request):
     descricao = request.POST['descricao']
-    #estrategia = request.POST['estrategia'] 
+    estrategia = request.POST['estrategia'] 
     tempoChamada = request.POST['tempoChamada']
     #anuncioCG = request.POST['anuncioCG']
     #musicaEspera = request.POST['musicaEspera']
@@ -52,8 +52,8 @@ def chamadasgrupo_novo(request):
     else:
         confirmaChamada = False
 
-    #destino = request.POST['nome']   estrategia=estrategia, modo=modo ,gravarChamadas=gravarChamadas
-    chamadasgrupo = ChamadaEmGrupo(descricao=descricao, tempoChamada=tempoChamada, prefixCID=prefixCID, infoAlerta=infoAlerta,valorFixoCID=valorFixoCID,
+    #destino = request.POST['nome']   modo=modo ,gravarChamadas=gravarChamadas
+    chamadasgrupo = ChamadaEmGrupo(descricao=descricao, estrategia=estrategia, tempoChamada=tempoChamada, prefixCID=prefixCID, infoAlerta=infoAlerta,valorFixoCID=valorFixoCID,
     igConfigCF=igConfigCF,igAgentOcupado=igAgentOcupado, atendeChamada=atendeChamada,confirmaChamada=confirmaChamada)
     #anuncio = Anuncio(anuncioRemoto=anuncioRemoto, anuncioCG=anuncioCG, anuncioTardio=anuncioTardio)
     #musica = Musica( musicaEspera=musicaEspera)
