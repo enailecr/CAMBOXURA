@@ -37,7 +37,7 @@
                                                   <label for="callerids">CallerID de saída:</label>
                                                  </td>
                                                  <td align="left">
-                                                  <input type="text" name="callerids" value="{{tronco.callerids}}">
+                                                  <input type="text" name="callerids" value="{{tronco.callerIDSaida}}">
                                                  </td>
                                                  <td></td>
                                                 </tr>
@@ -69,7 +69,7 @@
                                                              <label for="max_canais">Máximo de Canais: </label>
                                                             </td>
                                                             <td align="left">
-                                                             <input type="text" name="max_canais" value="{{tronco.max_canais}}">
+                                                             <input type="text" name="max_canais" value="{{tronco.maxCanais}}">
                                                             </td>
                                                             <td></td>
                                                            </tr>
@@ -78,7 +78,7 @@
                                                                  <label for="op_asterisk">Opções de Discagem de Tronco Asterisk: </label>
                                                                 </td>
                                                                 <td align="left">
-                                                                 <input type="text" name="op_asterisk" value="{{tronco.op_asterisk}}">
+                                                                 <input type="text" name="op_asterisk" value="{{tronco.opcoesDiskAsterisk}}">
                                                                 </td>
                                                             <td>
                                                                     {%if tronco.op_asterisk %}
@@ -93,7 +93,7 @@
                                                                             <label for="continua">Continuar se ocupado: </label>
                                                                            </td>
                                                                 <td>
-                                                                        {%if tronco.continua %}
+                                                                        {%if tronco.contSeOcup %}
                                                                         <INPUT TYPE="checkbox" NAME="continua_ocup" VALUE="True" checked>Marque para sempre tentar o próximo tronco
                                                                         {% else %}
                                                                         <INPUT TYPE="checkbox" NAME="continua_ocup" VALUE="True">Marque para sempre tentar o próximo tronco
@@ -106,7 +106,7 @@
                                                                             <label for="continua">Desabilitar o Tronco: </label>
                                                                            </td>
                                                                 <td>
-                                                                        {%if tronco.continua %}
+                                                                        {%if tronco.desabTronco %}
                                                                         <INPUT TYPE="checkbox" NAME="desab_tronco" VALUE="True" checked>Desabilitado
                                                                             {% else %}
                                                                             <INPUT TYPE="checkbox" NAME="desab_tronco" VALUE="True">Desabilitado
@@ -152,7 +152,7 @@
              <label for="prefixo_saida">Prefixo de chamadas de saída: </label>
             </td>
             <td align="left">
-             <input type="text" name="prefixo_saida" value="{{prefixo_saida}}">
+             <input type="text" name="prefixo_saida" value="{{tronco.prefixChamSaida}}">
             </td>
           </tr>
 
@@ -166,7 +166,7 @@
                                         <label for="nome_tronco">Nome do tronco: </label>
                                     </td>
                                     <td align="left">
-                                        <input type="text" name="nome_tronco" value="{{tronco.nome_tronco}}">
+                                        <input type="text" name="nome_tronco" value="{{tronco.nomeTronco}}">
                                     </td>
 
 
@@ -174,7 +174,7 @@
                                     <label for="contexto">Contexto do Usuário: </label>
                                     </td>
                                     <td align="left">
-                                            <input type="text" name="contexto" value="{{tronco.contexto}}">
+                                            <input type="text" name="contexto" value="{{tronco.contextoUsuario}}">
                                     </td>
                                 </tr>
                             <tr>
@@ -182,7 +182,7 @@
                                     <label for="detalhes_peer">Detalhes do PEER: </label>
                                 </td>
                                 <td align="left">
-                                        <textarea rows="10" cols="25" name="detalhes_PEER" value="{{tronco.detalhes_peer}}">
+                                        <textarea rows="10" cols="25" name="detalhes_PEER" value="{{tronco.detalhesPEER}}">
                                                 </textarea>
                                 </td>
 
@@ -190,7 +190,7 @@
                                         <label for="detalhes_usuário">Detalhes do Usuário: </label>
                                     </td>
                                     <td align="left">
-                                            <textarea rows="10" cols="25" name="detalhes_usuarios" value="{{tronco.detalhes_usuarios}}">
+                                            <textarea rows="10" cols="25" name="detalhes_usuarios" value="{{tronco.detalhesUsuario}}">
                                                     host=***provider ip address***
                                                     username=***userid***
                                                     secret=***password***
@@ -203,7 +203,7 @@
                                         <label for="string_reg">String de Registro: </label>
                                     </td>
                                     <td align="left">
-                                        <input type="text" name="string_reg" value="{{tronco.string_reg}}">
+                                        <input type="text" name="string_reg" value="{{tronco.stringRegistro}}">
                                     </td>
                                     <td></td>
                                     <td></td>
