@@ -11,9 +11,11 @@
     
             <meta http-equiv="content-type" content="text/html;charset=utf-8" />
             <head>
+               
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
             </head>
-            <body>
+            <body onload="devolveValores()">
+               
                     <div id="divCenter">
                         <div align="center"><h2>Adicionar Chamada em Grupo:</h2></div>
                         <form action="{% url 'chamadasgrupo_edita' chamadasgrupo.id %}" method="POST">
@@ -36,10 +38,7 @@
                                 <label for="estrategia">Estratégia Ring</label>
                             </td>
                             <td align="left">
-                                    <select name="estrategia"> 
-                                            <option selected="selected"  >
-                                                    {{chamadasgrupo.estrategia}}
-                                            </option> 
+                                    <select name="estrategia" id="estrategia"> 
                                             <option value="1">ringall</option>
                                             <option value="2">ringall-prim</option>
                                             <option value="3">hunt</option>
@@ -49,6 +48,15 @@
                                             <option value="7">firstavaible</option>
                                             <option value="8">firstnotonphone</option>
                                 </select>
+                                <script>
+                                    function devolveValores() {
+                                        
+                                        document.getElementById("estrategia").value = {{chamadasgrupo.estrategia}};
+                                        document.getElementById("modo").value = {{chamadasgrupo.modo}};
+                                        document.getElementById("gravarChamadas").value = {{chamadasgrupo.gravarChamadas}};
+                                    }
+                                </script>
+
                             </td>
                             <td></td>
                         </tr>
@@ -98,15 +106,15 @@
                                             <label for="musicaEspera">Tocar Musica em Espera</label>
                                         </td>
                                         <td align="left">
-                                                <select name="musicaEspera"> 
-                                                <option selected="selected"  >
+                                                <select name="musicaEspera" id="musicaEspera"> 
+                                                <!-- <option selected="selected"  >
                                                                 {{chamadasgrupo.musicaEspera}}
-                                                </option> 
-                                                <option value="ring">Ring</option>
-                                                <option value="age">Agencia-hold</option>
-                                                <option value="cam">CAM-Hold</option>
-                                                <option value="def">Padrão</option>
-                                                <option value="nem">Nenhum</option>
+                                                </option>  -->
+                                                <option value="1">Ring</option>
+                                                <option value="2">Agencia-hold</option>
+                                                <option value="3">CAM-Hold</option>
+                                                <option value="4">Padrão</option>
+                                                <option value="5">Nenhum</option>
                                             </select>
                                         </td>
                                         <td></td>
@@ -212,12 +220,12 @@
                                             <label for="modo">Modo</label>
                                         </td>
                                         <td align="left">
-                                                <select name="modo"> 
-                                                <option value="def">Padrão</option>
-                                                <option value="cid">Valor Fixo de CID</option>
-                                                <option value="exc">Valor Fixo de CID de Chamadas de Fora</option>
-                                                <option value="usa">Usar Número Discado</option>
-                                                <option value="for">Forçar Número Discado</option>
+                                                <select name="modo"id="modo"> 
+                                                <option value="1">Padrão</option>
+                                                <option value="2">Valor Fixo de CID</option>
+                                                <option value="3">Valor Fixo de CID de Chamadas de Fora</option>
+                                                <option value="4">Usar Número Discado</option>
+                                                <option value="5">Forçar Número Discado</option>
                                             </select>
                                         </td>
                                         <td></td>
@@ -229,7 +237,7 @@
                                             <label for="valorFixoCID">Valor Fixo de CID: </label>
                                             </td>
                                             <td align="left">
-                                            <input type="text" name="valorFixoCID">
+                                            <input type="text" name="valorFixoCID" value="{{chamadasgrupo.valorFixoCID}}">
                                             </td>
                                         <td></td>
                                         <td></td>
@@ -240,10 +248,10 @@
                                                 <label for="gravarChamadas">Gravar Chamadas</label>
                                             </td>
                                             <td align="left">
-                                                    <select name="gravarChamadas"> 
-                                                    <option value="sempre">Sempre</option>
-                                                    <option value="sob">Sob Demanda</option>
-                                                    <option value="nunca">Nunca</option>
+                                                    <select name="gravarChamadas" id="gravarChamadas"> 
+                                                    <option value="1">Sempre</option>
+                                                    <option value="2">Sob Demanda</option>
+                                                    <option value="3">Nunca</option>
                                                 </select>
                                             </td>
                                             <td></td>

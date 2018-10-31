@@ -12,25 +12,203 @@
             <meta http-equiv="content-type" content="text/html;charset=utf-8" />
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-                <style type="text/css">
-                    * { margin: 0; padding: 0; font-family:Arial; font-size:9pt;}
-                    #divCenter { 
-                            background-color: #e1e1e1; 
-                            width: 400px; 
-                            height: 260px; 
-                            left: 50%; 
-                            margin: -130px 0 0 -210px; 
-                            padding:10px;
-                            position: absolute; 
-                            top: 50%; }
-                </style>
             </head>
-            <body>
+            <body onload="devolveValores()">
+                
                     <div id="divCenter">
-                            <h1>Editar Tronco:</h1>
+                            <div align="center"><h2>Editar Tronco:</h2></div>
         <form action="{% url 'tronco_edita' tronco.id %}" method="POST">
         {% csrf_token %}
-        {{form.as_p}}
+        <br />
+
+                             <table cellspacing="10">
+
+                                     <tr>
+                                             <td>
+                                              <label for="nome">Nome do Tronco: </label>
+                                             </td>
+                                             <td align="left">
+                                              <input type="text" name="nome" value="{{tronco.nome}}">
+                                             </td>
+                                             <td></td>
+                                            </tr>
+                                            <tr>
+                                                 <td>
+                                                  <label for="callerids">CallerID de saída:</label>
+                                                 </td>
+                                                 <td align="left">
+                                                  <input type="text" name="callerids" value="{{tronco.callerids}}">
+                                                 </td>
+                                                 <td></td>
+                                                </tr>
+                                                <tr>
+                                                        <td>
+                                                            <label for="op_cid">Opções CID</label>
+                                                        </td>
+                                                            <td align="left">
+                                                            <select name="op_cid" id="op_cid">
+                                                                    <!-- <option selected = "selected">
+                                                                        {{tronco.op_cid}}
+                                                                    </option> -->
+                                                                <option value="1">Permitir Qualquer ID</option>
+                                                                <option value="2">Bloquear Ids Extrangeiros</option>
+                                                                <option value="3">Remover CNAM</option>
+                                                                <option value="4">Forçar Tronco CID</option>
+                                                            </select>
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td>
+                                                             <label for="max_canais">Máximo de Canais: </label>
+                                                            </td>
+                                                            <td align="left">
+                                                             <input type="text" name="max_canais" value="{{tronco.max_canais}}">
+                                                            </td>
+                                                            <td></td>
+                                                           </tr>
+                                                           <tr>
+                                                                <td>
+                                                                 <label for="op_asterisk">Opções de Discagem de Tronco Asterisk: </label>
+                                                                </td>
+                                                                <td align="left">
+                                                                 <input type="text" name="op_asterisk" value="{{tronco.op_asterisk}}">
+                                                                </td>
+                                                            <td>
+                                                                    {%if tronco.op_asterisk %}
+                                                                    <INPUT TYPE="checkbox" NAME="op_asterisk" VALUE="True" checked>Sobrescrever
+                                                                    {% else %}
+                                                                    <INPUT TYPE="checkbox" NAME="op_asterisk" VALUE="True">Sobrescrever
+                                                                    {%endif%}
+                                                            </td>
+                                                               </tr>
+                                                               <tr>
+                                                                    <td>
+                                                                            <label for="continua">Continuar se ocupado: </label>
+                                                                           </td>
+                                                                <td>
+                                                                        {%if tronco.continua %}
+                                                                        <INPUT TYPE="checkbox" NAME="continua_ocup" VALUE="True" checked>Marque para sempre tentar o próximo tronco
+                                                                        {% else %}
+                                                                        <INPUT TYPE="checkbox" NAME="continua_ocup" VALUE="True">Marque para sempre tentar o próximo tronco
+                                                                        {%endif%}
+                                                                </td>
+                                                                <td></td>
+                                                               </tr>
+                                                               <tr>
+                                                                    <td>
+                                                                            <label for="continua">Desabilitar o Tronco: </label>
+                                                                           </td>
+                                                                <td>
+                                                                        {%if tronco.continua %}
+                                                                        <INPUT TYPE="checkbox" NAME="desab_tronco" VALUE="True" checked>Desabilitado
+                                                                            {% else %}
+                                                                            <INPUT TYPE="checkbox" NAME="desab_tronco" VALUE="True">Desabilitado
+                                                                        {%endif%}
+                                                                </td>
+                                                                <td></td>
+                                                               </tr>
+                             </table>
+        <br />
+
+             <table cellspacing="10">
+                <tr>
+                  <td>
+                   <label for="precedente">(</label>
+                     </td>
+                      <td align="left">
+                        <input type="text" name="precedente" value="{{tronco.precedente}}">
+                           </td>
+                           <td>
+                                <label for="prefix">)</label>
+                                  </td>
+                                  <td>
+                                        <label for="plus">+</label>
+                                          </td>
+                                  <td align="left">
+                                        <input type="text" name="prefix" value="{{tronco.prefix}}">
+                                           </td>
+                                           <td>
+                                                <label for="precedente">|</label>
+                                                  </td>
+                                        <td align="left">
+                                            <input type="text" name="match" value="{{tronco.match}}">
+                                        </td>
+                            </tr>
+
+            </table>
+            <script>
+                    function devolveValores() {
+                        
+                        document.getElementById("op_cid").value = {{tronco.op_cid}};
+                     }
+                </script>
+            <br />
+            <br />
+            <table cellspacing="10">
+              <tr>
+            <td>
+             <label for="prefixo_saida">Prefixo de chamadas de saída: </label>
+            </td>
+            <td align="left">
+             <input type="text" name="prefixo_saida" value="{{prefixo_saida}}">
+            </td>
+          </tr>
+
+          </table>
+          <br />
+          <br />
+            <table cellspacing="10">
+                    <div id="divCenter">
+                            <tr>
+                                    <td>
+                                        <label for="nome_tronco">Nome do tronco: </label>
+                                    </td>
+                                    <td align="left">
+                                        <input type="text" name="nome_tronco" value="{{tronco.nome_tronco}}">
+                                    </td>
+
+
+                                    <td>
+                                    <label for="contexto">Contexto do Usuário: </label>
+                                    </td>
+                                    <td align="left">
+                                            <input type="text" name="contexto" value="{{tronco.contexto}}">
+                                    </td>
+                                </tr>
+                            <tr>
+                                <td>
+                                    <label for="detalhes_peer">Detalhes do PEER: </label>
+                                </td>
+                                <td align="left">
+                                        <textarea rows="10" cols="25" name="detalhes_PEER" value="{{tronco.detalhes_peer}}">
+                                                </textarea>
+                                </td>
+
+                                <td>
+                                        <label for="detalhes_usuário">Detalhes do Usuário: </label>
+                                    </td>
+                                    <td align="left">
+                                            <textarea rows="10" cols="25" name="detalhes_usuarios" value="{{tronco.detalhes_usuarios}}">
+                                                    host=***provider ip address***
+                                                    username=***userid***
+                                                    secret=***password***
+                                                    type=peer
+                                                    </textarea>
+                                    </td>
+                            </tr>
+                            <tr>
+                                    <td>
+                                        <label for="string_reg">String de Registro: </label>
+                                    </td>
+                                    <td align="left">
+                                        <input type="text" name="string_reg" value="{{tronco.string_reg}}">
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                            </tr>
+            </table>
+            <br />
         <button type="submit">Salvar Alterações</button>
         </form>  
         </div>

@@ -4,7 +4,7 @@
 
 
 {% block content %}
-       
+<br />
        <table>
    <div align="center">
    <tr>
@@ -86,10 +86,56 @@
            </div>
         </td>
     </tr>
+    <tr>
+      <td>
+        <label for="text">Tempo de Funcionamento: </label>
+       </td>
+       <td></td>
+       <td></td>
+    </tr>
 </div>
 </table>
+<br />
 
-
+<div align="left">
+<table>
+  <tr>
+       <td>
+               <div align="left">
+       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+       <script type="text/javascript">
+         google.charts.load("current", {packages:["corechart"]});
+         google.charts.setOnLoadCallback(drawChart);
+         function drawChart() {
+           var data = google.visualization.arrayToDataTable([
+             ['Status', 'Valor'],
+             ['Usado',     133],
+             ['Livre',      400],
+           ]);
+   
+           var options = {
+             title: 'Disco Rígido',
+             colors: ['7f0000','ff9999'],
+             pieHole: 0.3,
+           };
+   
+           var chart = new google.visualization.PieChart(document.getElementById('donutdisc'));
+           chart.draw(data, options);
+         }
+       </script>
+      
+       <div id="donutdisc" style="width:360px; height: 150px;"></div>
+       </div>
+       </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="text">Capacidade de Disco: </label>
+         </td>
+         <td></td>
+      </tr>
+    </table>
+  </div>
 
 {% endblock %}
 

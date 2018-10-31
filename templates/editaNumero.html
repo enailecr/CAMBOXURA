@@ -16,12 +16,10 @@
             </head>
             <body>
                     <div id="divCenter">
-                            <h1>Editar Número:</h1>
+                            <div align="center"><h2>Editar Número:</h2></div>
         <form action="{% url 'numero_edita' numero.id %}" method="POST">
         {% csrf_token %}
-        <br />
-                            <fieldset>
-                       
+        <br />                       
                              <table cellspacing="10">
                             
                                      <tr>
@@ -65,7 +63,6 @@
                                                         </td>
                                                    </tr>
                              </table>
-                            </fieldset>
                             <br />
              
                 <button type="submit">Salvar Alterações</button>

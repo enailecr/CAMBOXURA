@@ -20,7 +20,7 @@ def list(request):
 @login_required
 def chamadasgrupo_novo(request):
     descricao = request.POST['descricao']
-    #estrategia = request.POST['estrategia'] 
+    estrategia = request.POST['estrategia'] 
     tempoChamada = request.POST['tempoChamada']
     #anuncioCG = request.POST['anuncioCG']
     #musicaEspera = request.POST['musicaEspera']
@@ -28,9 +28,9 @@ def chamadasgrupo_novo(request):
     infoAlerta = request.POST['infoAlerta']
     #anuncioRemoto = request.POST['anuncioRemoto']
     #anuncioTardio = request.POST['anuncioTardio']
-    #modo = request.POST['modo']
+    modo = request.POST['modo']
     valorFixoCID = request.POST['valorFixoCID']
-    #gravarChamadas = request.POST['gravarChamadas']
+    gravarChamadas = request.POST['gravarChamadas']
 
     if 'igConfigCF' in request.POST: 
         igConfigCF = request.POST['igConfigCF']
@@ -52,12 +52,12 @@ def chamadasgrupo_novo(request):
     else:
         confirmaChamada = False
 
-    #destino = request.POST['nome']   estrategia=estrategia, modo=modo ,gravarChamadas=gravarChamadas
-    chamadasgrupo = ChamadaEmGrupo(descricao=descricao, tempoChamada=tempoChamada, prefixCID=prefixCID, infoAlerta=infoAlerta,valorFixoCID=valorFixoCID,
+    #destino = request.POST['nome']  
+    chamadasgrupo = ChamadaEmGrupo(descricao=descricao, gravarChamadas=gravarChamadas, modo=modo , estrategia=estrategia, tempoChamada=tempoChamada, prefixCID=prefixCID, infoAlerta=infoAlerta,valorFixoCID=valorFixoCID,
     igConfigCF=igConfigCF,igAgentOcupado=igAgentOcupado, atendeChamada=atendeChamada,confirmaChamada=confirmaChamada)
     #anuncio = Anuncio(anuncioRemoto=anuncioRemoto, anuncioCG=anuncioCG, anuncioTardio=anuncioTardio)
-    #musica = Musica( musicaEspera=musicaEspera)
-   # musica.save()
+    # musica = Musica( musicaEspera=musicaEspera)
+    # musica.save()
     chamadasgrupo.save()
     #anuncio.save()
     return redirect ('/chamadasgrupo/')
@@ -103,7 +103,7 @@ def chamadasgrupo_edita(request, id):
         else:
             confirmaChamada = False
         #destino = request.POST['nome']   repeticao = repeticao,
-        
+        chamadasgrupo.descricao =descricao
         chamadasgrupo.estrategia = estrategia
         chamadasgrupo.tempoChamada = tempoChamada
         # deve ser anuncio e nao chamadasgrupo.anuncioCG = anuncioCG
