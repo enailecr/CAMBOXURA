@@ -20,12 +20,12 @@ def list(request):
 
 @login_required
 def ura_novo(request):
-    nome = request.POST['descricao']
+    nome = request.POST['nome']
     descricao = request.POST['descricao']
-    anuncioUra = request.POST['descricao']
-    discarDireto = request.POST['descricao']
-    timeout = request.POST['descricao']
-    tentativasInvalidas = request.POST['descricao']
+    anuncioUra = request.POST['anuncio']
+    #discarDireto = request.POST['descricao']
+    timeout = request.POST['timeout']
+    tentativasInvalidas = request.POST['tent_inv']
     gravRepetInvalid = request.POST['descricao']
 
     if 'descricao' in request.POST: 
@@ -68,8 +68,8 @@ def ura_novo(request):
         returnURACaixaPostal = request.POST['descricao']
     else:
         returnURACaixaPostal = False
-
-    ura = URA(nome=nome,descricao=descricao,anuncioUra=anuncioUra, discarDireto=discarDireto,
+    #discarDireto=discarDireto,
+    ura = URA(nome=nome,descricao=descricao,anuncioUra=anuncioUra, 
     timeout=timeout,tentativasInvalidas=tentativasInvalidas,gravRepetInvalid=gravRepetInvalid,
     anexAnuncInvalid=anexAnuncInvalid,returnInvalid=returnInvalid,gravInvalid=gravInvalid,
     retentativasTimeout=retentativasTimeout,gravRetentTimeout=gravRetentTimeout,
