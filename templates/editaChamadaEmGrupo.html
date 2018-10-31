@@ -14,7 +14,7 @@
                
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
             </head>
-            <body onload="devolveestrategia()">
+            <body onload="devolveValores()">
                
                     <div id="divCenter">
                         <div align="center"><h2>Adicionar Chamada em Grupo:</h2></div>
@@ -49,8 +49,10 @@
                                             <option value="8">firstnotonphone</option>
                                 </select>
                                 <script>
-                                    function devolveestrategia() {
+                                    function devolveValores() {
+                                        
                                         document.getElementById("estrategia").value = {{chamadasgrupo.estrategia}};
+
                                     }
                                 </script>
 
@@ -103,15 +105,15 @@
                                             <label for="musicaEspera">Tocar Musica em Espera</label>
                                         </td>
                                         <td align="left">
-                                                <select name="musicaEspera"> 
-                                                <option selected="selected"  >
+                                                <select name="musicaEspera" id="musicaEspera"> 
+                                                <!-- <option selected="selected"  >
                                                                 {{chamadasgrupo.musicaEspera}}
-                                                </option> 
-                                                <option value="ring">Ring</option>
-                                                <option value="age">Agencia-hold</option>
-                                                <option value="cam">CAM-Hold</option>
-                                                <option value="def">Padrão</option>
-                                                <option value="nem">Nenhum</option>
+                                                </option>  -->
+                                                <option value="1">Ring</option>
+                                                <option value="2">Agencia-hold</option>
+                                                <option value="3">CAM-Hold</option>
+                                                <option value="4">Padrão</option>
+                                                <option value="5">Nenhum</option>
                                             </select>
                                         </td>
                                         <td></td>
