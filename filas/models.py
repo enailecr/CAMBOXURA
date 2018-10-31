@@ -104,8 +104,9 @@ ANUNCTEMPOESPERA_CHOICES = (
 )
 
 HABDESAB_CHOICES = (
-    ('1', 'Habilitado'),
-    ('2', 'Desabilitado'),
+    ('1', 'Desabilitado'),
+    ('2', 'Habilitado'),
+
 )
 
 REPORESTATISTICAS_CHOICES = (
@@ -115,7 +116,8 @@ REPORESTATISTICAS_CHOICES = (
     ('4', 'Semanalmente'),
     ('5', 'Mensalmente'),
     ('6', 'Anualmente'),
-    ('6', 'Reiniciar'),
+    ('7', 'Reiniciar'),
+    ('8', 'Customizar'),
 )
 
 class Fila(Destino):

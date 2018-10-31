@@ -61,5 +61,36 @@ def fila_novo(request):
     maxTempoEspera = request.POST['mcrol']
     modoMaxTempoEspera = request.POST['modo_max_esp']
     tempoLimAgent = request.POST['limit_temp_agente']
+    reinicioTempoLimAg = request.POST['rest_agnt']
+    retentativa = request.POST['retentativa']
+    tempoConclusao = request.POST['temp_conclu']
+    atrasoMembro = request.POST['atraso_membro']
+    anuncioAgente = request.POST['agnt_a']
+    relatorioTemEsp = request.POST['report_time']
+    pausaAutom = request.POST['pausa_auto']
+    pausaAutoOcup = request.POST['pausa_ocup']
+    pausaAutoIndispo = request.POST['pausa_ind']
+    atrasoPausaAut = request.POST['delay_pausa']
+
+    maxChamadores = request.POST['max_callers']
+    unirVazio = request.POST['join_empty']
+    deixarVazio = request.POST['leave_empty']
+    limMembrosPenal = request.POST['penalty']
+
+    frequencia = request.POST['frequency']
+    posAnuncio = request.POST['position_anun']
+    anuncTempoEsp = request.POST['anun_tempEsp']
+
+    menuSaidaURA = request.POST['break_out']
+    frequenRepet = request.POST['r_frequency']
+
+    eventChamado = request.POST['event_called']
+    eventStatusMem = request.POST['event_status']
+    nivelServico = request.POST['service_level']
+    filtro = request.POST['filtro_regex']
+
+    destinoFalha = request.POST['dest_falha']
+
+    reporEstat = request.POST['repor_estat']
 
     return redirect ('/filas/')
