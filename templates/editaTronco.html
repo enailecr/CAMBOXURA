@@ -51,11 +51,17 @@
                                                                         {{tronco.op_cid}}
                                                                     </option> -->
                                                                 <option value="1">Permitir Qualquer ID</option>
-                                                                <option value="2">Bloquear Ids Extrangeiros</option>
+                                                                <option value="2">Bloquear CIDs Extrangeiros</option>
                                                                 <option value="3">Remover CNAM</option>
                                                                 <option value="4">Forçar Tronco CID</option>
                                                             </select>
                                                         </td>
+                                                        <script>
+                                                            function devolveValores() {
+                                                                
+                                                                document.getElementById("op_cid").value = {{tronco.opcoesCID}};
+                                                            }
+                                                        </script>
                                                         <td></td>
                                                     </tr>
                                                     <tr>
@@ -137,12 +143,7 @@
                             </tr>
 
             </table>
-            <script>
-                    function devolveValores() {
-                        
-                        document.getElementById("op_cid").value = {{tronco.op_cid}};
-                     }
-                </script>
+            
             <br />
             <br />
             <table cellspacing="10">
