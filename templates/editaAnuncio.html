@@ -19,7 +19,6 @@
                         <br />
                         <form action="{% url 'anuncio_edita' anuncio.id %}" method="POST">
                             {% csrf_token %}
-                        <fieldset>
                         
                         <table cellspacing="10">
                 
@@ -108,7 +107,6 @@
                                     </select>
                                 </td>
                             </tr>
-                        </fieldset>
                         <br />
         </div>
 
