@@ -16,8 +16,8 @@
             <body>
                     <div id="divCenter">
                             <div align="center"><h2>Adicionar URA:</h2></div>
-        <form action="Script_do_Formulario.php" method="POST">
-        
+        <form action="{% url 'ura_novo' %}" method="POST">
+            {% csrf_token %}
             <fieldset>
                 <table cellspacing="10">
                     <tr>
@@ -82,9 +82,9 @@
                                     <label for="app_ann_inv">Anexar Anúncio em Inválido: </label>
                                    </td>
                         <td>
-                            <form>
-                                <INPUT TYPE="checkbox" NAME="app_ann_inv" VALUE="op1">
-                                </form>
+                      
+                                <INPUT TYPE="checkbox" NAME="app_ann_inv" VALUE="True">
+                               
                         </td>
                        </tr>
                    <tr>
@@ -92,9 +92,9 @@
                                 <label for="ReturnInvalid">Retornar em Inválido: </label>
                                </td>
                     <td>
-                        <form>
-                            <INPUT TYPE="checkbox" NAME="ReturnInvalid" VALUE="TRUE">
-                            </form>
+                      
+                            <INPUT TYPE="checkbox" NAME="ReturnInvalid" VALUE="True">
+                            
                     </td>
                    </tr>
                    <tr>
@@ -143,9 +143,9 @@
                                             <label for="append_anon_timout">Anexar Anúncio no Tempo Limite: </label>
                                            </td>
                                 <td>
-                                    <form>
-                                        <INPUT TYPE="checkbox" NAME="append_anon_timout" VALUE="op1">
-                                        </form>
+                                 
+                                        <INPUT TYPE="checkbox" NAME="append_anon_timout" VALUE="True">
+                                       
                                 </td>
                                </tr>
                                <tr>
@@ -153,9 +153,9 @@
                                             <label for="return_timout">Retorno no Tempo Esgotado: </label>
                                            </td>
                                 <td>
-                                    <form>
-                                        <INPUT TYPE="checkbox" NAME="append_anon_timout" VALUE="op1">
-                                        </form>
+                                   
+                                        <INPUT TYPE="checkbox" NAME="append_anon_timout" VALUE="True">
+                                        
                                 </td>
                                </tr>
                                <tr>
@@ -183,9 +183,9 @@
                                                     <label for="return_ura">Retorna para URA após Caixa Postal: </label>
                                                    </td>
                                         <td>
-                                            <form>
-                                                <INPUT TYPE="checkbox" NAME="append_anon_timout" VALUE="op1">
-                                                </form>
+                                           
+                                                <INPUT TYPE="checkbox" NAME="append_anon_timout" VALUE="True">
+                                                    
                                         </td>
                                        </tr>
                 </table>
@@ -250,9 +250,9 @@
                                                 <label for="returna">Retornar: </label>
                                                </td>
                                     <td>
-                                        <form>
-                                            <INPUT TYPE="checkbox" NAME="retorna" VALUE="op1">
-                                            </form>
+                                       
+                                            <INPUT TYPE="checkbox" NAME="retorna" VALUE="True">
+                                        
                                     </td>
                                     </tr>
                 </table>
@@ -261,11 +261,9 @@
                
                
                <br />
-               <input type="submit">
-               <input type="reset" value="Limpar">
+              
+               <button type="submit">Criar URA</button>
                </form>
-<button type="submit">Cadastrar</button>
-</form>  
 </div>
 
 </body> 
