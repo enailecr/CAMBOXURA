@@ -53,9 +53,9 @@ def musica_edita(request, id):
         return render(request, 'editaMusica.html', data)
 
     if 'exerand' in request.POST: 
-        anexAnuncInvalid = request.POST['exerand']
+        execRandom = request.POST['exerand']
     else:
-        anexAnuncInvalid = False
+        execRandom = False
 
 @login_required
 def musica_remove(request, id):
