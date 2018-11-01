@@ -1,22 +1,18 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .forms import StreamingForm, MusicaForm
-from .models import Musica, Streaming
+from django.http import HttpResponse
+from .models import Musica, Streaming , MusicaCategoria
 import re
 from django_tables2 import RequestConfig
 from .tables import MusicaTable
 
 @login_required
 def addcategoria(request):
-    form = MusicaForm()
-    data = {'form' : form}
-    return render(request, 'CadastroMusica.html', data)
+    return render(request, 'CadastroMusica.html')
 
 @login_required
 def addstreaming(request):
-    form = StreamingForm()
-    data = {'form' : form}
-    return render(request, 'CadastroStreaming.html', data)
+    return render(request, 'CadastroStreaming.html')
 
 @login_required
 def list(request):
@@ -26,31 +22,47 @@ def list(request):
 
 @login_required
 def categoria_novo(request):
-    form = MusicaForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-    return redirect ('/musicas/')@login_required
+    nome = request.POST['nome']
+    
+    if 'exerand' in request.POST: 
+        execRandom = request.POST['exerand']
+    else:
+        execRandom = False
+    musica = Musica(nome=nome)
+    musicaCategoria = MusicaCategoria(execRandom=execRandom)
+    musicaCategoria.save()
+    musica.save()
+    return redirect ('/musicas/')
 
 @login_required
 def streaming_novo(request):
-    form = StreamingForm(request.POST or None)
-    if form.is_valid():
-        form.save()
+    aplicacao = request.POST['apl']
+    formato = request.POST['form']
+    streaming = Streaming(aplicacao=aplicacao,formato=formato)
+    streaming.save()
     return redirect ('/musicas/')
 
 @login_required
 def musica_edita(request, id):
     data = {}
     musica = Musica.objects.get(id=id)
-    form = MusicaForm(request.POST or None, instance=musica)
-    data['streaming'] = musica
-    data['form'] = form
+    data['Musica'] = musica
+
     if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-            return redirect('/musicas/')
+        nome = request.POST['nome']
+        if 'exerand' in request.POST: 
+            execRandom = request.POST['exerand']
+        else:
+            execRandom = False
+        musica.nome = nome
+        musicaCategoria.execRandom = execRandom
+        musicaCategoria.save()
+        musica.save()       
+        return redirect('/musicas/')
     else:
         return render(request, 'editaMusica.html', data)
+
+   
 
 @login_required
 def musica_remove(request, id):
