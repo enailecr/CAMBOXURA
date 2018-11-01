@@ -11,14 +11,14 @@ DISCARDIRETO_CHOICES = (
 class URA(Destino):
     nome = models.CharField(max_length=40, blank=False, null=False)
     descricao = models.CharField(max_length=10, blank=False, null=False)
-    anuncioUra = models.ForeignKey(Anuncio, on_delete=models.CASCADE,)
+    anuncioUra = models.ForeignKey(Anuncio, on_delete=models.SET_NULL, null=True, blank=True)
     discarDireto = models.CharField(max_length=1,choices = DISCARDIRETO_CHOICES)
     timeout = models.IntegerField()
     tentativasInvalidas = models.IntegerField()
-    gravRepetInvalid = models.ForeignKey(Gravacao, on_delete=models.CASCADE,)
+    gravRepetInvalid = models.ForeignKey(Gravacao, on_delete=models.SET_NULL, null=True, blank=True)
     anexAnuncInvalid = models.BooleanField()
     returnInvalid = models.BooleanField()
-    gravInvalid = models.ForeignKey(Gravacao, on_delete=models.CASCADE,related_name='gravInvalidURA')
+    gravInvalid = models.ForeignKey(Gravacao, on_delete=models.SET_NULL, null=True, blank=True,related_name='gravInvalidURA')
     destinoInvalid = models.OneToOneField(
         Destino,
         on_delete=models.CASCADE,
@@ -26,10 +26,10 @@ class URA(Destino):
         related_name= 'destinoInvalidURA'
     )
     retentativasTimeout = models.IntegerField()
-    gravRetentTimeout = models.ForeignKey(Gravacao, on_delete=models.CASCADE,related_name='gravRepetInvalidURA')
+    gravRetentTimeout = models.ForeignKey(Gravacao, on_delete=models.SET_NULL, null=True, blank=True,related_name='gravRepetInvalidURA')
     anexAnuncTimeout = models.BooleanField()
     retornarTimeout = models.BooleanField()
-    gravTimeout = models.ForeignKey(Gravacao, on_delete=models.CASCADE,related_name='gravTimeoutURA')
+    gravTimeout = models.ForeignKey(Gravacao, on_delete=models.SET_NULL, null=True, blank=True,related_name='gravTimeoutURA')
     destinoTimeout = models.OneToOneField(
         Destino,
         on_delete=models.CASCADE,
