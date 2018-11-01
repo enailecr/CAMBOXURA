@@ -52,8 +52,8 @@ def ura_novo(request):
     else:
         anexAnuncTimeout = False
 
-    if 'timeout_ret' in request.POST: 
-        retornarTimeout = request.POST['timeout_ret']
+    if 'return_timout' in request.POST: 
+        retornarTimeout = request.POST['return_timout']
     else:
         retornarTimeout = False
     
