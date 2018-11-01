@@ -6,7 +6,7 @@ class Anuncio(Destino):
     descricao = models.CharField(max_length=50, blank=False, null=False)
     #coloquei como null= true
     gravacaoAn = models.ForeignKey('Gravacao', on_delete=models.CASCADE,null=True)
-    repeticao = models.IntegerField(blank=True, null=True)
+    repeticao = models.CharField(max_length=1,blank=True, null=True)
     pula = models.BooleanField()
     retornaURA = models.BooleanField()
     canalNaoResp = models.BooleanField()
@@ -21,5 +21,5 @@ class Anuncio(Destino):
 
 class Gravacao(Destino):
     nome = models.CharField(max_length=30, blank=False, null=False)
-    link = models.CharField(max_length=70, blank=False, null=False)
+    link = models.CharField(max_length=255, blank=False, null=False)
     musica = models.ForeignKey(MusicaCategoria, on_delete=models.CASCADE, null=True, blank=True)

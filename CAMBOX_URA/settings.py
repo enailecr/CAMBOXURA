@@ -77,6 +77,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -148,3 +149,6 @@ STATICFILES_DIRS = [
 LOGIN_URL = '/contas/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/'
+
+MEDIA_URL = '/gravacoes/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'gravacoes')
