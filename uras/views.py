@@ -79,6 +79,7 @@ def ura_novo(request):
     anuncio= Anuncio(gravTimeout=gravTimeout,gravRetentTimeout=gravRetentTimeout,gravInvalid=gravInvalid,gravRepetInvalid=gravRepetInvalid,anuncioUra =anuncioUra )
     anuncio.save()
     return redirect ('/uras/')
+    
 
 @login_required
 def ura_edita(request, id):
