@@ -26,46 +26,46 @@ def ura_novo(request):
     #discarDireto = request.POST['descricao']
     timeout = request.POST['timeout']
     tentativasInvalidas = request.POST['tent_inv']
-    gravRepetInvalid = request.POST['descricao']
+    gravRepetInvalid = request.POST['invrerecor']
 
-    if 'descricao' in request.POST: 
-        anexAnuncInvalid = request.POST['descricao']
+    if 'app_ann_inv' in request.POST: 
+        anexAnuncInvalid = request.POST['app_ann_inv']
     else:
         anexAnuncInvalid = False
 
-    if 'descricao' in request.POST: 
-        returnInvalid = request.POST['descricao']
+    if 'ReturnInvalid' in request.POST: 
+        returnInvalid = request.POST['ReturnInvalid']
     else:
         returnInvalid = False
 
-    gravInvalid =request.POST['descricao']
+    gravInvalid =request.POST['gravinvalid']
     # destinoInvalid = models.OneToOneField(
     #     Destino,
     #     on_delete=models.CASCADE,
     #     parent_link=True,
     #     related_name= 'destinoInvalidURA'
     # )
-    retentativasTimeout = request.POST['descricao']
-    gravRetentTimeout = request.POST['descricao']
-    if 'descricao' in request.POST: 
-        anexAnuncTimeout = request.POST['descricao']
+    retentativasTimeout = request.POST['timeout_ret']
+    gravRetentTimeout = request.POST['timeout_record']
+    if 'descappend_anon_timoutricao' in request.POST: 
+        anexAnuncTimeout = request.POST['append_anon_timout']
     else:
         anexAnuncTimeout = False
 
-    if 'descricao' in request.POST: 
-        retornarTimeout = request.POST['descricao']
+    if 'timeout_ret' in request.POST: 
+        retornarTimeout = request.POST['timeout_ret']
     else:
         retornarTimeout = False
     
-    gravTimeout = request.POST['descricao']
+    gravTimeout = request.POST['timeout_record']
     # destinoTimeout = models.OneToOneField(
     #     Destino,
     #     on_delete=models.CASCADE,
     #     parent_link=True,
     #     related_name='destinoTimeoutURA'
     # )
-    if 'descricao' in request.POST: 
-        returnURACaixaPostal = request.POST['descricao']
+    if 'append_anon_timout' in request.POST: 
+        returnURACaixaPostal = request.POST['append_anon_timout']
     else:
         returnURACaixaPostal = False
     #discarDireto=discarDireto,
