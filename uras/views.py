@@ -69,13 +69,15 @@ def ura_novo(request):
     else:
         returnURACaixaPostal = False
     #discarDireto=discarDireto,
-    ura = URA(nome=nome,descricao=descricao,anuncioUra=anuncioUra, 
-    timeout=timeout,tentativasInvalidas=tentativasInvalidas,gravRepetInvalid=gravRepetInvalid,
-    anexAnuncInvalid=anexAnuncInvalid,returnInvalid=returnInvalid,gravInvalid=gravInvalid,
-    retentativasTimeout=retentativasTimeout,gravRetentTimeout=gravRetentTimeout,
-    anexAnuncTimeout=anexAnuncTimeout,retornarTimeout=retornarTimeout,gravTimeout=gravTimeout,
+    ura = URA(nome=nome,descricao=descricao, 
+    timeout=timeout,tentativasInvalidas=tentativasInvalidas,
+    anexAnuncInvalid=anexAnuncInvalid,returnInvalid=returnInvalid,
+    retentativasTimeout=retentativasTimeout,
+    anexAnuncTimeout=anexAnuncTimeout,retornarTimeout=retornarTimeout,
     returnURACaixaPostal=returnURACaixaPostal)
     ura.save() 
+    anuncio= Anuncio(gravTimeout=gravTimeout,gravRetentTimeout=gravRetentTimeout,gravInvalid=gravInvalid,gravRepetInvalid=gravRepetInvalid,anuncioUra =anuncioUra )
+    anuncio.save()
     return redirect ('/uras/')
 
 @login_required
