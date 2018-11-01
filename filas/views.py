@@ -143,7 +143,7 @@ def fila_novo(request):
                 nivelServico = nivelServico,
                 filtro = filtro,
                 destinoFalha = destinoFalha,
-                reporEstat = rreporEstat
+                reporEstat = reporEstat
                 )
     fila.save()
 
