@@ -20,103 +20,100 @@
         <form action="{% url 'tronco_edita' tronco.id %}" method="POST">
         {% csrf_token %}
         <br />
-
-                             <table cellspacing="10">
-
-                                     <tr>
-                                             <td>
-                                              <label for="nome">Nome do Tronco: </label>
-                                             </td>
-                                             <td align="left">
-                                              <input type="text" name="nome" value="{{tronco.nome}}">
-                                             </td>
-                                             <td></td>
+            <table cellspacing="10">
+                    <tr>
+                        <td>
+                        <label for="nome">Nome do Tronco: </label>
+                        </td>
+                        <td align="left">
+                        <input type="text" name="nome" value="{{tronco.nome}}">
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                        <label for="callerids">CallerID de saída:</label>
+                        </td>
+                        <td align="left">
+                        <input type="text" name="callerids" value="{{tronco.callerIDSaida}}">
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="op_cid">Opções CID</label>
+                        </td>
+                            <td align="left">
+                            <select name="op_cid" id="op_cid">
+                                    <!-- <option selected = "selected">
+                                        {{tronco.op_cid}}
+                                    </option> -->
+                                <option value="1">Permitir Qualquer ID</option>
+                                <option value="2">Bloquear CIDs Extrangeiros</option>
+                                <option value="3">Remover CNAM</option>
+                                <option value="4">Forçar Tronco CID</option>
+                            </select>
+                        </td>
+                            <script>
+                                function devolveValores() {
+                                    
+                                    document.getElementById("op_cid").value = {{tronco.opcoesCID}};
+                                }
+                            </script>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="max_canais">Máximo de Canais: </label>
+                            </td>
+                            <td align="left">
+                                <input type="text" name="max_canais" value="{{tronco.maxCanais}}">
+                            </td>
+                            <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="op_asterisk">Opções de Discagem de Tronco Asterisk: </label>
+                                </td>
+                                <td align="left">
+                                    <input type="text" name="op_asterisk" value="{{tronco.opcoesDiskAsterisk}}">
+                                </td>
+                                <td>
+                                    {%if tronco.op_asterisk %}
+                                    <INPUT TYPE="checkbox" NAME="op_asterisk" VALUE="True" checked>Sobrescrever
+                                    {% else %}
+                                    <INPUT TYPE="checkbox" NAME="op_asterisk" VALUE="True">Sobrescrever
+                                    {%endif%}
+                                </td>
+                                </tr>
+                                    <tr>
+                                    <td>
+                                        <label for="continua">Continuar se ocupado: </label>
+                                        </td>
+                                    <td>
+                                            {%if tronco.contSeOcup %}
+                                            <INPUT TYPE="checkbox" NAME="continua_ocup" VALUE="True" checked>Marque para sempre tentar o próximo tronco
+                                            {% else %}
+                                            <INPUT TYPE="checkbox" NAME="continua_ocup" VALUE="True">Marque para sempre tentar o próximo tronco
+                                            {%endif%}
+                                    </td>
+                                            <td></td>
                                             </tr>
                                             <tr>
-                                                 <td>
-                                                  <label for="callerids">CallerID de saída:</label>
-                                                 </td>
-                                                 <td align="left">
-                                                  <input type="text" name="callerids" value="{{tronco.callerIDSaida}}">
-                                                 </td>
-                                                 <td></td>
-                                                </tr>
-                                                <tr>
-                                                        <td>
-                                                            <label for="op_cid">Opções CID</label>
+                                                <td>
+                                                        <label for="continua">Desabilitar o Tronco: </label>
                                                         </td>
-                                                            <td align="left">
-                                                            <select name="op_cid" id="op_cid">
-                                                                    <!-- <option selected = "selected">
-                                                                        {{tronco.op_cid}}
-                                                                    </option> -->
-                                                                <option value="1">Permitir Qualquer ID</option>
-                                                                <option value="2">Bloquear CIDs Extrangeiros</option>
-                                                                <option value="3">Remover CNAM</option>
-                                                                <option value="4">Forçar Tronco CID</option>
-                                                            </select>
-                                                        </td>
-                                                        <script>
-                                                            function devolveValores() {
-                                                                
-                                                                document.getElementById("op_cid").value = {{tronco.opcoesCID}};
-                                                            }
-                                                        </script>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                            <td>
-                                                             <label for="max_canais">Máximo de Canais: </label>
-                                                            </td>
-                                                            <td align="left">
-                                                             <input type="text" name="max_canais" value="{{tronco.maxCanais}}">
-                                                            </td>
-                                                            <td></td>
-                                                           </tr>
-                                                           <tr>
-                                                                <td>
-                                                                 <label for="op_asterisk">Opções de Discagem de Tronco Asterisk: </label>
-                                                                </td>
-                                                                <td align="left">
-                                                                 <input type="text" name="op_asterisk" value="{{tronco.opcoesDiskAsterisk}}">
-                                                                </td>
-                                                            <td>
-                                                                    {%if tronco.op_asterisk %}
-                                                                    <INPUT TYPE="checkbox" NAME="op_asterisk" VALUE="True" checked>Sobrescrever
-                                                                    {% else %}
-                                                                    <INPUT TYPE="checkbox" NAME="op_asterisk" VALUE="True">Sobrescrever
-                                                                    {%endif%}
-                                                            </td>
-                                                               </tr>
-                                                               <tr>
-                                                                    <td>
-                                                                            <label for="continua">Continuar se ocupado: </label>
-                                                                           </td>
-                                                                <td>
-                                                                        {%if tronco.contSeOcup %}
-                                                                        <INPUT TYPE="checkbox" NAME="continua_ocup" VALUE="True" checked>Marque para sempre tentar o próximo tronco
-                                                                        {% else %}
-                                                                        <INPUT TYPE="checkbox" NAME="continua_ocup" VALUE="True">Marque para sempre tentar o próximo tronco
-                                                                        {%endif%}
-                                                                </td>
-                                                                <td></td>
-                                                               </tr>
-                                                               <tr>
-                                                                    <td>
-                                                                            <label for="continua">Desabilitar o Tronco: </label>
-                                                                           </td>
-                                                                <td>
-                                                                        {%if tronco.desabTronco %}
-                                                                        <INPUT TYPE="checkbox" NAME="desab_tronco" VALUE="True" checked>Desabilitado
-                                                                            {% else %}
-                                                                            <INPUT TYPE="checkbox" NAME="desab_tronco" VALUE="True">Desabilitado
-                                                                        {%endif%}
-                                                                </td>
-                                                                <td></td>
-                                                               </tr>
-                             </table>
+                                            <td>
+                                                    {%if tronco.desabTronco %}
+                                                    <INPUT TYPE="checkbox" NAME="desab_tronco" VALUE="True" checked>Desabilitado
+                                                        {% else %}
+                                                        <INPUT TYPE="checkbox" NAME="desab_tronco" VALUE="True">Desabilitado
+                                                    {%endif%}
+                                            </td>
+                                            <td></td>
+                                            </tr>
+            </table>
         <br />
-
              <table cellspacing="10">
                 <tr>
                   <td>
@@ -126,24 +123,22 @@
                         <input type="text" name="precedente" value="{{tronco.precedente}}">
                            </td>
                            <td>
-                                <label for="prefix">)</label>
-                                  </td>
-                                  <td>
-                                        <label for="plus">+</label>
-                                          </td>
-                                  <td align="left">
-                                        <input type="text" name="prefix" value="{{tronco.prefix}}">
-                                           </td>
-                                           <td>
-                                                <label for="precedente">|</label>
-                                                  </td>
-                                        <td align="left">
-                                            <input type="text" name="match" value="{{tronco.match}}">
-                                        </td>
+                        <label for="prefix">)</label>
+                            </td>
+                            <td>
+                                <label for="plus">+</label>
+                                    </td>
+                            <td align="left">
+                                <input type="text" name="prefix" value="{{tronco.prefix}}">
+                                    </td>
+                                    <td>
+                                        <label for="precedente">|</label>
+                                            </td>
+                                <td align="left">
+                                    <input type="text" name="match" value="{{tronco.match}}">
+                                </td>
                             </tr>
-
             </table>
-            
             <br />
             <br />
             <table cellspacing="10">
@@ -155,28 +150,27 @@
              <input type="text" name="prefixo_saida" value="{{tronco.prefixChamSaida}}">
             </td>
           </tr>
-
           </table>
           <br />
           <br />
             <table cellspacing="10">
                     <div id="divCenter">
                             <tr>
-                                    <td>
-                                        <label for="nome_tronco">Nome do tronco: </label>
-                                    </td>
-                                    <td align="left">
-                                        <input type="text" name="nome_tronco" value="{{tronco.nomeTronco}}">
-                                    </td>
+                                <td>
+                                    <label for="nome_tronco">Nome do tronco: </label>
+                                </td>
+                                <td align="left">
+                                    <input type="text" name="nome_tronco" value="{{tronco.nomeTronco}}">
+                                </td>
 
 
-                                    <td>
-                                    <label for="contexto">Contexto do Usuário: </label>
-                                    </td>
-                                    <td align="left">
-                                            <input type="text" name="contexto" value="{{tronco.contextoUsuario}}">
-                                    </td>
-                                </tr>
+                                <td>
+                                <label for="contexto">Contexto do Usuário: </label>
+                                </td>
+                                <td align="left">
+                                        <input type="text" name="contexto" value="{{tronco.contextoUsuario}}">
+                                </td>
+                            </tr>
                             <tr>
                                 <td>
                                     <label for="detalhes_peer">Detalhes do PEER: </label>
@@ -214,7 +208,6 @@
         </form>  
         </div>
         </body> 
-    
     </table>
     </div>
 {% endblock %}
