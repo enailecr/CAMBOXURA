@@ -177,7 +177,10 @@
                                             </td>
                                             <td align="left">
                                                     <select name="anuncioRemoto"> 
-                                                    <option value="def">Padrão</option>
+                                                        <option value="null">Nenhum</option>
+                                                        {%for anu in anuncios %}
+                                                            <option value="{{anu.id}}">{{anu.descricao}}</option>    
+                                                            {%endfor%}
                                                 </select>
                                             </td>
                                             <td></td>
@@ -188,7 +191,10 @@
                                                 </td>
                                                 <td align="left">
                                                         <select name="anuncioTardio"> 
-                                                        <option value="def">Padrão</option>
+                                                            <option value="null">Nenhum</option>
+                                                            {%for anu in anuncios %}
+                                                                <option value="{{anu.id}}">{{anu.descricao}}</option>    
+                                                                {%endfor%}
                                                     </select>
                                                 </td>
                                                 <td></td>
