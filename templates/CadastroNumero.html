@@ -1,12 +1,9 @@
 {% extends "menu.html" %}
-
-
 {% block content %}
 
-<div >
+<div>
         <table id="CAMTecnoligaTabela">
-    
-      <caption><div align="right">
+        <caption><div align="right">
         </div></caption>
     
             <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -15,60 +12,55 @@
     
             </head>
             <body>
-                    <div id="divCenter">
-                            <div align="center"><h2>Adicionar Número:</h2></div>
-                    <form action="{% url 'numero_novo' %}" method="POST">
-                        {% csrf_token %}
-
-                            <br />
-                       
+                <div id="divCenter">
+                <div align="center"><h2>Adicionar Número:</h2></div>
+                <form action="{% url 'numero_novo' %}" method="POST">
+                 {% csrf_token %}
+                        <br />
                              <table cellspacing="10">
-                            
-                                     <tr>
-                                             <td>
-                                              <label for="numero">Número: </label>
-                                             </td>
-                                             <td align="left">
-                                              <input type="number" name="numero">
-                                             </td>
-                                            </tr>
-                                            <tr>
-                                                 <td>
-                                                  <label for="descricao">Origem: </label>
-                                                 </td>
-                                                 <td align="left">
-                                                  <input type="number" name="origem">
-                                                 </td>
-                                                </tr>
-                                                <tr>
-                                                        <td>
-                                                                <label for="atendido">Atendido: </label>
-                                                               </td>
-                                                    <td>
-                                                       
-                                                            <INPUT TYPE="checkbox" name="atendido"VALUE="True" >
-                                                            
-                                                    </td>
-                                                   </tr>
-                                                   <tr>
-                                                        <td>
-                                                                <label for="return_ura">Grava chamada: </label>
-                                                               </td>
-                                                    <td>
-                                                   
-                                                            <INPUT TYPE="checkbox" name="grava_chamada" VALUE="True">
-                                                 
-                                                    </td>
-                                                   </tr>
+                                <tr>
+                                <td>
+                                  <label for="numero">Número: </label>
+                                </td>
+                                <td align="left">
+                                  <input type="number" name="numero">
+                                </td>
+                                </tr>
+
+                                <tr>
+                                   <td>
+                                    <label for="descricao">Origem: </label>
+                                   </td>
+                                   <td align="left">
+                                     <input type="number" name="origem">
+                                </td>
+                                </tr>
+
+                                <tr>
+                                   <td>
+                                       <label for="atendido">Atendido: </label>
+                                   </td>
+                                   <td>
+                                        <INPUT TYPE="checkbox" name="atendido"VALUE="True" >     
+                                   </td>
+                                </tr>
+
+                                <tr>
+                                 <td>
+                                   <label for="return_ura">Grava chamada: </label>
+                                 </td>
+                                 <td>
+                                   <INPUT TYPE="checkbox" name="grava_chamada" VALUE="True">
+                                 </td>
+                                </tr>
                              </table>
-                            <br />
+                        <br />
              
-        
-        <button type="submit">Cadastrar</button>
-        </form>  
-        </div>
-        </body> 
+                <button type="submit">Cadastrar</button>
+                </form>  
+                </div>
+                </body> 
     
-    </table>
-    </div>
+        </table>
+</div>
 {% endblock %}
