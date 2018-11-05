@@ -9,7 +9,8 @@ from .tables import ChamadaEmGrupoTable
 
 @login_required
 def add(request):
-    return render(request, 'CadastroChamadasGrupo.html')
+    anuncios = Anuncio.objects.all()
+    return render(request, 'CadastroChamadasGrupo.html',{'anuncios': anuncios})
 
 @login_required
 def list(request):
