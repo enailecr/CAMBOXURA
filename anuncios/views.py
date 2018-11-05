@@ -23,7 +23,10 @@ def list(request):
 def anuncio_novo(request):
     descricao = request.POST['descricao']
     gravacaoId = request.POST['gravacao']
-    gravacao = Gravacao.objects.get(id=gravacaoId)
+    if gravacaoId == 0 :
+        gravacao = None
+    else:
+        gravacao = Gravacao.objects.get(id=gravacaoId)
     repeticao = request.POST['repeticao']
     if 'pular' in request.POST:
         pula = request.POST['pular']
@@ -51,7 +54,10 @@ def anuncio_edita(request, id):
     if request.method == 'POST':
         descricao = request.POST['descricao']
         gravacaoId = request.POST['gravacao']
-        gravacao = Gravacao.objects.get(id=gravacaoId)
+        if gravacaoId == "0" :
+            gravacao = None
+        else:
+            gravacao = Gravacao.objects.get(id=gravacaoId)
         repeticao = request.POST['repeticao']
         if 'pular' in request.POST:
             pula = request.POST['pular']
@@ -69,13 +75,20 @@ def anuncio_edita(request, id):
 
         anuncio.descricao = descricao
         anuncio.repeticao = repeticao
-        anuncio.gravacao = gravacao
+        anuncio.gravacaoAn = gravacao
         anuncio.pula = pula
         anuncio.retornaURA = retornaURA
         anuncio.canalNaoResp = canalNaoResp
         anuncio.save()
         return redirect('/anuncios/')
     else:
+        gravacoes = Gravacao.objects.all()
+        if anuncio.gravacaoAn :
+            gravacao = anuncio.gravacaoAn
+        else:
+            gravacao = None
+        data['gravacoes'] = gravacoes
+        data['gravacao'] = gravacao
         return render(request, 'editaAnuncio.html', data)
 
 @login_required
@@ -85,7 +98,7 @@ def anuncio_remove(request, id):
     return redirect('/anuncios/')
 
 @login_required
-def upload_file(request):
+def upload_file_cad(request):
     if request.method == 'POST':
         myfile = request.FILES['anexGravacao']
         fs = FileSystemStorage()
@@ -100,3 +113,23 @@ def upload_file(request):
         data['gravacao'] = gravacao
         data['gravacoes'] = gravacoes
         return render(request, 'CadastroAnuncio.html', data)
+
+@login_required
+def upload_file_edt(request, id):
+    if request.method == 'POST':
+        myfile = request.FILES['anexGravacao']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
+
+        nome = request.POST['nomeGravacao']
+        gravacao = Gravacao(nome=nome, link=uploaded_file_url)
+        gravacao.save()
+        gravacoes = Gravacao.objects.all()
+        data = {}
+        anuncio = Anuncio.objects.get(id=id)
+        data['anuncio'] = anuncio
+
+        data['gravacao'] = gravacao
+        data['gravacoes'] = gravacoes
+        return render(request, 'editaAnuncio.html', data)
