@@ -4,141 +4,143 @@
 {% block content %}
 
 <div>
-        <table id="CAMTecnoligaTabela">
-
+    <table id="CAMTecnoligaTabela">
       <caption><div align="right">
         </div></caption>
+    
+        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        </head>
+<body>
 
-            <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-            <head>
-                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            </head>
-            <body>
+    <div id="divCenter">
+        <form enctype="multipart/form-data" method="POST" action="{% url 'gravacao_nova' %}">
+        {% csrf_token %}
+        <td><input type="file" name="anexGravacao" accept="audio/*"></td>
+        <td>
+        <label for="nomeGravacao">Nome da gravação</label>
+        </td>
+        <TD><input type="text" name="nomeGravacao"></td></TD>
+        <td><button type="submit">Adicionar</button></td>
+        </FORM>
+        <div align="center"><h2>Adicionar Anúncio:</h2></div>
+        <br />
+        <form action="{% url 'anuncio_novo' %}" method="POST">
+            {% csrf_token %}
 
-                    <div id="divCenter">
-                      <form enctype="multipart/form-data" method="POST" action="{% url 'gravacao_nova' %}">
-                        {% csrf_token %}
-                      <td><input type="file" name="anexGravacao" accept="audio/*"></td>
-                      <td>
-                      <label for="nomeGravacao">Nome da gravação</label>
-                      </td>
-                      <TD><input type="text" name="nomeGravacao"></td></TD>
-                      <td><button type="submit">Adicionar</button></td>
-                      </FORM>
-                        <div align="center"><h2>Adicionar Anúncio:</h2></div>
-                        <br />
-                        <form action="{% url 'anuncio_novo' %}" method="POST">
-                            {% csrf_token %}
+        <table cellspacing="10">
 
-                        <table cellspacing="10">
+            <tr>
+                <td>
+                    <label for="descricao">Descrição: </label>
+                    </td>
+                    <td align="left">
+                    <input type="text" name="descricao">
+                    </td>
+                <td></td>
 
-                        <tr>
-                                <td>
-                                <label for="descricao">Descrição: </label>
-                                </td>
-                                <td align="left">
-                                <input type="text" name="descricao">
-                                </td>
-                            <td></td>
+            </tr>
 
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="gravaçao">Gravação</label>
-                            </td>
-                            <td align="left">
-                                    <select name="gravacao">
-                                    <option value="">Nenhum</option>
-                                    {%for grav in gravacoes %}
-                                      {%if grav.id == gravacao.id%}
-                                      <option value="{{grav.id}}" selected>{{grav.nome}}</option>
-                                      {%else%}
-                                      <option value="{{grav.id}}">{{grav.nome}}</option>
-                                      {%endif%}
-                                    {%endfor%}
-                                </select>
-                            </td>
-                            <td></td>
+            <tr>
+                <td>
+                    <label for="gravaçao">Gravação</label>
+                </td>
+                <td align="left">
+                    <select name="gravacao">
+                    <option value="">Nenhum</option>
+                    {%for grav in gravacoes %}
+                        {%if grav.id == gravacao.id%}
+                        <option value="{{grav.id}}" selected>{{grav.nome}}</option>
+                        {%else%}
+                        <option value="{{grav.id}}">{{grav.nome}}</option>
+                        {%endif%}
+                    {%endfor%}
+                    </select>
+                </td>
+                <td></td>
+            </tr>
 
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="repeticao">Repetição</label>
-                            </td>
-                            <td align="left">
-                                    <select name="repeticao">
-                                    <option value="">Desabilitado</option>
-                                    <option value="0">0</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="*">*</option>
-                                    <option value="#">#</option>
-                                </select>
-                            </td>
-                            <td></td>
+            <tr>
+                <td>
+                    <label for="repeticao">Repetição</label>
+                </td>
+                <td align="left">
+                        <select name="repeticao">
+                        <option value="">Desabilitado</option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="*">*</option>
+                        <option value="#">#</option>
+                    </select>
+                </td>
+                <td></td>
+            </tr>
 
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="pular">Permitir Pular: </label>
-                            </td>
-                        <td>
-                                <INPUT TYPE="checkbox" NAME="pular" VALUE="True">
-                        </td>
-                        <td></td>
+            <tr>
+                <td>
+                    <label for="pular">Permitir Pular: </label>
+                </td>
+            <td>
+                    <INPUT TYPE="checkbox" NAME="pular" VALUE="True">
+            </td>
+            <td></td>
 
-                            </tr>
-                        <tr>
-                            <td>
-                                <label for="retorna">Retornar para URA: </label>
-                            </td>
-                        <td>
-                                <INPUT TYPE="checkbox" NAME="retorna" VALUE="True">
-                        </td>
-                        <td></td>
+                </tr>
 
-                            </tr>
-                        <tr>
-                            <td>
-                                <label for="resposta">Canal não Responder: </label>
-                            </td>
-                        <td>
-                                <INPUT TYPE="checkbox" NAME="resposta" VALUE="True">
-                        </td>
+                <tr>
+                    <td>
+                        <label for="retorna">Retornar para URA: </label>
+                    </td>
+                <td>
+                        <INPUT TYPE="checkbox" NAME="retorna" VALUE="True">
+                </td>
+                <td></td>
 
-                        <td></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label for="destino">Destino após Reprodução</label>
-                                </td>
-                                <td align="left">
-                                        <select name="destino">
-                                        <option value="ram">Ramais</option>
-                                    </select>
-                                </td>
-                                <td align="left">
-                                        <select name="destino">
-                                        <option value="check">Escolha um</option>
-                                    </select>
-                                </td>
-                            </tr>
-                        <br />
-        </div>
+                    </tr>
+                <tr>
+                    <td>
+                        <label for="resposta">Canal não Responder: </label>
+                    </td>
+                <td>
+                        <INPUT TYPE="checkbox" NAME="resposta" VALUE="True">
+                </td>
+
+                <td></td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label for="destino">Destino após Reprodução</label>
+                    </td>
+                    <td align="left">
+                            <select name="destino">
+                            <option value="ram">Ramais</option>
+                        </select>
+                    </td>
+                    <td align="left">
+                            <select name="destino">
+                            <option value="check">Escolha um</option>
+                        </select>
+                    </td>
+                </tr>
+        <br />
+
+    </div>
 
         </body>
 
     </table>
     <button type="submit">Cadastrar</button>
 </form>
-
 
     </div>
 {% endblock %}
