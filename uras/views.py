@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from django.http import HttpResponse
-from .models import URA 
+from .models import URA , Anuncio
 import re
 from django_tables2 import RequestConfig
 from .tables import URATable
@@ -10,7 +10,8 @@ from .tables import URATable
 
 @login_required
 def add(request):
-    return render(request, 'UraNovo.html')
+    anuncios = Anuncio.objects.all()
+    return render(request, 'UraNovo.html',{'anuncios': anuncios})
 
 @login_required
 def list(request):

@@ -26,7 +26,10 @@
                                </td>
                                <td align="left">
                                 <select name="anuncio"> 
-                                <option value="True">Nenhum</option> 
+                                <option value="null">Nenhum</option>
+                                {%for anu in anuncios %}
+                                        <option value="{{anu.id}}">{{anu.descricao}}</option>    
+                                {%endfor%}
                                </select>
                 </td>
                   </tr>
