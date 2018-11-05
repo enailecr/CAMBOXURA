@@ -16,7 +16,7 @@
             <body>
                     <div id="divCenter">
                         <div align="center"><h2>Adicionar Chamada em Grupo:</h2></div>
-                        <form action="{% url 'chamadasgrupo_novo' %}" method="POST">
+                        <form  enctype="multipart/form-data" action="{% url 'chamadasgrupo_novo' %}" method="POST">
                                 {% csrf_token %}
                         <br />
                         
@@ -87,6 +87,9 @@
                                     <td align="left">
                                             <select name="anuncioCG"> 
                                             <option value="null">Nenhum</option>
+                                            {%for anu in anuncios %}
+                                                <option value="{{anu.id}}">{{anu.descricao}}</option>    
+                                                {%endfor%}
                                         </select>
                                     </td>
                                     <td></td>
