@@ -23,12 +23,26 @@ def chamadasgrupo_novo(request):
     descricao = request.POST['descricao']
     estrategia = request.POST['estrategia'] 
     tempoChamada = request.POST['tempoChamada']
-    #anuncioCG = request.POST['anuncioCG']
+    anuncioCGID = request.POST['anuncioCG']
+    if anuncioCGID == "0" :
+        anuncioCG = None
+    else:
+        anuncioCG = Anuncio.objects.get(id=anuncioCGID)
     #musicaEspera = request.POST['musicaEspera']
     prefixCID = request.POST['prefixCID']
     infoAlerta = request.POST['infoAlerta']
-    #anuncioRemoto = request.POST['anuncioRemoto']
-    #anuncioTardio = request.POST['anuncioTardio']
+    #anuncioRemoto
+    anuncioRemotoID = request.POST['anuncioRemoto']
+    if anuncioRemotoID == "0" :
+        anuncioRemoto = None
+    else:
+        anuncioRemoto = Anuncio.objects.get(id=anuncioRemotoID)
+    #anuncioTardio
+    anuncioTardioID = request.POST['anuncioTardio']
+    if anuncioTardioID == "0" :
+        anuncioTardio = None
+    else:
+        anuncioTardio = Anuncio.objects.get(id=anuncioTardioID)
     modo = request.POST['modo']
     valorFixoCID = request.POST['valorFixoCID']
     gravarChamadas = request.POST['gravarChamadas']
@@ -55,12 +69,10 @@ def chamadasgrupo_novo(request):
 
     #destino = request.POST['nome']  
     chamadasgrupo = ChamadaEmGrupo(descricao=descricao, gravarChamadas=gravarChamadas, modo=modo , estrategia=estrategia, tempoChamada=tempoChamada, prefixCID=prefixCID, infoAlerta=infoAlerta,valorFixoCID=valorFixoCID,
-    igConfigCF=igConfigCF,igAgentOcupado=igAgentOcupado, atendeChamada=atendeChamada,confirmaChamada=confirmaChamada)
-    #anuncio = Anuncio(anuncioRemoto=anuncioRemoto, anuncioCG=anuncioCG, anuncioTardio=anuncioTardio)
+    igConfigCF=igConfigCF,igAgentOcupado=igAgentOcupado, atendeChamada=atendeChamada,confirmaChamada=confirmaChamada, anuncioCG=anuncioCG,
+    anuncioRemoto=anuncioRemoto,anuncioTardio=anuncioTardio)
     # musica = Musica( musicaEspera=musicaEspera)
-    # musica.save()
     chamadasgrupo.save()
-    #anuncio.save()
     return redirect ('/chamadasgrupo/')
 
 @login_required
@@ -74,12 +86,26 @@ def chamadasgrupo_edita(request, id):
         descricao = request.POST['descricao']
         estrategia = request.POST['estrategia'] 
         tempoChamada = request.POST['tempoChamada']
-        anuncioCG = request.POST['anuncioCG']
-        musicaEspera = request.POST['musicaEspera']
+        anuncioCGID = request.POST['anuncioCG']
+        if anuncioCGID == "0" :
+            anuncioCG = None
+        else:
+            anuncioCG = Anuncio.objects.get(id=anuncioCGID)
+        #musicaEspera = request.POST['musicaEspera']
         prefixCID = request.POST['prefixCID']
         infoAlerta = request.POST['infoAlerta']
-        anuncioRemoto = request.POST['anuncioRemoto']
-        anuncioTardio = request.POST['anuncioTardio']
+        #anuncioRemoto
+        anuncioRemotoID = request.POST['anuncioRemoto']
+        if anuncioRemotoID == "0" :
+            anuncioRemoto = None
+        else:
+            anuncioRemoto = Anuncio.objects.get(id=anuncioRemotoID)
+        #anuncioTardio
+        anuncioTardioID = request.POST['anuncioTardio']
+        if anuncioTardioID == "0" :
+            anuncioTardio = None
+        else:
+            anuncioTardio = Anuncio.objects.get(id=anuncioTardioID)
         modo = request.POST['modo']
         valorFixoCID = request.POST['valorFixoCID']
         gravarChamadas = request.POST['gravarChamadas']
@@ -107,12 +133,12 @@ def chamadasgrupo_edita(request, id):
         chamadasgrupo.descricao =descricao
         chamadasgrupo.estrategia = estrategia
         chamadasgrupo.tempoChamada = tempoChamada
-        # deve ser anuncio e nao chamadasgrupo.anuncioCG = anuncioCG
-        #deve ser musica e nao chamadasgrupo.musicaEspera = musicaEspera
+        chamadasgrupo.anuncioCG = anuncioCG
+        #chamadasgrupo.musicaEspera = musicaEspera
         chamadasgrupo.prefixCID = prefixCID
         chamadasgrupo.infoAlerta = infoAlerta
-        # chamadasgrupo.anuncioRemoto = anuncioRemoto
-        # chamadasgrupo.anuncioTardio = anuncioTardio
+        chamadasgrupo.anuncioRemoto = anuncioRemoto
+        chamadasgrupo.anuncioTardio = anuncioTardio
         chamadasgrupo.modo = modo
         chamadasgrupo.valorFixoCID = valorFixoCID
         chamadasgrupo.gravarChamadas = gravarChamadas
@@ -125,6 +151,24 @@ def chamadasgrupo_edita(request, id):
         chamadasgrupo.save()        
         return redirect('/chamadasgrupo/')
     else:
+        anuncios = Anuncio.objects.all()
+        if chamadasgrupo.anuncioCG :
+            anuncioCG = chamadasgrupo.anuncioCG
+        else:
+            anuncioCG = None
+        if chamadasgrupo.anuncioRemoto :
+            anuncioRemoto = chamadasgrupo.anuncioRemoto
+        else:
+            anuncioRemoto = None
+        if chamadasgrupo.anuncioTardio :
+            anuncioTardio = chamadasgrupo.anuncioTardio
+        else:
+            anuncioTardio = None
+        data['anuncios'] = anuncios
+        data['anuncioCG'] = anuncioCG
+        data['anuncioRemoto'] = anuncioRemoto
+        data['anuncioTardio'] = anuncioTardio
+
         return render(request, 'editaChamadaEmGrupo.html', data)
 
 @login_required

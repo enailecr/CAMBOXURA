@@ -18,7 +18,7 @@
                
                     <div id="divCenter">
                         <div align="center"><h2>editar Chamada em Grupo:</h2></div>
-                        <form action="{% url 'chamadasgrupo_edita' chamadasgrupo.id %}" method="POST">
+                        <form enctype="multipart/form-data" action="{% url 'chamadasgrupo_edita' chamadasgrupo.id %}" method="POST">
                                 {% csrf_token %}
                         <br />
                         
@@ -96,7 +96,18 @@
                                     </td>
                                     <td align="left">
                                             <select name="anuncioCG"> 
-                                            <option value="null">Nenhum</option>
+                                                {%if anuncioCG is null%}
+                                                    <option value="0" selected>Nenhum</option>
+                                                {%else%}
+                                                    <option value="0">Nenhum</option>
+                                                {%endif%}
+                                                {%for anu in anuncios %}
+                                                    {%if anu.id == anuncioCG.id%}
+                                                        <option value="{{anu.id}}" selected>{{anu.descricao}}</option>
+                                                    {%else%}
+                                                        <option value="{{anu.id}}">{{anu.descricao}}</option>
+                                                    {%endif%}
+                                                {%endfor%}
                                         </select>
                                     </td>
                                     <td></td>
@@ -195,7 +206,18 @@
                                             </td>
                                             <td align="left">
                                                     <select name="anuncioRemoto"> 
-                                                    <option value="def">Padrão</option>
+                                                        {%if anuncioRemoto is null%}
+                                                            <option value="0" selected>Nenhum</option>
+                                                        {%else%}
+                                                            <option value="0">Nenhum</option>
+                                                        {%endif%}
+                                                        {%for anu in anuncios %}
+                                                            {%if anu.id == anuncioRemoto.id%}
+                                                                <option value="{{anu.id}}" selected>{{anu.descricao}}</option>
+                                                            {%else%}
+                                                                <option value="{{anu.id}}">{{anu.descricao}}</option>
+                                                            {%endif%}
+                                                        {%endfor%}
                                                 </select>
                                             </td>
                                             <td></td>
@@ -206,7 +228,18 @@
                                                 </td>
                                                 <td align="left">
                                                         <select name="anuncioTardio"> 
-                                                        <option value="def">Padrão</option>
+                                                            {%if anuncioTardio is null%}
+                                                                <option value="0" selected>Nenhum</option>
+                                                            {%else%}
+                                                                <option value="0">Nenhum</option>
+                                                            {%endif%}
+                                                            {%for anu in anuncios %}
+                                                                {%if anu.id == anuncioTardio.id%}
+                                                                    <option value="{{anu.id}}" selected>{{anu.descricao}}</option>
+                                                                {%else%}
+                                                                    <option value="{{anu.id}}">{{anu.descricao}}</option>
+                                                                {%endif%}
+                                                            {%endfor%}
                                                     </select>
                                                 </td>
                                                 <td></td>
