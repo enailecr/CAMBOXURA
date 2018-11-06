@@ -5,10 +5,10 @@
 
 <div >
         <table id="CAMTecnoligaTabela">
-    
+
       <caption><div align="right">
         </div></caption>
-    
+
             <meta http-equiv="content-type" content="text/html;charset=utf-8" />
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -17,7 +17,7 @@
                     <div id="divCenter">
                             <div align="center"><h2>Adicionar Música:</h2></div>
                             <br />
-        <form action="{% url 'categoria_novo'%}" method="POST">
+        <form action="{% url 'categoria_novo'%}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
                 <table cellspacing="10">
                         <tr>
@@ -30,23 +30,63 @@
                             <td></td>
                         </tr>
                         <tr>
+                            <td>
+                                <label for="repeticao">Repetição</label>
+                            </td>
+                            <td align="left">
+                              <select name="volume" tabindex="3">
+                                <option value="1.50">Volume 150%</option>
+                                <option value="1.25">Volume 125%</option>
+                                <option value="1" selected>Volume 100%</option>
+                                <option value=".75">Volume 75%</option>
+                                <option value=".5">Volume 50%</option>
+                                <option value=".25">Volume 25%</option>
+                                <option value=".1">Volume 10%</option>
+                              </select>
+                            </td>
+                            <td></td>
+
+                        </tr>
+                        <tr>
                                 <td>
                                     <label for="exerand">ExecRandom: </label>
                                 </td>
                             <td>
-                                    <INPUT TYPE="checkbox" NAME="exerand" VALUE="True">    
+                                    <INPUT TYPE="checkbox" NAME="exerand" VALUE="True">
                             </td>
                             <td></td>
                                 </tr>
                         <tr>
                             <br />
                             <button type="submit">Cadastrar</button>
-        </form>  
+
+
         </div>
-        </body> 
-    
+        <td><input type="file" id="anexMusica" name="anexMusica" accept="audio/*"></td>
+        <td>
+        <label for="nomeGravacao">Nome da gravação</label>
+        </td>
+        <TD><input type="text" name="nomeGravacao"></td></TD>
+
+</form>
     </table>
     </div>
-    
+<!--     <div id="divCenter">
+    <form enctype="multipart/form-data" method="POST" action="{% url 'gravacao_nova' %}">
+      {% csrf_token %}
+    <td><input type="file" name="anexGravacao" accept="audio/*"></td>
+    <td>
+    <label for="nomeGravacao">Nome da gravação</label>
+    </td>
+    <TD><input type="text" name="nomeGravacao"></td></TD>
+    <td><button type="submit">Adicionar</button></td>
+    </FORM>
+  </div>
+   <ul>
+    {%for mus in musicas%}
+    <li>{{mus.nome}}</li>
+    {%endfor%}
+  </ul> -->
+</body>
 
 {% endblock %}

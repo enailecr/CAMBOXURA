@@ -9,3 +9,4 @@ class Streaming(Musica):
 
 class MusicaCategoria(Musica):
     execRandom = models.BooleanField()
+    volume = models.CharField(max_length=5)

@@ -15,7 +15,7 @@ class MusicaTable(tables.Table):
         verbose_name=''
         )
     editar = tables.TemplateColumn(
-            '<form action="/musicas/musica-edita/{{record.id}}/" method="get">{% csrf_token %}<input type="hidden" name="_method" value="Editar"><button data-toggle="tooltip" title="Please note that deletion cannot be undone" type="submit" class="btn btn-danger btn-xs">Editar</button></form>',
+            '<form action="{% url \'musica_edita\' record.id %}" method="get">{% csrf_token %}<input type="hidden" name="_method" value="Editar"><button data-toggle="tooltip" title="Please note that deletion cannot be undone" type="submit" class="btn btn-danger btn-xs">Editar</button></form>',
         orderable=False,
         verbose_name=''
         )
