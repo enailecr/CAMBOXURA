@@ -26,76 +26,72 @@
                                 {# <label for="tipo">Tipo</label> #}
                             {# </td> #}
                             {# <td align="left"> #}
-                                    {# <select name="tipo"> #}
-                                    {# <option value="def">------</option> #}
-                                    {# <option value="gra">Gravação</option> #}
-                                    {# <option value="ura">URA</option> #}
-                                    {# <option value="fil">Fila</option> #}
-                                    {# <option value="grp">Chamada em Grupo</option> #}
-                                    {# <option value="tmp">Condições de Tempo</option> #}
-                                    {# <option value="tro">Tronco</option> #}
-                                {# </select> #}
+                                {# <select name="tipo"> #}
+                                {# <option value="def">------</option> #}
+                                {# <option value="gra">Gravação</option> #}
+                                {# <option value="ura">URA</option> #}
+                                {# <option value="fil">Fila</option> #}
+                                {# <option value="grp">Chamada em Grupo</option> #}
+                                {# <option value="tmp">Condições de Tempo</option> #}
+                                {# <option value="tro">Tronco</option> #}
+                            {# </select> #}
                             {# </td> #}
                             {# <td></td> #}
                         {# </tr> #}
                         <tr>
-                                <td>
-                                <label for="nome">Nome: </label>
-                                </td>
-                                <td align="left">
-                                <input type="text" name="nome">
-                                </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                                <td>
-                                <label for="senha">Senha: </label>
-                                </td>
-                                <td align="left">
-                                <input type="text" name="senha">
-                                </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                                <td>
-                                        <label for="disc_disp">Gerar Dicas de Dispositivo: </label>
-                                        </td>
                             <td>
-
-                                    <INPUT TYPE="checkbox" name="dicas_disp"VALUE="True" >
-
+                            <label for="nome">Nome: </label>
+                            </td>
+                            <td align="left">
+                            <input type="text" name="nome">
+                            </td>
+                        <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                            <label for="senha">Senha: </label>
+                            </td>
+                            <td align="left">
+                            <input type="text" name="senha">
+                            </td>
+                        <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="disc_disp">Gerar Dicas de Dispositivo: </label>
+                                </td>
+                            <td>
+                                <INPUT TYPE="checkbox" name="dicas_disp"VALUE="True" >
                             </td>
                             <td></td>
                             </tr>
                             <tr>
                                 <td>
-                                        <label for="conf_cham">Confirmação de Chamada: </label>
-                                        </td>
-                            <td>
-
+                                    <label for="conf_cham">Confirmação de Chamada: </label>
+                                </td>
+                                <td>
                                     <INPUT TYPE="checkbox" name="conf_cham"VALUE="True" >
-
-                            </td>
-                            <td></td>
+                                </td>
+                                <td></td>
                             </tr>
                             <tr>
-                                    <td>
-                                            <label for="anun">Anuncio de Confirmação de Chamada</label>
-                                        </td>
-                                        <td align="left">
-                                                <select name="anunc_confirm_cham">
-                                                <option value="0">POPULAR COM ANUNCIOS DO BANCO</option>
-                                            </select>
-                                        </td>
+                                <td>
+                                    <label for="anun">Anuncio de Confirmação de Chamada</label>
+                                </td>
+                                <td align="left">
+                                    <select name="anunc_confirm_cham">
+                                    <option value="0">POPULAR COM ANUNCIOS DO BANCO</option>
+                                    </select>
+                                </td>
                     <td></td>
                 </tr>
                 <tr>
-                        <td>
+                    <td>
                         <label for="prefix">Prefixo de Nome CID: </label>
-                        </td>
-                        <td align="left">
-                        <input type="text" name="prefix_cid">
-                        </td>
+                    </td>
+                    <td align="left">
+                    <input type="text" name="prefix_cid">
+                    </td>
                     <td></td>
                 </tr>
                 <tr>
@@ -111,48 +107,48 @@
                         <td></td>
                     </tr>
                     <tr>
-                            <td>
+                        <td>
                             <label for="info">Informação de Alerta: </label>
-                            </td>
-                            <td align="left">
+                        </td>
+                        <td align="left">
                             <input type="text" name="info">
-                            </td>
+                        </td>
                         <td></td>
                     </tr>
                     <tr>
-                            <td>
-                                    <label for="agnt_estatico">Agentes Estáticos: </label>
-                                </td>
-                                <td align="left">
-                                        <textarea rows="10" cols="25">
-                                                </textarea>
-                                </td>
-                                <td></td>
+                        <td>
+                            <label for="agnt_estatico">Agentes Estáticos: </label>
+                        </td>
+                        <td align="left">
+                                <textarea rows="10" cols="25">
+                                        </textarea>
+                        </td>
+                        <td></td>
                         </tr>
 
                             <tr>
-                                    <td>
-                                            <label for="mbm_dinamicos">Membros Dinâmicos: </label>
-                                        </td>
-                                        <td align="left">
-                                                <textarea rows="10" cols="25">
-                                                        </textarea>
-                                        </td>
-                                        <td></td>
+                                <td>
+                                    <label for="mbm_dinamicos">Membros Dinâmicos: </label>
+                                </td>
+                                <td align="left">
+                                        <textarea rows="10" cols="25">
+                                        </textarea>
+                                </td>
+                                <td></td>
                                 </tr>
 
-                                    <tr>
-                                      <td>
-                                      <label for="nome">Restringir agentes dinâmicos: </label>
-                                      </td>
-                                      <td align="left">
-                                        <select name="restring_agent_din">
-                                        <option value="False">Não</option>
-                                        <option value="True">Sim</option>
+                            <tr>
+                                <td>
+                                    <label for="nome">Restringir agentes dinâmicos: </label>
+                                </td>
+                                <td align="left">
+                                    <select name="restring_agent_din">
+                                    <option value="False">Não</option>
+                                    <option value="True">Sim</option>
                                     </select>
-                                      </td>
-                                  <td></td>
-                              </tr>
+                                </td>
+                                <td></td>
+                            </tr>
                               <tr>
                                 <td>
                                 <label for="nome">Restrições de agente: </label>
@@ -167,78 +163,76 @@
                             <td></td>
                         </tr>
 
-                                            <br/>
-                                        <br/>
+                        <br/>
+                        <br/>
 
-                                        <table cellspacing="10">
-                                                <tr>
-                                                        <td>
-                                                            <label for="estrat_ring">Estratégia Chamada</label>
-                                                        </td>
-                                                        <td align="left">
-                                                                <select name="estrat_ring">
-                                                                <option value="1">ringall</option>
-                                                                <option value="2">leastrecent</option>
-                                                                <option value="3">fewestcalls</option>
-                                                                <option value="4">random</option>
-                                                                <option value="5">rrmemory</option>
-                                                                <option value="6">rrordered</option>
-                                                                <option value="7">linear</option>
-                                                                <option value="8">wrandom</option>
-                                                            </select>
-                                                        </td>
-                                                        <td></td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                            <td>
-                                                                    <label for="p_auto">Preenchimento Automático: </label>
-                                                                    </td>
-                                                        <td>
-
-                                                                <INPUT TYPE="checkbox" name="p_auto"VALUE="True" >
-
-                                                        </td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        </tr>
-                                                        <tr>
-                                                                <td>
-                                                                    <label for="ignorar">Ignorar Agentes Ocupados</label>
-                                                                </td>
-                                                                <td align="left">
-                                                                        <select name="ignorar_agen_ocup">
-                                                                        <option value="1">Não</option>
-                                                                        <option value="2">Sim</option>
-                                                                        <option value="3">Sim + (chamadaemuso=não)</option>
-                                                                        <option value="4">Somente chamada em fila (chamadaemuso=não)</option>
-                                                                    </select>
-                                                                </td>
-                                                                <td></td>
-                                                                <td></td>
-                                                            </tr>
-                                                            <tr>
-                                                                    <td>
-                                                                        <label for="peso">Peso da Fila</label>
-                                                                    </td>
-                                                                    <td align="left">
-                                                                            <select name="peso">
-                                                                            <option value="0">0</option>
-                                                                            <option value="1">1</option>
-                                                                            <option value="2">2</option>
-                                                                            <option value="3">3</option>
-                                                                            <option value="4">4</option>
-                                                                            <option value="5">5</option>
-                                                                            <option value="6">6</option>
-                                                                            <option value="7">7</option>
-                                                                            <option value="8">8</option>
-                                                                            <option value="9">9</option>
-                                                                            <option value="10">10</option>
-                                                                        </select>
-                                                                    </td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                </tr>
+                            <table cellspacing="10">
+                                <tr>
+                                    <td>
+                                        <label for="estrat_ring">Estratégia Chamada</label>
+                                    </td>
+                                    <td align="left">
+                                            <select name="estrat_ring">
+                                            <option value="1">ringall</option>
+                                            <option value="2">leastrecent</option>
+                                            <option value="3">fewestcalls</option>
+                                            <option value="4">random</option>
+                                            <option value="5">rrmemory</option>
+                                            <option value="6">rrordered</option>
+                                            <option value="7">linear</option>
+                                            <option value="8">wrandom</option>
+                                        </select>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="p_auto">Preenchimento Automático: </label>
+                                    </td>
+                                    <td>
+                                        <INPUT TYPE="checkbox" name="p_auto"VALUE="True" >
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    </tr>
+                                    <tr>
+                                            <td>
+                                                <label for="ignorar">Ignorar Agentes Ocupados</label>
+                                            </td>
+                                            <td align="left">
+                                                    <select name="ignorar_agen_ocup">
+                                                    <option value="1">Não</option>
+                                                    <option value="2">Sim</option>
+                                                    <option value="3">Sim + (chamadaemuso=não)</option>
+                                                    <option value="4">Somente chamada em fila (chamadaemuso=não)</option>
+                                                </select>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label for="peso">Peso da Fila</label>
+                                            </td>
+                                            <td align="left">
+                                                    <select name="peso">
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                </select>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
                                                                 <tr>
                                                                         <td>
                                                                             <label for="musica">Música em Espera</label>
