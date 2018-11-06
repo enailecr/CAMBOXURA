@@ -10,7 +10,7 @@ from django.core.files.storage import FileSystemStorage
 
 @login_required
 def add(request):
-    gravacoes = Gravacao.objects.all()
+    gravacoes = Gravacao.objects.exclude(musica__isnull=False)
     return render(request, 'CadastroAnuncio.html', {'gravacoes': gravacoes})
 
 @login_required
@@ -82,7 +82,7 @@ def anuncio_edita(request, id):
         anuncio.save()
         return redirect('/anuncios/')
     else:
-        gravacoes = Gravacao.objects.all()
+        gravacoes = Gravacao.objects.exclude(musica__isnull=False)
         if anuncio.gravacaoAn :
             gravacao = anuncio.gravacaoAn
         else:
@@ -108,7 +108,7 @@ def upload_file_cad(request):
         nome = request.POST['nomeGravacao']
         gravacao = Gravacao(nome=nome, link=uploaded_file_url)
         gravacao.save()
-        gravacoes = Gravacao.objects.all()
+        gravacoes = Gravacao.objects.exclude(musica__isnull=False)
         data = {}
         data['gravacao'] = gravacao
         data['gravacoes'] = gravacoes
@@ -125,7 +125,7 @@ def upload_file_edt(request, id):
         nome = request.POST['nomeGravacao']
         gravacao = Gravacao(nome=nome, link=uploaded_file_url)
         gravacao.save()
-        gravacoes = Gravacao.objects.all()
+        gravacoes = Gravacao.objects.exclude(musica__isnull=False)
         data = {}
         anuncio = Anuncio.objects.get(id=id)
         data['anuncio'] = anuncio

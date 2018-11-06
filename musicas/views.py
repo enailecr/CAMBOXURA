@@ -88,6 +88,9 @@ def musica_edita(request, id):
 @login_required
 def musica_remove(request, id):
     musica = Musica.objects.get(id=id)
+    gravacoes = Gravacao.objects.filter(musica__exact=musica)
+    for gravacao in gravacoes:
+        gravacao.delete()
     musica.delete()
     return redirect('/musicas/')
 
