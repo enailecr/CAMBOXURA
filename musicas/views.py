@@ -88,8 +88,10 @@ def musica_edita(request, id):
 @login_required
 def musica_remove(request, id):
     musica = Musica.objects.get(id=id)
+    fs = FileSystemStorage()
     gravacoes = Gravacao.objects.filter(musica__exact=musica)
     for gravacao in gravacoes:
+        fs.delete(gravacao.link)
         gravacao.delete()
     musica.delete()
     return redirect('/musicas/')
@@ -98,8 +100,7 @@ def upload_file_cad(myfile, nome):
 
     fs = FileSystemStorage()
     filename = fs.save(myfile.name, myfile)
-    uploaded_file_url = fs.url(filename)
 
-    gravacao = Gravacao(nome=nome, link=uploaded_file_url)
+    gravacao = Gravacao(nome=nome, link=filename)
     gravacao.save()
     return gravacao.id
