@@ -70,6 +70,7 @@ def musica_edita(request, id):
         musica.save()
 
         if 'anexMusica' in request.FILES:
+            myfile = request.FILES['anexMusica']
             nome = request.POST['nomeGravacao']
             gravacaoid = upload_file_cad(myfile, nome);
             gravacao = Gravacao.objects.get(id=gravacaoid)
