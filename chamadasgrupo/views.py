@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
 from .models import ChamadaEmGrupo, Anuncio, Musica
+from musicas.models import MusicaCategoria
 import re
 from django_tables2 import RequestConfig
 from .tables import ChamadaEmGrupoTable
@@ -10,7 +11,11 @@ from .tables import ChamadaEmGrupoTable
 @login_required
 def add(request):
     anuncios = Anuncio.objects.all()
-    return render(request, 'CadastroChamadasGrupo.html',{'anuncios': anuncios})
+    musicas = Musica.objects.all()
+    data={}
+    data['anuncios'] = anuncios
+    data['musicas'] = musicas
+    return render(request, 'CadastroChamadasGrupo.html',data)
 
 @login_required
 def list(request):
@@ -29,6 +34,11 @@ def chamadasgrupo_novo(request):
     else:
         anuncioCG = Anuncio.objects.get(id=anuncioCGID)
     #musicaEspera = request.POST['musicaEspera']
+    musicasID = request.POST['musicaEspera']
+    if musicasID == "0" :
+        musicas = None
+    else:
+        musicas = Musica.objects.get(id=musicasID)
     prefixCID = request.POST['prefixCID']
     infoAlerta = request.POST['infoAlerta']
     #anuncioRemoto
@@ -70,8 +80,8 @@ def chamadasgrupo_novo(request):
     #destino = request.POST['nome']  
     chamadasgrupo = ChamadaEmGrupo(descricao=descricao, gravarChamadas=gravarChamadas, modo=modo , estrategia=estrategia, tempoChamada=tempoChamada, prefixCID=prefixCID, infoAlerta=infoAlerta,valorFixoCID=valorFixoCID,
     igConfigCF=igConfigCF,igAgentOcupado=igAgentOcupado, atendeChamada=atendeChamada,confirmaChamada=confirmaChamada, anuncioCG=anuncioCG,
-    anuncioRemoto=anuncioRemoto,anuncioTardio=anuncioTardio)
-    # musica = Musica( musicaEspera=musicaEspera)
+    anuncioRemoto=anuncioRemoto,anuncioTardio=anuncioTardio, musicaEspera=musicas)
+    # musica = Musica( )
     chamadasgrupo.save()
     return redirect ('/chamadasgrupo/')
 
@@ -92,6 +102,11 @@ def chamadasgrupo_edita(request, id):
         else:
             anuncioCG = Anuncio.objects.get(id=anuncioCGID)
         #musicaEspera = request.POST['musicaEspera']
+        musicaEsperaID = request.POST['musicaEspera']
+        if musicaEsperaID == "0" :
+            musicaEspera = None
+        else:
+            musicaEspera = Musica.objects.get(id=musicaEsperaID)
         prefixCID = request.POST['prefixCID']
         infoAlerta = request.POST['infoAlerta']
         #anuncioRemoto
@@ -134,7 +149,7 @@ def chamadasgrupo_edita(request, id):
         chamadasgrupo.estrategia = estrategia
         chamadasgrupo.tempoChamada = tempoChamada
         chamadasgrupo.anuncioCG = anuncioCG
-        #chamadasgrupo.musicaEspera = musicaEspera
+        chamadasgrupo.musicaEspera = musicaEspera
         chamadasgrupo.prefixCID = prefixCID
         chamadasgrupo.infoAlerta = infoAlerta
         chamadasgrupo.anuncioRemoto = anuncioRemoto
@@ -152,6 +167,7 @@ def chamadasgrupo_edita(request, id):
         return redirect('/chamadasgrupo/')
     else:
         anuncios = Anuncio.objects.all()
+        #musicas = Musica.objects.all()
         if chamadasgrupo.anuncioCG :
             anuncioCG = chamadasgrupo.anuncioCG
         else:
@@ -164,10 +180,16 @@ def chamadasgrupo_edita(request, id):
             anuncioTardio = chamadasgrupo.anuncioTardio
         else:
             anuncioTardio = None
+
+        if chamadasgrupo.musicaEspera :
+            musicaEspera = chamadasgrupo.musicaEspera
+        else:
+            musicaEspera = None
         data['anuncios'] = anuncios
         data['anuncioCG'] = anuncioCG
         data['anuncioRemoto'] = anuncioRemoto
         data['anuncioTardio'] = anuncioTardio
+        data['musicas'] = musicaEspera
 
         return render(request, 'editaChamadaEmGrupo.html', data)
 

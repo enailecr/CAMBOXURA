@@ -86,7 +86,7 @@
                                     </td>
                                     <td align="left">
                                             <select name="anuncioCG"> 
-                                            <option value="null">Nenhum</option>
+                                            <option value="0">Nenhum</option>
                                             {%for anu in anuncios %}
                                                 <option value="{{anu.id}}">{{anu.descricao}}</option>    
                                                 {%endfor%}
@@ -100,11 +100,10 @@
                                         </td>
                                         <td align="left">
                                                 <select name="musicaEspera"> 
-                                                <option value="1">Ring</option>
-                                                <option value="2">Agencia-hold</option>
-                                                <option value="3">CAM-Hold</option>
-                                                <option value="4">Padrão</option>
-                                                <option value="5">Nenhum</option>
+                                                <option value="0">Nenhum</option>
+                                                {%for mus in musicas %}
+                                                    <option value="{{mus.id}}">{{mus.nome}}</option>    
+                                                    {%endfor%}
                                             </select>
                                         </td>
                                         <td></td>
@@ -177,7 +176,7 @@
                                             </td>
                                             <td align="left">
                                                     <select name="anuncioRemoto"> 
-                                                        <option value="null">Nenhum</option>
+                                                        <option value="0">Nenhum</option>
                                                         {%for anu in anuncios %}
                                                             <option value="{{anu.id}}">{{anu.descricao}}</option>    
                                                             {%endfor%}
@@ -191,7 +190,7 @@
                                                 </td>
                                                 <td align="left">
                                                         <select name="anuncioTardio"> 
-                                                            <option value="null">Nenhum</option>
+                                                            <option value="0">Nenhum</option>
                                                             {%for anu in anuncios %}
                                                                 <option value="{{anu.id}}">{{anu.descricao}}</option>    
                                                                 {%endfor%}
