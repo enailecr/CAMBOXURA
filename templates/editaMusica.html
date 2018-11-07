@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<div >
+<div>
         <table id="CAMTecnoligaTabela">
 
       <caption><div align="right">
@@ -76,7 +76,7 @@
      {%for mus in gravacoes%}
      <li>{{mus.nome}}</li>
      {%endfor%}
-     <button type="submit">Excluir Gravações</button>
+     <a id="botao" href="#"><input class="butn" type="button" value="Excluir Gravações"></a>
    </ul>
     </div>
 {% endblock %}
