@@ -118,14 +118,18 @@
                                         </td>
                                         <td align="left">
                                                 <select name="musicaEspera" id="musicaEspera"> 
-                                                <!-- <option selected="selected"  >
-                                                                {{chamadasgrupo.musicaEspera}}
-                                                </option>  -->
-                                                <option value="1">Ring</option>
-                                                <option value="2">Agencia-hold</option>
-                                                <option value="3">CAM-Hold</option>
-                                                <option value="4">Padrão</option>
-                                                <option value="5">Nenhum</option>
+                                                    {%if musicaEspera is null%}
+                                                        <option value="0" selected>Nenhum</option>
+                                                    {%else%}
+                                                        <option value="0">Nenhum</option>
+                                                    {%endif%}
+                                                    {%for mus in musicas %}
+                                                        {%if mus.id == musicaEspera.id%}
+                                                            <option value="{{mus.id}}" selected>{{mus.nome}}</option>
+                                                        {%else%}
+                                                            <option value="{{mus.id}}">{{mus.nome}}</option>
+                                                        {%endif%}
+                                                    {%endfor%}
                                             </select>
                                         </td>
                                         <td></td>

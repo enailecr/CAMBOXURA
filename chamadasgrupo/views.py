@@ -80,7 +80,7 @@ def chamadasgrupo_novo(request):
     #destino = request.POST['nome']  
     chamadasgrupo = ChamadaEmGrupo(descricao=descricao, gravarChamadas=gravarChamadas, modo=modo , estrategia=estrategia, tempoChamada=tempoChamada, prefixCID=prefixCID, infoAlerta=infoAlerta,valorFixoCID=valorFixoCID,
     igConfigCF=igConfigCF,igAgentOcupado=igAgentOcupado, atendeChamada=atendeChamada,confirmaChamada=confirmaChamada, anuncioCG=anuncioCG,
-    anuncioRemoto=anuncioRemoto,anuncioTardio=anuncioTardio, musicaEspera=musicas)
+    anuncioRemoto=anuncioRemoto,anuncioTardio=anuncioTardio, musicaEspera=musicas   )
     # musica = Musica( )
     chamadasgrupo.save()
     return redirect ('/chamadasgrupo/')
@@ -167,7 +167,7 @@ def chamadasgrupo_edita(request, id):
         return redirect('/chamadasgrupo/')
     else:
         anuncios = Anuncio.objects.all()
-        #musicas = Musica.objects.all()
+        musicas = Musica.objects.all()
         if chamadasgrupo.anuncioCG :
             anuncioCG = chamadasgrupo.anuncioCG
         else:
@@ -186,10 +186,11 @@ def chamadasgrupo_edita(request, id):
         else:
             musicaEspera = None
         data['anuncios'] = anuncios
+        data['musicas'] = musicas
         data['anuncioCG'] = anuncioCG
         data['anuncioRemoto'] = anuncioRemoto
         data['anuncioTardio'] = anuncioTardio
-        data['musicas'] = musicaEspera
+        data['musicaEspera'] = musicaEspera
 
         return render(request, 'editaChamadaEmGrupo.html', data)
 
