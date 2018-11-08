@@ -1,0 +1,96 @@
+{% extends "menu.html" %}
+{% load render_table from django_tables2 %}
+
+
+{% block content %}
+
+<div >
+    <table id="CAMTecnoligaTabela">
+            <caption><h1>Relatórios</h1><div align="right">
+
+  <caption><div align="right">
+    </div></caption>
+
+        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        </head>
+        <body>
+                <div id="divCenter">
+                        <br />
+    <form action="{% url 'streaming_novo'%}" method="POST">
+            <table cellspacing="10">
+                    <tr>
+                            <td>
+                            <label for="data_inicio">Data Início: </label>
+                            </td>
+                            <td align="left">
+                            <input type="text" name="data_inicio">
+                            </td>
+                            <td>
+                                    <label for="campo">Campo</label>
+                                </td>
+                                <td align="left">
+                                        <select name="campo">
+                                        <option value="1">Destino</option>
+                                        <option value="1">Origem</option>                                       
+                                        <option value="1">Canal Origem</option>
+                                        <option value="1">Código da Conta</option>
+                                        <option value="1">Canal Destino</option>
+                                    </select>
+                                </td>   
+                                        <td align="left">
+                                        <input type="text" name="data_inicio">
+                                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                            <td>
+                            <label for="data_fim">Data Fim: </label>
+                            </td>
+                            <td align="left">
+                            <input type="text" name="data_fim">
+                            </td>
+                            <td>
+                                    <label for="status">Status</label>
+                                </td>
+                                <td align="left">
+                                        <select name="status">
+                                        <option value="all">Todos</option>                                       
+                                        <option value="resp">Respondidos</option>
+                                        <option value="ocup">Ocupados</option>
+                                        <option value="fail">Fracassados</option>
+                                        <option value="no_resp">Sem Resposta</option>
+                                    </select>
+                                </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                            <td>
+                                    <label for="chamada">Chamada em Grupo</label>
+                                </td>
+                                <td align="left">
+                                        <select name="chamada">
+                                        <option value="1">600/CAM</option>
+                                        <option value="all">Qualquer Chamada em Grupo</option>
+                                    </select>
+                                </td>
+                            <td><button type="submit">Pesquisar</button></td>
+                            </tr>
+            </table>
+            <br />
+            <tr>
+                <td>
+                        <td><button type="submit">Imprimir</button></td>
+                        <td><button type="submit">Exportar para Excel</button></td>
+                </td>
+            </tr>
+<table>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+        
+</table>
+
+{% endblock %}
+
+

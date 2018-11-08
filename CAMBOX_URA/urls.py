@@ -19,5 +19,5 @@ urlpatterns = [
     path(r'usuarios/', include('usuarios.urls')),
     path(r'relatorios/', include('relatorios.urls')),
     path(r'logs/', include('logs.urls')),
-
+    path(r'aplicar/', include('aplicar.urls')),
 ]

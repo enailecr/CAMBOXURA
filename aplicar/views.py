@@ -11,5 +11,5 @@ from django.contrib.auth.decorators import login_required
 def list(request):
     # table = LogsTable(Logs.objects.all())
     # RequestConfig(request, paginate={'per_page': 10}).configure(table)
-    return render(request, 'logs.html') #,{'table': table}
+    return render(request, 'aplicar.html') #,{'table': table}
 
