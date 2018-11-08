@@ -9,7 +9,8 @@ class NumeroEntrada(Destino):
     destino = models.OneToOneField(
         Destino,
         on_delete=models.CASCADE,
-        parent_link=True
+        parent_link=True,
+        related_name= 'destinoNumero'
     )
 
     def __str__(self):

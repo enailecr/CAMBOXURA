@@ -2,26 +2,28 @@
 
 
 {% block content %}
+{% load static %}
 
+<script src="{% static 'js/destino.js' %}"></script>
 <div >
         <table id="CAMTecnoligaTabela">
-    
+
       <caption><div align="right">
         </div></caption>
-    
+
             <meta http-equiv="content-type" content="text/html;charset=utf-8" />
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-               
+
             </head>
             <body>
                     <div id="divCenter">
                             <div align="center"><h2>Editar Número:</h2></div>
         <form action="{% url 'numero_edita' numero.id %}" method="POST">
         {% csrf_token %}
-        <br />                       
+        <br />
                              <table cellspacing="10">
-                            
+
                                      <tr>
                                              <td>
                                               <label for="numero">Número: </label>
@@ -45,7 +47,7 @@
                                                     <td>
                                                         {%if numero.atendido %}
                                                             <INPUT TYPE="checkbox" name="atendido"VALUE="True" checked >
-                                                        {% else %}    
+                                                        {% else %}
                                                             <INPUT TYPE="checkbox" name="atendido"VALUE="True"  >
                                                         {%endif%}
                                                     </td>
@@ -64,12 +66,262 @@
                                                    </tr>
                              </table>
                             <br />
-             
+                            <table>
+
+                          <tr>
+                                  <td>
+                                  <label for="fail">Destino: </label>
+                                  <td align="left">
+                                          <select name="tipo_des" id="tipo_des" onchange="get_destino()">
+                                              <option value="0">Selecione destino</option>
+                                              {% if numero.destino.tipo == '1'%}
+                                              <option value="1" selected>Anúncio</option>
+                                              <option value="2">Gravação</option>
+                                              <option value="3">Número de Entrada</option>
+                                              <option value="4">URA</option>
+                                              <option value="5">Fila</option>
+                                              <option value="6">Chamada em grupo</option>
+                                              <option value="7">Condições de tempo</option>
+                                              <option value="8">Tronco</option>
+                                              {%else%}
+                                              {%if numero.destino.tipo == '2'%}
+                                              <option value="1" >Anúncio</option>
+                                              <option value="2" selected>Gravação</option>
+                                              <option value="3">Número de Entrada</option>
+                                              <option value="4">URA</option>
+                                              <option value="5">Fila</option>
+                                              <option value="6">Chamada em grupo</option>
+                                              <option value="7">Condições de tempo</option>
+                                              <option value="8">Tronco</option>
+                                              {%else%}
+                                              {%if numero.destino.tipo == '3'%}
+                                              <option value="1" >Anúncio</option>
+                                              <option value="2" >Gravação</option>
+                                              <option value="3" selected>Número de Entrada</option>
+                                              <option value="4">URA</option>
+                                              <option value="5">Fila</option>
+                                              <option value="6">Chamada em grupo</option>
+                                              <option value="7">Condições de tempo</option>
+                                              <option value="8">Tronco</option>
+                                              {%else%}
+                                              {%if numero.destino.tipo == '4'%}
+                                              <option value="1" >Anúncio</option>
+                                              <option value="2" >Gravação</option>
+                                              <option value="3" >Número de Entrada</option>
+                                              <option value="4" selected>URA</option>
+                                              <option value="5">Fila</option>
+                                              <option value="6">Chamada em grupo</option>
+                                              <option value="7">Condições de tempo</option>
+                                              <option value="8">Tronco</option>
+                                              {%else%}
+                                              {%if numero.destino.tipo == '5'%}
+                                              <option value="1" >Anúncio</option>
+                                              <option value="2" >Gravação</option>
+                                              <option value="3" >Número de Entrada</option>
+                                              <option value="4" >URA</option>
+                                              <option value="5" selected>Fila</option>
+                                              <option value="6">Chamada em grupo</option>
+                                              <option value="7">Condições de tempo</option>
+                                              <option value="8">Tronco</option>
+                                              {%else%}
+                                              {%if numero.destino.tipo == '6'%}
+                                              <option value="1" >Anúncio</option>
+                                              <option value="2" >Gravação</option>
+                                              <option value="3" >Número de Entrada</option>
+                                              <option value="4" >URA</option>
+                                              <option value="5" >Fila</option>
+                                              <option value="6" selected>Chamada em grupo</option>
+                                              <option value="7">Condições de tempo</option>
+                                              <option value="8">Tronco</option>
+                                              {%else%}
+                                              {%if numero.destino.tipo == '7'%}
+                                              <option value="1" >Anúncio</option>
+                                              <option value="2" >Gravação</option>
+                                              <option value="3" >Número de Entrada</option>
+                                              <option value="4" >URA</option>
+                                              <option value="5" >Fila</option>
+                                              <option value="6" >Chamada em grupo</option>
+                                              <option value="7" selected>Condições de tempo</option>
+                                              <option value="8">Tronco</option>
+                                              {%else%}
+                                              {%if numero.destino.tipo == '8'%}
+                                              <option value="1" >Anúncio</option>
+                                              <option value="2" >Gravação</option>
+                                              <option value="3" >Número de Entrada</option>
+                                              <option value="4" >URA</option>
+                                              <option value="5" >Fila</option>
+                                              <option value="6" >Chamada em grupo</option>
+                                              <option value="7" >Condições de tempo</option>
+                                              <option value="8" selected>Tronco</option>
+                                              {%else%}
+                                              <option value="1" >Anúncio</option>
+                                              <option value="2" >Gravação</option>
+                                              <option value="3" >Número de Entrada</option>
+                                              <option value="4" >URA</option>
+                                              <option value="5" >Fila</option>
+                                              <option value="6" >Chamada em grupo</option>
+                                              <option value="7" >Condições de tempo</option>
+                                              <option value="8">Tronco</option>
+
+                                              {%endif%}
+                                              {%endif%}
+                                              {%endif%}
+                                              {%endif%}
+                                              {%endif%}
+                                              {%endif%}
+                                              {%endif%}
+                                              {%endif%}
+                                      </select>
+                                  </td>
+                                  <td align="left">
+                                    {%if numero.destino.tipo == '1'%}
+                                          <select  name="dest_anuncios" id="dest_anuncios">
+                                            {%for dest in dest_anuncios %}
+                                              {%if numero.destino == dest%}
+                                              <option value="{{dest.id}}" selected>{{dest.descricao}}</option>
+                                              {%else%}
+                                                <option value="{{dest.id}}">{{dest.descricao}}</option>
+                                              {%endif%}
+                                            {%endfor%}
+                                          </select>
+                                    {%else%}
+                                      <select  name="dest_anuncios" id="dest_anuncios" hidden>
+                                        {%for dest in dest_anuncios %}
+                                          <option value="{{dest.id}}">{{dest.descricao}}</option>
+                                        {%endfor%}
+                                      </select>
+                                    {%endif%}
+
+                                    {%if numero.destino.tipo == '2'%}
+                                          <select  name="dest_gravacoes" id="dest_gravacoes" >
+                                            {%for dest in dest_gravacoes %}
+                                              {%if numero.destino == dest%}
+                                                <option value="{{dest.id}}" selected>{{dest.nome}}</option>
+                                                {%else%}
+                                                  <option value="{{dest.id}}">{{dest.nome}}</option>
+                                                {%endif%}
+                                            {%endfor%}
+                                      </select>
+                                    {%else%}
+                                    <select  name="dest_gravacoes" id="dest_gravacoes" hidden>
+                                      {%for dest in dest_gravacoes %}
+                                        <option value="{{dest.id}}">{{dest.nome}}</option>
+                                      {%endfor%}
+                                    </select>
+                                    {%endif%}
+
+                                    {%if numero.destino.tipo == '3'%}
+                                          <select  name="dest_numeros" id="dest_numeros" >
+                                            {%for dest in dest_numeros %}
+                                            {%if numero.destino == dest%}
+                                              <option value="{{dest.id}}" selected>{{dest.numero}}</option>
+                                              {%else%}
+                                                <option value="{{dest.id}}">{{dest.numero}}</option>
+                                              {%endif%}
+                                            {%endfor%}
+                                      </select>
+                                      {%else%}
+                                      <select  name="dest_numeros" id="dest_numeros" hidden>
+                                        {%for dest in dest_numeros %}
+                                          <option value="{{dest.id}}">{{dest.numero}}</option>
+                                        {%endfor%}
+                                  </select>
+                                  {%endif%}
+
+                                    {%if numero.destino.tipo == '4'%}
+                                          <select  name="dest_uras"  id="dest_uras">
+                                            {%for dest in dest_uras %}
+                                            {%if numero.destino == dest%}
+                                              <option value="{{dest.id}}" selected>{{dest.nome}}</option>
+                                              {%else%}
+                                                <option value="{{dest.id}}">{{dest.nome}}</option>
+                                              {%endif%}
+                                            {%endfor%}
+                                      </select>
+                                      {%else%}
+                                      <select  name="dest_uras" hidden id="dest_uras">
+                                        {%for dest in dest_uras %}
+                                          <option value="{{dest.id}}">{{dest.nome}}</option>
+                                        {%endfor%}
+                                  </select>
+                                  {%endif%}
+                                  {%if numero.destino.tipo == '5'%}
+                                        <select  name="dest_filas"  id="dest_filas">
+                                          {%for dest in dest_filas %}
+                                          {%if numero.destino == dest%}
+                                            <option value="{{dest.id}}" selected>{{dest.nome}}</option>
+                                            {%else%}
+                                              <option value="{{dest.id}}">{{dest.nome}}</option>
+                                            {%endif%}
+                                          {%endfor%}
+                                    </select>
+                                  {%else%}
+                                    <select  name="dest_filas" hidden id="dest_filas">
+                                      {%for dest in dest_filas %}
+                                        <option value="{{dest.id}}">{{dest.nome}}</option>
+                                      {%endfor%}
+                                    </select>
+                                  {%endif%}
+                                  {%if numero.destino.tipo == '6'%}
+                                  <select  name="dest_chamadasGrupo"  id="dest_chamadasGrupo">
+                                    {%for dest in dest_chamadasGrupo %}
+                                    {%if numero.destino == dest%}
+                                      <option value="{{dest.id}}" selected>{{dest.descricao}}</option>
+                                      {%else%}
+                                        <option value="{{dest.id}}">{{dest.descricao}}</option>
+                                      {%endif%}
+                                    {%endfor%}
+                                  </select>
+                                  {%else%}
+                                  <select  name="dest_chamadasGrupo" hidden id="dest_chamadasGrupo">
+                                    {%for dest in dest_chamadasGrupo %}
+                                      <option value="{{dest.id}}">{{dest.descricao}}</option>
+                                    {%endfor%}
+                                  </select>
+                                  {%endif%}
+                                  {%if numero.destino.tipo == '7'%}
+                                    <select  name="dest_condicoes"  id="dest_condicoes">
+                                      {%for dest in dest_condicoes %}
+                                      {%if numero.destino == dest%}
+                                        <option value="{{dest.id}}" selected>{{dest.nome}}</option>
+                                        {%else%}
+                                          <option value="{{dest.id}}">{{dest.nome}}</option>
+                                        {%endif%}
+                                      {%endfor%}
+                                    </select>
+                                  {%else%}
+                                  <select  name="dest_condicoes" hidden id="dest_condicoes">
+                                    {%for dest in dest_condicoes %}
+                                      <option value="{{dest.id}}">{{dest.nome}}</option>
+                                    {%endfor%}
+                                  </select>
+                                  {%endif%}
+                                  {%if numero.destino.tipo == '8'%}
+                                  <select  name="dest_troncos"  id="dest_troncos">
+                                    {%for dest in dest_troncos %}
+                                    {%if numero.destino == dest%}
+                                      <option value="{{dest.id}}" selected>{{dest.nome}}</option>
+                                      {%else%}
+                                        <option value="{{dest.id}}">{{dest.nome}}</option>
+                                      {%endif%}
+                                    {%endfor%}
+                                  </select>
+                                  {%else%}
+                                  <select  name="dest_troncos" hidden id="dest_troncos">
+                                    {%for dest in dest_troncos %}
+                                      <option value="{{dest.id}}">{{dest.nome}}</option>
+                                    {%endfor%}
+                                  </select>
+                                  {%endif%}
+                                  </td>
+                              <td></td>
+                          </tr>
+                        </table>
                 <button type="submit">Salvar Alterações</button>
-        </form>  
+        </form>
         </div>
-        </body> 
-    
+        </body>
+
     </table>
     </div>
 {% endblock %}

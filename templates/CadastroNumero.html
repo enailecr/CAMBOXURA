@@ -59,7 +59,7 @@
                              </table>
                         <br />
                         <table>
-                  
+
                       <tr>
                               <td>
                               <label for="fail">Destino: </label>
@@ -78,13 +78,15 @@
                               </td>
                               <td align="left">
                                       <select  name="dest_anuncios" id="dest_anuncios" hidden>
+                                        <option value="0" selected>--</option>
                                         {%for dest in dest_anuncios %}
-                                          <option value="{{dest.id}}">{{dest.nome}}</option>
+                                          <option value="{{dest.id}}">{{dest.descricao}}</option>
                                         {%endfor%}
                                   </select>
                               </td>
                               <td align="left">
                                       <select  name="dest_gravacoes" id="dest_gravacoes" hidden>
+                                        <option value="0" selected>--</option>
                                         {%for dest in dest_gravacoes %}
                                           <option value="{{dest.id}}">{{dest.nome}}</option>
                                         {%endfor%}
@@ -92,33 +94,39 @@
                               </td>
                               <td align="left">
                                       <select  name="dest_numeros" id="dest_numeros" hidden>
+                                        <option value="0" selected>--</option>
                                         {%for dest in dest_numeros %}
-                                          <option value="{{dest.id}}">{{dest.nome}}</option>
+                                          <option value="{{dest.id}}">{{dest.numero}}</option>
                                         {%endfor%}
                                   </select>
                               </td>
                               <td align="left">
                                       <select  name="dest_uras" hidden id="dest_uras">
+                                        <option value="0" selected>--</option>
                                         {%for dest in dest_uras %}
                                           <option value="{{dest.id}}">{{dest.nome}}</option>
                                         {%endfor%}
                                   </select>
                                   <select  name="dest_filas" hidden id="dest_filas">
+                                    <option value="0" selected>--</option>
                                     {%for dest in dest_filas %}
                                       <option value="{{dest.id}}">{{dest.nome}}</option>
                                     {%endfor%}
                               </select>
                               <select  name="dest_chamadasGrupo" hidden id="dest_chamadasGrupo">
+                                <option value="0" selected>--</option>
                                 {%for dest in dest_chamadasGrupo %}
-                                  <option value="{{dest.id}}">{{dest.nome}}</option>
+                                  <option value="{{dest.id}}">{{dest.descricao}}</option>
                                 {%endfor%}
                           </select>
                           <select  name="dest_condicoes" hidden id="dest_condicoes">
+                            <option value="0" selected>--</option>
                             {%for dest in dest_condicoes %}
                               <option value="{{dest.id}}">{{dest.nome}}</option>
                             {%endfor%}
                       </select>
                       <select  name="dest_troncos" hidden id="dest_troncos">
+                        <option value="0" selected>--</option>
                         {%for dest in dest_troncos %}
                           <option value="{{dest.id}}">{{dest.nome}}</option>
                         {%endfor%}
