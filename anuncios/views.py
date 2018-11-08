@@ -123,9 +123,9 @@ def upload_file_edt(request, id):
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
         uploaded_file_url = fs.url(filename)
-
+        tipo = '2'
         nome = request.POST['nomeGravacao']
-        gravacao = Gravacao(nome=nome, link=uploaded_file_url)
+        gravacao = Gravacao(nome=nome, link=uploaded_file_url, tipo=tipo)
         gravacao.save()
         gravacoes = Gravacao.objects.exclude(musica__isnull=False)
         data = {}
