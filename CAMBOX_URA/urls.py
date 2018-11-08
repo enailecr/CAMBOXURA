@@ -17,4 +17,5 @@ urlpatterns = [
     path(r'troncos/', include('troncos.urls')),
     path(r'uras/', include('uras.urls')),
     path(r'usuarios/', include('usuarios.urls')),
+    path(r'logs/', include('logs.urls')),
 ]
