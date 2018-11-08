@@ -10,7 +10,6 @@ from filas.models import Fila
 from chamadasgrupo.models import ChamadaEmGrupo
 from condicoestempo.models import CondicaoTempo
 from troncos.models import Tronco
-from destinos.forms import DestinoForm
 from django.contrib.auth.decorators import login_required
 import re
 from django_tables2 import RequestConfig
@@ -130,6 +129,26 @@ def numero_edita(request, id):
         return redirect('/numeros/')
 
     else:
+        dest_anuncios = Anuncio.objects.all()
+        dest_gravacoes = Gravacao.objects.all()
+        dest_numeros = NumeroEntrada.objects.all()
+        dest_uras = URA.objects.all()
+        dest_filas = Fila.objects.all()
+        dest_chamadasGrupo = ChamadaEmGrupo.objects.all()
+        dest_condicoes = CondicaoTempo.objects.all()
+        dest_troncos = Tronco.objects.all()
+        data['dest_anuncios'] = dest_anuncios
+        data['dest_gravacoes'] = dest_gravacoes
+        data['dest_numeros'] = dest_numeros
+        data['dest_uras'] = dest_uras
+        data['dest_filas'] = dest_filas
+        data['dest_chamadasGrupo'] = dest_chamadasGrupo
+        data['dest_condicoes'] = dest_condicoes
+        data['dest_troncos'] = dest_troncos
+
+        tipoDes = numero.destino.tipo
+        data['tipoDes'] = tipoDes
+
         return render(request, 'editaNumero.html', data)
 
 @login_required
