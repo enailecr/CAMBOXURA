@@ -96,8 +96,8 @@ def numero_novo(request):
         destinoId = request.POST['dest_troncos']
 
     destino = Destino.objects.get(id=destinoId)
-
-    numeroEntrada = NumeroEntrada(numero=numero, origem = origem, atendido=atendido, gravaChamada=gravaChamada, destino=destino)
+    tipo = '3'
+    numeroEntrada = NumeroEntrada(numero=numero, origem = origem, atendido=atendido, gravaChamada=gravaChamada, destino=destino, tipo=tipo)
 
     # form = NumeroEntradaForm(request.POST or None)
     # if form.is_valid():

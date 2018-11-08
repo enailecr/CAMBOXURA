@@ -26,7 +26,7 @@ def list(request):
 @login_required
 def chamadasgrupo_novo(request):
     descricao = request.POST['descricao']
-    estrategia = request.POST['estrategia'] 
+    estrategia = request.POST['estrategia']
     tempoChamada = request.POST['tempoChamada']
     anuncioCGID = request.POST['anuncioCG']
     if anuncioCGID == "0" :
@@ -57,30 +57,31 @@ def chamadasgrupo_novo(request):
     valorFixoCID = request.POST['valorFixoCID']
     gravarChamadas = request.POST['gravarChamadas']
 
-    if 'igConfigCF' in request.POST: 
+    if 'igConfigCF' in request.POST:
         igConfigCF = request.POST['igConfigCF']
     else:
         igConfigCF = False
 
-    if 'igAgentOcupado' in request.POST:   
+    if 'igAgentOcupado' in request.POST:
         igAgentOcupado = request.POST['igAgentOcupado']
     else:
         igAgentOcupado = False
 
-    if 'atendeChamada' in request.POST:   
+    if 'atendeChamada' in request.POST:
         atendeChamada = request.POST['atendeChamada']
     else:
         atendeChamada = False
 
-    if 'confirm_chamada' in request.POST:   
+    if 'confirm_chamada' in request.POST:
         confirmaChamada = request.POST['confirm_chamada']
     else:
         confirmaChamada = False
 
-    #destino = request.POST['nome']  
+    #destino = request.POST['nome']
+    tipo = '6'
     chamadasgrupo = ChamadaEmGrupo(descricao=descricao, gravarChamadas=gravarChamadas, modo=modo , estrategia=estrategia, tempoChamada=tempoChamada, prefixCID=prefixCID, infoAlerta=infoAlerta,valorFixoCID=valorFixoCID,
     igConfigCF=igConfigCF,igAgentOcupado=igAgentOcupado, atendeChamada=atendeChamada,confirmaChamada=confirmaChamada, anuncioCG=anuncioCG,
-    anuncioRemoto=anuncioRemoto,anuncioTardio=anuncioTardio, musicaEspera=musicas   )
+    anuncioRemoto=anuncioRemoto,anuncioTardio=anuncioTardio, musicaEspera=musicas, tipo=tipo   )
     # musica = Musica( )
     chamadasgrupo.save()
     return redirect ('/chamadasgrupo/')
@@ -92,9 +93,9 @@ def chamadasgrupo_edita(request, id):
     data['chamadasgrupo'] = chamadasgrupo
     if request.method == 'POST':
         chamadasgrupo = ChamadaEmGrupo.objects.get(id=id)
-        
+
         descricao = request.POST['descricao']
-        estrategia = request.POST['estrategia'] 
+        estrategia = request.POST['estrategia']
         tempoChamada = request.POST['tempoChamada']
         anuncioCGID = request.POST['anuncioCG']
         if anuncioCGID == "0" :
@@ -125,22 +126,22 @@ def chamadasgrupo_edita(request, id):
         valorFixoCID = request.POST['valorFixoCID']
         gravarChamadas = request.POST['gravarChamadas']
 
-        if 'igConfigCF' in request.POST: 
+        if 'igConfigCF' in request.POST:
             igConfigCF = request.POST['igConfigCF']
         else:
             igConfigCF = False
 
-        if 'igAgentOcupado' in request.POST:   
+        if 'igAgentOcupado' in request.POST:
             igAgentOcupado = request.POST['igAgentOcupado']
         else:
             igAgentOcupado = False
 
-        if 'atendeChamada' in request.POST:   
+        if 'atendeChamada' in request.POST:
             atendeChamada = request.POST['atendeChamada']
         else:
             atendeChamada = False
-        
-        if 'confirm_chamada' in request.POST:   
+
+        if 'confirm_chamada' in request.POST:
             confirmaChamada = request.POST['confirm_chamada']
         else:
             confirmaChamada = False
@@ -163,7 +164,7 @@ def chamadasgrupo_edita(request, id):
 
         chamadasgrupo.confirmaChamada = confirmaChamada
 
-        chamadasgrupo.save()        
+        chamadasgrupo.save()
         return redirect('/chamadasgrupo/')
     else:
         anuncios = Anuncio.objects.all()

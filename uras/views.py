@@ -29,12 +29,12 @@ def ura_novo(request):
     tentativasInvalidas = request.POST['tent_inv']
     gravRepetInvalid = request.POST['invrerecor']
 
-    if 'app_ann_inv' in request.POST: 
+    if 'app_ann_inv' in request.POST:
         anexAnuncInvalid = request.POST['app_ann_inv']
     else:
         anexAnuncInvalid = False
 
-    if 'ReturnInvalid' in request.POST: 
+    if 'ReturnInvalid' in request.POST:
         returnInvalid = request.POST['ReturnInvalid']
     else:
         returnInvalid = False
@@ -48,16 +48,16 @@ def ura_novo(request):
     # )
     retentativasTimeout = request.POST['timeout_ret']
     gravRetentTimeout = request.POST['timeout_record']
-    if 'descappend_anon_timoutricao' in request.POST: 
+    if 'descappend_anon_timoutricao' in request.POST:
         anexAnuncTimeout = request.POST['append_anon_timout']
     else:
         anexAnuncTimeout = False
 
-    if 'return_timout' in request.POST: 
+    if 'return_timout' in request.POST:
         retornarTimeout = request.POST['return_timout']
     else:
         retornarTimeout = False
-    
+
     gravTimeout = request.POST['timeout_record']
     # destinoTimeout = models.OneToOneField(
     #     Destino,
@@ -65,22 +65,23 @@ def ura_novo(request):
     #     parent_link=True,
     #     related_name='destinoTimeoutURA'
     # )
-    if 'append_anon_timout' in request.POST: 
+    if 'append_anon_timout' in request.POST:
         returnURACaixaPostal = request.POST['append_anon_timout']
     else:
         returnURACaixaPostal = False
     #discarDireto=discarDireto,
-    ura = URA(nome=nome,descricao=descricao, 
+    tipo = '4'
+    ura = URA(nome=nome,descricao=descricao,
     timeout=timeout,tentativasInvalidas=tentativasInvalidas,
     anexAnuncInvalid=anexAnuncInvalid,returnInvalid=returnInvalid,
     retentativasTimeout=retentativasTimeout,
     anexAnuncTimeout=anexAnuncTimeout,retornarTimeout=retornarTimeout,
-    returnURACaixaPostal=returnURACaixaPostal)
-    ura.save() 
+    returnURACaixaPostal=returnURACaixaPostal, tipo=tipo)
+    ura.save()
     anuncio= Anuncio(gravTimeout=gravTimeout,gravRetentTimeout=gravRetentTimeout,gravInvalid=gravInvalid,gravRepetInvalid=gravRepetInvalid,anuncioUra =anuncioUra )
     anuncio.save()
     return redirect ('/uras/')
-    
+
 
 @login_required
 def ura_edita(request, id):
@@ -88,7 +89,7 @@ def ura_edita(request, id):
     ura = URA.objects.get(id=id)
     data['ura'] = ura
     if request.method == 'POST':
-           
+
         return redirect('/uras/')
     else:
         return render(request, 'editaUra.html', data)

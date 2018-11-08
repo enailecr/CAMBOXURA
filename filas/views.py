@@ -93,6 +93,8 @@ def fila_novo(request):
 
     reporEstat = request.POST['repor_estat']
 
+    tipo = '5'
+
     fila = Fila(nome=nome,
                 senha=senha,
                 dicasDisp=dicasDisp,
@@ -143,7 +145,8 @@ def fila_novo(request):
                 nivelServico = nivelServico,
                 filtro = filtro,
                 destinoFalha = destinoFalha,
-                reporEstat = reporEstat
+                reporEstat = reporEstat,
+                tipo=tipo
                 )
     fila.save()
 

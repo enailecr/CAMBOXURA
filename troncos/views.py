@@ -53,7 +53,8 @@ def troncosip_novo(request):
     detalhesUsuario = request.POST['detalhes_usuarios']
     stringRegistro = request.POST['string_reg']
 
-    troncoSIP = TroncoSIP(nome=nome, opcoesCID=opcoesCID,contSeOcup=contSeOcup,desabTronco=desabTronco, prefixChamSaida=prefixChamSaida)
+    tipo = '8'
+    troncoSIP = TroncoSIP(tipo=tipo, nome=nome, opcoesCID=opcoesCID,contSeOcup=contSeOcup,desabTronco=desabTronco, prefixChamSaida=prefixChamSaida)
     troncoSIP.save()
 
     troncoSIP.callerIDSaida = callerIDSaida
@@ -93,7 +94,8 @@ def troncoiax_novo(request):
     detalhesUsuario = request.POST['detalhes_usuarios']
     stringRegistro = request.POST['string_reg']
 
-    troncoIAX = TroncoIAX(nome=nome, opcoesCID=opcoesCID,contSeOcup=contSeOcup,desabTronco=desabTronco, prefixChamSaida=prefixChamSaida)
+    tipo = '8'
+    troncoIAX = TroncoIAX(tipo=tipo, nome=nome, opcoesCID=opcoesCID,contSeOcup=contSeOcup,desabTronco=desabTronco, prefixChamSaida=prefixChamSaida)
     troncoIAX.save()
 
     troncoIAX.callerIDSaida = callerIDSaida
@@ -128,8 +130,8 @@ def troncocustomizado_novo(request):
     prefixChamSaida = request.POST['prefixo_saida']
 
     stringChamada = request.POST['string_chamada']
-
-    troncoCustom = TroncoCustomizado(nome=nome, opcoesCID=opcoesCID,contSeOcup=contSeOcup,desabTronco=desabTronco, prefixChamSaida=prefixChamSaida)
+    tipo = '8'
+    troncoCustom = TroncoCustomizado(tipo=tipo,nome=nome, opcoesCID=opcoesCID,contSeOcup=contSeOcup,desabTronco=desabTronco, prefixChamSaida=prefixChamSaida)
     troncoCustom.save()
 
     troncoCustom.callerIDSaida = callerIDSaida
@@ -147,7 +149,7 @@ def tronco_edita(request, id):
     tronco = Tronco.objects.get(id=id)
     data['tronco'] = tronco
     if request.method == 'POST':
-        
+
             return redirect('/troncos/')
     else:
         return render(request, 'editaTronco.html', data)

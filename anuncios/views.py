@@ -41,7 +41,8 @@ def anuncio_novo(request):
     else:
         canalNaoResp = False
     #destino = request.POST['nome']   repeticao = repeticao,
-    anuncio = Anuncio(descricao=descricao, gravacaoAn=gravacao, repeticao=repeticao, pula=pula,retornaURA=retornaURA, canalNaoResp=canalNaoResp )
+    tipo = '1'
+    anuncio = Anuncio(descricao=descricao, gravacaoAn=gravacao, repeticao=repeticao, pula=pula,retornaURA=retornaURA, canalNaoResp=canalNaoResp, tipo=tipo)
     anuncio.save()
     return redirect ('/anuncios/')
 
@@ -106,7 +107,8 @@ def upload_file_cad(request):
         uploaded_file_url = fs.url(filename)
 
         nome = request.POST['nomeGravacao']
-        gravacao = Gravacao(nome=nome, link=uploaded_file_url)
+        tipo = '2'
+        gravacao = Gravacao(nome=nome, link=uploaded_file_url, tipo=tipo)
         gravacao.save()
         gravacoes = Gravacao.objects.exclude(musica__isnull=False)
         data = {}

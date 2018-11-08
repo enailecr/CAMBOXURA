@@ -28,8 +28,9 @@ def condicoestempo_novo(request):
     mesIncio = request.POST['mes_inicio']
     mesFim = request.POST['mes_termino']
 
-    #destino = request.POST['nome']   
-    condicoestempo = GrupoTempo( horaInicio=horaInicio,horaFim=horaFim, diaSemanaInicio=diaSemanaInicio,
+    #destino = request.POST['nome']
+    tipo = '7'
+    condicoestempo = GrupoTempo( horaInicio=horaInicio,horaFim=horaFim, diaSemanaInicio=diaSemanaInicio, tipo=tipo,
     diaSemanaFim=diaSemanaFim, diaMesInicio=diaMesInicio, diaMesFim= diaMesFim,mesIncio=mesIncio,mesFim=mesFim)
     condicoestempo.save()
     return redirect ('/condicoestempo/')
@@ -41,7 +42,7 @@ def condicoestempo_edita(request, id):
     data['condicoestempo'] = condicoestempo
     if request.method == 'POST':
         condicoestempo = GrupoTempo.objects.get(id=id)
-    
+
         nome = request.POST['nome']
         horaInicio = request.POST['hora_inicio']
         horaFim = request.POST['hora_termino']
@@ -51,8 +52,8 @@ def condicoestempo_edita(request, id):
         diaMesFim = request.POST['dia_mes_termina']
         mesIncio = request.POST['mes_inicio']
         mesFim = request.POST['mes_termino']
-        #destino = request.POST['nome'] 
-        
+        #destino = request.POST['nome']
+
         condicoestempo.nome= nome
         condicoestempo.horaInicio = horaInicio
         condicoestempo.horaFim = horaFim
@@ -63,7 +64,7 @@ def condicoestempo_edita(request, id):
         condicoestempo.mesIncio = mesIncio
         condicoestempo.mesFim = mesFim
 
-        condicoestempo.save()        
+        condicoestempo.save()
         return redirect('/condicoestempo/')
     else:
         return render(request, 'editaCondicaoTempo.html', data)
