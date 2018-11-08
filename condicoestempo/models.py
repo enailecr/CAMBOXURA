@@ -52,6 +52,8 @@ class CondicaoTempo(Destino):
         parent_link=True,
         related_name= 'destinoNaoCoincideCT'
     )
+    def __str__(self):
+        return self.nome
 
 class GrupoTempo(Destino):
     horaInicio = models.TimeField()

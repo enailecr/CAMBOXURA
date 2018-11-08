@@ -177,6 +177,8 @@ class Fila(Destino):
         related_name= 'destinoFalhaFila'
     )
     reporEstat = models.CharField(max_length=1,choices = REPORESTATISTICAS_CHOICES, blank=False, null=False)
+    def __str__(self):
+        return self.nome
 
 class AgentesDinamicos(models.Model):
     fila = models.ForeignKey('Fila', on_delete=models.CASCADE)

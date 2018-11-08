@@ -23,3 +23,6 @@ class Gravacao(Destino):
     nome = models.CharField(max_length=30, blank=False, null=False)
     link = models.CharField(max_length=255, blank=False, null=False)
     musica = models.ForeignKey(MusicaCategoria, on_delete=models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return self.nome

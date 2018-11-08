@@ -1,6 +1,6 @@
 from django.urls import path, include
 from django.conf.urls import include, url
-from .views import list, add, numero_novo, numero_edita, numero_remove
+from .views import list, add, numero_novo, numero_edita, numero_remove, carregaDestinos
 
 urlpatterns = [
     path(r'', list),

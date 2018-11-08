@@ -17,6 +17,8 @@ class Tronco(Destino):
     contSeOcup = models.BooleanField()
     desabTronco = models.BooleanField()
     prefixChamSaida = models.IntegerField()
+    def __str__(self):
+        return self.nome
 
 class TroncoSIP(Tronco):
     nomeTronco = models.CharField(max_length=40, null=True, blank=True)

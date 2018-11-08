@@ -38,6 +38,9 @@ class URA(Destino):
     )
     returnURACaixaPostal = models.BooleanField()
 
+    def __str__(self):
+        return self.nome
+
 class OpcaoURA(models.Model):
     ura = models.ForeignKey('URA', on_delete=models.CASCADE,)
     destino = models.OneToOneField(

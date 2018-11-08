@@ -53,6 +53,9 @@ class ChamadaEmGrupo(Destino):
         related_name= 'destinoCE'
     )
 
+    def __str__(self):
+        return self.descricao
+
 class ListaExtensao(models.Model):
     chamada = models.ForeignKey('ChamadaEmGrupo', on_delete=models.CASCADE)
     numero = models.ForeignKey(NumeroEntrada, on_delete=models.CASCADE)
