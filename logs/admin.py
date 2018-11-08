@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import Relatorios
+from .models import Logs
 
 admin.site.register(Logs)
