@@ -113,13 +113,14 @@ def numero_novo(request):
     if dest_troncos != '0':
         destinoId = dest_troncos
 
+    tipoDestino = request.POST['tipo_des']
+
     tipo = '3'
     numeroEntrada = NumeroEntrada(numero=numero, origem = origem, atendido=atendido, gravaChamada=gravaChamada, tipo=tipo)
     numeroEntrada.save()
     if destinoId != 0:
-        destino = Destino.objects.get(id=destinoId)
-
-        numeroEntrada.destino = destino
+        numeroEntrada.destinoTipo = tipoDestino
+        numeroEntrada.destino = destinoId
         numeroEntrada.save()
     return redirect ('/numeros/')
 

@@ -6,7 +6,7 @@ class NumeroEntrada(Destino):
     origem = models.IntegerField()
     atendido = models.BooleanField()
     gravaChamada = models.BooleanField()
-    destino =models.IntegerField()
+    destino =models.IntegerField(blank=True, null=True)
     destinoTipo = models.CharField(max_length=1,blank=True, null=True)
 
     def __str__(self):

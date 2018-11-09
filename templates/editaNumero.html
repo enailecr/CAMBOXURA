@@ -74,7 +74,7 @@
                                   <td align="left">
                                           <select name="tipo_des" id="tipo_des" onchange="get_destino()">
                                               <option value="0">Selecione destino</option>
-                                              {% if numero.destino.tipo == '1'%}
+                                              {% if numero.destinoTipo == '1'%}
                                               <option value="1" selected>Anúncio</option>
                                               <option value="2">Gravação</option>
                                               <option value="3">Número de Entrada</option>
@@ -84,7 +84,7 @@
                                               <option value="7">Condições de tempo</option>
                                               <option value="8">Tronco</option>
                                               {%else%}
-                                              {%if numero.destino.tipo == '2'%}
+                                              {%if numero.destinoTipo == '2'%}
                                               <option value="1" >Anúncio</option>
                                               <option value="2" selected>Gravação</option>
                                               <option value="3">Número de Entrada</option>
@@ -94,7 +94,7 @@
                                               <option value="7">Condições de tempo</option>
                                               <option value="8">Tronco</option>
                                               {%else%}
-                                              {%if numero.destino.tipo == '3'%}
+                                              {%if numero.destinoTipo == '3'%}
                                               <option value="1" >Anúncio</option>
                                               <option value="2" >Gravação</option>
                                               <option value="3" selected>Número de Entrada</option>
@@ -104,7 +104,7 @@
                                               <option value="7">Condições de tempo</option>
                                               <option value="8">Tronco</option>
                                               {%else%}
-                                              {%if numero.destino.tipo == '4'%}
+                                              {%if numero.destinoTipo == '4'%}
                                               <option value="1" >Anúncio</option>
                                               <option value="2" >Gravação</option>
                                               <option value="3" >Número de Entrada</option>
@@ -114,7 +114,7 @@
                                               <option value="7">Condições de tempo</option>
                                               <option value="8">Tronco</option>
                                               {%else%}
-                                              {%if numero.destino.tipo == '5'%}
+                                              {%if numero.destinoTipo == '5'%}
                                               <option value="1" >Anúncio</option>
                                               <option value="2" >Gravação</option>
                                               <option value="3" >Número de Entrada</option>
@@ -124,7 +124,7 @@
                                               <option value="7">Condições de tempo</option>
                                               <option value="8">Tronco</option>
                                               {%else%}
-                                              {%if numero.destino.tipo == '6'%}
+                                              {%if numero.destinoTipo == '6'%}
                                               <option value="1" >Anúncio</option>
                                               <option value="2" >Gravação</option>
                                               <option value="3" >Número de Entrada</option>
@@ -134,7 +134,7 @@
                                               <option value="7">Condições de tempo</option>
                                               <option value="8">Tronco</option>
                                               {%else%}
-                                              {%if numero.destino.tipo == '7'%}
+                                              {%if numero.destinoTipo == '7'%}
                                               <option value="1" >Anúncio</option>
                                               <option value="2" >Gravação</option>
                                               <option value="3" >Número de Entrada</option>
@@ -144,7 +144,7 @@
                                               <option value="7" selected>Condições de tempo</option>
                                               <option value="8">Tronco</option>
                                               {%else%}
-                                              {%if numero.destino.tipo == '8'%}
+                                              {%if numero.destinoTipo == '8'%}
                                               <option value="1" >Anúncio</option>
                                               <option value="2" >Gravação</option>
                                               <option value="3" >Número de Entrada</option>
@@ -174,7 +174,7 @@
                                       </select>
                                   </td>
                                   <td align="left">
-                                    {%if numero.destino.tipo == '1'%}
+                                    {%if numero.destinoTipo == '1'%}
                                           <select  name="dest_anuncios" id="dest_anuncios">
                                             {%for dest in dest_anuncios %}
                                               {%if numero.destino == dest%}
@@ -192,7 +192,7 @@
                                       </select>
                                     {%endif%}
 
-                                    {%if numero.destino.tipo == '2'%}
+                                    {%if numero.destinoTipo == '2'%}
                                           <select  name="dest_gravacoes" id="dest_gravacoes" >
                                             {%for dest in dest_gravacoes %}
                                               {%if numero.destino == dest%}
@@ -210,7 +210,7 @@
                                     </select>
                                     {%endif%}
 
-                                    {%if numero.destino.tipo == '3'%}
+                                    {%if numero.destinoTipo == '3'%}
                                           <select  name="dest_numeros" id="dest_numeros" >
                                             {%for dest in dest_numeros %}
                                             {%if numero.destino == dest%}
@@ -228,7 +228,7 @@
                                   </select>
                                   {%endif%}
 
-                                    {%if numero.destino.tipo == '4'%}
+                                    {%if numero.destinoTipo == '4'%}
                                           <select  name="dest_uras"  id="dest_uras">
                                             {%for dest in dest_uras %}
                                             {%if numero.destino == dest%}
@@ -245,7 +245,7 @@
                                         {%endfor%}
                                   </select>
                                   {%endif%}
-                                  {%if numero.destino.tipo == '5'%}
+                                  {%if numero.destinoTipo == '5'%}
                                         <select  name="dest_filas"  id="dest_filas">
                                           {%for dest in dest_filas %}
                                           {%if numero.destino == dest%}
@@ -262,7 +262,7 @@
                                       {%endfor%}
                                     </select>
                                   {%endif%}
-                                  {%if numero.destino.tipo == '6'%}
+                                  {%if numero.destinoTipo == '6'%}
                                   <select  name="dest_chamadasGrupo"  id="dest_chamadasGrupo">
                                     {%for dest in dest_chamadasGrupo %}
                                     {%if numero.destino == dest%}
@@ -279,7 +279,7 @@
                                     {%endfor%}
                                   </select>
                                   {%endif%}
-                                  {%if numero.destino.tipo == '7'%}
+                                  {%if numero.destinoTipo == '7'%}
                                     <select  name="dest_condicoes"  id="dest_condicoes">
                                       {%for dest in dest_condicoes %}
                                       {%if numero.destino == dest%}
@@ -296,7 +296,7 @@
                                     {%endfor%}
                                   </select>
                                   {%endif%}
-                                  {%if numero.destino.tipo == '8'%}
+                                  {%if numero.destinoTipo == '8'%}
                                   <select  name="dest_troncos"  id="dest_troncos">
                                     {%for dest in dest_troncos %}
                                     {%if numero.destino == dest%}
