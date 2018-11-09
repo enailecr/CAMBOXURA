@@ -1,5 +1,5 @@
 {% extends "menu.html" %}
-<!-- {% load render_table from django_tables2 %} -->
+
 
 {% block content %}
 <div >
@@ -8,10 +8,46 @@
       <caption><h1>Logs</h1><div align="right">
         </div></caption>
     
-    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+        <caption><div align="right">
+        </div></caption>
     
-   <!-- colocar o render table aqui  -->
-   <!-- {% render_table table %} -->
+            <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+            <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            </head>
+            <body>
+                    <div id="divCenter">
+                            <br />
+        <form action="{% url 'streaming_novo'%}" method="POST">
+                <table cellspacing="10">
+                        <tr>
+                                <td>
+                                <label for="data_inicio">Data Início: </label>
+                                </td>
+                                <td align="left">
+                                <input type="text" name="data_inicio">
+                                </td>
+                                    <td align="left">
+                                      <select name="campo">
+                                        <option value="ura">URA</option>                                       
+                                        <option value="tronco">Tronco</option>
+                                        <option value="mus">Música</option>
+                                        <option value="fila">Fila</option>
+                                        <option value="cham">Chamada em grupo</option>
+                                        </select>
+                                    </td>   
+                                           
+                            <td></td>
+                        </tr>
+                        <tr>
+                                <td>
+                                <label for="data_fim">Data Fim: </label>
+                                </td>
+                                <td align="left">
+                                <input type="text" name="data_fim">
+                                </td>
+                                <td></td>
+                                <td></td>
     </table>
     </div>
 {% endblock %}
