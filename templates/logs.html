@@ -1,4 +1,5 @@
 {% extends "menu.html" %}
+{% load render_table from django_tables2 %}
 
 
 {% block content %}
@@ -51,6 +52,8 @@
     </table>
     <br />
     <div align="center"><button type="submit">Pesquisar</button></div>
+    {% render_table table %}
+
 
     </div>
 {% endblock %}

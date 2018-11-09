@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'numeros',
     'uras',
     'filas',
+    'logs',
     'chamadasgrupo',
     'condicoestempo',
     'troncos',
