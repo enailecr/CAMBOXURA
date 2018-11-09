@@ -20,12 +20,14 @@ class URA(Destino):
     returnInvalid = models.BooleanField()
     gravInvalid = models.ForeignKey(Gravacao, on_delete=models.SET_NULL, null=True, blank=True,related_name='gravInvalidURA')
     destinoInvalid = models.IntegerField()
+    destinoInvalidTipo = models.CharField(max_length=1,blank=True, null=True)
     retentativasTimeout = models.IntegerField()
     gravRetentTimeout = models.ForeignKey(Gravacao, on_delete=models.SET_NULL, null=True, blank=True,related_name='gravRepetInvalidURA')
     anexAnuncTimeout = models.BooleanField()
     retornarTimeout = models.BooleanField()
     gravTimeout = models.ForeignKey(Gravacao, on_delete=models.SET_NULL, null=True, blank=True,related_name='gravTimeoutURA')
     destinoTimeout = models.IntegerField()
+    destinoTimeoutTipo = models.CharField(max_length=1,blank=True, null=True)
     returnURACaixaPostal = models.BooleanField()
 
     def __str__(self):

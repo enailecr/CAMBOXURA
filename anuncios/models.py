@@ -10,7 +10,8 @@ class Anuncio(Destino):
     pula = models.BooleanField()
     retornaURA = models.BooleanField()
     canalNaoResp = models.BooleanField()
-    destino = models.IntegerField()
+    destino = models.IntegerField(null=True, blank=True)
+    destinoTipo = models.CharField(max_length=1,blank=True, null=True)
 
     def __str__(self):
         return self.descricao
