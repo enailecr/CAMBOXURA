@@ -42,7 +42,9 @@ def anuncio_novo(request):
         canalNaoResp = False
     #destino = request.POST['nome']   repeticao = repeticao,
     tipo = '1'
-    anuncio = Anuncio(descricao=descricao, gravacaoAn=gravacao, repeticao=repeticao, pula=pula,retornaURA=retornaURA, canalNaoResp=canalNaoResp, tipo=tipo)
+    anuncio = Anuncio(descricao=descricao, gravacaoAn=gravacao, repeticao=repeticao, pula=pula,retornaURA=retornaURA, canalNaoResp=canalNaoResp, )
+    anuncio.save()
+    anuncio.tipo=tipo
     anuncio.save()
     return redirect ('/anuncios/')
 

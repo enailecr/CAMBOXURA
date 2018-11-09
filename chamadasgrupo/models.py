@@ -46,12 +46,7 @@ class ChamadaEmGrupo(Destino):
     modo = models.CharField(max_length=1,choices = MODO_CHOICES)
     valorFixoCID = models.CharField(max_length=30, null=True, blank=True)
     gravarChamadas = models.CharField(max_length=1,choices = GRAVARCHAMADAS_CHOICES, null=False, blank=False)
-    destino = models.OneToOneField(
-        Destino,
-        on_delete=models.CASCADE,
-        parent_link=True,
-        related_name= 'destinoCE'
-    )
+    destino = models.IntegerField()
 
     def __str__(self):
         return self.descricao

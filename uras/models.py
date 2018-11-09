@@ -19,23 +19,13 @@ class URA(Destino):
     anexAnuncInvalid = models.BooleanField()
     returnInvalid = models.BooleanField()
     gravInvalid = models.ForeignKey(Gravacao, on_delete=models.SET_NULL, null=True, blank=True,related_name='gravInvalidURA')
-    destinoInvalid = models.OneToOneField(
-        Destino,
-        on_delete=models.CASCADE,
-        parent_link=True,
-        related_name= 'destinoInvalidURA'
-    )
+    destinoInvalid = models.IntegerField()
     retentativasTimeout = models.IntegerField()
     gravRetentTimeout = models.ForeignKey(Gravacao, on_delete=models.SET_NULL, null=True, blank=True,related_name='gravRepetInvalidURA')
     anexAnuncTimeout = models.BooleanField()
     retornarTimeout = models.BooleanField()
     gravTimeout = models.ForeignKey(Gravacao, on_delete=models.SET_NULL, null=True, blank=True,related_name='gravTimeoutURA')
-    destinoTimeout = models.OneToOneField(
-        Destino,
-        on_delete=models.CASCADE,
-        parent_link=True,
-        related_name='destinoTimeoutURA'
-    )
+    destinoTimeout = models.IntegerField()
     returnURACaixaPostal = models.BooleanField()
 
     def __str__(self):
@@ -43,9 +33,5 @@ class URA(Destino):
 
 class OpcaoURA(models.Model):
     ura = models.ForeignKey('URA', on_delete=models.CASCADE,)
-    destino = models.OneToOneField(
-        Destino,
-        on_delete=models.CASCADE,
-        parent_link=True
-    )
+    destino = models.IntegerField()
     retornar = models.BooleanField()

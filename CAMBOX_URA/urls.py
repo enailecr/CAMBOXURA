@@ -10,7 +10,6 @@ urlpatterns = [
     path(r'chamadasgrupo/', include('chamadasgrupo.urls')),
     path(r'condicoestempo/', include('condicoestempo.urls')),
     path(r'dashboard/', include('dashboard.urls')),
-    path(r'destinos/', include('destinos.urls')),
     path(r'filas/', include('filas.urls')),
     path(r'musicas/', include('musicas.urls')),
     path(r'numeros/', include('numeros.urls')),

@@ -40,18 +40,8 @@ DIAS_CHOICES = (
 
 class CondicaoTempo(Destino):
     nome = models.CharField(max_length=30, null=False, blank=False)
-    destinoCoincide = models.OneToOneField(
-        Destino,
-        on_delete=models.CASCADE,
-        parent_link=True,
-        related_name= 'destinoCoincideCT'
-    )
-    destinoNaoCoincide =models.OneToOneField(
-        Destino,
-        on_delete=models.CASCADE,
-        parent_link=True,
-        related_name= 'destinoNaoCoincideCT'
-    )
+    destinoCoincide =models.IntegerField()
+    destinoNaoCoincide =models.IntegerField()
     def __str__(self):
         return self.nome
 

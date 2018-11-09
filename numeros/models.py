@@ -6,12 +6,7 @@ class NumeroEntrada(Destino):
     origem = models.IntegerField()
     atendido = models.BooleanField()
     gravaChamada = models.BooleanField()
-    destino = models.OneToOneField(
-        Destino,
-        on_delete=models.CASCADE,
-        parent_link=True,
-        related_name= 'destinoNumero'
-    )
+    destino =models.IntegerField()
 
     def __str__(self):
         return self.numero

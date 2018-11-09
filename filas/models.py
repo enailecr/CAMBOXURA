@@ -170,12 +170,7 @@ class Fila(Destino):
     eventStatusMem = models.CharField(max_length=1,choices = HABDESAB_CHOICES, blank=False, null=False)
     nivelServico = models.TimeField(null=False, blank=False)
     filtro = models.CharField(max_length=20, null=True, blank=True)
-    destinoFalha = models.OneToOneField(
-        Destino,
-        on_delete=models.CASCADE,
-        parent_link=True,
-        related_name= 'destinoFalhaFila'
-    )
+    destinoFalha = models.IntegerField()
     reporEstat = models.CharField(max_length=1,choices = REPORESTATISTICAS_CHOICES, blank=False, null=False)
     def __str__(self):
         return self.nome

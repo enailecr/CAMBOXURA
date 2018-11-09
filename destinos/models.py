@@ -12,7 +12,7 @@ TIPO_CHOICES = (
 )
 
 class Destino(models.Model):
-    tipo = models.CharField(max_length=1, blank=False, null=False, choices = TIPO_CHOICES)
+    class Meta:
+        abstract = True
 
-    def __str__(self):
-        return self.tipo
+    tipo = models.CharField(max_length=1, blank=False, null=False, choices = TIPO_CHOICES)

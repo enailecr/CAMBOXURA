@@ -10,11 +10,7 @@ class Anuncio(Destino):
     pula = models.BooleanField()
     retornaURA = models.BooleanField()
     canalNaoResp = models.BooleanField()
-    destino = models.OneToOneField(
-        Destino,
-        on_delete=models.CASCADE,
-        parent_link=True
-    )
+    destino = models.IntegerField()
 
     def __str__(self):
         return self.descricao
