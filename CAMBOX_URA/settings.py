@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'condicoestempo',
     'troncos',
     'dashboard',
+    'relatorios',
     'musicas',
     'django_tables2',
     'bootstrap3',
