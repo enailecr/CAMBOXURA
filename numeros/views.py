@@ -141,10 +141,59 @@ def numero_edita(request, id):
                 gravaChamada = request.POST['grava_chamada']
         else:
                 gravaChamada = False
+                
+        if 'dest_anuncios' in request.POST:
+            dest_anuncios = request.POST['dest_anuncios']
+
+        if 'dest_gravacoes' in request.POST:
+            dest_gravacoes = request.POST['dest_gravacoes']
+
+        if 'dest_numeros' in request.POST:
+            dest_numeros = request.POST['dest_numeros']
+
+        if 'dest_uras' in request.POST:
+            dest_uras = request.POST['dest_uras']
+
+        if 'dest_filas' in request.POST:
+            dest_filas = request.POST['dest_filas']
+
+        if 'dest_chamadasGrupo' in request.POST:
+            dest_chamadasGrupo = request.POST['dest_chamadasGrupo']
+
+        if 'dest_condicoes' in request.POST:
+            dest_condicoes = request.POST['dest_condicoes']
+
+        if 'dest_troncos' in request.POST:
+                dest_troncos = request.POST['dest_troncos']
+
+        destinoId = 0
+        if dest_anuncios != '0':
+            destinoId = dest_anuncios
+        if dest_gravacoes != '0':
+            destinoId = dest_gravacoes
+        if dest_numeros != '0':
+            destinoId = dest_numeros
+        if dest_uras != '0':
+            destinoId = dest_uras
+        if dest_filas != '0':
+            destinoId = dest_filas
+        if dest_chamadasGrupo != '0':
+            destinoId = dest_chamadasGrupo
+        if dest_condicoes != '0':
+            destinoId = dest_condicoes
+        if dest_troncos != '0':
+            destinoId = dest_troncos
+
+        tipoDestino = request.POST['tipo_des']
 
         numero.origem = origem
         numero.atendido = atendido
         numero.gravaChamada = gravaChamada
+
+        if destinoId != 0:
+            numero.destinoTipo = tipoDestino
+            numero.destino = destinoId
+
         numero.save()
         return redirect('/numeros/')
 

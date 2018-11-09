@@ -176,8 +176,9 @@
                                   <td align="left">
                                     {%if numero.destinoTipo == '1'%}
                                           <select  name="dest_anuncios" id="dest_anuncios">
+                                            <option value="0">--</option>
                                             {%for dest in dest_anuncios %}
-                                              {%if numero.destino == dest%}
+                                              {%if numero.destino == dest.id%}
                                               <option value="{{dest.id}}" selected>{{dest.descricao}}</option>
                                               {%else%}
                                                 <option value="{{dest.id}}">{{dest.descricao}}</option>
@@ -186,6 +187,7 @@
                                           </select>
                                     {%else%}
                                       <select  name="dest_anuncios" id="dest_anuncios" hidden>
+                                        <option value="0">--</option>
                                         {%for dest in dest_anuncios %}
                                           <option value="{{dest.id}}">{{dest.descricao}}</option>
                                         {%endfor%}
@@ -194,8 +196,9 @@
 
                                     {%if numero.destinoTipo == '2'%}
                                           <select  name="dest_gravacoes" id="dest_gravacoes" >
+                                            <option value="0">--</option>
                                             {%for dest in dest_gravacoes %}
-                                              {%if numero.destino == dest%}
+                                              {%if numero.destino == dest.id%}
                                                 <option value="{{dest.id}}" selected>{{dest.nome}}</option>
                                                 {%else%}
                                                   <option value="{{dest.id}}">{{dest.nome}}</option>
@@ -204,6 +207,7 @@
                                       </select>
                                     {%else%}
                                     <select  name="dest_gravacoes" id="dest_gravacoes" hidden>
+                                      <option value="0">--</option>
                                       {%for dest in dest_gravacoes %}
                                         <option value="{{dest.id}}">{{dest.nome}}</option>
                                       {%endfor%}
@@ -212,8 +216,9 @@
 
                                     {%if numero.destinoTipo == '3'%}
                                           <select  name="dest_numeros" id="dest_numeros" >
+                                            <option value="0">--</option>
                                             {%for dest in dest_numeros %}
-                                            {%if numero.destino == dest%}
+                                            {%if numero.destino == dest.id%}
                                               <option value="{{dest.id}}" selected>{{dest.numero}}</option>
                                               {%else%}
                                                 <option value="{{dest.id}}">{{dest.numero}}</option>
@@ -222,6 +227,7 @@
                                       </select>
                                       {%else%}
                                       <select  name="dest_numeros" id="dest_numeros" hidden>
+                                        <option value="0">--</option>
                                         {%for dest in dest_numeros %}
                                           <option value="{{dest.id}}">{{dest.numero}}</option>
                                         {%endfor%}
@@ -230,8 +236,9 @@
 
                                     {%if numero.destinoTipo == '4'%}
                                           <select  name="dest_uras"  id="dest_uras">
+                                            <option value="0">--</option>
                                             {%for dest in dest_uras %}
-                                            {%if numero.destino == dest%}
+                                            {%if numero.destino == dest.id%}
                                               <option value="{{dest.id}}" selected>{{dest.nome}}</option>
                                               {%else%}
                                                 <option value="{{dest.id}}">{{dest.nome}}</option>
@@ -240,6 +247,7 @@
                                       </select>
                                       {%else%}
                                       <select  name="dest_uras" hidden id="dest_uras">
+                                        <option value="0">--</option>
                                         {%for dest in dest_uras %}
                                           <option value="{{dest.id}}">{{dest.nome}}</option>
                                         {%endfor%}
@@ -247,8 +255,9 @@
                                   {%endif%}
                                   {%if numero.destinoTipo == '5'%}
                                         <select  name="dest_filas"  id="dest_filas">
+                                          <option value="0">--</option>
                                           {%for dest in dest_filas %}
-                                          {%if numero.destino == dest%}
+                                          {%if numero.destino == dest.id%}
                                             <option value="{{dest.id}}" selected>{{dest.nome}}</option>
                                             {%else%}
                                               <option value="{{dest.id}}">{{dest.nome}}</option>
@@ -257,6 +266,7 @@
                                     </select>
                                   {%else%}
                                     <select  name="dest_filas" hidden id="dest_filas">
+                                      <option value="0">--</option>
                                       {%for dest in dest_filas %}
                                         <option value="{{dest.id}}">{{dest.nome}}</option>
                                       {%endfor%}
@@ -264,8 +274,9 @@
                                   {%endif%}
                                   {%if numero.destinoTipo == '6'%}
                                   <select  name="dest_chamadasGrupo"  id="dest_chamadasGrupo">
+                                    <option value="0">--</option>
                                     {%for dest in dest_chamadasGrupo %}
-                                    {%if numero.destino == dest%}
+                                    {%if numero.destino == dest.id%}
                                       <option value="{{dest.id}}" selected>{{dest.descricao}}</option>
                                       {%else%}
                                         <option value="{{dest.id}}">{{dest.descricao}}</option>
@@ -274,6 +285,7 @@
                                   </select>
                                   {%else%}
                                   <select  name="dest_chamadasGrupo" hidden id="dest_chamadasGrupo">
+                                    <option value="0">--</option>
                                     {%for dest in dest_chamadasGrupo %}
                                       <option value="{{dest.id}}">{{dest.descricao}}</option>
                                     {%endfor%}
@@ -281,8 +293,9 @@
                                   {%endif%}
                                   {%if numero.destinoTipo == '7'%}
                                     <select  name="dest_condicoes"  id="dest_condicoes">
+                                      <option value="0">--</option>
                                       {%for dest in dest_condicoes %}
-                                      {%if numero.destino == dest%}
+                                      {%if numero.destino == dest.id%}
                                         <option value="{{dest.id}}" selected>{{dest.nome}}</option>
                                         {%else%}
                                           <option value="{{dest.id}}">{{dest.nome}}</option>
@@ -291,6 +304,7 @@
                                     </select>
                                   {%else%}
                                   <select  name="dest_condicoes" hidden id="dest_condicoes">
+                                    <option value="0">--</option>
                                     {%for dest in dest_condicoes %}
                                       <option value="{{dest.id}}">{{dest.nome}}</option>
                                     {%endfor%}
@@ -298,8 +312,9 @@
                                   {%endif%}
                                   {%if numero.destinoTipo == '8'%}
                                   <select  name="dest_troncos"  id="dest_troncos">
+                                    <option value="0">--</option>
                                     {%for dest in dest_troncos %}
-                                    {%if numero.destino == dest%}
+                                    {%if numero.destino == dest.id%}
                                       <option value="{{dest.id}}" selected>{{dest.nome}}</option>
                                       {%else%}
                                         <option value="{{dest.id}}">{{dest.nome}}</option>
@@ -308,6 +323,7 @@
                                   </select>
                                   {%else%}
                                   <select  name="dest_troncos" hidden id="dest_troncos">
+                                    <option value="0">--</option>
                                     {%for dest in dest_troncos %}
                                       <option value="{{dest.id}}">{{dest.nome}}</option>
                                     {%endfor%}
