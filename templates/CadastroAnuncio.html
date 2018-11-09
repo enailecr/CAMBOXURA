@@ -2,6 +2,9 @@
 
 
 {% block content %}
+{% load static %}
+
+<script src="{% static 'js/destino.js' %}"></script>
 
 <div>
         <table id="CAMTecnoligaTabela">
@@ -14,8 +17,9 @@
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
             </head>
             <body>
-
+<div align="center"><h2>Adicionar Anúncio:</h2></div>
                     <div id="divCenter">
+                      <table>
                       <form enctype="multipart/form-data" method="POST" action="{% url 'gravacao_nova' %}">
                         {% csrf_token %}
                       <td><input type="file" name="anexGravacao" accept="audio/*"></td>
@@ -25,8 +29,9 @@
                       <TD><input type="text" name="nomeGravacao"></td></TD>
                       <td><button type="submit">Adicionar</button></td>
                       </FORM>
-                        <div align="center"><h2>Adicionar Anúncio:</h2></div>
-                        <br />
+                    </table>
+                      <br />
+
                         <form action="{% url 'anuncio_novo' %}" method="POST">
                             {% csrf_token %}
 
@@ -114,28 +119,90 @@
                         </td>
 
                         <td></td>
-                            </tr>
-                            <tr>
+                      </tr></table>
+                            <br />
+                            <table>
+
+                          <tr>
                                 <td>
                                     <label for="destino">Destino após Reprodução</label>
                                 </td>
                                 <td align="left">
-                                        <select name="destino">
-                                        <option value="ram">Ramais</option>
+                                        <select name="tipo_des" id="tipo_des" onchange="get_destino()">
+                                            <option value="0">Selecione destino</option>
+                                            <option value="1">Anúncio</option>
+                                            <option value="2">Gravação</option>
+                                            <option value="3">Número de Entrada</option>
+                                            <option value="4">URA</option>
+                                            <option value="5">Fila</option>
+                                            <option value="6">Chamada em grupo</option>
+                                            <option value="7">Condições de tempo</option>
+                                            <option value="8">Tronco</option>
                                     </select>
                                 </td>
                                 <td align="left">
-                                        <select name="destino">
-                                        <option value="check">Escolha um</option>
+                                        <select  name="dest_anuncios" id="dest_anuncios" hidden>
+                                          <option value="0" selected>--</option>
+                                          {%for dest in dest_anuncios %}
+                                            <option value="{{dest.id}}">{{dest.descricao}}</option>
+                                          {%endfor%}
                                     </select>
                                 </td>
+                                <td align="left">
+                                        <select  name="dest_gravacoes" id="dest_gravacoes" hidden>
+                                          <option value="0" selected>--</option>
+                                          {%for dest in dest_gravacoes %}
+                                            <option value="{{dest.id}}">{{dest.nome}}</option>
+                                          {%endfor%}
+                                    </select>
+                                </td>
+                                <td align="left">
+                                        <select  name="dest_numeros" id="dest_numeros" hidden>
+                                          <option value="0" selected>--</option>
+                                          {%for dest in dest_numeros %}
+                                            <option value="{{dest.id}}">{{dest.numero}}</option>
+                                          {%endfor%}
+                                    </select>
+                                </td>
+                                <td align="left">
+                                        <select  name="dest_uras" hidden id="dest_uras">
+                                          <option value="0" selected>--</option>
+                                          {%for dest in dest_uras %}
+                                            <option value="{{dest.id}}">{{dest.nome}}</option>
+                                          {%endfor%}
+                                    </select>
+                                    <select  name="dest_filas" hidden id="dest_filas">
+                                      <option value="0" selected>--</option>
+                                      {%for dest in dest_filas %}
+                                        <option value="{{dest.id}}">{{dest.nome}}</option>
+                                      {%endfor%}
+                                </select>
+                                <select  name="dest_chamadasGrupo" hidden id="dest_chamadasGrupo">
+                                  <option value="0" selected>--</option>
+                                  {%for dest in dest_chamadasGrupo %}
+                                    <option value="{{dest.id}}">{{dest.descricao}}</option>
+                                  {%endfor%}
+                            </select>
+                            <select  name="dest_condicoes" hidden id="dest_condicoes">
+                              <option value="0" selected>--</option>
+                              {%for dest in dest_condicoes %}
+                                <option value="{{dest.id}}">{{dest.nome}}</option>
+                              {%endfor%}
+                        </select>
+                        <select  name="dest_troncos" hidden id="dest_troncos">
+                          <option value="0" selected>--</option>
+                          {%for dest in dest_troncos %}
+                            <option value="{{dest.id}}">{{dest.nome}}</option>
+                          {%endfor%}
+                    </select>
+                                </td>
                             </tr>
+                          </table>
                         <br />
         </div>
 
         </body>
 
-    </table>
     <button type="submit">Cadastrar</button>
 </form>
 
