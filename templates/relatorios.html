@@ -32,11 +32,11 @@
                                 </td>
                                 <td align="left">
                                         <select name="campo">
-                                        <option value="1">Destino</option>
-                                        <option value="1">Origem</option>                                       
-                                        <option value="1">Canal Origem</option>
-                                        <option value="1">Código da Conta</option>
-                                        <option value="1">Canal Destino</option>
+                                        <option value="dest">Destino</option>
+                                        <option value="org">Origem</option>                                       
+                                        <option value="cano">Canal Origem</option>
+                                        <option value="cod">Código da Conta</option>
+                                        <option value="cand">Canal Destino</option>
                                     </select>
                                 </td>   
                                         <td align="left">
@@ -88,7 +88,8 @@
             </tr>
 <table>
         <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-        
+        {% render_table table %}
+
 </table>
 
 {% endblock %}
