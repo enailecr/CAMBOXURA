@@ -151,3 +151,15 @@ def fila_novo(request):
     fila.save()
 
     return redirect ('/filas/')
+
+@login_required
+def fila_edita(request):
+        return redirect('/filas/')
+    else:
+        return render(request, 'editafila.html')
+
+@login_required
+def fila_remove(request, id):
+    fila = Fila.objects.get(id=id)
+    fila.delete()
+    return redirect('/filas/')
