@@ -5,7 +5,7 @@ body {
 table {
   margin:auto;
   border-collapse: collapse;
-  width: 50em;
+  width: 65em;
   border: 1px solid #a22428;
 
   pagination {
