@@ -67,6 +67,9 @@ th {
   text-align: left;
   
 }
+a {
+text-decoration: none;
+}
 th, td {
   padding: 0.1em 1em;
 }
