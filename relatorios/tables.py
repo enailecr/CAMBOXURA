@@ -21,4 +21,4 @@ class RelatoriosTable(tables.Table):
     #     )
     class Meta:
         model = Relatorios
-        fields = ('data', 'origem','número de destino','canal origem','canal de destino','acao da ura','codigo de contuta', 'status', 'duracao','audio')
+        fields = ('data', 'origem','número de Destino','canal Origem','canal de Destino','acao da URA','codigo de Contuta', 'status', 'duracao','audio')
