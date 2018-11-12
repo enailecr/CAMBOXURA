@@ -104,3 +104,13 @@ def upload_file_cad(myfile, nome):
     gravacao = Gravacao(nome=nome, link=filename)
     gravacao.save()
     return gravacao.id
+
+def gravacao_remove(gravacao, id):
+    gravacao = Gravacao.objects.get(id=id)
+    fs = FileSystemStorage()
+    gravacoes = Gravacao.objects.filter(musica__exact=musica)
+    for gravacao in gravacoes:
+        fs.delete(gravacao.link)
+        gravacao.delete()
+    gravacao.delete()
+    return redirect('/musicas/')
