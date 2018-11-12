@@ -2,6 +2,9 @@
 
 
 {% block content %}
+{% load static %}
+
+<script src="{% static 'js/destino.js' %}"></script>
 
 <div >
         <table id="CAMTecnoligaTabela">
@@ -80,7 +83,9 @@
                                 </td>
                                 <td align="left">
                                     <select name="anunc_confirm_cham">
-                                    <option value="0">POPULAR COM ANUNCIOS DO BANCO</option>
+                                      {%for anun in anun_conf_chamada %}
+                                        <option value="{{anun.id}}">{{anun.descricao}}</option>
+                                      {%endfor%}
                                     </select>
                                 </td>
                     <td></td>
@@ -239,7 +244,10 @@
                                                                         </td>
                                                                         <td align="left">
                                                                                 <select name="musica_esp">
-                                                                                <option value="0">POPULAR COM VALORES DO BANCO</option>
+                                                                                <option value="0">Nenhuma</option>
+                                                                                {%for mus in musicas %}
+                                                                                  <option value="{{mus.id}}">{{mus.nome}}</option>
+                                                                                {%endfor%}
                                                                             </select>
                                                                         </td>
                                                                         <td align="left">
@@ -257,7 +265,10 @@
                                                                             </td>
                                                                             <td align="left">
                                                                                     <select name="anuncio_uniao">
-                                                                                    <option value="0">POPULAR COM VALORES DO BANCO + opçao vazia</option>
+                                                                                    <option value="0">Nenhum</option>
+                                                                                    {%for anun in anun_uniao %}
+                                                                                      <option value="{{anun.id}}">{{anun.descricao}}</option>
+                                                                                    {%endfor%}
                                                                                 </select>
                                                                             </td>
                                                                             <td align="left">
@@ -990,7 +1001,11 @@
                                     </td>
                                     <td align="left">
                                             <select name="agnt_a">
-                                            <option value="nem">PUPULAR COM ANUNCIOS + VAZIO</option>
+                                              <option value="0">Nenhum</option>
+                                              {%for anun in anun_uniao %}
+                                                <option value="{{anun.id}}">{{anun.descricao}}</option>
+                                              {%endfor%}
+
                                         </select>
                                     </td>
                                     <td></td>
@@ -1305,13 +1320,14 @@
                 <table cellspacing="10">
                     <tr>
                             <td>
-                                    <label for="break_out">Menu de Saída IVR</label>
+                                    <label for="break_out">Menu de Saída URA</label>
                                 </td>
                                 <td align="left">
                                         <select name="break_out">
-                                            <option value="1">Nenhum</option>
-                                            <option value="2">IVR CAM</option>
-                                            <option value="3">Sem Nome</option>
+                                            <option value="0">Nenhum</option>
+                                            {%for ura in break_out %}
+                                              <option value="{{ura.id}}">{{ura.nome}}</option>
+                                            {%endfor%}
                                     </select>
                                 </td>
                                 <td></td>
@@ -1481,14 +1497,74 @@
                             <td>
                             <label for="fail">Destino em caso de falha: </label>
                             <td align="left">
-                                    <select name="tipo_des_falha">
-                                        <option value="def">POPULAR COM OS DESTINOS</option>
-                                </select>
-                            </td>
-                            <td align="left">
-                                    <select hidden name="dest_falha">
-                                        <option value="ivr">IVR CAM</option>
-                                </select>
+                              <td align="left">
+                                      <select name="tipo_des" id="tipo_des" onchange="get_destino()">
+                                          <option value="0">Selecione destino</option>
+                                          <option value="1">Anúncio</option>
+                                          <option value="2">Gravação</option>
+                                          <option value="3">Número de Entrada</option>
+                                          <option value="4">URA</option>
+                                          <option value="5">Fila</option>
+                                          <option value="6">Chamada em grupo</option>
+                                          <option value="7">Condições de tempo</option>
+                                          <option value="8">Tronco</option>
+                                  </select>
+                              </td>
+                              <td align="left">
+                                      <select  name="dest_anuncios" id="dest_anuncios" hidden>
+                                        <option value="0" selected>--</option>
+                                        {%for dest in dest_anuncios %}
+                                          <option value="{{dest.id}}">{{dest.descricao}}</option>
+                                        {%endfor%}
+                                  </select>
+                              </td>
+                              <td align="left">
+                                      <select  name="dest_gravacoes" id="dest_gravacoes" hidden>
+                                        <option value="0" selected>--</option>
+                                        {%for dest in dest_gravacoes %}
+                                          <option value="{{dest.id}}">{{dest.nome}}</option>
+                                        {%endfor%}
+                                  </select>
+                              </td>
+                              <td align="left">
+                                      <select  name="dest_numeros" id="dest_numeros" hidden>
+                                        <option value="0" selected>--</option>
+                                        {%for dest in dest_numeros %}
+                                          <option value="{{dest.id}}">{{dest.numero}}</option>
+                                        {%endfor%}
+                                  </select>
+                              </td>
+                              <td align="left">
+                                      <select  name="dest_uras" hidden id="dest_uras">
+                                        <option value="0" selected>--</option>
+                                        {%for dest in dest_uras %}
+                                          <option value="{{dest.id}}">{{dest.nome}}</option>
+                                        {%endfor%}
+                                  </select>
+                                  <select  name="dest_filas" hidden id="dest_filas">
+                                    <option value="0" selected>--</option>
+                                    {%for dest in dest_filas %}
+                                      <option value="{{dest.id}}">{{dest.nome}}</option>
+                                    {%endfor%}
+                              </select>
+                              <select  name="dest_chamadasGrupo" hidden id="dest_chamadasGrupo">
+                                <option value="0" selected>--</option>
+                                {%for dest in dest_chamadasGrupo %}
+                                  <option value="{{dest.id}}">{{dest.descricao}}</option>
+                                {%endfor%}
+                          </select>
+                          <select  name="dest_condicoes" hidden id="dest_condicoes">
+                            <option value="0" selected>--</option>
+                            {%for dest in dest_condicoes %}
+                              <option value="{{dest.id}}">{{dest.nome}}</option>
+                            {%endfor%}
+                      </select>
+                      <select  name="dest_troncos" hidden id="dest_troncos">
+                        <option value="0" selected>--</option>
+                        {%for dest in dest_troncos %}
+                          <option value="{{dest.id}}">{{dest.nome}}</option>
+                        {%endfor%}
+                  </select>
                             </td>
                         <td></td>
                     </tr>

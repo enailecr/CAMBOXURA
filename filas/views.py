@@ -5,12 +5,47 @@ from .models import Fila
 import re
 from django_tables2 import RequestConfig
 from .tables import FilaTable
-
+from musicas.models import Musica
+from numeros.models import NumeroEntrada
+from destinos.models import Destino
+from uras.models import URA
+from anuncios.models import Anuncio, Gravacao
+from numeros.models import NumeroEntrada
+from uras.models import URA
+from filas.models import Fila
+from chamadasgrupo.models import ChamadaEmGrupo
+from condicoestempo.models import CondicaoTempo
+from troncos.models import Tronco
 
 @login_required
 def add(request):
-    form = FilaForm()
-    data = {'form' : form}
+    data = {}
+    dest_anuncios = Anuncio.objects.all()
+    dest_gravacoes = Gravacao.objects.all()
+    dest_numeros = NumeroEntrada.objects.all()
+    dest_uras = URA.objects.all()
+    dest_filas = Fila.objects.all()
+    dest_chamadasGrupo = ChamadaEmGrupo.objects.all()
+    dest_condicoes = CondicaoTempo.objects.all()
+    dest_troncos = Tronco.objects.all()
+    anun_conf_chamada = Anuncio.objects.all()
+    musicas = Musica.objects.all()
+    anun_uniao = Anuncio.objects.all()
+    agen_anunc = Anuncio.objects.all()
+    break_out = URA.objects.all()
+    data['dest_anuncios'] = dest_anuncios
+    data['dest_gravacoes'] = dest_gravacoes
+    data['dest_numeros'] = dest_numeros
+    data['dest_uras'] = dest_uras
+    data['dest_filas'] = dest_filas
+    data['dest_chamadasGrupo'] = dest_chamadasGrupo
+    data['dest_condicoes'] = dest_condicoes
+    data['dest_troncos'] = dest_troncos
+    data['anun_conf_chamada'] = anun_conf_chamada
+    data['musicas'] = musicas
+    data['anun_uniao'] = anun_uniao
+    data['agen_anunc'] = agen_anunc
+    data['break_out'] = break_out
     return render(request, 'CadastroFila.html', data)
 
 @login_required
@@ -32,6 +67,8 @@ def fila_novo(request):
     else:
         confirmCham = False
     anuncConfirmCham = request.POST['anunc_confirm_cham']
+    if anuncConfirmCham != '0':
+        anuncConfirmCham = Anuncio.objects.get(id=anuncConfirmCham)
     prefixCID = request.POST['prefix_cid']
     prefixTempoEspera = request.POST['prefix_tempo']
     infoAlerta = request.POST['info']
@@ -46,8 +83,12 @@ def fila_novo(request):
     igAgentesOcup = request.POST['ignorar_agen_ocup']
     pesoFila = request.POST['peso']
     musEspera = request.POST['musica_esp']
+    if musEspera != '0':
+        musEspera = Musica.objects.get(id=musEspera)
     tipoMus = request.POST['tipo_mus']
     anuncUniao = request.POST['anuncio_uniao']
+    if anuncUniao !='0':
+        anuncUniao = Anuncio.objects.get(id=anuncUniao)
     quandoAnun = request.POST['quando_anuncio']
     gravacaoChamada = request.POST['grav_cham']
     modoGravacao = request.POST['modo_grav']
@@ -58,7 +99,7 @@ def fila_novo(request):
     else:
         marcaChamOutroLug = False
 
-    maxTempoEspera = request.POST['mcrol']
+    maxTempoEspera = request.POST['max_temp']
     modoMaxTempoEspera = request.POST['modo_max_esp']
     tempoLimAgent = request.POST['limit_temp_agente']
     reinicioTempoLimAg = request.POST['rest_agnt']
@@ -66,6 +107,8 @@ def fila_novo(request):
     tempoConclusao = request.POST['temp_conclu']
     atrasoMembro = request.POST['atraso_membro']
     anuncioAgente = request.POST['agnt_a']
+    if anuncioAgente != '0':
+        anuncioAgente = Anuncio.objects.get(id=anuncioAgente)
     relatorioTemEsp = request.POST['report_time']
     pausaAutom = request.POST['pausa_auto']
     pausaAutoOcup = request.POST['pausa_ocup']
@@ -82,6 +125,8 @@ def fila_novo(request):
     anuncTempoEsp = request.POST['anun_tempEsp']
 
     menuSaidaURA = request.POST['break_out']
+    if menuSaidaURA != '0':
+        menuSaidaURA = URA.objects.get(id=menuSaidaURA)
     frequenRepet = request.POST['r_frequency']
 
     eventChamado = request.POST['event_called']
@@ -89,7 +134,49 @@ def fila_novo(request):
     nivelServico = request.POST['service_level']
     filtro = request.POST['filtro_regex']
 
-    destinoFalha = request.POST['dest_falha']
+    if 'dest_anuncios' in request.POST:
+        dest_anuncios = request.POST['dest_anuncios']
+
+    if 'dest_gravacoes' in request.POST:
+        dest_gravacoes = request.POST['dest_gravacoes']
+
+    if 'dest_numeros' in request.POST:
+        dest_numeros = request.POST['dest_numeros']
+
+    if 'dest_uras' in request.POST:
+        dest_uras = request.POST['dest_uras']
+
+    if 'dest_filas' in request.POST:
+        dest_filas = request.POST['dest_filas']
+
+    if 'dest_chamadasGrupo' in request.POST:
+        dest_chamadasGrupo = request.POST['dest_chamadasGrupo']
+
+    if 'dest_condicoes' in request.POST:
+        dest_condicoes = request.POST['dest_condicoes']
+
+    if 'dest_troncos' in request.POST:
+        dest_troncos = request.POST['dest_troncos']
+
+    destinoId = '0'
+    if dest_anuncios != '0':
+        destinoId = dest_anuncios
+    if dest_gravacoes != '0':
+        destinoId = dest_gravacoes
+    if dest_numeros != '0':
+        destinoId = dest_numeros
+    if dest_uras != '0':
+        destinoId = dest_uras
+    if dest_filas != '0':
+        destinoId = dest_filas
+    if dest_chamadasGrupo != '0':
+        destinoId = dest_chamadasGrupo
+    if dest_condicoes != '0':
+        destinoId = dest_condicoes
+    if dest_troncos != '0':
+        destinoId = dest_troncos
+
+    tipoDestino = request.POST['tipo_des']
 
     reporEstat = request.POST['repor_estat']
 
@@ -99,7 +186,6 @@ def fila_novo(request):
                 senha=senha,
                 dicasDisp=dicasDisp,
                 confirmCham=confirmCham,
-                anuncConfirmCham=anuncConfirmCham,
                 prefixCID=prefixCID,
                 prefixTempoEspera=prefixTempoEspera,
                 infoAlerta=infoAlerta,
@@ -109,9 +195,7 @@ def fila_novo(request):
                 preenchAuto=preenchAuto,
                 igAgentesOcup = igAgentesOcup,
                 pesoFila = pesoFila,
-                musEspera = musEspera,
                 tipoMus = tipoMus,
-                anuncUniao = anuncUniao,
                 quandoAnun = quandoAnun,
                 gravacaoChamada = gravacaoChamada,
                 modoGravacao = modoGravacao,
@@ -125,7 +209,6 @@ def fila_novo(request):
                 retentativa = retentativa,
                 tempoConclusao = tempoConclusao,
                 atrasoMembro = atrasoMembro,
-                anuncioAgente = anuncioAgente,
                 relatorioTemEsp = relatorioTemEsp,
                 pausaAutom = pausaAutom,
                 pausaAutoOcup = pausaAutoOcup,
@@ -138,17 +221,40 @@ def fila_novo(request):
                 frequencia = frequencia,
                 posAnuncio = posAnuncio,
                 anuncTempoEsp = anuncTempoEsp,
-                menuSaidaURA = menuSaidaURA,
                 frequenRepet = frequenRepet,
                 eventChamado = eventChamado,
                 eventStatusMem = eventStatusMem,
                 nivelServico = nivelServico,
                 filtro = filtro,
-                destinoFalha = destinoFalha,
                 reporEstat = reporEstat,
                 tipo=tipo
                 )
     fila.save()
+
+    if destinoId != '0':
+        fila.destinoFalhaTipo = tipoDestino
+        fila.destinoFalha = destinoId
+        fila.save()
+
+    if anuncConfirmCham != '0':
+        fila.anuncConfirmCham=anuncConfirmCham
+        fila.save()
+
+    if musEspera != '0':
+        fila.musEspera = musEspera
+        fila.save()
+
+    if anuncUniao !='0':
+        fila.anuncUniao = anuncUniao
+        fila.save()
+
+    if anuncioAgente != '0':
+        fila.anuncioAgente = anuncioAgente
+        fila.save()
+
+    if menuSaidaURA != '0':
+        fila.menuSaidaURA = menuSaidaURA
+        fila.save()
 
     return redirect ('/filas/')
 

@@ -170,7 +170,7 @@ class Fila(Destino):
     eventStatusMem = models.CharField(max_length=1,choices = HABDESAB_CHOICES, blank=False, null=False)
     nivelServico = models.TimeField(null=False, blank=False)
     filtro = models.CharField(max_length=20, null=True, blank=True)
-    destinoFalha = models.IntegerField()
+    destinoFalha = models.IntegerField(null=True, blank=True)
     destinoFalhaTipo = models.CharField(max_length=1,blank=True, null=True)
     reporEstat = models.CharField(max_length=1,choices = REPORESTATISTICAS_CHOICES, blank=False, null=False)
     def __str__(self):
