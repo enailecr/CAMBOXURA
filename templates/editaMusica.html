@@ -76,7 +76,8 @@
      {%for mus in gravacoes%}
      <li>{{mus.nome}}</li>
      {%endfor%}
-     <a id="botao" href="#"><input class="butn" type="button" value="Excluir Gravações"></a>
+     <a id="botao" href="{% url 'gravacao_remove' streaming.id %}"><input class="butn" type="button" value="Excluir Gravações"></a>
    </ul>
     </div>
 {% endblock %}
+
