@@ -252,6 +252,13 @@
                                             <INPUT TYPE="checkbox" NAME="retorna" VALUE="True">
                                         
                                     </td>
+                                    <td>
+                                       
+                                                
+                                                <img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" onclick="removerCampos(this);"> 
+                                                <img  src="{% static 'img/plus.png' %}" style="cursor: pointer;" onclick="duplicarCampos();">
+                                            
+                                        </td>
                                     </tr>
                                     
                                 </div>
@@ -274,8 +281,7 @@
                                 <div id="destino">
                                         
                 </table>                
-               <img  src="{% static 'img/plus.png' %}" style="cursor: pointer;" onclick="duplicarCampos();">
-               <img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" onclick="removerCampos(this);"> 
+               
                <br />
                
                
