@@ -2,13 +2,16 @@
 
 
 {% block content %}
+{% load static %}
+
+<script src="{% static 'js/destino.js' %}"></script>
 
 <div >
         <table id="CAMTecnoligaTabela">
-    
+
       <caption><div align="right">
         </div></caption>
-    
+
             <meta http-equiv="content-type" content="text/html;charset=utf-8" />
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -19,9 +22,9 @@
                         <form  enctype="multipart/form-data" action="{% url 'chamadasgrupo_novo' %}" method="POST">
                                 {% csrf_token %}
                         <br />
-                        
+
                         <table cellspacing="10">
-                
+
                         <tr>
                                 <td>
                                 <label for="descricao">Descrição do Grupo: </label>
@@ -36,7 +39,7 @@
                                 <label for="estrategia">Estratégia Ring</label>
                             </td>
                             <td align="left">
-                                    <select name="estrategia"> 
+                                    <select name="estrategia">
                                     <option value="1">ringall</option>
                                     <option value="2">ringall-prim</option>
                                     <option value="3">hunt</option>
@@ -68,27 +71,16 @@
                                                 </textarea>
                                 </td>
                                 <td></td>
-                        </tr>
-                        <tr>
-                                <td>
-                                    <label for="extensao_rapida">Extensão de Escolha Rápida</label>
-                                </td>
-                                <td align="left">
-                                        <select name="extensao_rapida"> 
-                                        <option value="thg">1021 (Thiago Maluf)</option>
-                                    </select>
-                                </td>
-                                <td></td>
-                            </tr>
+                        </tr>                        
                             <tr>
                                     <td>
                                         <label for="anuncioCG">Anúncio</label>
                                     </td>
                                     <td align="left">
-                                            <select name="anuncioCG"> 
+                                            <select name="anuncioCG">
                                             <option value="0">Nenhum</option>
                                             {%for anu in anuncios %}
-                                                <option value="{{anu.id}}">{{anu.descricao}}</option>    
+                                                <option value="{{anu.id}}">{{anu.descricao}}</option>
                                                 {%endfor%}
                                         </select>
                                     </td>
@@ -99,10 +91,10 @@
                                             <label for="musicaEspera">Tocar Musica em Espera</label>
                                         </td>
                                         <td align="left">
-                                                <select name="musicaEspera"> 
+                                                <select name="musicaEspera">
                                                 <option value="0">Nenhum</option>
                                                 {%for mus in musicas %}
-                                                    <option value="{{mus.id}}">{{mus.nome}}</option>    
+                                                    <option value="{{mus.id}}">{{mus.nome}}</option>
                                                     {%endfor%}
                                             </select>
                                         </td>
@@ -131,9 +123,9 @@
                                                     <label for="igConfigCF">Ignorar Configurações CF: </label>
                                                    </td>
                                         <td>
-                                           
+
                                                 <INPUT TYPE="checkbox" name="igConfigCF"VALUE="True" >
-                                                
+
                                         </td>
                                         <td></td>
                                        </tr>
@@ -142,9 +134,9 @@
                                                     <label for="igAgentOcupado">Ignorar Agente Ocupado: </label>
                                                    </td>
                                         <td>
-                                           
+
                                                 <INPUT TYPE="checkbox" name="igAgentOcupado"VALUE="True" >
-                                                
+
                                         </td>
                                         <td></td>
                                        </tr>
@@ -153,9 +145,9 @@
                                                     <label for="atendeChamada">Permitir Atender Chamada: </label>
                                                    </td>
                                         <td>
-                                           
+
                                                 <INPUT TYPE="checkbox" name="atendeChamada"VALUE="True" >
-                                                
+
                                         </td>
                                         <td></td>
                                        </tr>
@@ -164,9 +156,9 @@
                                                     <label for="confirm_chamada">Confirmar Chamadas: </label>
                                                    </td>
                                         <td>
-                                           
+
                                                 <INPUT TYPE="checkbox" name="confirm_chamada"VALUE="True" >
-                                                
+
                                         </td>
                                         <td></td>
                                        </tr>
@@ -175,10 +167,10 @@
                                                 <label for="anuncioRemoto">Anúncio Remoto</label>
                                             </td>
                                             <td align="left">
-                                                    <select name="anuncioRemoto"> 
+                                                    <select name="anuncioRemoto">
                                                         <option value="0">Nenhum</option>
                                                         {%for anu in anuncios %}
-                                                            <option value="{{anu.id}}">{{anu.descricao}}</option>    
+                                                            <option value="{{anu.id}}">{{anu.descricao}}</option>
                                                             {%endfor%}
                                                 </select>
                                             </td>
@@ -189,10 +181,10 @@
                                                     <label for="anuncioTardio">Anúncio Tardio</label>
                                                 </td>
                                                 <td align="left">
-                                                        <select name="anuncioTardio"> 
+                                                        <select name="anuncioTardio">
                                                             <option value="0">Nenhum</option>
                                                             {%for anu in anuncios %}
-                                                                <option value="{{anu.id}}">{{anu.descricao}}</option>    
+                                                                <option value="{{anu.id}}">{{anu.descricao}}</option>
                                                                 {%endfor%}
                                                     </select>
                                                 </td>
@@ -200,14 +192,14 @@
                                             </tr>
                                         </table>
                 <br/>
-          
+
                         <table cellspacing="10">
                                 <tr>
                                         <td>
                                             <label for="modo">Modo</label>
                                         </td>
                                         <td align="left">
-                                                <select name="modo"> 
+                                                <select name="modo">
                                                 <option value="1">Padrão</option>
                                                 <option value="2">Valor Fixo de CID</option>
                                                 <option value="3">Valor Fixo de CID de Chamadas de Fora</option>
@@ -227,15 +219,15 @@
                                             <input type="text" name="valorFixoCID">
                                             </td>
                                         <td></td>
-                                        <td></td>
+                                        <td></td><td></td><td></td>
 
-                                    </tr> 
+                                    </tr>
                                     <tr>
                                             <td>
                                                 <label for="gravarChamadas">Gravar Chamadas</label>
                                             </td>
                                             <td align="left">
-                                                    <select name="gravarChamadas"> 
+                                                    <select name="gravarChamadas">
                                                     <option value="1">Sempre</option>
                                                     <option value="2">Sob Demanda</option>
                                                     <option value="3">Nunca</option>
@@ -244,31 +236,89 @@
                                             <td></td>
                                             <td></td>
 
-                                        </tr>   
+                                        </tr>
                                         <tr>
                                                 <td>
                                                     <label for="dest">Destino se não Houver Resposta</label>
                                                 </td>
                                                 <td align="left">
-                                                        <select name="dest"> 
-                                                        <option value="chose">===escolha um===</option>
+                                                        <select name="tipo_des" id="tipo_des" onchange="get_destino()">
+                                                            <option value="0">Selecione destino</option>
+                                                            <option value="1">Anúncio</option>
+                                                            <option value="2">Gravação</option>
+                                                            <option value="3">Número de Entrada</option>
+                                                            <option value="4">URA</option>
+                                                            <option value="5">Fila</option>
+                                                            <option value="6">Chamada em grupo</option>
+                                                            <option value="7">Condições de tempo</option>
+                                                            <option value="8">Tronco</option>
                                                     </select>
                                                 </td>
-                                                <td>
+                                                <td align="left">
+                                                        <select  name="dest_anuncios" id="dest_anuncios" hidden>
+                                                          <option value="0" selected>--</option>
+                                                          {%for dest in dest_anuncios %}
+                                                            <option value="{{dest.id}}">{{dest.descricao}}</option>
+                                                          {%endfor%}
+                                                    </select>
+                                                </td>
+                                                <td align="left">
+                                                        <select  name="dest_gravacoes" id="dest_gravacoes" hidden>
+                                                          <option value="0" selected>--</option>
+                                                          {%for dest in dest_gravacoes %}
+                                                            <option value="{{dest.id}}">{{dest.nome}}</option>
+                                                          {%endfor%}
+                                                    </select>
+                                                </td>
+                                                <td align="left">
+                                                        <select  name="dest_numeros" id="dest_numeros" hidden>
+                                                          <option value="0" selected>--</option>
+                                                          {%for dest in dest_numeros %}
+                                                            <option value="{{dest.id}}">{{dest.numero}}</option>
+                                                          {%endfor%}
+                                                    </select>
+                                                </td>
+                                                <td align="left">
+                                                        <select  name="dest_uras" hidden id="dest_uras">
+                                                          <option value="0" selected>--</option>
+                                                          {%for dest in dest_uras %}
+                                                            <option value="{{dest.id}}">{{dest.nome}}</option>
+                                                          {%endfor%}
+                                                    </select>
+                                                    <select  name="dest_filas" hidden id="dest_filas">
+                                                      <option value="0" selected>--</option>
+                                                      {%for dest in dest_filas %}
+                                                        <option value="{{dest.id}}">{{dest.nome}}</option>
+                                                      {%endfor%}
+                                                </select>
+                                                <select  name="dest_chamadasGrupo" hidden id="dest_chamadasGrupo">
+                                                  <option value="0" selected>--</option>
+                                                  {%for dest in dest_chamadasGrupo %}
+                                                    <option value="{{dest.id}}">{{dest.descricao}}</option>
+                                                  {%endfor%}
+                                            </select>
+                                            <select  name="dest_condicoes" hidden id="dest_condicoes">
+                                              <option value="0" selected>--</option>
+                                              {%for dest in dest_condicoes %}
+                                                <option value="{{dest.id}}">{{dest.nome}}</option>
+                                              {%endfor%}
+                                        </select>
+                                        <select  name="dest_troncos" hidden id="dest_troncos">
+                                          <option value="0" selected>--</option>
+                                          {%for dest in dest_troncos %}
+                                            <option value="{{dest.id}}">{{dest.nome}}</option>
+                                          {%endfor%}
+                                    </select>
+
                                                     </td>
-                                                    <td align="left">
-                                                            <select hidden name="dest"> 
-                                                            <option value="chose">IVR CAM</option>
-                                                        </select>
-                                                    </td>
-                                            </tr>    
-                                        <br/>      
-        
+                                            </tr>
+                                        <br/>
+
         </div>
-        </body> 
-    
+        </body>
+
     </table>
-    
+
     </div>
     <button type="submit">Cadastrar</button>
 
