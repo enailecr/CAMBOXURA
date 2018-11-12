@@ -46,7 +46,7 @@ class ChamadaEmGrupo(Destino):
     modo = models.CharField(max_length=1,choices = MODO_CHOICES)
     valorFixoCID = models.CharField(max_length=30, null=True, blank=True)
     gravarChamadas = models.CharField(max_length=1,choices = GRAVARCHAMADAS_CHOICES, null=False, blank=False)
-    destino = models.IntegerField()
+    destino = models.IntegerField(blank=True, null=True)
     destinoTipo = models.CharField(max_length=1,blank=True, null=True)
 
     def __str__(self):
