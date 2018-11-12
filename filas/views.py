@@ -153,10 +153,10 @@ def fila_novo(request):
     return redirect ('/filas/')
 
 @login_required
-def fila_edita(request):
-        return redirect('/filas/')
-    else:
-        return render(request, 'editafila.html')
+# def fila_edita(request):
+#         return redirect('/filas/')
+#     else:
+#         return render(request, 'editafila.html')
 
 @login_required
 def fila_remove(request, id):
