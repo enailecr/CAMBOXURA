@@ -12,6 +12,7 @@
             <meta http-equiv="content-type" content="text/html;charset=utf-8" />
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                
             </head>
             <body>
                     <div id="divCenter">
@@ -223,9 +224,9 @@
                <br />
                <!-- ENDEREÇO -->
                <fieldset>
-          
-                <table cellspacing="10">
-                        <div id="divCenter">
+                
+                <table cellspacing="10" id="ramall">
+                        <div id="ramal">
                                 <tr>
                                         <td>
                                          <label for="nome">Nome: </label>
@@ -258,8 +259,30 @@
                                         
                                     </td>
                                     </tr>
-                </table>
+                                    
+                                </div>
+                                <script>function duplicarCampos(){
+                                        var clone = document.getElementById('ramall').cloneNode(true);
+                                        var destino = document.getElementById('destino');
+                                        destino.appendChild (clone);
+                                        
+                                        var camposClonados = clone.getElementsByTagName('input');
+                                        
+                                        for(i=0; i<camposClonados.length;i++){
+                                                camposClonados[i].value = '';
+                                        }
+                                }
+                                
+                                function removerCampos(id){
+                                        var node1 = document.getElementById('destino');
+                                        node1.removeChild(node1.childNodes[0]);
+                                }</script>
+                                <div id="destino">
+                                        
+                </table>                
                </fieldset>
+               <img  src="../img/add.gif" style="cursor: pointer;" onclick="duplicarCampos();">
+               <img  src="../img/cross.gif" style="cursor: pointer;" onclick="removerCampos(this);"> 
                <br />
                
                
@@ -269,6 +292,7 @@
                </form>
 </div>
 
+</div>
 </body> 
     
     </table>
