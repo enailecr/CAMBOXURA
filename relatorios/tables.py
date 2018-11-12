@@ -1,3 +1,6 @@
+# encoding: utf-8
+# encoding: iso-8859-1
+# encoding: win-1252
 import django_tables2 as tables
 #import django_filters
 from .models import Relatorios
@@ -21,4 +24,4 @@ class RelatoriosTable(tables.Table):
     #     )
     class Meta:
         model = Relatorios
-        fields = ('data', 'origem','número de Destino','canal Origem','canal de Destino','acao da URA','codigo de Contuta', 'status', 'duracao','audio')
+        fields = ('data', 'origem','número de Destino','canal Origem','canal de Destino','ação da URA','código de Contuta', 'status', 'duração','áudio')
