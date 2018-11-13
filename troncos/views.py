@@ -47,6 +47,7 @@ def troncosip_novo(request):
         desabTronco = False
     precedente = request.POST['precedente']
     prefixo = request.POST['prefix']
+    padraoEquiv = request.Post['match']
     prefixChamSaida = request.POST['prefixo_saida']
 
     nomeTronco = request.POST['nome_tronco']
@@ -64,6 +65,7 @@ def troncosip_novo(request):
     troncoSIP.opcoesDiskAsterisk = opcoesDiskAsterisk
     troncoSIP.precedente = precedente
     troncoSIP.prefixo = prefixo
+    troncoSIP.padraoEquiv = padraoEquiv
     troncoSIP.nomeTronco = nomeTronco
     troncoSIP.detalhesPEER = detalhesPEER
     troncoSIP.contextoUsuario = contextoUsuario
