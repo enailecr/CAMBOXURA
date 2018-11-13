@@ -46,9 +46,6 @@ def troncosip_novo(request):
     else:
         desabTronco = False
     prefixChamSaida = request.POST['prefixo_saida']
-    precedente = requst.POST['precedente']
-    prefix = requst.POST['prefix']
-    match = request.POST['match']
 
     nomeTronco = request.POST['nome_tronco']
     detalhesPEER = request.POST['detalhes_PEER']
@@ -90,9 +87,6 @@ def troncoiax_novo(request):
     else:
         desabTronco = False
     prefixChamSaida = request.POST['prefixo_saida']
-    precedente = requst.POST['precedente']
-    prefix = requst.POST['prefix']
-    match = request.POST['match']
 
     nomeTronco = request.POST['nome_tronco']
     detalhesPEER = request.POST['detalhes_PEER']
@@ -134,9 +128,6 @@ def troncocustomizado_novo(request):
     else:
         desabTronco = False
     prefixChamSaida = request.POST['prefixo_saida']
-    precedente = requst.POST['precedente']
-    prefix = requst.POST['prefix']
-    match = request.POST['match']
 
     stringChamada = request.POST['string_chamada']
     tipo = '8'
