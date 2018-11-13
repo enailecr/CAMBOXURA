@@ -45,10 +45,9 @@ def troncosip_novo(request):
         desabTronco = request.POST['desab_tronco']
     else:
         desabTronco = False
+    precedente = request.POST['precedente']
+    prefixo = request.POST['prefix']
     prefixChamSaida = request.POST['prefixo_saida']
-    precedente = requst.POST['precedente']
-    prefix = requst.POST['prefix']
-    match = request.POST['match']
 
     nomeTronco = request.POST['nome_tronco']
     detalhesPEER = request.POST['detalhes_PEER']
@@ -63,6 +62,8 @@ def troncosip_novo(request):
     troncoSIP.callerIDSaida = callerIDSaida
     troncoSIP.maxCanais = maxCanais
     troncoSIP.opcoesDiskAsterisk = opcoesDiskAsterisk
+    troncoSIP.precedente = precedente
+    troncoSIP.prefixo = prefixo
     troncoSIP.nomeTronco = nomeTronco
     troncoSIP.detalhesPEER = detalhesPEER
     troncoSIP.contextoUsuario = contextoUsuario
@@ -90,9 +91,6 @@ def troncoiax_novo(request):
     else:
         desabTronco = False
     prefixChamSaida = request.POST['prefixo_saida']
-    precedente = requst.POST['precedente']
-    prefix = requst.POST['prefix']
-    match = request.POST['match']
 
     nomeTronco = request.POST['nome_tronco']
     detalhesPEER = request.POST['detalhes_PEER']
@@ -134,9 +132,6 @@ def troncocustomizado_novo(request):
     else:
         desabTronco = False
     prefixChamSaida = request.POST['prefixo_saida']
-    precedente = requst.POST['precedente']
-    prefix = requst.POST['prefix']
-    match = request.POST['match']
 
     stringChamada = request.POST['string_chamada']
     tipo = '8'
