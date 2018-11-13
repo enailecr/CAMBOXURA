@@ -92,6 +92,9 @@ def troncoiax_novo(request):
         desabTronco = request.POST['desab_tronco']
     else:
         desabTronco = False
+    precedente = request.POST['precedente']
+    prefixo = request.POST['prefix']
+    padraoEquiv = request.POST['match']
     prefixChamSaida = request.POST['prefixo_saida']
 
     nomeTronco = request.POST['nome_tronco']
@@ -107,6 +110,9 @@ def troncoiax_novo(request):
     troncoIAX.callerIDSaida = callerIDSaida
     troncoIAX.maxCanais = maxCanais
     troncoIAX.opcoesDiskAsterisk = opcoesDiskAsterisk
+    troncoIAX.precedente = precedente
+    troncoIAX.prefixo = prefixo
+    troncoIAX.padraoEquiv = padraoEquiv
     troncoIAX.nomeTronco = nomeTronco
     troncoIAX.detalhesPEER = detalhesPEER
     troncoIAX.contextoUsuario = contextoUsuario
@@ -133,6 +139,9 @@ def troncocustomizado_novo(request):
         desabTronco = request.POST['desab_tronco']
     else:
         desabTronco = False
+    precedente = request.POST['precedente']
+    prefixo = request.POST['prefix']
+    padraoEquiv = request.POST['match']
     prefixChamSaida = request.POST['prefixo_saida']
 
     stringChamada = request.POST['string_chamada']
@@ -143,6 +152,9 @@ def troncocustomizado_novo(request):
     troncoCustom.callerIDSaida = callerIDSaida
     troncoCustom.maxCanais = maxCanais
     troncoCustom.opcoesDiskAsterisk = opcoesDiskAsterisk
+    troncoCustom.precedente = precedente
+    troncoCustom.prefixo = prefixo
+    troncoCustom.padraoEquiv = padraoEquiv
     troncoCustom.stringChamada = stringChamada
 
     troncoCustom.save()
