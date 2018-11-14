@@ -45,9 +45,6 @@
                         </td>
                             <td align="left">
                             <select name="op_cid" id="op_cid">
-                                    <!-- <option selected = "selected">
-                                        {{tronco.op_cid}}
-                                    </option> -->
                                 <option value="1">Permitir Qualquer ID</option>
                                 <option value="2">Bloquear CIDs Extrangeiros</option>
                                 <option value="3">Remover CNAM</option>
@@ -120,7 +117,7 @@
                    <label for="precedente">(</label>
                      </td>
                       <td align="left">
-                        <input type="text" name="precedente" value="{{tronco.precedente}}">
+                        <input type="text" name="precedente" value="{{regra.precedente}}">
                            </td>
                            <td>
                         <label for="prefix">)</label>
@@ -129,13 +126,13 @@
                                 <label for="plus">+</label>
                                     </td>
                             <td align="left">
-                                <input type="text" name="prefix" value="{{tronco.prefix}}">
+                                <input type="text" name="prefix" value="{{regra.prefix}}">
                                     </td>
                                     <td>
                                         <label for="precedente">|</label>
                                             </td>
                                 <td align="left">
-                                    <input type="text" name="match" value="{{tronco.match}}">
+                                    <input type="text" name="match" value="{{regra.match}}">
                                 </td>
                             </tr>
             </table>
