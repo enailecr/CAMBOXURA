@@ -11,7 +11,8 @@
             <meta http-equiv="content-type" content="text/html;charset=utf-8" />
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-                
+                <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
             </head>
             <body>
                     <div id="divCenter">
@@ -218,70 +219,66 @@
 
                <br />
                <!-- ENDEREÇO -->
-                
+               <div class="container" align="center">
+               <a class="btn btn-primary" href="javascript:void(0)" id="addInput">
+                        <img  src="{% static 'img/plus.png' %}" style="cursor: pointer;" >
+               </a>
+        </div>
                 <table cellspacing="10" id="ramall">
-                        <div id="ramal">
-                                <tr>
-                                        <td>
-                                         <label for="nome">Nome: </label>
-                                        </td>
-                                        <td align="left">
-                                         <input type="text" name="nome">
-                                        </td>
+                                    
                         
-
-                                        <td>
-                                        <label for="destino">Destino: </label>
-                                        </td>
-                                        <td align="left">
-                                            <select name="tipo_destino"> 
-                                            <option value="def">==escolha um==</option>  
-                                        </select>
-                                        </td>
-                                        <td>
-                                            <select hidden name="destino">
-                                            <option value="def">==escolha um==</option>
-                                            </select>
-                                        </td>
-                                        
-                                        <td>
-                                                <label for="returna">Retornar: </label>
-                                               </td>
-                                    <td>
-                                       
-                                            <INPUT TYPE="checkbox" NAME="retorna" VALUE="True">
-                                        
-                                    </td>
-                                    <td>
-                                       
-                                                
-                                                <img  src="{% static 'img/plus.png' %}" style="cursor: pointer;" onclick="duplicarCampos();">
-                                                <img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" onclick="removerCampos(this);"> 
-
-                                            
-                                        </td>
-                                    </tr>
+                                
+                                <div id="dynamicDiv" >
+                                                <div id="ramal">
+                                                                <p>
+                                                                <label for="nome">Nome: </label>
+                                                                <input type="text" name="nome">
+                                                                <label for="destino">Destino: </label>
+                                                                <select name="tipo_destino"> 
+                                                                <option value="def">==escolha um==</option> 
+                                                                </select>
+                                                                <select hidden name="destino">
+                                                                <option value="def">==escolha um==</option>
+                                                                </select>
+                                                                <label for="returna">Retornar: </label>
+                                                                <INPUT TYPE="checkbox" NAME="retorna" VALUE="True">
+                                                                <a class="btn btn-danger" href="javascript:void(0)" id="remInput">
+                                                                <img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" >
+                                                                </a> 
+                                                                </p>
                                     
                                 </div>
-                                <script>function duplicarCampos(){
-                                        var clone = document.getElementById('ramall').cloneNode(true);
-                                        var destino = document.getElementById('destino');
-                                        destino.appendChild (clone);
+                </div>
+                                <script>
+                                                $(function () {
+                                                    var scntDiv = $('#ramall');
+                                                    $(document).on('click', '#addInput', function () {
+                                                        $('<p>'+
+                                        '<label for="nome">Nome: </label>'+
+                                        '<input type="text" name="nome">'+
+                                        '<label for="destino">Destino: </label>'+
+                                        '<select name="tipo_destino"> '+
+                                        '<option value="def">==escolha um==</option> ' +
+                                        '</select>'+
+                                        '<select hidden name="destino">'+
+                                        '<option value="def">==escolha um==</option>'+
+                                        '</select>'+
+                                        '<label for="returna">Retornar: </label>'+
+                                        '<INPUT TYPE="checkbox" NAME="retorna" VALUE="True">'+
+                                        '<a class="btn btn-danger" href="javascript:void(0)" id="remInput">'+
+                                        '<img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" >'+
+                                        '</a>'+ 
+                                        '</p>').appendTo(scntDiv);
+                                                        return false;
+                                                    });
+                                                    $(document).on('click', '#remInput', function () {
+                                                    $(this).parents('p').remove();
+                                                        return false;
+                                                    });
+                                                });
+                                                </script>
                                         
-                                        var camposClonados = clone.getElementsByTagName('input');
-                                        
-                                        for(i=0; i<camposClonados.length;i++){
-                                                camposClonados[i].value = '';
-                                        }
-                                }
-                                
-                                function removerCampos(id){
-                                        var node1 = document.getElementById('destino');
-                                        node1.removeChild(node1.childNodes[0]);
-                                }</script>
-                                <div id="destino">
-                                        
-                </table>                
+                </table>            
                
                <br />
                
