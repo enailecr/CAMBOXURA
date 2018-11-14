@@ -40,8 +40,10 @@ DIAS_CHOICES = (
 
 class CondicaoTempo(Destino):
     nome = models.CharField(max_length=30, null=False, blank=False)
-    destinoCoincide =models.IntegerField()
-    destinoNaoCoincide =models.IntegerField()
+    destinoCoincide =models.IntegerField(null=True, blank=True)
+    destinoCoincideTipo = models.CharField(max_length=1,blank=True, null=True)
+    destinoNaoCoincide =models.IntegerField(null=True, blank=True)
+    destinoNaoCoincideTipo = models.CharField(max_length=1,blank=True, null=True)
     def __str__(self):
         return self.nome
 
