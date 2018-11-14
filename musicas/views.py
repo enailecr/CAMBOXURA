@@ -48,6 +48,7 @@ def categoria_novo(request):
 def streaming_novo(request):
     aplicacao = request.POST['apl']
     formato = request.POST['form']
+    nome = request.POST['nome']
     streaming = Streaming(aplicacao=aplicacao,formato=formato)
     streaming.save()
     return redirect ('/musicas/')
@@ -56,32 +57,49 @@ def streaming_novo(request):
 def musica_edita(request, id):
     data = {}
     #musica = Musica.objects.get(id=id)
-    musica = MusicaCategoria.objects.get(id=id)
+
+    try:
+        musica=MusicaCategoria.objects.get(id=id)
+        gravacoes = Gravacao.objects.filter(musica__exact=musica)
+        data['gravacoes'] = gravacoes
+        categoria=True
+    except MusicaCategoria.DoesNotExist:
+        musica = Streaming.objects.get(id=id)
+        categoria=False
     data['streaming'] = musica
 
     if request.method == 'POST':
         nome = request.POST['nome']
-        if 'exerand' in request.POST:
-            execRandom = request.POST['exerand']
+        if 'apl' in request.POST:
+            aplicacao = request.POST['apl']
+            formato = request.POST['form']
+            musica.aplicacao = aplicacao
+            musica.nome = nome
+            musica.formato = formato
+            musica.save()
         else:
-            execRandom = False
-        musica.nome = nome
-        musica.execRandom = execRandom
-        musica.save()
+            if 'exerand' in request.POST:
+                execRandom = request.POST['exerand']
+            else:
+                execRandom = False
+            musica.nome = nome
+            musica.execRandom = execRandom
+            musica.save()
 
-        if 'anexMusica' in request.FILES:
-            myfile = request.FILES['anexMusica']
-            nome = request.POST['nomeGravacao']
-            gravacaoid = upload_file_cad(myfile, nome);
-            gravacao = Gravacao.objects.get(id=gravacaoid)
-            gravacao.musica= musica
-            gravacao.save()
+            if 'anexMusica' in request.FILES:
+                myfile = request.FILES['anexMusica']
+                nome = request.POST['nomeGravacao']
+                gravacaoid = upload_file_cad(myfile, nome);
+                gravacao = Gravacao.objects.get(id=gravacaoid)
+                gravacao.musica= musica
+                gravacao.save()
 
         return redirect('/musicas/')
     else:
-        gravacoes = Gravacao.objects.filter(musica__exact=musica)
-        data['gravacoes'] = gravacoes
-        return render(request, 'editaMusica.html', data)
+        if categoria:
+            return render(request, 'editaMusica.html', data)
+        else:
+            return render(request, 'editaStreaming.html', data)
 
 
 
