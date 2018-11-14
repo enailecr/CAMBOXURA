@@ -2,13 +2,16 @@
 
 
 {% block content %}
+{% load static %}
+
+<script src="{% static 'js/destino.js' %}"></script>
 
 <div >
         <table id="CAMTecnoligaTabela">
-    
+
       <caption><div align="right">
         </div></caption>
-    
+
             <meta http-equiv="content-type" content="text/html;charset=utf-8" />
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -24,7 +27,7 @@
                             <label for="nome">Nome para Condição de Tempo: </label>
                            </td>
                            <td align="left">
-                            <input type="text" name="nome">
+                            <input type="text" name="nome" value="{{condicoestempo.nome}}">
                            </td>
                           </tr>
                           <tr>
@@ -32,93 +35,363 @@
                              <label for="dest_coin">Destino se o Horário Coincidir:</label>
                             </td>
                             <td align="left">
-                             <select name="dest_coin"> 
-                                    <option value="def">===escolha um===</option> 
-                                    <option value="anu">Anúncios</option> 
-                                    <option value="ccf">Chamar Controle de Fluxo</option> 
-                                    <option value="grav">Gravações de Chamada</option> 
-                                    <option value="clb">Callback</option> 
-                                    <option value="cof">Conferências</option> 
-                                    <option value="apc">Aplicações Customizadas</option> 
-                                    <option value="dis">DISA</option> 
-                                    <option value="ram">Ramais</option> 
-                                    <option value="acf">Administrador do Código de Facilidades</option> 
-                                    <option value="fin">Finalizar Chamadas</option> 
-                                    <option value="ura">URA</option> 
-                                    <option value="lng">Linguagens</option> 
-                                    <option value="ded">Destinos Diversos</option> 
-                                    <option value="pei">Paginação e Intercomunicador</option> 
-                                    <option value="phn">Diretório de Phonebook</option> 
-                                    <option value="fip">Filas de Prioridades</option> 
-                                    <option value="fil">Filas</option> 
-                                    <option value="rig">Grupos de Ring</option> 
-                                    <option value="cot">Condições de Tempo</option> 
-                                    <option value="tro">Troncos</option> 
-                                    <option value="mov">Mensagens de Voz</option>  
+                            <select name="tipo_des" id="tipo_des" onchange="get_destino()">
+                                <option value="0">Selecione destino</option>
+                                <option value="1" {% if condicoestempo.destinoCoincideTipo == '1'%} selected {%endif%}>Anúncio</option>
+                                <option value="2" {% if condicoestempo.destinoCoincideTipo == '2'%} selected {%endif%}>Gravação</option>
+                                <option value="3" {% if condicoestempo.destinoCoincideTipo == '3'%} selected {%endif%}>Número de Entrada</option>
+                                <option value="4" {% if condicoestempo.destinoCoincideTipo == '4'%} selected {%endif%}>URA</option>
+                                <option value="5" {% if condicoestempo.destinoCoincideTipo == '5'%} selected {%endif%}>Fila</option>
+                                <option value="6" {% if condicoestempo.destinoCoincideTipo == '6'%} selected {%endif%}>Chamada em grupo</option>
+                                <option value="7" {% if condicoestempo.destinoCoincideTipo == '7'%} selected {%endif%}>Condições de tempo</option>
+                                <option value="8" {% if condicoestempo.destinoCoincideTipo == '8'%} selected {%endif%}>Tronco</option>
                             </select>
                             </td>
-                            <td>
-                                <label for="dest_coin"></label>
-                               </td>
-                               <td align="left">
-                                <select name="dest_coin"> 
-                                <option value="IVR">IVR CAM</option> 
-                                <option value="noname">Sem Nome</option>  
-                               </select>
+                            <td align="left">
+                              {%if condicoestempo.destinoCoincideTipo == '1'%}
+                                    <select  name="dest_anuncios" id="dest_anuncios">
+                                      <option value="0">--</option>
+                                      {%for dest in dest_anuncios %}
+                                        {%if condicoestempo.destinoCoincide == dest.id%}
+                                        <option value="{{dest.id}}" selected>{{dest.descricao}}</option>
+                                        {%else%}
+                                          <option value="{{dest.id}}">{{dest.descricao}}</option>
+                                        {%endif%}
+                                      {%endfor%}
+                                    </select>
+                              {%else%}
+                                <select  name="dest_anuncios" id="dest_anuncios" hidden>
+                                  <option value="0">--</option>
+                                  {%for dest in dest_anuncios %}
+                                    <option value="{{dest.id}}">{{dest.descricao}}</option>
+                                  {%endfor%}
+                                </select>
+                              {%endif%}
+
+                              {%if condicoestempo.destinoCoincideTipo == '2'%}
+                                    <select  name="dest_gravacoes" id="dest_gravacoes" >
+                                      <option value="0">--</option>
+                                      {%for dest in dest_gravacoes %}
+                                        {%if condicoestempo.destinoCoincide == dest.id%}
+                                          <option value="{{dest.id}}" selected>{{dest.nome}}</option>
+                                          {%else%}
+                                            <option value="{{dest.id}}">{{dest.nome}}</option>
+                                          {%endif%}
+                                      {%endfor%}
+                                </select>
+                              {%else%}
+                              <select  name="dest_gravacoes" id="dest_gravacoes" hidden>
+                                <option value="0">--</option>
+                                {%for dest in dest_gravacoes %}
+                                  <option value="{{dest.id}}">{{dest.nome}}</option>
+                                {%endfor%}
+                              </select>
+                              {%endif%}
+
+                              {%if condicoestempo.destinoCoincideTipo == '3'%}
+                                    <select  name="dest_numeros" id="dest_numeros" >
+                                      <option value="0">--</option>
+                                      {%for dest in dest_numeros %}
+                                      {%if condicoestempo.destinoCoincide == dest.id%}
+                                        <option value="{{dest.id}}" selected>{{dest.numero}}</option>
+                                        {%else%}
+                                          <option value="{{dest.id}}">{{dest.numero}}</option>
+                                        {%endif%}
+                                      {%endfor%}
+                                </select>
+                                {%else%}
+                                <select  name="dest_numeros" id="dest_numeros" hidden>
+                                  <option value="0">--</option>
+                                  {%for dest in dest_numeros %}
+                                    <option value="{{dest.id}}">{{dest.numero}}</option>
+                                  {%endfor%}
+                            </select>
+                            {%endif%}
+
+                              {%if condicoestempo.destinoCoincideTipo == '4'%}
+                                    <select  name="dest_uras"  id="dest_uras">
+                                      <option value="0">--</option>
+                                      {%for dest in dest_uras %}
+                                      {%if condicoestempo.destinoCoincide == dest.id%}
+                                        <option value="{{dest.id}}" selected>{{dest.nome}}</option>
+                                        {%else%}
+                                          <option value="{{dest.id}}">{{dest.nome}}</option>
+                                        {%endif%}
+                                      {%endfor%}
+                                </select>
+                                {%else%}
+                                <select  name="dest_uras" hidden id="dest_uras">
+                                  <option value="0">--</option>
+                                  {%for dest in dest_uras %}
+                                    <option value="{{dest.id}}">{{dest.nome}}</option>
+                                  {%endfor%}
+                            </select>
+                            {%endif%}
+                            {%if condicoestempo.destinoCoincideTipo == '5'%}
+                                  <select  name="dest_filas"  id="dest_filas">
+                                    <option value="0">--</option>
+                                    {%for dest in dest_filas %}
+                                    {%if condicoestempo.destinoCoincide == dest.id%}
+                                      <option value="{{dest.id}}" selected>{{dest.nome}}</option>
+                                      {%else%}
+                                        <option value="{{dest.id}}">{{dest.nome}}</option>
+                                      {%endif%}
+                                    {%endfor%}
+                              </select>
+                            {%else%}
+                              <select  name="dest_filas" hidden id="dest_filas">
+                                <option value="0">--</option>
+                                {%for dest in dest_filas %}
+                                  <option value="{{dest.id}}">{{dest.nome}}</option>
+                                {%endfor%}
+                              </select>
+                            {%endif%}
+                            {%if condicoestempo.destinoCoincideTipo == '6'%}
+                            <select  name="dest_chamadasGrupo"  id="dest_chamadasGrupo">
+                              <option value="0">--</option>
+                              {%for dest in dest_chamadasGrupo %}
+                              {%if condicoestempo.destinoCoincide == dest.id%}
+                                <option value="{{dest.id}}" selected>{{dest.descricao}}</option>
+                                {%else%}
+                                  <option value="{{dest.id}}">{{dest.descricao}}</option>
+                                {%endif%}
+                              {%endfor%}
+                            </select>
+                            {%else%}
+                            <select  name="dest_chamadasGrupo" hidden id="dest_chamadasGrupo">
+                              <option value="0">--</option>
+                              {%for dest in dest_chamadasGrupo %}
+                                <option value="{{dest.id}}">{{dest.descricao}}</option>
+                              {%endfor%}
+                            </select>
+                            {%endif%}
+                            {%if condicoestempo.destinoCoincideTipo == '7'%}
+                              <select  name="dest_condicoes"  id="dest_condicoes">
+                                <option value="0">--</option>
+                                {%for dest in dest_condicoes %}
+                                {%if condicoestempo.destinoCoincide == dest.id%}
+                                  <option value="{{dest.id}}" selected>{{dest.nome}}</option>
+                                  {%else%}
+                                    <option value="{{dest.id}}">{{dest.nome}}</option>
+                                  {%endif%}
+                                {%endfor%}
+                              </select>
+                            {%else%}
+                            <select  name="dest_condicoes" hidden id="dest_condicoes">
+                              <option value="0">--</option>
+                              {%for dest in dest_condicoes %}
+                                <option value="{{dest.id}}">{{dest.nome}}</option>
+                              {%endfor%}
+                            </select>
+                            {%endif%}
+                            {%if condicoestempo.destinoCoincideTipo == '8'%}
+                            <select  name="dest_troncos"  id="dest_troncos">
+                              <option value="0">--</option>
+                              {%for dest in dest_troncos %}
+                              {%if condicoestempo.destinoCoincide == dest.id%}
+                                <option value="{{dest.id}}" selected>{{dest.nome}}</option>
+                                {%else%}
+                                  <option value="{{dest.id}}">{{dest.nome}}</option>
+                                {%endif%}
+                              {%endfor%}
+                            </select>
+                            {%else%}
+                            <select  name="dest_troncos" hidden id="dest_troncos">
+                              <option value="0">--</option>
+                              {%for dest in dest_troncos %}
+                                <option value="{{dest.id}}">{{dest.nome}}</option>
+                              {%endfor%}
+                            </select>
+                            {%endif%}
                                </td>
                            </tr>
-                        
+
                            <tr>
                             <td>
                              <label for="dest_coin">Destino se o não Horário Coincidir:</label>
                             </td>
                             <td align="left">
-                             <select name="dest_ncoin"> 
-                                    <option value="def">===escolha um===</option> 
-                                    <option value="anu">Anúncios</option> 
-                                    <option value="ccf">Chamar Controle de Fluxo</option> 
-                                    <option value="grav">Gravações de Chamada</option> 
-                                    <option value="clb">Callback</option> 
-                                    <option value="cof">Conferências</option> 
-                                    <option value="apc">Aplicações Customizadas</option> 
-                                    <option value="dis">DISA</option> 
-                                    <option value="ram">Ramais</option> 
-                                    <option value="acf">Administrador do Código de Facilidades</option> 
-                                    <option value="fin">Finalizar Chamadas</option> 
-                                    <option value="ura">URA</option> 
-                                    <option value="lng">Linguagens</option> 
-                                    <option value="ded">Destinos Diversos</option> 
-                                    <option value="pei">Paginação e Intercomunicador</option> 
-                                    <option value="phn">Diretório de Phonebook</option> 
-                                    <option value="fip">Filas de Prioridades</option> 
-                                    <option value="fil">Filas</option> 
-                                    <option value="rig">Grupos de Ring</option> 
-                                    <option value="cot">Condições de Tempo</option> 
-                                    <option value="tro">Troncos</option> 
-                                    <option value="mov">Mensagens de Voz</option> 
+                            <select name="ntipo_des" id="ntipo_des" onchange="get_destinon()">
+                                <option value="0">Selecione destino</option>
+                                <option value="1" {% if condicoestempo.destinoNaoCoincideTipo == '1'%} selected {%endif%}>Anúncio</option>
+                                <option value="2" {% if condicoestempo.destinoNaoCoincideTipo == '2'%} selected {%endif%}>Gravação</option>
+                                <option value="3" {% if condicoestempo.destinoNaoCoincideTipo == '3'%} selected {%endif%}>Número de Entrada</option>
+                                <option value="4" {% if condicoestempo.destinoNaoCoincideTipo == '4'%} selected {%endif%}>URA</option>
+                                <option value="5" {% if condicoestempo.destinoNaoCoincideTipo == '5'%} selected {%endif%}>Fila</option>
+                                <option value="6" {% if condicoestempo.destinoNaoCoincideTipo == '6'%} selected {%endif%}>Chamada em grupo</option>
+                                <option value="7" {% if condicoestempo.destinoNaoCoincideTipo == '7'%} selected {%endif%}>Condições de tempo</option>
+                                <option value="8" {% if condicoestempo.destinoNaoCoincideTipo == '8'%} selected {%endif%}>Tronco</option>
                             </select>
                             </td>
-                            <td>
-                                <label for="dest_ncoin"></label>
-                               </td>
-                               <td align="left">
-                                <select name="dest_coin"> 
-                                        <option value="ivr">IVR CAM</option> 
-                                        <option value="noname">Sem Nome</option> 
-                                        </select>
+                            <td align="left">
+                              {%if condicoestempo.destinoNaoCoincideTipo == '1'%}
+                                    <select  name="ndest_anuncios" id="ndest_anuncios">
+                                      <option value="0">--</option>
+                                      {%for dest in dest_anuncios %}
+                                        {%if condicoestempo.destinoNaoCoincide == dest.id%}
+                                        <option value="{{dest.id}}" selected>{{dest.descricao}}</option>
+                                        {%else%}
+                                          <option value="{{dest.id}}">{{dest.descricao}}</option>
+                                        {%endif%}
+                                      {%endfor%}
+                                    </select>
+                              {%else%}
+                                <select  name="ndest_anuncios" id="ndest_anuncios" hidden>
+                                  <option value="0">--</option>
+                                  {%for dest in dest_anuncios %}
+                                    <option value="{{dest.id}}">{{dest.descricao}}</option>
+                                  {%endfor%}
+                                </select>
+                              {%endif%}
+
+                              {%if condicoestempo.destinoNaoCoincideTipo == '2'%}
+                                    <select  name="ndest_gravacoes" id="ndest_gravacoes" >
+                                      <option value="0">--</option>
+                                      {%for dest in dest_gravacoes %}
+                                        {%if condicoestempo.destinoNaoCoincide == dest.id%}
+                                          <option value="{{dest.id}}" selected>{{dest.nome}}</option>
+                                          {%else%}
+                                            <option value="{{dest.id}}">{{dest.nome}}</option>
+                                          {%endif%}
+                                      {%endfor%}
+                                </select>
+                              {%else%}
+                              <select  name="ndest_gravacoes" id="ndest_gravacoes" hidden>
+                                <option value="0">--</option>
+                                {%for dest in dest_gravacoes %}
+                                  <option value="{{dest.id}}">{{dest.nome}}</option>
+                                {%endfor%}
+                              </select>
+                              {%endif%}
+
+                              {%if condicoestempo.destinoNaoCoincideTipo == '3'%}
+                                    <select  name="ndest_numeros" id="ndest_numeros" >
+                                      <option value="0">--</option>
+                                      {%for dest in dest_numeros %}
+                                      {%if condicoestempo.destinoNaoCoincide == dest.id%}
+                                        <option value="{{dest.id}}" selected>{{dest.numero}}</option>
+                                        {%else%}
+                                          <option value="{{dest.id}}">{{dest.numero}}</option>
+                                        {%endif%}
+                                      {%endfor%}
+                                </select>
+                                {%else%}
+                                <select  name="ndest_numeros" id="ndest_numeros" hidden>
+                                  <option value="0">--</option>
+                                  {%for dest in dest_numeros %}
+                                    <option value="{{dest.id}}">{{dest.numero}}</option>
+                                  {%endfor%}
+                            </select>
+                            {%endif%}
+
+                              {%if condicoestempo.destinoNaoCoincideTipo == '4'%}
+                                    <select  name="ndest_uras"  id="ndest_uras">
+                                      <option value="0">--</option>
+                                      {%for dest in dest_uras %}
+                                      {%if condicoestempo.destinoNaoCoincide == dest.id%}
+                                        <option value="{{dest.id}}" selected>{{dest.nome}}</option>
+                                        {%else%}
+                                          <option value="{{dest.id}}">{{dest.nome}}</option>
+                                        {%endif%}
+                                      {%endfor%}
+                                </select>
+                                {%else%}
+                                <select  name="ndest_uras" hidden id="ndest_uras">
+                                  <option value="0">--</option>
+                                  {%for dest in dest_uras %}
+                                    <option value="{{dest.id}}">{{dest.nome}}</option>
+                                  {%endfor%}
+                            </select>
+                            {%endif%}
+                            {%if condicoestempo.destinoNaoCoincideTipo == '5'%}
+                                  <select  name="ndest_filas"  id="ndest_filas">
+                                    <option value="0">--</option>
+                                    {%for dest in dest_filas %}
+                                    {%if condicoestempo.destinoNaoCoincide == dest.id%}
+                                      <option value="{{dest.id}}" selected>{{dest.nome}}</option>
+                                      {%else%}
+                                        <option value="{{dest.id}}">{{dest.nome}}</option>
+                                      {%endif%}
+                                    {%endfor%}
+                              </select>
+                            {%else%}
+                              <select  name="ndest_filas" hidden id="ndest_filas">
+                                <option value="0">--</option>
+                                {%for dest in dest_filas %}
+                                  <option value="{{dest.id}}">{{dest.nome}}</option>
+                                {%endfor%}
+                              </select>
+                            {%endif%}
+                            {%if condicoestempo.destinoNaoCoincideTipo == '6'%}
+                            <select  name="ndest_chamadasGrupo"  id="ndest_chamadasGrupo">
+                              <option value="0">--</option>
+                              {%for dest in dest_chamadasGrupo %}
+                              {%if condicoestempo.destinoNaoCoincide == dest.id%}
+                                <option value="{{dest.id}}" selected>{{dest.descricao}}</option>
+                                {%else%}
+                                  <option value="{{dest.id}}">{{dest.descricao}}</option>
+                                {%endif%}
+                              {%endfor%}
+                            </select>
+                            {%else%}
+                            <select  name="ndest_chamadasGrupo" hidden id="ndest_chamadasGrupo">
+                              <option value="0">--</option>
+                              {%for dest in dest_chamadasGrupo %}
+                                <option value="{{dest.id}}">{{dest.descricao}}</option>
+                              {%endfor%}
+                            </select>
+                            {%endif%}
+                            {%if condicoestempo.destinoNaoCoincideTipo == '7'%}
+                              <select  name="ndest_condicoes"  id="ndest_condicoes">
+                                <option value="0">--</option>
+                                {%for dest in dest_condicoes %}
+                                {%if condicoestempo.destinoNaoCoincide == dest.id%}
+                                  <option value="{{dest.id}}" selected>{{dest.nome}}</option>
+                                  {%else%}
+                                    <option value="{{dest.id}}">{{dest.nome}}</option>
+                                  {%endif%}
+                                {%endfor%}
+                              </select>
+                            {%else%}
+                            <select  name="ndest_condicoes" hidden id="ndest_condicoes">
+                              <option value="0">--</option>
+                              {%for dest in dest_condicoes %}
+                                <option value="{{dest.id}}">{{dest.nome}}</option>
+                              {%endfor%}
+                            </select>
+                            {%endif%}
+                            {%if condicoestempo.destinoNaoCoincideTipo == '8'%}
+                            <select  name="ndest_troncos"  id="ndest_troncos">
+                              <option value="0">--</option>
+                              {%for dest in dest_troncos %}
+                              {%if condicoestempo.destinoNaoCoincide == dest.id%}
+                                <option value="{{dest.id}}" selected>{{dest.nome}}</option>
+                                {%else%}
+                                  <option value="{{dest.id}}">{{dest.nome}}</option>
+                                {%endif%}
+                              {%endfor%}
+                            </select>
+                            {%else%}
+                            <select  name="ndest_troncos" hidden id="ndest_troncos">
+                              <option value="0">--</option>
+                              {%for dest in dest_troncos %}
+                                <option value="{{dest.id}}">{{dest.nome}}</option>
+                              {%endfor%}
+                            </select>
+                            {%endif%}
                                </td>
                            </tr>
-                         </table>                        
+                         </table>
                         <br />
-                   
+
                          <table cellspacing="10">
-                        
+
                             <tr>
                                 <td>
                                  <label for="hora_inicio">Hora de Início:</label>
                                 </td>
                                 <td align="left">
-                                        <input type = "time" name="hora_inicio" value="{{condicoestempo.horaInicio}}">
+                                        <input type = "time" name="hora_inicio" value="{{grupotempo.horaInicio}}">
                                 </td>
                                </tr>
                           <tr>
@@ -126,9 +399,9 @@
                                         <label for="hora_termino">Hora de Término:</label>
                                        </td>
                                        <td align="left">
-                                           <input type = "time" name="hora_termino" value="{{condicoestempo.horaFim}}">
+                                           <input type = "time" name="hora_termino" value="{{grupotempo.horaFim}}">
                                        </td>
-                                          
+
                           </tr>
                           <tr>
                            <td>
@@ -136,16 +409,13 @@
                            </td>
                            <td align="left">
                             <select name="dia_semana_ini" >
-                                <option selected="selected"  >
-                                            {{condicoestempo.diaSemanaInicio}}
-                                </option> 
-                                <option value="segunda-feira">segunda-feira</option> 
-                                <option value="terça-feira">terça-feira</option> 
-                                <option value="quarta-feira">quarta-feira</option> 
-                                <option value="quinta-feira">quinta-feira</option> 
-                                <option value="sexta-feira">sexta-feira</option> 
-                                <option value="sábado">sábado</option> 
-                                <option value="domingo">domingo</option>  
+                                <option value="seg" {%if grupotempo.diaSemanaInicio == 'seg'%} selected {%endif%}>segunda-feira</option>
+                                <option value="ter" {%if grupotempo.diaSemanaInicio == 'ter'%} selected {%endif%}>terça-feira</option>
+                                <option value="qua" {%if grupotempo.diaSemanaInicio == 'qua'%} selected {%endif%}>quarta-feira</option>
+                                <option value="qui" {%if grupotempo.diaSemanaInicio == 'qui'%} selected {%endif%}>quinta-feira</option>
+                                <option value="sex" {%if grupotempo.diaSemanaInicio == 'sex'%} selected {%endif%}>sexta-feira</option>
+                                <option value="sab" {%if grupotempo.diaSemanaInicio == 'sab'%} selected {%endif%}>sábado</option>
+                                <option value="dom" {%if grupotempo.diaSemanaInicio == 'dom'%} selected {%endif%}>domingo</option>
                            </select>
                            </td>
                           </tr>
@@ -154,17 +424,14 @@
                                 <label for="dia_semana_ter">Dia de Semana que Termina:</label>
                             </td>
                             <td align="left">
-                             <select name="dia_semana_ter" > 
-                                 <option selected="selected" >
-                                            {{condicoestempo.diaSemanaFim}}
-                                 </option>
-                                <option value="segunda-feira">segunda-feira</option> 
-                                <option value="terça-feira">terça-feira</option> 
-                                <option value="quarta-feira">quarta-feira</option> 
-                                <option value="quinta-feira">quinta-feira</option> 
-                                <option value="sexta-feira">sexta-feira</option> 
-                                <option value="sábado">sábado</option> 
-                                <option value="domingo">domingo</option> 
+                             <select name="dia_semana_ter" >
+                                 <option value="seg" {%if grupotempo.diaSemanaFim == 'seg'%} selected {%endif%}>segunda-feira</option>
+                                 <option value="ter" {%if grupotempo.diaSemanaFim == 'ter'%} selected {%endif%}>terça-feira</option>
+                                 <option value="qua" {%if grupotempo.diaSemanaFim == 'qua'%} selected {%endif%}>quarta-feira</option>
+                                 <option value="qui" {%if grupotempo.diaSemanaFim == 'qui'%} selected {%endif%}>quinta-feira</option>
+                                 <option value="sex" {%if grupotempo.diaSemanaFim == 'sex'%} selected {%endif%}>sexta-feira</option>
+                                 <option value="sab" {%if grupotempo.diaSemanaFim == 'sab'%} selected {%endif%}>sábado</option>
+                                 <option value="dom" {%if grupotempo.diaSemanaFim == 'dom'%} selected {%endif%}>domingo</option>
                             </select>
                            </td>
                           </tr>
@@ -173,42 +440,38 @@
                                         <label for="dia_mes_inicio">Dia do Mês que Inicia:</label>
                                        </td>
                                        <td align="left">
-                                        <select name="dia_mes_inicio" > 
-                                        <option selected="selected">
-                                                        {{condicoestempo.diaMesInicio}}
-                                        </option>    
-                                        <option value="00">00</option> 
-                                        <option value="01">01</option> 
-                                        <option value="02">02</option> 
-                                        <option value="03">03</option> 
-                                        <option value="04">04</option> 
-                                        <option value="05">05</option> 
-                                        <option value="06">06</option> 
-                                        <option value="07">07</option> 
-                                        <option value="08">08</option> 
-                                        <option value="09">09</option> 
-                                        <option value="10">10</option> 
-                                        <option value="11">11</option> 
-                                        <option value="12">12</option> 
-                                        <option value="13">13</option> 
-                                        <option value="14">14</option> 
-                                        <option value="15">15</option> 
-                                        <option value="16">16</option> 
-                                        <option value="17">17</option> 
-                                        <option value="18">18</option> 
-                                        <option value="19">19</option> 
-                                        <option value="20">20</option> 
-                                        <option value="21">21</option> 
-                                        <option value="22">22</option> 
-                                        <option value="23">23</option> 
-                                        <option value="24">24</option> 
-                                        <option value="25">25</option> 
-                                        <option value="26">26</option> 
-                                        <option value="27">27</option> 
-                                        <option value="28">28</option> 
-                                        <option value="29">29</option> 
-                                        <option value="30">30</option> 
-                                        <option value="31">31</option>
+                                        <select name="dia_mes_inicio" >
+                                        <option value="01" {%if grupotempo.diaMesInicio == '01'%} selected {%endif%}>01</option>
+                                        <option value="02" {%if grupotempo.diaMesInicio == '02'%} selected {%endif%}>02</option>
+                                        <option value="03" {%if grupotempo.diaMesInicio == '03'%} selected {%endif%}>03</option>
+                                        <option value="04" {%if grupotempo.diaMesInicio == '04'%} selected {%endif%}>04</option>
+                                        <option value="05" {%if grupotempo.diaMesInicio == '05'%} selected {%endif%}>05</option>
+                                        <option value="06" {%if grupotempo.diaMesInicio == '06'%} selected {%endif%}>06</option>
+                                        <option value="07" {%if grupotempo.diaMesInicio == '07'%} selected {%endif%}>07</option>
+                                        <option value="08" {%if grupotempo.diaMesInicio == '08'%} selected {%endif%}>08</option>
+                                        <option value="09" {%if grupotempo.diaMesInicio == '09'%} selected {%endif%}>09</option>
+                                        <option value="10" {%if grupotempo.diaMesInicio == '10'%} selected {%endif%}>10</option>
+                                        <option value="11" {%if grupotempo.diaMesInicio == '11'%} selected {%endif%}>11</option>
+                                        <option value="12" {%if grupotempo.diaMesInicio == '12'%} selected {%endif%}>12</option>
+                                        <option value="13" {%if grupotempo.diaMesInicio == '13'%} selected {%endif%}>13</option>
+                                        <option value="14" {%if grupotempo.diaMesInicio == '14'%} selected {%endif%}>14</option>
+                                        <option value="15" {%if grupotempo.diaMesInicio == '15'%} selected {%endif%}>15</option>
+                                        <option value="16" {%if grupotempo.diaMesInicio == '16'%} selected {%endif%}>16</option>
+                                        <option value="17" {%if grupotempo.diaMesInicio == '17'%} selected {%endif%}>17</option>
+                                        <option value="18" {%if grupotempo.diaMesInicio == '18'%} selected {%endif%}>18</option>
+                                        <option value="19" {%if grupotempo.diaMesInicio == '19'%} selected {%endif%}>19</option>
+                                        <option value="20" {%if grupotempo.diaMesInicio == '20'%} selected {%endif%}>20</option>
+                                        <option value="21" {%if grupotempo.diaMesInicio == '21'%} selected {%endif%}>21</option>
+                                        <option value="22" {%if grupotempo.diaMesInicio == '22'%} selected {%endif%}>22</option>
+                                        <option value="23" {%if grupotempo.diaMesInicio == '23'%} selected {%endif%}>23</option>
+                                        <option value="24" {%if grupotempo.diaMesInicio == '24'%} selected {%endif%}>24</option>
+                                        <option value="25" {%if grupotempo.diaMesInicio == '25'%} selected {%endif%}>25</option>
+                                        <option value="26" {%if grupotempo.diaMesInicio == '26'%} selected {%endif%}>26</option>
+                                        <option value="27" {%if grupotempo.diaMesInicio == '27'%} selected {%endif%}>27</option>
+                                        <option value="28" {%if grupotempo.diaMesInicio == '28'%} selected {%endif%}>28</option>
+                                        <option value="29" {%if grupotempo.diaMesInicio == '29'%} selected {%endif%}>29</option>
+                                        <option value="30" {%if grupotempo.diaMesInicio == '30'%} selected {%endif%}>30</option>
+                                        <option value="31" {%if grupotempo.diaMesInicio == '31'%} selected {%endif%}>31</option>
                                        </select>
                         </td>
                           </tr>
@@ -217,42 +480,39 @@
                                         <label for="dia_mes_termina">Dia do Mês que Termina:</label>
                                        </td>
                                        <td align="left">
-                                        <select name="dia_mes_termina" > 
-                                        <option selected="selected"  >
-                                                        {{condicoestempo.diaMesFim}}
-                                        </option>
-                                        <option value="00">00</option> 
-                                        <option value="01">01</option> 
-                                        <option value="02">02</option> 
-                                        <option value="03">03</option> 
-                                        <option value="04">04</option> 
-                                        <option value="05">05</option> 
-                                        <option value="06">06</option> 
-                                        <option value="07">07</option> 
-                                        <option value="08">08</option> 
-                                        <option value="09">09</option> 
-                                        <option value="10">10</option> 
-                                        <option value="11">11</option> 
-                                        <option value="12">12</option> 
-                                        <option value="13">13</option> 
-                                        <option value="14">14</option> 
-                                        <option value="15">15</option> 
-                                        <option value="16">16</option> 
-                                        <option value="17">17</option> 
-                                        <option value="18">18</option> 
-                                        <option value="19">19</option> 
-                                        <option value="20">20</option> 
-                                        <option value="21">21</option> 
-                                        <option value="22">22</option> 
-                                        <option value="23">23</option> 
-                                        <option value="24">24</option> 
-                                        <option value="25">25</option> 
-                                        <option value="26">26</option> 
-                                        <option value="27">27</option> 
-                                        <option value="28">28</option> 
-                                        <option value="29">29</option> 
-                                        <option value="30">30</option> 
-                                        <option value="31">31</option>
+                                        <select name="dia_mes_termina" >
+
+                                        <option value="01" {%if grupotempo.diaMesFim == '01'%} selected {%endif%}>01</option>
+                                        <option value="02" {%if grupotempo.diaMesFim == '02'%} selected {%endif%}>02</option>
+                                        <option value="03" {%if grupotempo.diaMesFim == '03'%} selected {%endif%}>03</option>
+                                        <option value="04" {%if grupotempo.diaMesFim == '04'%} selected {%endif%}>04</option>
+                                        <option value="05" {%if grupotempo.diaMesFim == '05'%} selected {%endif%}>05</option>
+                                        <option value="06" {%if grupotempo.diaMesFim == '06'%} selected {%endif%}>06</option>
+                                        <option value="07" {%if grupotempo.diaMesFim == '07'%} selected {%endif%}>07</option>
+                                        <option value="08" {%if grupotempo.diaMesFim == '08'%} selected {%endif%}>08</option>
+                                        <option value="09" {%if grupotempo.diaMesFim == '09'%} selected {%endif%}>09</option>
+                                        <option value="10" {%if grupotempo.diaMesFim == '10'%} selected {%endif%}>10</option>
+                                        <option value="11" {%if grupotempo.diaMesFim == '11'%} selected {%endif%}>11</option>
+                                        <option value="12" {%if grupotempo.diaMesFim == '12'%} selected {%endif%}>12</option>
+                                        <option value="13" {%if grupotempo.diaMesFim == '13'%} selected {%endif%}>13</option>
+                                        <option value="14" {%if grupotempo.diaMesFim == '14'%} selected {%endif%}>14</option>
+                                        <option value="15" {%if grupotempo.diaMesFim == '15'%} selected {%endif%}>15</option>
+                                        <option value="16" {%if grupotempo.diaMesFim == '16'%} selected {%endif%}>16</option>
+                                        <option value="17" {%if grupotempo.diaMesFim == '17'%} selected {%endif%}>17</option>
+                                        <option value="18" {%if grupotempo.diaMesFim == '18'%} selected {%endif%}>18</option>
+                                        <option value="19" {%if grupotempo.diaMesFim == '19'%} selected {%endif%}>19</option>
+                                        <option value="20" {%if grupotempo.diaMesFim == '20'%} selected {%endif%}>20</option>
+                                        <option value="21" {%if grupotempo.diaMesFim == '21'%} selected {%endif%}>21</option>
+                                        <option value="22" {%if grupotempo.diaMesFim == '22'%} selected {%endif%}>22</option>
+                                        <option value="23" {%if grupotempo.diaMesFim == '23'%} selected {%endif%}>23</option>
+                                        <option value="24" {%if grupotempo.diaMesFim == '24'%} selected {%endif%}>24</option>
+                                        <option value="25" {%if grupotempo.diaMesFim == '25'%} selected {%endif%}>25</option>
+                                        <option value="26" {%if grupotempo.diaMesFim == '26'%} selected {%endif%}>26</option>
+                                        <option value="27" {%if grupotempo.diaMesFim == '27'%} selected {%endif%}>27</option>
+                                        <option value="28" {%if grupotempo.diaMesFim == '28'%} selected {%endif%}>28</option>
+                                        <option value="29" {%if grupotempo.diaMesFim == '29'%} selected {%endif%}>29</option>
+                                        <option value="30" {%if grupotempo.diaMesFim == '30'%} selected {%endif%}>30</option>
+                                        <option value="31" {%if grupotempo.diaMesFim == '31'%} selected {%endif%}>31</option>
                                        </select>
                         </td>
                           </tr>
@@ -262,21 +522,18 @@
                                        </td>
                                        <td align="left">
                                         <select name="mes_inicio">
-                                        <option selected="selected" >
-                                                        {{condicoestempo.mesIncio}}
-                                        </option>
-                                        <option value="Janeiro">Janeiro</option> 
-                                        <option value="Fevereiro">Fevereiro</option> 
-                                        <option value="Março">Março</option> 
-                                        <option value="Abril">Abril</option> 
-                                        <option value="Maio">Maio</option> 
-                                        <option value="Junho">Junho</option> 
-                                        <option value="Julho">Julho</option> 
-                                        <option value="Agosto">Agosto</option> 
-                                        <option value="Setembro">Setembro</option> 
-                                        <option value="Outubro">Outubro</option> 
-                                        <option value="Novembro">Novembro</option> 
-                                        <option value="Dezembro">Dezembro</option>  
+                                        <option value="jan" {%if grupotempo.mesIncio == 'jan'%} selected {%endif%}>Janeiro</option>
+                                        <option value="fev" {%if grupotempo.mesIncio == 'fev'%} selected {%endif%}>Fevereiro</option>
+                                        <option value="mar" {%if grupotempo.mesIncio == 'mar'%} selected {%endif%}>Março</option>
+                                        <option value="abr" {%if grupotempo.mesIncio == 'abr'%} selected {%endif%}>Abril</option>
+                                        <option value="mai" {%if grupotempo.mesIncio == 'mai'%} selected {%endif%}>Maio</option>
+                                        <option value="jun" {%if grupotempo.mesIncio == 'jun'%} selected {%endif%}>Junho</option>
+                                        <option value="jul" {%if grupotempo.mesIncio == 'jul'%} selected {%endif%}>Julho</option>
+                                        <option value="ago" {%if grupotempo.mesIncio == 'ago'%} selected {%endif%}>Agosto</option>
+                                        <option value="set" {%if grupotempo.mesIncio == 'set'%} selected {%endif%}>Setembro</option>
+                                        <option value="out" {%if grupotempo.mesIncio == 'out'%} selected {%endif%}>Outubro</option>
+                                        <option value="nov" {%if grupotempo.mesIncio == 'nov'%} selected {%endif%}>Novembro</option>
+                                        <option value="dez" {%if grupotempo.mesIncio == 'dez'%} selected {%endif%}>Dezembro</option>
                                        </select>
                         </td>
                           </tr>
@@ -285,39 +542,36 @@
                                         <label for="mes_termino">Mês que Termina:</label>
                                        </td>
                                        <td align="left">
-                                        <select name="mes_termino"  > 
-                                        <option selected="selected" >
-                                                        {{condicoestempo.mesFim}}
-                                        </option>    
-                                        <option value="Janeiro">Janeiro</option> 
-                                        <option value="Fevereiro">Fevereiro</option> 
-                                        <option value="Março">Março</option> 
-                                        <option value="Abril">Abril</option> 
-                                        <option value="Maio">Maio</option> 
-                                        <option value="Junho">Junho</option> 
-                                        <option value="Julho">Julho</option> 
-                                        <option value="Agosto">Agosto</option> 
-                                        <option value="Setembro">Setembro</option> 
-                                        <option value="Outubro">Outubro</option> 
-                                        <option value="Novembro">Novembro</option> 
-                                        <option value="Dezembro">Dezembro</option> 
+                                        <select name="mes_termino"  >
+                                        <option value="jan" {%if grupotempo.mesFim == 'jan'%} selected {%endif%}>Janeiro</option>
+                                        <option value="fev" {%if grupotempo.mesFim == 'fev'%} selected {%endif%}>Fevereiro</option>
+                                        <option value="mar" {%if grupotempo.mesFim == 'mar'%} selected {%endif%}>Março</option>
+                                        <option value="abr" {%if grupotempo.mesFim == 'abr'%} selected {%endif%}>Abril</option>
+                                        <option value="mai" {%if grupotempo.mesFim == 'mai'%} selected {%endif%}>Maio</option>
+                                        <option value="jun" {%if grupotempo.mesFim == 'jun'%} selected {%endif%}>Junho</option>
+                                        <option value="jul" {%if grupotempo.mesFim == 'jul'%} selected {%endif%}>Julho</option>
+                                        <option value="ago" {%if grupotempo.mesFim == 'ago'%} selected {%endif%}>Agosto</option>
+                                        <option value="set" {%if grupotempo.mesFim == 'set'%} selected {%endif%}>Setembro</option>
+                                        <option value="out" {%if grupotempo.mesFim == 'out'%} selected {%endif%}>Outubro</option>
+                                        <option value="nov" {%if grupotempo.mesFim == 'nov'%} selected {%endif%}>Novembro</option>
+                                        <option value="dez" {%if grupotempo.mesFim == 'dez'%} selected {%endif%}>Dezembro</option>
                                        </select>
                         </td>
                           </tr>
                          </table>
                         <br />
-                        
-                        
+
+
                         <br />
-                       
+
                         <button type="submit">Salvar Alterações</button>
                         </form>
-        
-      
+
+
         </div>
-    
-        </body> 
-    
+
+        </body>
+
     </table>
     </div>
 {% endblock %}

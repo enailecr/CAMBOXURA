@@ -20,5 +20,5 @@ class CondicaoTempoTable(tables.Table):
         verbose_name=''
         )
     class Meta:
-        model = GrupoTempo
-        fields = ('horaInicio','editar','excluir')
+        model = CondicaoTempo
+        fields = ('nome','editar','excluir')
