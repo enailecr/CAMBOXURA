@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from .models import Tronco, TroncoSIP, TroncoIAX, TroncoCustomizado
+from .models import Tronco, TroncoSIP, TroncoIAX, TroncoCustomizado, RegraManipulaNum
 import re
 from django_tables2 import RequestConfig
 from .tables import TroncoTable
@@ -63,9 +63,6 @@ def troncosip_novo(request):
     troncoSIP.callerIDSaida = callerIDSaida
     troncoSIP.maxCanais = maxCanais
     troncoSIP.opcoesDiskAsterisk = opcoesDiskAsterisk
-    troncoSIP.precedente = precedente
-    troncoSIP.prefixo = prefixo
-    troncoSIP.padraoEquiv = padraoEquiv
     troncoSIP.nomeTronco = nomeTronco
     troncoSIP.detalhesPEER = detalhesPEER
     troncoSIP.contextoUsuario = contextoUsuario
@@ -73,6 +70,8 @@ def troncosip_novo(request):
     troncoSIP.stringRegistro = stringRegistro
 
     troncoSIP.save()
+    regramanip = RegraManipulaNum(precedente = precedente,prefixo = prefixo,padraoEquiv = padraoEquiv, tronco =troncoSIP)
+    regramanip.save()
 
     return redirect ('/troncos/')
 
@@ -109,10 +108,7 @@ def troncoiax_novo(request):
 
     troncoIAX.callerIDSaida = callerIDSaida
     troncoIAX.maxCanais = maxCanais
-    troncoIAX.opcoesDiskAsterisk = opcoesDiskAsterisk
-    troncoIAX.precedente = precedente
-    troncoIAX.prefixo = prefixo
-    troncoIAX.padraoEquiv = padraoEquiv
+    troncoIAX.opcoesDiskAsterisk = opcoesDiskAsterisk    
     troncoIAX.nomeTronco = nomeTronco
     troncoIAX.detalhesPEER = detalhesPEER
     troncoIAX.contextoUsuario = contextoUsuario
@@ -120,6 +116,9 @@ def troncoiax_novo(request):
     troncoIAX.stringRegistro = stringRegistro
 
     troncoIAX.save()
+
+    regramanip = RegraManipulaNum(precedente = precedente,prefixo = prefixo,padraoEquiv = padraoEquiv, tronco =troncoIAX)
+    regramanip.save()
 
     return redirect ('/troncos/')
 
@@ -152,12 +151,11 @@ def troncocustomizado_novo(request):
     troncoCustom.callerIDSaida = callerIDSaida
     troncoCustom.maxCanais = maxCanais
     troncoCustom.opcoesDiskAsterisk = opcoesDiskAsterisk
-    troncoCustom.precedente = precedente
-    troncoCustom.prefixo = prefixo
-    troncoCustom.padraoEquiv = padraoEquiv
     troncoCustom.stringChamada = stringChamada
 
     troncoCustom.save()
+    regramanip = RegraManipulaNum(precedente = precedente,prefixo = prefixo,padraoEquiv = padraoEquiv, tronco =troncoCustom)
+    regramanip.save()
 
     return redirect ('/troncos/')
 
@@ -166,6 +164,8 @@ def tronco_edita(request, id):
     data = {}
     tronco = Tronco.objects.get(id=id)
     data['tronco'] = tronco
+    regra = RegraManipulaNum.objects.filter(tronco=tronco)
+    data['regra'] = regra
     if request.method == 'POST':
 
             return redirect('/troncos/')
