@@ -11,7 +11,24 @@
 
             <meta http-equiv="content-type" content="text/html;charset=utf-8" />
             <head>
-                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                        <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.1.min.js"></script>
+                        <script type="text/javascript">
+                            $(document).ready(function(){
+        
+                            var input = '<div id="ramall" cellspacing="10"><tr><td><label for="precedente">(</label><input type="text" name="precedente" placeholder="Precedente"><label for="prefix">)</label><label for="plus">+</label><input type="text" name="prefix" placeholder="Prefixo"><label for="precedente">|</label><input type="text" name="match" placeholder="Padrão Equivalente"><a class="remove"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a> </td></tr></div>';
+                            $("input[name='add']").click(function( e ){
+                                $('#inputs_adicionais').append( input );
+                            });
+        
+                            $('#inputs_adicionais').delegate('a','click',function( e ){
+                                e.preventDefault();
+                                $( this ).parent('div').remove();
+        
+                            });
+        
+                            });
+                            </script>
             </head>
             <body>
                     <div id="divCenter">
@@ -101,57 +118,15 @@
                              </table>
         <br />
 
-             <table id="ramall" cellspacing="10">
-                <tr>
-                  <td>
-                   <label for="precedente">(</label>
-                     </td>
-                      <td align="left">
-                        <input type="text" name="precedente" placeholder="Precedente">
-                           </td>
-                           <td>
-                                <label for="prefix">)</label>
-                                  </td>
-                                  <td>
-                                        <label for="plus">+</label>
-                                          </td>
-                                  <td align="left">
-                                        <input type="text" name="prefix" placeholder="Prefixo">
-                                           </td>
-                                           <td>
-                                                <label for="precedente">|</label>
-                                                  </td>
-                                        <td align="left">
-                                            <input type="text" name="match" placeholder="Padrão Equivalente">
-                                        </td>
-                                        <td>
-                                       
-                                                
-                                                        <img  src="{% static 'img/plus.png' %}" style="cursor: pointer;" onclick="duplicarCampos();">
-                                                        <img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" onclick="removerCampos(this);"> 
-        
-                                                    
-                                                </td>
-                            </tr>
-                            <script>function duplicarCampos(){
-                                        var clone = document.getElementById('ramall').cloneNode(true);
-                                        var destino = document.getElementById('destino');
-                                        destino.appendChild (clone);
-                                        
-                                        var camposClonados = clone.getElementsByTagName('input');
-                                        
-                                        for(i=0; i<camposClonados.length;i++){
-                                                camposClonados[i].value = '';
-                                        }
-                                }
-                                
-                                function removerCampos(id){
-                                        var node1 = document.getElementById('destino');
-                                        node1.removeChild(node1.childNodes[0]);
-                                }</script>
-                                <div id="destino">
-
-            </table>
+        <br />
+               
+        <div align="center"><label style="display: block"><input type="button" name="add" value="Adicionar Linha" /></label></div>
+        <br />
+        <div align="center">
+        <div  id="ramall" cellspacing="10"><tr><td><label for="precedente">(</label><input type="text" name="precedente" placeholder="Precedente"><label for="prefix">)</label><label for="plus">+</label><input type="text" name="prefix" placeholder="Prefixo"><label for="precedente">|</label><label><input type="text" name="match" placeholder="Padrão Equivalente"><a class="remove"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a> </td><td><td></td></tr></div>        <fieldset id="inputs_adicionais" style="border: none">
+        </fieldset>
+    </div>
+       
             <br />
             <br />
             <table cellspacing="10">
