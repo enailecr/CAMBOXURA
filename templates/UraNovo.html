@@ -230,22 +230,38 @@
                                 
                                 <div id="dynamicDiv" >
                                                 <div id="ramal">
-                                                                <p>
+                                                        <tr>
+                                                                <td>
                                                                 <label for="nome">Nome: </label>
+                                                                </td>
+                                                                <td align="left">
                                                                 <input type="text" name="nome">
+                                                        </td>
+                                                        </tr>
+                                                        <tr>
+                                                                <td>
                                                                 <label for="destino">Destino: </label>
+                                                        </td>
+                                                        <td align="left">
                                                                 <select name="tipo_destino"> 
                                                                 <option value="def">==escolha um==</option> 
                                                                 </select>
                                                                 <select hidden name="destino">
                                                                 <option value="def">==escolha um==</option>
                                                                 </select>
+                                                        </td>
+                                                        </tr>
+                                                        <tr>
+                                                                <td>
                                                                 <label for="returna">Retornar: </label>
+                                                        </td>
+                                                        <td align="left">
                                                                 <INPUT TYPE="checkbox" NAME="retorna" VALUE="True">
                                                                 <a class="btn btn-danger" href="javascript:void(0)" id="remInput">
                                                                 <img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" >
                                                                 </a> 
-                                                                </p>
+                                                        </td>
+                                                        </tr>
                                     
                                 </div>
                 </div>
