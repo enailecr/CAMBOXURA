@@ -17,7 +17,7 @@
                     <div id="divCenter">
                             <div align="center"><h2>Editar Streaming:</h2></div>
                             <br />
-        <form action="{% url 'streaming_novo'%}" method="POST">
+        <form action="{% url 'musica_edita' streaming.id %}" method="POST">
         {% csrf_token %}
                 <table cellspacing="10">
                         <tr>

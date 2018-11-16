@@ -49,7 +49,7 @@ def streaming_novo(request):
     aplicacao = request.POST['apl']
     formato = request.POST['form']
     nome = request.POST['nome']
-    streaming = Streaming(aplicacao=aplicacao,formato=formato)
+    streaming = Streaming(aplicacao=aplicacao,formato=formato, nome=nome)
     streaming.save()
     return redirect ('/musicas/')
 
@@ -70,7 +70,7 @@ def musica_edita(request, id):
 
     if request.method == 'POST':
         nome = request.POST['nome']
-        if 'apl' in request.POST:
+        if categoria is False:
             aplicacao = request.POST['apl']
             formato = request.POST['form']
             musica.aplicacao = aplicacao
