@@ -16,14 +16,14 @@
                 <script type="text/javascript">
                     $(document).ready(function(){
 
-                    var input = '<table id="ramall" cellspacing="10"><tr><td><label for="precedente">(</label><input type="text" name="precedente" placeholder="Precedente"><label for="prefix">)</label><label for="plus">+</label><input type="text" name="prefix" placeholder="Prefixo"><label for="precedente">|</label><input type="text" name="match" placeholder="Padrão Equivalente"><a class="remove"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a> </td></tr></table>';
+                    var input = '<div id="ramall" cellspacing="10"><tr><td><label for="precedente">(</label><input type="text" name="precedente" placeholder="Precedente"><label for="prefix">)</label><label for="plus">+</label><input type="text" name="prefix" placeholder="Prefixo"><label for="precedente">|</label><input type="text" name="match" placeholder="Padrão Equivalente"><a class="remove"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a> </td></tr></div>';
                     $("input[name='add']").click(function( e ){
                         $('#inputs_adicionais').append( input );
                     });
 
                     $('#inputs_adicionais').delegate('a','click',function( e ){
                         e.preventDefault();
-                        $( this ).parent('td').remove();
+                        $( this ).parent('div').remove();
 
                     });
 
@@ -117,10 +117,12 @@
                                                                        </tr>
                                      </table>
                 <br />
-
-                    <label style="display: block"><input type="button" name="add" value="Add" /></label>
-                    <table id="ramall" cellspacing="10"><tr><td><label for="precedente">(</label><input type="text" name="precedente" placeholder="Precedente"><label for="prefix">)</label><label for="plus">+</label><input type="text" name="prefix" placeholder="Prefixo"><label for="precedente">|</label><input type="text" name="match" placeholder="Padrão Equivalente"><a class="remove"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a> </td></tr></table>        <fieldset id="inputs_adicionais" style="border: none">
+               
+                    <div align="center"><label style="display: block"><input type="button" name="add" value="Adicionar Linha" /></label></div>
+                   <div align="center">
+                    <div  id="ramall" cellspacing="10"><tr><td><label for="precedente">(</label><input type="text" name="precedente" placeholder="Precedente"><label for="prefix">)</label><label for="plus">+</label><input type="text" name="prefix" placeholder="Prefixo"><label for="precedente">|</label><label><input type="text" name="match" placeholder="Padrão Equivalente"><a class="remove"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a> </td><td><td></td></tr></div>        <fieldset id="inputs_adicionais" style="border: none">
                     </fieldset>
+                </div>
                    
                     <br />
                     <br />
