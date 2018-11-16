@@ -1,4 +1,5 @@
 {% extends "menu.html" %}
+{% load static %}
 
 
 {% block content %}
@@ -12,6 +13,23 @@
             <meta http-equiv="content-type" content="text/html;charset=utf-8" />
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.1.min.js"></script>
+                <script type="text/javascript">
+                    $(document).ready(function(){
+
+                    var input = '<div id="ramall" cellspacing="10"><tr><td><label for="precedente">(</label><input type="text" name="precedente" value="{{regra.precedente}}"><label for="prefix">)</label><label for="plus">+</label><input type="text" name="prefix" value="{{regra.prefix}}"><label for="precedente">|</label><input type="text" name="match" value="{{regra.match}}"><a class="remove"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a> </td></tr></div>';
+                    $("input[name='add']").click(function( e ){
+                        $('#inputs_adicionais').append( input );
+                    });
+
+                    $('#inputs_adicionais').delegate('a','click',function( e ){
+                        e.preventDefault();
+                        $( this ).parent('div').remove();
+
+                    });
+
+                    });
+                    </script>
             </head>
             <body onload="devolveValores()">
                 
@@ -110,32 +128,15 @@
                                             <td></td>
                                             </tr>
             </table>
-        <br />
-             <table cellspacing="10">
-                <tr>
-                  <td>
-                   <label for="precedente">(</label>
-                     </td>
-                      <td align="left">
-                        <input type="text" name="precedente" value="{{regra.precedente}}">
-                           </td>
-                           <td>
-                        <label for="prefix">)</label>
-                            </td>
-                            <td>
-                                <label for="plus">+</label>
-                                    </td>
-                            <td align="left">
-                                <input type="text" name="prefix" value="{{regra.prefix}}">
-                                    </td>
-                                    <td>
-                                        <label for="precedente">|</label>
-                                            </td>
-                                <td align="left">
-                                    <input type="text" name="match" value="{{regra.match}}">
-                                </td>
-                            </tr>
-            </table>
+            <br />
+               
+            <div align="center"><label style="display: block"><input type="button" name="add" value="Adicionar Linha" /></label></div>
+           <div align="center">
+            <div  id="ramall" cellspacing="10"><tr><td><label for="precedente">(</label><input type="text" name="precedente" value="{{regra.precedente}}"><label for="prefix">)</label><label for="plus">+</label><input type="text" name="prefix" value="{{regra.prefix}}"><label for="precedente">|</label><label><input type="text" name="match" value="{{regra.match}}"><a class="remove"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a> </td><td><td></td></tr></div>        <fieldset id="inputs_adicionais" style="border: none">
+            </fieldset>
+        </div>
+           
+            <br />
             <br />
             <br />
             <table cellspacing="10">
