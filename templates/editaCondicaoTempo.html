@@ -18,14 +18,16 @@
 
                 <script language="JavaScript" >
                   function enviardados(){
-                    
-                  if(document.dados.hora_termino.value < document.dados.hora_inicio.value)
-                  {
-                  alert( "Horário de término não pode ser menor que horário de início" );
-                  document.dados.hora_inicio.focus();
-                  return false;
-                  }
-                    
+
+                  if( document.dados.dia_mes_inicio.value == document.dados.dia_mes_termina.value)
+                  {  
+                      if(document.dados.hora_termino.value < document.dados.hora_inicio.value)
+                      {
+                      alert( "Horário de término não pode ser menor que horário de início" );
+                      document.dados.hora_inicio.focus();
+                      return false;
+                      }
+                  } 
                     
                   if( document.dados.dia_mes_inicio.value > document.dados.dia_mes_termina.value)
                   {
@@ -33,19 +35,39 @@
                   document.dados.dia_mes_inicio.focus();
                   return false;
                   }
-                    
-                  if (document.dados.tx_mensagem.value=="")
-                  {
-                  alert( "Preencha o campo MENSAGEM!" );
-                  document.dados.tx_mensagem.focus();
-                  return false;
+
+                  if( document.dados.mes_inicio.value == "fev")
+                  {  
+                      if(document.dados.dia_mes_inicio.value == 30 || document.dados.dia_mes_inicio.value == 31)
+                      {
+                      alert( "Dia Inválido!" );
+                      document.dados.hora_inicio.focus();
+                      return false;
+                      }
+
+                      if(document.dados.dia_mes_termina.value == 30 || document.dados.dia_mes_termina.value == 31)
+                      {
+                      alert( "Dia Inválido!" );
+                      document.dados.hora_inicio.focus();
+                      return false;
+                      }
                   }
-                    
-                  if (document.dados.tx_mensagem.value.length < 50 )
-                  {
-                  alert( "É necessario preencher o campo MENSAGEM com mais de 50 caracteres!" );
-                  document.dados.tx_mensagem.focus();
-                  return false;
+                  
+                  if( document.dados.mes_termino.value == "fev")
+                  {  
+                      if(document.dados.dia_mes_inicio.value == 30 || document.dados.dia_mes_inicio.value == 31)
+                      {
+                      alert( "Dia Inválido!" );
+                      document.dados.hora_inicio.focus();
+                      return false;
+                      }
+
+                      if(document.dados.dia_mes_termina.value == 30 || document.dados.dia_mes_termina.value == 31)
+                      {
+                      alert( "Dia Inválido!" );
+                      document.dados.hora_inicio.focus();
+                      return false;
+                      }
                   }
                     
                   return true;

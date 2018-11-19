@@ -18,20 +18,56 @@
 
                 <script language="JavaScript" >
                   function enviardados(){
-                    
-                  if(document.dados.hora_termino.value < document.dados.hora_inicio.value)
-                  {
-                  alert( "Horário de término não pode ser menor que horário de início" );
-                  document.dados.hora_inicio.focus();
-                  return false;
-                  }
-                    
+
+                  if( document.dados.dia_mes_inicio.value == document.dados.dia_mes_termina.value)
+                  {  
+                      if(document.dados.hora_termino.value < document.dados.hora_inicio.value)
+                      {
+                      alert( "Horário de término não pode ser menor que horário de início" );
+                      document.dados.hora_inicio.focus();
+                      return false;
+                      }
+                  } 
                     
                   if( document.dados.dia_mes_inicio.value > document.dados.dia_mes_termina.value)
                   {
                   alert( "Dia de término não pode ser menor que dia de início" );
                   document.dados.dia_mes_inicio.focus();
                   return false;
+                  }
+
+                  if( document.dados.mes_inicio.value == "fev")
+                  {  
+                      if(document.dados.dia_mes_inicio.value == 30 || document.dados.dia_mes_inicio.value == 31)
+                      {
+                      alert( "Dia Inválido!" );
+                      document.dados.hora_inicio.focus();
+                      return false;
+                      }
+
+                      if(document.dados.dia_mes_termina.value == 30 || document.dados.dia_mes_termina.value == 31)
+                      {
+                      alert( "Dia Inválido!" );
+                      document.dados.hora_inicio.focus();
+                      return false;
+                      }
+                  }
+                  
+                  if( document.dados.mes_termino.value == "fev")
+                  {  
+                      if(document.dados.dia_mes_inicio.value == 30 || document.dados.dia_mes_inicio.value == 31)
+                      {
+                      alert( "Dia Inválido!" );
+                      document.dados.hora_inicio.focus();
+                      return false;
+                      }
+
+                      if(document.dados.dia_mes_termina.value == 30 || document.dados.dia_mes_termina.value == 31)
+                      {
+                      alert( "Dia Inválido!" );
+                      document.dados.hora_inicio.focus();
+                      return false;
+                      }
                   }
                     
                   return true;
@@ -276,7 +312,15 @@
                                         <option value="07">07</option>
                                         <option value="08">08</option>
                                         <option value="09">09</option>
-                                        <option value="10">10</option>
+                                        if( document.dados.dia_mes_inicio.value == document.dados.dia_mes_termina.value)
+                                        {  
+                                            if(document.dados.hora_termino.value < document.dados.hora_inicio.value)
+                                            {
+                                            alert( "Horário de término não pode ser menor que horário de início" );
+                                            document.dados.hora_inicio.focus();
+                                            return false;
+                                            }
+                                        }     <option value="10">10</option>
                                         <option value="11">11</option>
                                         <option value="12">12</option>
                                         <option value="13">13</option>
@@ -320,7 +364,15 @@
                                         <option value="11">11</option>
                                         <option value="12">12</option>
                                         <option value="13">13</option>
-                                        <option value="14">14</option>
+                                        if( document.dados.dia_mes_inicio.value == document.dados.dia_mes_termina.value)
+                                        {  
+                                            if(document.dados.hora_termino.value < document.dados.hora_inicio.value)
+                                            {
+                                            alert( "Horário de término não pode ser menor que horário de início" );
+                                            document.dados.hora_inicio.focus();
+                                            return false;
+                                            }
+                                        }      <option value="14">14</option>
                                         <option value="15">15</option>
                                         <option value="16">16</option>
                                         <option value="17">17</option>
@@ -330,7 +382,15 @@
                                         <option value="21">21</option>
                                         <option value="22">22</option>
                                         <option value="23">23</option>
-                                        <option value="24">24</option>
+                                        if( document.dados.dia_mes_inicio.value == document.dados.dia_mes_termina.value)
+                                        {  
+                                            if(document.dados.hora_termino.value < document.dados.hora_inicio.value)
+                                            {
+                                            alert( "Horário de término não pode ser menor que horário de início" );
+                                            document.dados.hora_inicio.focus();
+                                            return false;
+                                            }
+                                        }      <option value="24">24</option>
                                         <option value="25">25</option>
                                         <option value="26">26</option>
                                         <option value="27">27</option>
