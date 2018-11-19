@@ -10,11 +10,34 @@
             <meta http-equiv="content-type" content="text/html;charset=utf-8" />
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                <script language=javascript>
+                    <!--
+                    cont = 0;
+                    function CheckAll() { 
+                       for (var i=0;i<document.form1.elements.length;i++) {
+                         var x = document.form1.elements[i];
+                         if (x.name == 'UIDL') { 
+                    x.checked = document.form1.selall.checked;
+                    } 
+                    }
+                    if (cont == 0){    
+                    var elem = document.getElementById("checar");
+                    elem.innerHTML = "Desmarcar todos";
+                    cont = 1;
+                    } else {
+                    var elem = document.getElementById("checar");
+                    elem.innerHTML = "Marcar todos";
+                    cont = 0;
+                    }
+                    
+                    } 
+                    //-->
+                    </script>
             </head>
             <body>
                     <div id="divCenter">
                             <div align="center"><h2>Aplicar Alterações:</h2></div>
-        <form action="{% url 'fila_novo'%}" method="POST">
+        <form name="form1" action="{% url 'fila_novo'%}" method="POST">
         <br/>
 
                 <table cellspacing="10">
@@ -26,45 +49,44 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <INPUT TYPE="checkbox" name="conf_cham"VALUE="True" > URAs
+                                    <INPUT TYPE="checkbox" name="UIDL"VALUE="True" > URAs
                                 </td>
                             <tr>
                                 <td>
-                                    <INPUT TYPE="checkbox" name="conf_cham"VALUE="True" > Número de Entrada
+                                    <INPUT TYPE="checkbox" name="UIDL"VALUE="True" > Número de Entrada
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <INPUT TYPE="checkbox" name="conf_cham"VALUE="True" > Troncos
+                                    <INPUT TYPE="checkbox" name="UIDL"VALUE="True" > Troncos
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <INPUT TYPE="checkbox" name="conf_cham"VALUE="True" > Anúncios
+                                    <INPUT TYPE="checkbox" name="UIDL"VALUE="True" > Anúncios
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <INPUT TYPE="checkbox" name="conf_cham"VALUE="True" > Grupos de Chamada
+                                    <INPUT TYPE="checkbox" name="UIDL"VALUE="True" > Grupos de Chamada
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <INPUT TYPE="checkbox" name="conf_cham"VALUE="True" > Filas
+                                    <INPUT TYPE="checkbox" name="UIDL"VALUE="True" > Filas
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <INPUT TYPE="checkbox" name="conf_cham"VALUE="True" > Condições de Tempo
+                                    <INPUT TYPE="checkbox" name="UIDL"VALUE="True" > Condições de Tempo
                                 </td>
                             </tr>
-                                </td>
-                                <td></td>
+                                <td><input type=checkbox name="selall" onClick="CheckAll()"><span id="checar">Marcar todos</span><br>
                             </tr>
                 </table>
                 <br />  
           
-                <div align="center"><button type="submit">Selecionar Todos</button><button type="submit">Aplicar Alterações</button></div>
+                <div align="center"><button type="submit">Aplicar Alterações</button></div>
           
 
 {% endblock %}
