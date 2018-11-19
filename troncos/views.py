@@ -125,7 +125,7 @@ def troncoiax_novo(request):
         padraoEquiv.append(request.POST['match'+str(i)])
 
     for key, preced in precedente:
-        regramanip = RegraManipulaNum(precedente = precedente,prefixo = prefixo[key],padraoaa = padraoEquiv[key], tronco =troncoIAX)
+        regramanip = RegraManipulaNum(precedente = precedente,prefixo = prefixo[key],padrao = padraoEquiv[key], tronco =troncoIAX)
         regramanip.save()
     # regramanip = RegraManipulaNum(precedente = precedente,prefixo = prefixo,padrao = padraoEquiv, tronco =troncoIAX)
     # regramanip.save()
