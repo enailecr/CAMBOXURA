@@ -13,30 +13,16 @@
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                 <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.1.min.js"></script>
-                <script type="text/javascript">
-                    $(document).ready(function(){
 
-                    var input = '<div id="ramall" cellspacing="10"><tr><td><label for="precedente">(</label><input type="text" name="precedente" placeholder="Precedente"><label for="prefix">)</label><label for="plus">+</label><input type="text" name="prefix" placeholder="Prefixo"><label for="precedente">|</label><input type="text" name="match" placeholder="Padrão Equivalente"><a class="remove"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a> </td></tr></div>';
-                    $("input[name='add']").click(function( e ){
-                        $('#inputs_adicionais').append( input );
-                    });
-
-                    $('#inputs_adicionais').delegate('a','click',function( e ){
-                        e.preventDefault();
-                        $( this ).parent('div').remove();
-
-                    });
-
-                    });
-                    </script>
             </head>
             <body>
+
                     <div id="divCenter">
                             <div align="center"><h2>Adicionar Tronco IAX:</h2></div>
-                            <form action="{% url 'troncoiax_novo' %}" method="POST">
+                            <form method="POST" id="form" name="form">
                               {% csrf_token %}
                                     <br />
-
+                                    <input type="hidden" name="count" id="count" value="1"></input>
                                      <table cellspacing="10">
 
                                              <tr>
@@ -117,13 +103,15 @@
                                                                        </tr>
                                      </table>
                 <br />
-               
+
                     <div align="center"><label style="display: block"><input type="button" name="add" value="Adicionar Linha" /></label></div>
                    <div align="center">
-                    <div  id="ramall" cellspacing="10"><tr><td><label for="precedente">(</label><input type="text" name="precedente" placeholder="Precedente"><label for="prefix">)</label><label for="plus">+</label><input type="text" name="prefix" placeholder="Prefixo"><label for="precedente">|</label><label><input type="text" name="match" placeholder="Padrão Equivalente"><a class="remove"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a> </td><td><td></td></tr></div>        <fieldset id="inputs_adicionais" style="border: none">
+                    <div  id="ramall" cellspacing="10"><tr><td><label for="precedente">(</label><input type="text" name="precedente0" placeholder="Precedente"><label for="prefix">)</label><label for="plus">+</label><input type="text" name="prefix0" placeholder="Prefixo">
+                      <label for="precedente">|</label><label><input type="text" name="match0" placeholder="Padrão Equivalente"><a class="remove"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a> </td><td><td></td></tr></div>
+                        <fieldset id="inputs_adicionais" style="border: none">
                     </fieldset>
                 </div>
-                   
+
                     <br />
                     <br />
                     <table cellspacing="10">
@@ -191,8 +179,35 @@
                     </table>
                     <br />
 
-                <button type="submit">Cadastrar</button>
+                <button type="submit" >Cadastrar</button>
                 </form>
      </div>
     </body>
+    <script type="text/javascript">
+        $(document).ready(function(){
+          var i = 1;
+        var input = '<div id="ramall" cellspacing="10"><tr><td><label for="precedente">(</label><input type="text" name="precedente[]" placeholder="Precedente"><label for="prefix">)</label><label for="plus">+</label><input type="text" name="prefix[]" placeholder="Prefixo"><label for="precedente">|</label><input type="text" name="match[]" placeholder="Padrão Equivalente"><a class="remove"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a> </td></tr></div>';
+        $("input[name='add']").click(function( e ){
+            $('#inputs_adicionais').append( '<div id="ramall" cellspacing="10"><tr><td><label for="precedente">(</label><input type="text" name="precedente'+i+'" placeholder="Precedente"><label for="prefix">)</label><label for="plus">+</label><input type="text" name="prefix'+i+'" placeholder="Prefixo"><label for="precedente">|</label><input type="text" name="match'+i+'" placeholder="Padrão Equivalente"><a class="remove"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a> </td></tr></div>' );
+            i++;
+            $('#count').val(i);
+        });
+
+        $('#inputs_adicionais').delegate('a','click',function( e ){
+            e.preventDefault();
+            $( this ).parent('div').remove();
+            i--;
+            $('#count').val(i);
+        });
+
+        });
+        $("#form").submit( function(e) {
+         //prevent the default submithandling
+         e.preventDefault();
+         //send the data of 'this' (the matched form) to yourURL
+         $.post('{% url "troncoiax_novo" %}', $(this).serialize());
+         console.log( $( this ).serialize() );
+         return true;
+       });
+        </script>
 {% endblock %}

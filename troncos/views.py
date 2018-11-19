@@ -91,9 +91,6 @@ def troncoiax_novo(request):
         desabTronco = request.POST['desab_tronco']
     else:
         desabTronco = False
-    precedente = request.POST['precedente']
-    prefixo = request.POST['prefix']
-    padraoEquiv = request.POST['match']
     prefixChamSaida = request.POST['prefixo_saida']
 
     nomeTronco = request.POST['nome_tronco']
@@ -108,7 +105,7 @@ def troncoiax_novo(request):
 
     troncoIAX.callerIDSaida = callerIDSaida
     troncoIAX.maxCanais = maxCanais
-    troncoIAX.opcoesDiskAsterisk = opcoesDiskAsterisk    
+    troncoIAX.opcoesDiskAsterisk = opcoesDiskAsterisk
     troncoIAX.nomeTronco = nomeTronco
     troncoIAX.detalhesPEER = detalhesPEER
     troncoIAX.contextoUsuario = contextoUsuario
@@ -117,8 +114,21 @@ def troncoiax_novo(request):
 
     troncoIAX.save()
 
-    regramanip = RegraManipulaNum(precedente = precedente,prefixo = prefixo,padraoEquiv = padraoEquiv, tronco =troncoIAX)
-    regramanip.save()
+    precedente = []
+    prefixo = []
+    padraoEquiv = []
+
+    contador = int(request.POST['count'])
+    for i in range(contador):
+        precedente.append(request.POST['precedente'+str(i)])
+        prefixo.append(request.POST['prefix'+str(i)])
+        padraoEquiv.append(request.POST['match'+str(i)])
+
+    for key, preced in precedente:
+        regramanip = RegraManipulaNum(precedente = precedente,prefixo = prefixo[key],padraoaa = padraoEquiv[key], tronco =troncoIAX)
+        regramanip.save()
+    # regramanip = RegraManipulaNum(precedente = precedente,prefixo = prefixo,padrao = padraoEquiv, tronco =troncoIAX)
+    # regramanip.save()
 
     return redirect ('/troncos/')
 
