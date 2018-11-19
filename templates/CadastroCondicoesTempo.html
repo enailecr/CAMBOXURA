@@ -18,8 +18,8 @@
 
                 <script language="JavaScript" >
                   function enviardados(){
-                    
-                    if( document.dados.dia_mes_inicio.value == document.dados.dia_mes_termina.value)
+
+                  if( document.dados.dia_mes_inicio.value == document.dados.dia_mes_termina.value)
                   {  
                       if(document.dados.hora_termino.value < document.dados.hora_inicio.value)
                       {
@@ -27,14 +27,47 @@
                       document.dados.hora_inicio.focus();
                       return false;
                       }
-                  }
-                    
+                  } 
                     
                   if( document.dados.dia_mes_inicio.value > document.dados.dia_mes_termina.value)
                   {
                   alert( "Dia de término não pode ser menor que dia de início" );
                   document.dados.dia_mes_inicio.focus();
                   return false;
+                  }
+
+                  if( document.dados.mes_inicio.value == "fev")
+                  {  
+                      if(document.dados.dia_mes_inicio.value == 30 || document.dados.dia_mes_inicio.value == 31)
+                      {
+                      alert( "Dia Inválido!" );
+                      document.dados.hora_inicio.focus();
+                      return false;
+                      }
+
+                      if(document.dados.dia_mes_termina.value == 30 || document.dados.dia_mes_termina.value == 31)
+                      {
+                      alert( "Dia Inválido!" );
+                      document.dados.hora_inicio.focus();
+                      return false;
+                      }
+                  }
+                  
+                  if( document.dados.mes_termino.value == "fev")
+                  {  
+                      if(document.dados.dia_mes_inicio.value == 30 || document.dados.dia_mes_inicio.value == 31)
+                      {
+                      alert( "Dia Inválido!" );
+                      document.dados.hora_inicio.focus();
+                      return false;
+                      }
+
+                      if(document.dados.dia_mes_termina.value == 30 || document.dados.dia_mes_termina.value == 31)
+                      {
+                      alert( "Dia Inválido!" );
+                      document.dados.hora_inicio.focus();
+                      return false;
+                      }
                   }
                     
                   return true;
