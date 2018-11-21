@@ -45,9 +45,7 @@ def troncosip_novo(request):
         desabTronco = request.POST['desab_tronco']
     else:
         desabTronco = False
-    precedente = request.POST['precedente']
-    prefixo = request.POST['prefix']
-    padraoEquiv = request.Post['match']
+
     prefixChamSaida = request.POST['prefixo_saida']
 
     nomeTronco = request.POST['nome_tronco']
@@ -70,8 +68,22 @@ def troncosip_novo(request):
     troncoSIP.stringRegistro = stringRegistro
 
     troncoSIP.save()
-    regramanip = RegraManipulaNum(precedente = precedente,prefixo = prefixo,padraoEquiv = padraoEquiv, tronco =troncoSIP)
-    regramanip.save()
+
+    precedente = []
+    prefixo = []
+    padraoEquiv = []
+
+    contador = int(request.POST['count'])
+    for i in range(contador):
+        precedente.append(request.POST['precedente'+str(i)])
+        prefixo.append(request.POST['prefix'+str(i)])
+        padraoEquiv.append(request.POST['match'+str(i)])
+
+    cont=0;
+    while cont < contador:
+        regramanip = RegraManipulaNum(precedente = precedente[cont],prefixo = prefixo[cont],padrao = padraoEquiv[cont], tronco=troncoSIP)
+        regramanip.save()
+        cont= cont + 1
 
     return redirect ('/troncos/')
 
