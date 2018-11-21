@@ -19,59 +19,69 @@
                 <script language="JavaScript" >
                   function enviardados(){
 
-                  if( document.dados.dia_mes_inicio.value == document.dados.dia_mes_termina.value)
-                  {  
-                      if(document.dados.hora_termino.value < document.dados.hora_inicio.value)
-                      {
-                      alert( "Horário de término não pode ser menor que horário de início" );
-                      document.dados.hora_inicio.focus();
-                      return false;
-                      }
-                  } 
-                    
-                  if( document.dados.dia_mes_inicio.value > document.dados.dia_mes_termina.value)
-                  {
-                  alert( "Dia de término não pode ser menor que dia de início" );
-                  document.dados.dia_mes_inicio.focus();
-                  return false;
-                  }
+                      if( document.dados.dia_mes_inicio.value == document.dados.dia_mes_termina.value)
+                      {  
+                          if(document.dados.hora_termino.value < document.dados.hora_inicio.value)
+                          {
+                          alert( "Horário de término não pode ser menor que horário de início" );
+                          document.dados.hora_inicio.focus();
+                          return false;
+                          }
+                      } 
 
-                  if( document.dados.mes_inicio.value == "fev")
-                  {  
-                      if(document.dados.dia_mes_inicio.value == 30 || document.dados.dia_mes_inicio.value == 31)
-                      {
-                      alert( "Dia Inválido!" );
-                      document.dados.hora_inicio.focus();
-                      return false;
+                      if( document.dados.mes_inicio.value == document.dados.mes_termino.value)
+                      {  
+                          if( document.dados.dia_mes_inicio.value > document.dados.dia_mes_termina.value)
+                          {
+                          alert( "Dia de término não pode ser menor que dia de início" );
+                          document.dados.dia_mes_inicio.focus();
+                          return false;
+                          }
                       }
 
-                      if(document.dados.dia_mes_termina.value == 30 || document.dados.dia_mes_termina.value == 31)
-                      {
-                      alert( "Dia Inválido!" );
-                      document.dados.hora_inicio.focus();
-                      return false;
-                      }
-                  }
-                  
-                  if( document.dados.mes_termino.value == "fev")
-                  {  
-                      if(document.dados.dia_mes_inicio.value == 30 || document.dados.dia_mes_inicio.value == 31)
-                      {
-                      alert( "Dia Inválido!" );
-                      document.dados.hora_inicio.focus();
-                      return false;
+                      if( document.dados.mes_inicio.value == "2")
+                      {  
+                          if(document.dados.dia_mes_inicio.value == 30 || document.dados.dia_mes_inicio.value == 31)
+                          {
+                          alert( "Dia Inválido!" );
+                          document.dados.hora_inicio.focus();
+                          return false;
+                          }
+
+                          if(document.dados.dia_mes_termina.value == 30 || document.dados.dia_mes_termina.value == 31)
+                          {
+                          alert( "Dia Inválido!" );
+                          document.dados.hora_inicio.focus();
+                          return false;
+                          }
                       }
 
-                      if(document.dados.dia_mes_termina.value == 30 || document.dados.dia_mes_termina.value == 31)
-                      {
-                      alert( "Dia Inválido!" );
-                      document.dados.hora_inicio.focus();
-                      return false;
+                      if( document.dados.mes_termino.value == "2")
+                      {  
+                          if(document.dados.dia_mes_inicio.value == 30 || document.dados.dia_mes_inicio.value == 31)
+                          {
+                          alert( "Dia Inválido!" );
+                          document.dados.hora_inicio.focus();
+                          return false;
+                          }
+
+                          if(document.dados.dia_mes_termina.value == 30 || document.dados.dia_mes_termina.value == 31)
+                          {
+                          alert( "Dia Inválido!" );
+                          document.dados.hora_inicio.focus();
+                          return false;
+                          }
                       }
-                  }
-                    
-                  return true;
-                  }
+
+                      if(parseInt(document.dados.mes_inicio.value) > parseInt(document.dados.mes_termino.value))
+                      {
+                          alert( "O mês do término não pode ser anterior ao mês de início" );
+                          document.dados.mes_termino.focus();
+                          return false;
+                          }
+                        
+                      return true;
+                      }
                     
                   </script>
             </head>
@@ -407,18 +417,18 @@
                                        </td>
                                        <td align="left">
                                         <select name="mes_inicio">
-                                        <option value="jan">Janeiro</option>
-                                        <option value="fev">Fevereiro</option>
-                                        <option value="mar">Março</option>
-                                        <option value="abr">Abril</option>
-                                        <option value="mai">Maio</option>
-                                        <option value="jun">Junho</option>
-                                        <option value="jul">Julho</option>
-                                        <option value="ago">Agosto</option>
-                                        <option value="set">Setembro</option>
-                                        <option value="out">Outubro</option>
-                                        <option value="nov">Novembro</option>
-                                        <option value="dez">Dezembro</option>
+                                        <option value="1">Janeiro</option>
+                                        <option value="2">Fevereiro</option>
+                                        <option value="3">Março</option>
+                                        <option value="4">Abril</option>
+                                        <option value="5">Maio</option>
+                                        <option value="6">Junho</option>
+                                        <option value="7">Julho</option>
+                                        <option value="8">Agosto</option>
+                                        <option value="9">Setembro</option>
+                                        <option value="10">Outubro</option>
+                                        <option value="11">Novembro</option>
+                                        <option value="12">Dezembro</option>
                                        </select>
                         </td>
                           </tr>
@@ -428,18 +438,18 @@
                                        </td>
                                        <td align="left">
                                         <select name="mes_termino">
-                                        <option value="jan">Janeiro</option>
-                                        <option value="fev">Fevereiro</option>
-                                        <option value="mar">Março</option>
-                                        <option value="abr">Abril</option>
-                                        <option value="mai">Maio</option>
-                                        <option value="jun">Junho</option>
-                                        <option value="jul">Julho</option>
-                                        <option value="ago">Agosto</option>
-                                        <option value="set">Setembro</option>
-                                        <option value="out">Outubro</option>
-                                        <option value="nov">Novembro</option>
-                                        <option value="dez">Dezembro</option>
+                                        <option value="1">Janeiro</option>
+                                        <option value="2">Fevereiro</option>
+                                        <option value="3">Março</option>
+                                        <option value="4">Abril</option>
+                                        <option value="5">Maio</option>
+                                        <option value="6">Junho</option>
+                                        <option value="7">Julho</option>
+                                        <option value="8">Agosto</option>
+                                        <option value="9">Setembro</option>
+                                        <option value="10">Outubro</option>
+                                        <option value="11">Novembro</option>
+                                        <option value="12">Dezembro</option>
                                        </select>
                         </td>
                           </tr>

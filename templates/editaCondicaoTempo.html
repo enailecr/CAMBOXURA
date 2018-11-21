@@ -28,15 +28,18 @@
                       return false;
                       }
                   } 
-                    
-                  if( document.dados.dia_mes_inicio.value > document.dados.dia_mes_termina.value)
-                  {
-                  alert( "Dia de término não pode ser menor que dia de início" );
-                  document.dados.dia_mes_inicio.focus();
-                  return false;
+
+                  if( document.dados.mes_inicio.value == document.dados.mes_termino.value)
+                  {  
+                      if( document.dados.dia_mes_inicio.value > document.dados.dia_mes_termina.value)
+                      {
+                      alert( "Dia de término não pode ser menor que dia de início" );
+                      document.dados.dia_mes_inicio.focus();
+                      return false;
+                      }
                   }
 
-                  if( document.dados.mes_inicio.value == "fev")
+                  if( document.dados.mes_inicio.value == "2")
                   {  
                       if(document.dados.dia_mes_inicio.value == 30 || document.dados.dia_mes_inicio.value == 31)
                       {
@@ -53,7 +56,7 @@
                       }
                   }
                   
-                  if( document.dados.mes_termino.value == "fev")
+                  if( document.dados.mes_termino.value == "2")
                   {  
                       if(document.dados.dia_mes_inicio.value == 30 || document.dados.dia_mes_inicio.value == 31)
                       {
@@ -69,6 +72,13 @@
                       return false;
                       }
                   }
+                  
+                  if(parseInt(document.dados.mes_inicio.value) > parseInt(document.dados.mes_termino.value))
+                  {
+                      alert( "O mês do término não pode ser anterior ao mês de início" );
+                      document.dados.mes_termino.focus();
+                      return false;
+                      }
                     
                   return true;
                   }
@@ -384,12 +394,12 @@
                             {%if condicoestempo.destinoNaoCoincideTipo == '6'%}
                             <select  name="ndest_chamadasGrupo"  id="ndest_chamadasGrupo">
                               <option value="0">--</option>
-                              {%for dest in dest_chamadasGrupo %}
-                              {%if condicoestempo.destinoNaoCoincide == dest.id%}
-                                <option value="{{dest.id}}" selected>{{dest.descricao}}</option>
-                                {%else%}
-                                  <option value="{{dest.id}}">{{dest.descricao}}</option>
-                                {%endif%}
+                              {%for dest in dest_chamadasGrupao %}
+                              {%if condicoestempo.destinoNaoCaoincide == dest.id%}
+                                <option value="{{dest.id}}" saelected>{{dest.descricao}}</option>
+                                {%else%}a
+                                  <option value="{{dest.id}}"a>{{dest.descricao}}</option>
+                                {%endif%}a
                               {%endfor%}
                             </select>
                             {%else%}
@@ -400,7 +410,7 @@
                               {%endfor%}
                             </select>
                             {%endif%}
-                            {%if condicoestempo.destinoNaoCoincideTipo == '7'%}
+                            {%if condicoestempo.destinoNaoCoiancideTipo == '7'%}
                               <select  name="ndest_condicoes"  id="ndest_condicoes">
                                 <option value="0">--</option>
                                 {%for dest in dest_condicoes %}
@@ -581,18 +591,18 @@
                                        </td>
                                        <td align="left">
                                         <select name="mes_inicio">
-                                        <option value="jan" {%if grupotempo.mesIncio == 'jan'%} selected {%endif%}>Janeiro</option>
-                                        <option value="fev" {%if grupotempo.mesIncio == 'fev'%} selected {%endif%}>Fevereiro</option>
-                                        <option value="mar" {%if grupotempo.mesIncio == 'mar'%} selected {%endif%}>Março</option>
-                                        <option value="abr" {%if grupotempo.mesIncio == 'abr'%} selected {%endif%}>Abril</option>
-                                        <option value="mai" {%if grupotempo.mesIncio == 'mai'%} selected {%endif%}>Maio</option>
-                                        <option value="jun" {%if grupotempo.mesIncio == 'jun'%} selected {%endif%}>Junho</option>
-                                        <option value="jul" {%if grupotempo.mesIncio == 'jul'%} selected {%endif%}>Julho</option>
-                                        <option value="ago" {%if grupotempo.mesIncio == 'ago'%} selected {%endif%}>Agosto</option>
-                                        <option value="set" {%if grupotempo.mesIncio == 'set'%} selected {%endif%}>Setembro</option>
-                                        <option value="out" {%if grupotempo.mesIncio == 'out'%} selected {%endif%}>Outubro</option>
-                                        <option value="nov" {%if grupotempo.mesIncio == 'nov'%} selected {%endif%}>Novembro</option>
-                                        <option value="dez" {%if grupotempo.mesIncio == 'dez'%} selected {%endif%}>Dezembro</option>
+                                        <option value="1" {%if grupotempo.mesIncio == '1'%} selected {%endif%}>Janeiro</option>
+                                        <option value="2" {%if grupotempo.mesIncio == '2'%} selected {%endif%}>Fevereiro</option>
+                                        <option value="3" {%if grupotempo.mesIncio == '3'%} selected {%endif%}>Março</option>
+                                        <option value="4" {%if grupotempo.mesIncio == '4'%} selected {%endif%}>Abril</option>
+                                        <option value="5" {%if grupotempo.mesIncio == '5'%} selected {%endif%}>Maio</option>
+                                        <option value="6" {%if grupotempo.mesIncio == '6'%} selected {%endif%}>Junho</option>
+                                        <option value="7" {%if grupotempo.mesIncio == '7'%} selected {%endif%}>Julho</option>
+                                        <option value="8" {%if grupotempo.mesIncio == '8'%} selected {%endif%}>Agosto</option>
+                                        <option value="9" {%if grupotempo.mesIncio == '9'%} selected {%endif%}>Setembro</option>
+                                        <option value="10" {%if grupotempo.mesIncio == '10'%} selected {%endif%}>Outubro</option>
+                                        <option value="11" {%if grupotempo.mesIncio == '11'%} selected {%endif%}>Novembro</option>
+                                        <option value="12" {%if grupotempo.mesIncio == '12'%} selected {%endif%}>Dezembro</option>
                                        </select>
                         </td>
                           </tr>
@@ -602,18 +612,18 @@
                                        </td>
                                        <td align="left">
                                         <select name="mes_termino"  >
-                                        <option value="jan" {%if grupotempo.mesFim == 'jan'%} selected {%endif%}>Janeiro</option>
-                                        <option value="fev" {%if grupotempo.mesFim == 'fev'%} selected {%endif%}>Fevereiro</option>
-                                        <option value="mar" {%if grupotempo.mesFim == 'mar'%} selected {%endif%}>Março</option>
-                                        <option value="abr" {%if grupotempo.mesFim == 'abr'%} selected {%endif%}>Abril</option>
-                                        <option value="mai" {%if grupotempo.mesFim == 'mai'%} selected {%endif%}>Maio</option>
-                                        <option value="jun" {%if grupotempo.mesFim == 'jun'%} selected {%endif%}>Junho</option>
-                                        <option value="jul" {%if grupotempo.mesFim == 'jul'%} selected {%endif%}>Julho</option>
-                                        <option value="ago" {%if grupotempo.mesFim == 'ago'%} selected {%endif%}>Agosto</option>
-                                        <option value="set" {%if grupotempo.mesFim == 'set'%} selected {%endif%}>Setembro</option>
-                                        <option value="out" {%if grupotempo.mesFim == 'out'%} selected {%endif%}>Outubro</option>
-                                        <option value="nov" {%if grupotempo.mesFim == 'nov'%} selected {%endif%}>Novembro</option>
-                                        <option value="dez" {%if grupotempo.mesFim == 'dez'%} selected {%endif%}>Dezembro</option>
+                                        <option value="1" {%if grupotempo.mesFim == '1'%} selected {%endif%}>Janeiro</option>
+                                        <option value="2" {%if grupotempo.mesFim == '2'%} selected {%endif%}>Fevereiro</option>
+                                        <option value="3" {%if grupotempo.mesFim == '3'%} selected {%endif%}>Março</option>
+                                        <option value="4" {%if grupotempo.mesFim == '4'%} selected {%endif%}>Abril</option>
+                                        <option value="5" {%if grupotempo.mesFim == '5'%} selected {%endif%}>Maio</option>
+                                        <option value="6" {%if grupotempo.mesFim == '6'%} selected {%endif%}>Junho</option>
+                                        <option value="7" {%if grupotempo.mesFim == '7'%} selected {%endif%}>Julho</option>
+                                        <option value="8" {%if grupotempo.mesFim == '8'%} selected {%endif%}>Agosto</option>
+                                        <option value="9" {%if grupotempo.mesFim == '9'%} selected {%endif%}>Setembro</option>
+                                        <option value="10" {%if grupotempo.mesFim == '10'%} selected {%endif%}>Outubro</option>
+                                        <option value="11" {%if grupotempo.mesFim == '11'%} selected {%endif%}>Novembro</option>
+                                        <option value="12" {%if grupotempo.mesFim == '12'%} selected {%endif%}>Dezembro</option>
                                        </select>
                         </td>
                           </tr>
