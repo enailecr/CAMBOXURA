@@ -9,36 +9,13 @@
       <caption><div align="right">
         </div></caption>
 
-            <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-            <head>
-                        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-                        <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.1.min.js"></script>
-                        <script type="text/javascript">
-                            $(document).ready(function(){
-        
-                            var input = '<div id="ramall" cellspacing="10"><tr><td><label for="precedente">(</label><input type="text" name="precedente" placeholder="Precedente"><label for="prefix">)</label><label for="plus">+</label><input type="text" name="prefix" placeholder="Prefixo"><label for="precedente">|</label><input type="text" name="match" placeholder="Padrão Equivalente"><a class="remove"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a> </td></tr></div>';
-                            $("input[name='add']").click(function( e ){
-                                $('#inputs_adicionais').append( input );
-                            });
-        
-                            $('#inputs_adicionais').delegate('a','click',function( e ){
-                                e.preventDefault();
-                                $( this ).parent('div').remove();
-        
-                            });
-        
-                            });
-                            </script>
-            </head>
-            <body>
                     <div id="divCenter">
-                            <div align="center"><h2>Adicionar Tronco Customizado:</h2></div>
-                    <form action="{% url 'troncocustomizado_novo' %}" method="POST">
+                    <div align="center"><h2>Adicionar Tronco Customizado:</h2></div>
+                    <form method="POST" id="form" name="form">
                       {% csrf_token %}
                             <br />
-
+                            <input type="hidden" name="count" id="count" value="1"></input>
                              <table cellspacing="10">
-
                                      <tr>
                                              <td>
                                               <label for="nome_tronco">Nome do Tronco: </label>
@@ -118,15 +95,28 @@
                              </table>
                              <br />
                
-                             <div align="center"><label style="display: block"><input type="button" name="add" value="Adicionar Linha" /></label></div>
-                            <br/>
+                             <div align="center"><label style="display: block"><input type="button" name="add" id="add_linha" value="Adicionar Linha" /></label></div>
                              <div align="center">
-                             <div  id="ramall" cellspacing="10"><tr><td><label for="precedente">(</label><input type="text" name="precedente" placeholder="Precedente"><label for="prefix">)</label><label for="plus">+</label><input type="text" name="prefix" placeholder="Prefixo"><label for="precedente">|</label><label><input type="text" name="match" placeholder="Padrão Equivalente"><a class="remove"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a> </td><td><td></td></tr></div>        <fieldset id="inputs_adicionais" style="border: none">
-                             </fieldset>
-                         </div>
-            </table>
-            <br />
-            <br />
+                               <div  id="ramall" cellspacing="10">
+                                 <tr>
+                                   <td>
+                                     <label for="precedente">(</label>
+                                     <input type="text" name="precedente0" placeholder="Precedente"></input>
+                                     <label for="prefix">)</label>
+                                     <label for="plus">+</label>
+                                     <input type="text" name="prefix0" placeholder="Prefixo"></input>
+                                     <label for="precedente">|</label>
+                                     <label><input type="text" name="match0" placeholder="Padrão Equivalente">
+                                       <a class="remove"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a>
+                                   </td>
+                                   <td></td>
+                                 </tr>
+                               </div>
+                               <fieldset id="inputs_adicionais" style="border: none"></fieldset>
+                             </div>
+                     
+                             <br />
+                             <br />
             <table cellspacing="10">
               <tr>
             <td>
@@ -153,7 +143,51 @@
         </table>
 
         <button type="submit">Cadastrar</button>
-        </form>
-     </div>
+</div>
+
+</form>
+  </div>
     </body>
+    <script type="text/javascript">
+        $(document).ready(function(){
+          var i = 1;
+
+        $("#add_linha").on('click', function (e){
+            e.preventDefault();
+              var input = '<div cellspacing="10"><tr><td><label for="precedente">(</label><input type="text" name="precedente'+i+'" id="precedente'+i+'" placeholder="Precedente"></input><label for="prefix">)</label><label for="plus">+</label><input type="text" name="prefix'+i+'" id="prefix'+i+'" placeholder="Prefixo"></input><label for="precedente">|</label><input type="text" name="match'+i+'" id="match'+i+'" placeholder="Padrão Equivalente"></input><a class="remove"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a> </td></tr></div>'
+            var newTextBoxDiv = $('</fieldset>');
+
+                newTextBoxDiv.html(input);
+                newTextBoxDiv.appendTo("#inputs_adicionais");
+                $('#inputs_adicionais').append(input);
+                i++;
+                $('#count').val(i);
+            });
+
+        $('#inputs_adicionais').delegate('a','click',function( e ){
+            e.preventDefault();
+            $( this ).parent('div').remove();
+            i--;
+            $('#count').val(i);
+        });
+
+          $("#form").submit( function(e) {
+           //prevent the default submithandling
+           e.preventDefault();
+
+           var formData = $("#form").serializeArray();
+           for(var j=1; j<i; j++ ){
+             formData.push({name: "precedente"+j, value: $('#precedente'+j).val() });
+             formData.push({name: "prefix"+j, value: $('#prefix'+j).val() });
+             formData.push({name: "match"+j, value: $('#match'+j).val() });
+            }
+
+           $.post('{% url "troncoiax_novo" %}', formData);
+           console.log( formData );
+           return window.location.href ="/troncos/";
+         });
+
+        });
+
+        </script>
 {% endblock %}
