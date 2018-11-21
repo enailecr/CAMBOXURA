@@ -124,11 +124,11 @@ def troncoiax_novo(request):
         prefixo.append(request.POST['prefix'+str(i)])
         padraoEquiv.append(request.POST['match'+str(i)])
 
-    for key, preced in precedente:
-        regramanip = RegraManipulaNum(precedente = precedente,prefixo = prefixo[key],padrao = padraoEquiv[key], tronco =troncoIAX)
+    cont=0;
+    while cont < contador:
+        regramanip = RegraManipulaNum(precedente = precedente[cont],prefixo = prefixo[cont],padrao = padraoEquiv[cont], tronco =troncoIAX)
         regramanip.save()
-    # regramanip = RegraManipulaNum(precedente = precedente,prefixo = prefixo,padrao = padraoEquiv, tronco =troncoIAX)
-    # regramanip.save()
+        cont= cont + 1
 
     return redirect ('/troncos/')
 
