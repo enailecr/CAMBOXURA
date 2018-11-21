@@ -175,10 +175,66 @@ def tronco_edita(request, id):
     tronco = Tronco.objects.get(id=id)
     data['tronco'] = tronco
     regra = RegraManipulaNum.objects.filter(tronco=tronco)
+    count= len(regra)
     data['regra'] = regra
+    data['count'] = count
     if request.method == 'POST':
+        nome = request.POST['nome']
+        callerIDSaida = request.POST['callerids']
+        opcoesCID = request.POST['op_cid']
+        maxCanais = request.POST['max_canais']
+        opcoesDiskAsterisk = request.POST['op_asterisk']
+        if 'continua_ocup' in request.POST:
+            contSeOcup = request.POST['continua_ocup']
+        else:
+            contSeOcup = False
+        if 'desab_tronco' in request.POST:
+            desabTronco = request.POST['desab_tronco']
+        else:
+            desabTronco = False
+        prefixChamSaida = request.POST['prefixo_saida']
 
-            return redirect('/troncos/')
+        nomeTronco = request.POST['nome_tronco']
+        detalhesPEER = request.POST['detalhes_PEER']
+        contextoUsuario = request.POST['contexto']
+        detalhesUsuario = request.POST['detalhes_usuarios']
+        stringRegistro = request.POST['string_reg']
+
+        precedente = []
+        prefixo = []
+        padraoEquiv = []
+
+        contador = int(request.POST['count'])
+        for i in range(contador):
+            precedente.append(request.POST['precedente'+str(i)])
+            prefixo.append(request.POST['prefix'+str(i)])
+            padraoEquiv.append(request.POST['match'+str(i)])
+
+        tronco.nome = nome
+        tronco.callerIDSaida = callerIDSaida
+        tronco.opcoesCID = opcoesCID
+        tronco.maxCanais = maxCanais
+        tronco.opcoesDiskAsterisk = opcoesDiskAsterisk
+        tronco.contSeOcup = contSeOcup
+        tronco.desabTronco = desabTronco
+        tronco.prefixChamSaida = prefixChamSaida
+        tronco.nomeTronco = nomeTronco
+        tronco.detalhesPEER = detalhesPEER
+        tronco.contextoUsuario = contextoUsuario
+        tronco.detalhesUsuario = detalhesUsuario
+        tronco.stringRegistro = stringRegistro
+        tronco.save()
+
+        cont=0;
+        for r in regra:
+            r.delete()
+
+        while cont < contador:
+            regramanip = RegraManipulaNum(precedente = precedente[cont],prefixo = prefixo[cont],padrao = padraoEquiv[cont], tronco =tronco)
+            regramanip.save()
+            cont= cont + 1
+
+        return redirect('/troncos/')
     else:
         return render(request, 'editaTronco.html', data)
 
