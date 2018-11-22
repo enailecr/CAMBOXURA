@@ -2,7 +2,7 @@ from django.db import models
 from destinos.models import Destino
 
 class NumeroEntrada(Destino):
-    numero = models.IntegerField()
+    numero = models.CharField(max_length=10,blank=True, null=True)
     origem = models.IntegerField()
     atendido = models.BooleanField()
     gravaChamada = models.BooleanField()
