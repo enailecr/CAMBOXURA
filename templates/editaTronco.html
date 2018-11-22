@@ -107,7 +107,7 @@
             <div align="center">
 
                 {% for reg in regra%}
-            <div  id="ramall" cellspacing="10">
+            <div  id="ramall{{ forloop.counter0 }}" cellspacing="10">
 
               <tr>
                 <td>
@@ -116,9 +116,9 @@
                   <label for="prefix">)</label>
                   <label for="plus">+</label>
                   <input type="text" name="prefix{{ forloop.counter0 }}" id="prefix{{ forloop.counter0 }}" value="{{reg.prefixo}}">
-                  <label for="precedente">|</label><label>
-                    <input type="text" name="match{{ forloop.counter0}}" id="match{{ forloop.counter0}}" value="{{reg.padrao}}">
-                    <a class="remove"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a>
+                  <label for="precedente">|</label><label>  
+                  <input type="text" name="match{{ forloop.counter0}}" id="match{{ forloop.counter0}}" value="{{reg.padrao}}">
+                    <a onclick="testremove('ramall{{ forloop.counter0 }}')" name="testremove"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a>
                   </td>
                   <td></td>
                 </tr>
@@ -201,6 +201,12 @@
     </table>
 
   <script type="text/javascript">
+        function testremove(dados){
+        var node = document.getElementById(dados);
+        if (node.parentNode) {
+        node.parentNode.removeChild(node);
+        }
+    }
       $(document).ready(function(){
         var i = $('#count').val();
 
@@ -223,6 +229,7 @@
           i--;
           $('#count').val(i);
       });
+      
 
         $("#form").submit( function(e) {
          //prevent the default submithandling
