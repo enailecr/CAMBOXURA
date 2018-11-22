@@ -91,7 +91,8 @@ def musica_edita(request, id):
         if categoria:
             gravacoes = Gravacao.objects.filter(musica__exact=musica)
             data['gravacoes'] = gravacoes
-        return render(request, 'editaMusica.html', data)
+            return render(request, 'editaMusica.html', data)
+        return redirect('/musicas/')
     else:
         if categoria:
             return render(request, 'editaMusica.html', data)
