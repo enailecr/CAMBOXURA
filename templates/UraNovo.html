@@ -2,12 +2,14 @@
 {% load static %}
 {% block content %}
 
+<script src="{% static 'js/destino.js' %}"></script>
+
 <div >
         <table id="CAMTecnoligaTabela">
-    
+
       <caption><div align="right">
         </div></caption>
-    
+
             <meta http-equiv="content-type" content="text/html;charset=utf-8" />
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -25,10 +27,10 @@
                                 <label for="anuncio">Anúncio:</label>
                                </td>
                                <td align="left">
-                                <select name="anuncio"> 
+                                <select name="anuncio">
                                 <option value="null">Nenhum</option>
                                 {%for anu in anuncios %}
-                                        <option value="{{anu.id}}">{{anu.descricao}}</option>    
+                                        <option value="{{anu.id}}">{{anu.descricao}}</option>
                                 {%endfor%}
                                </select>
                 </td>
@@ -40,6 +42,10 @@
                     <td align="left">
                      <input type="text" name="descrição">
                     </td>
+                    <td></td>
+                      <td></td>
+                        <td></td>
+                          <td></td>
                    </tr>
                    <tr>
                         <td>
@@ -48,76 +54,164 @@
                         <td align="left">
                          <input type="text" name="timeout">
                         </td>
+                        <td></td>
+                          <td></td>
+                            <td></td>
+                              <td></td>
                        </tr>
                     <tr>
                         <td>
                             <label for="tent_inv">Tentativas Inválidas</label>
                         </td>
                         <td align="left">
-                                <select name="tent_inv"> 
+                                <select name="tent_inv">
                                 <option value="dis">Disabled</option>
-                                <option value="00">00</option> 
-                                <option value="01">01</option> 
-                                <option value="02">02</option> 
-                                <option value="03">03</option> 
-                                <option value="04">04</option> 
-                                <option value="05">05</option> 
-                                <option value="06">06</option> 
-                                <option value="07">07</option> 
-                                <option value="08">08</option> 
-                                <option value="09">09</option> 
-                                <option value="10">10</option> 
+                                <option value="00">00</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
                             </select>
                         </td>
+                        <td></td>
+                          <td></td>
+                            <td></td>
+                              <td></td>
                     </tr>
                     <tr>
                             <td>
                                     <label for="invrerecor">Gravação de Repetição Inválida:</label>
                                    </td>
                                    <td align="left">
-                                    <select name="invrerecor"> 
-                                    <option value="nem">Padrão</option> 
+                                    <select name="invrerecor">
+                                    <option value="nem">Padrão</option>
                                    </select>
                     </td>
+                    <td></td>
+                      <td></td>
+                        <td></td>
+                          <td></td>
                       </tr>
                       <tr>
                             <td>
                                     <label for="app_ann_inv">Anexar Anúncio em Inválido: </label>
                                    </td>
                         <td>
-                      
+
                                 <INPUT TYPE="checkbox" NAME="app_ann_inv" VALUE="True">
-                               
+
                         </td>
+                        <td></td>
+                          <td></td>
+                            <td></td>
+                              <td></td>
                        </tr>
                    <tr>
                         <td>
                                 <label for="ReturnInvalid">Retornar em Inválido: </label>
                                </td>
                     <td>
-                      
+
                             <INPUT TYPE="checkbox" NAME="ReturnInvalid" VALUE="True">
-                            
+
                     </td>
+                    <td></td>
+                      <td></td>
+                        <td></td>
+                          <td></td>
                    </tr>
                    <tr>
                         <td>
                          <label for="gravinvalid">Gravação Inválida:</label>
                         </td>
                         <td align="left">
-                         <select name="gravinvalid"> 
-                         <option value="def">Padrão</option>  
+                         <select name="gravinvalid">
+                         <option value="def">Padrão</option>
                         </select>
                         </td>
+                        <td></td>
+                          <td></td>
+                            <td></td>
+                              <td></td>
                     </tr>
                     <tr>
                             <td>
                              <label for="destin">Destino Inválido:</label>
                             </td>
                             <td align="left">
-                             <select name="destin"> 
-                             <option value="def">==escolha um==</option>  
-                            </select>
+                              <select name="tipo_des" id="tipo_des" onchange="get_destino()">
+                                  <option value="0">Selecione destino</option>
+                                  <option value="1">Anúncio</option>
+                                  <option value="2">Gravação</option>
+                                  <option value="3">Número de Entrada</option>
+                                  <option value="4">URA</option>
+                                  <option value="5">Fila</option>
+                                  <option value="6">Chamada em grupo</option>
+                                  <option value="7">Condições de tempo</option>
+                                  <option value="8">Tronco</option>
+                          </select>
+                      </td>
+                      <td align="left">
+                              <select  name="dest_anuncios" id="dest_anuncios" hidden>
+                                <option value="0" selected>--</option>
+                                {%for dest in dest_anuncios %}
+                                  <option value="{{dest.id}}">{{dest.descricao}}</option>
+                                {%endfor%}
+                          </select>
+                      </td>
+                      <td align="left">
+                              <select  name="dest_gravacoes" id="dest_gravacoes" hidden>
+                                <option value="0" selected>--</option>
+                                {%for dest in dest_gravacoes %}
+                                  <option value="{{dest.id}}">{{dest.nome}}</option>
+                                {%endfor%}
+                          </select>
+                      </td>
+                      <td align="left">
+                              <select  name="dest_numeros" id="dest_numeros" hidden>
+                                <option value="0" selected>--</option>
+                                {%for dest in dest_numeros %}
+                                  <option value="{{dest.id}}">{{dest.numero}}</option>
+                                {%endfor%}
+                          </select>
+                      </td>
+                      <td align="left">
+                              <select  name="dest_uras" hidden id="dest_uras">
+                                <option value="0" selected>--</option>
+                                {%for dest in dest_uras %}
+                                  <option value="{{dest.id}}">{{dest.nome}}</option>
+                                {%endfor%}
+                          </select>
+                          <select  name="dest_filas" hidden id="dest_filas">
+                            <option value="0" selected>--</option>
+                            {%for dest in dest_filas %}
+                              <option value="{{dest.id}}">{{dest.nome}}</option>
+                            {%endfor%}
+                      </select>
+                      <select  name="dest_chamadasGrupo" hidden id="dest_chamadasGrupo">
+                        <option value="0" selected>--</option>
+                        {%for dest in dest_chamadasGrupo %}
+                          <option value="{{dest.id}}">{{dest.descricao}}</option>
+                        {%endfor%}
+                  </select>
+                  <select  name="dest_condicoes" hidden id="dest_condicoes">
+                    <option value="0" selected>--</option>
+                    {%for dest in dest_condicoes %}
+                      <option value="{{dest.id}}">{{dest.nome}}</option>
+                    {%endfor%}
+              </select>
+              <select  name="dest_troncos" hidden id="dest_troncos">
+                <option value="0" selected>--</option>
+                {%for dest in dest_troncos %}
+                  <option value="{{dest.id}}">{{dest.nome}}</option>
+                {%endfor%}
+          </select>
                             </td>
                         </tr>
                         <tr>
@@ -125,49 +219,61 @@
                                     <label for="timeout_ret">Retentativas de Tempo Esgotado</label>
                                 </td>
                                 <td align="left">
-                                        <select name="timeout_ret"> 
+                                        <select name="timeout_ret">
                                         <option value="dis">Disabled</option>
-                                        <option value="00">00</option> 
-                                        <option value="01">01</option> 
-                                        <option value="02">02</option> 
-                                        <option value="03">03</option> 
-                                        <option value="04">04</option> 
-                                        <option value="05">05</option> 
-                                        <option value="06">06</option> 
-                                        <option value="07">07</option> 
-                                        <option value="08">08</option> 
-                                        <option value="09">09</option> 
-                                        <option value="10">10</option> 
+                                        <option value="00">00</option>
+                                        <option value="01">01</option>
+                                        <option value="02">02</option>
+                                        <option value="03">03</option>
+                                        <option value="04">04</option>
+                                        <option value="05">05</option>
+                                        <option value="06">06</option>
+                                        <option value="07">07</option>
+                                        <option value="08">08</option>
+                                        <option value="09">09</option>
+                                        <option value="10">10</option>
                                     </select>
                                 </td>
+                                <td></td>
+                                  <td></td>
+                                    <td></td>
+                                      <td></td>
                             </tr>
                             <tr>
                                     <td>
                                             <label for="append_anon_timout">Anexar Anúncio no Tempo Limite: </label>
                                            </td>
                                 <td>
-                                 
+
                                         <INPUT TYPE="checkbox" NAME="append_anon_timout" VALUE="True">
-                                       
+
                                 </td>
+                                <td></td>
+                                  <td></td>
+                                    <td></td>
+                                      <td></td>
                                </tr>
                                <tr>
                                     <td>
                                             <label for="return_timout">Retorno no Tempo Esgotado: </label>
                                            </td>
                                 <td>
-                                   
+
                                         <INPUT TYPE="checkbox" NAME="append_anon_timout" VALUE="True">
-                                        
+
                                 </td>
+                                <td></td>
+                                  <td></td>
+                                    <td></td>
+                                      <td></td>
                                </tr>
                                <tr>
                                     <td>
                                      <label for="timeout_record">Gravação de Tempo Esgotado:</label>
                                     </td>
                                     <td align="left">
-                                     <select name="timeout_record"> 
-                                     <option value="def">Padrão</option>  
+                                     <select name="timeout_record">
+                                     <option value="def">Padrão</option>
                                     </select>
                                     </td>
                                 </tr>
@@ -176,8 +282,8 @@
                                          <label for="timeout_dest">Destino de Tempo Esgotado:</label>
                                         </td>
                                         <td align="left">
-                                         <select name="timeout_dest"> 
-                                         <option value="def">==escolha um==</option>  
+                                         <select name="timeout_dest">
+                                         <option value="def">==escolha um==</option>
                                         </select>
                                         </td>
                                     </tr>
@@ -186,18 +292,18 @@
                                                     <label for="return_ura">Retorna para URA após Caixa Postal: </label>
                                                    </td>
                                         <td>
-                                           
+
                                                 <INPUT TYPE="checkbox" NAME="append_anon_timout" VALUE="True">
-                                                    
+
                                         </td>
                                        </tr>
                 </table>
-               
+
                <br />
                <!-- ENDEREÇO -->
-          
+
                 <table cellspacing="10">
-               
+
                         <tr>
                                 <td>
                                  <label for="nome">Nome: </label>
@@ -225,9 +331,9 @@
                </a>
         </div>
                 <table cellspacing="10" id="ramall">
-                                    
-                        
-                                
+
+
+
                                 <div id="dynamicDiv" >
                                                 <div id="ramal">
                                                         <tr>
@@ -243,8 +349,8 @@
                                                                 <label for="destino">Destino: </label>
                                                         </td>
                                                         <td align="left">
-                                                                <select name="tipo_destino"> 
-                                                                <option value="def">==escolha um==</option> 
+                                                                <select name="tipo_destino">
+                                                                <option value="def">==escolha um==</option>
                                                                 </select>
                                                                 <select hidden name="destino">
                                                                 <option value="def">==escolha um==</option>
@@ -259,10 +365,10 @@
                                                                 <INPUT TYPE="checkbox" NAME="retorna" VALUE="True">
                                                                 <a class="btn btn-danger" href="javascript:void(0)" id="remInput">
                                                                 <img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" >
-                                                                </a> 
+                                                                </a>
                                                         </td>
                                                         </tr>
-                                    
+
                                 </div>
                 </div>
                                 <script>
@@ -283,7 +389,7 @@
                                         '<INPUT TYPE="checkbox" NAME="retorna" VALUE="True">'+
                                         '<a class="btn btn-danger" href="javascript:void(0)" id="remInput">'+
                                         '<img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" >'+
-                                        '</a>'+ 
+                                        '</a>'+
                                         '</p>').appendTo(scntDiv);
                                                         return false;
                                                     });
@@ -293,21 +399,21 @@
                                                     });
                                                 });
                                                 </script>
-                                        
-                </table>            
-               
+
+                </table>
+
                <br />
-               
-               
+
+
                <br />
-              
+
                <button type="submit">Criar URA</button>
                </form>
 </div>
 
 </div>
-</body> 
-    
+</body>
+
     </table>
     </div>
 {% endblock %}

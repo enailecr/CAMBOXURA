@@ -1,6 +1,6 @@
 {% extends "menu.html" %}
 {% load static %}
-
+  
 
 {% block content %}
 
@@ -116,7 +116,7 @@
                   <label for="prefix">)</label>
                   <label for="plus">+</label>
                   <input type="text" name="prefix{{ forloop.counter0 }}" id="prefix{{ forloop.counter0 }}" value="{{reg.prefixo}}">
-                  <label for="precedente">|</label><label>  
+                  <label for="precedente">|</label><label>
                   <input type="text" name="match{{ forloop.counter0}}" id="match{{ forloop.counter0}}" value="{{reg.padrao}}">
                     <a onclick="testremove('ramall{{ forloop.counter0 }}')" name="testremove"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a>
                   </td>
@@ -229,7 +229,7 @@
           i--;
           $('#count').val(i);
       });
-      
+
 
         $("#form").submit( function(e) {
          //prevent the default submithandling

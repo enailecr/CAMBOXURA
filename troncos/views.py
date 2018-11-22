@@ -123,7 +123,6 @@ def troncoiax_novo(request):
     troncoIAX.contextoUsuario = contextoUsuario
     troncoIAX.detalhesUsuario = detalhesUsuario
     troncoIAX.stringRegistro = stringRegistro
-
     troncoIAX.save()
 
     precedente = []
