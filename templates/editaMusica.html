@@ -62,9 +62,12 @@
                   </tr>
                   <tr>
                       <br />
+                      <tr></tr>
                       <tr><td>
                       <button type="submit">Salvar Alterações</button>
                     </td>
+                    <td></td>
+                    <td></td>
                     </tr>
                   </table>
                     <br />
@@ -85,12 +88,20 @@
       </table>
       </div>
 
-    </table>
-    <ul>
-     {%for mus in gravacoes%}
-     <li>{{mus.nome}} <a class="remove" href="{%url 'gravacao_remove' mus.id %}"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a></li>
-     {%endfor%}
-   </ul>
+      <br />
+      <div align="center"><h3>Gravações Referêntes à Música:</h3></div>
+      <ul>
+       {%for mus in gravacoes%}
+       <div align= center>
+         <table>
+       <li>{{mus.nome}} <a class="remove" href="{%url 'gravacao_remove' mus.id %}"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a></li>
+       {%endfor%}
+      </table>
+      </ul>
+     
     </div>
-    <a id="botao" href="/musicas/"><input class="butn" type="button" value="Concluir alterações"></a>
-{% endblock %}
+  
+  <div align = center>
+      <a id="botao" href="/musicas/"><input class="butn" type="button" value="Concluir alterações"></a>
+    </div>
+    {% endblock %}
