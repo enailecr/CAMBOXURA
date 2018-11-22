@@ -19,14 +19,21 @@
                 <script language="JavaScript" >
                   function enviardados(){
 
-                      if( document.dados.dia_mes_inicio.value == document.dados.dia_mes_termina.value)
+                       if( document.dados.dia_mes_inicio.value == document.dados.dia_mes_termina.value)
                       {  
+                        if( document.dados.dia_semana_ini.value != document.dados.dia_semana_ter.value)
+                      { 
+                        alert( "ERRO! Dia da Semana Inválido" );
+                        return false;
+                      }
+                      else{
                           if(document.dados.hora_termino.value < document.dados.hora_inicio.value)
                           {
                           alert( "Horário de término não pode ser menor que horário de início" );
                           document.dados.hora_inicio.focus();
                           return false;
                           }
+                        }
                       } 
 
                       if( document.dados.mes_inicio.value == document.dados.mes_termino.value)
@@ -101,6 +108,7 @@
                            <td></td>
                            <td></td>
                           </tr>
+      
                           <tr>
                             <td>
                              <label for="dest_coin">Destino se o Horário Coincidir:</label>
