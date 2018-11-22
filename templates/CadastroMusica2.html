@@ -1,6 +1,6 @@
 {% extends "menu.html" %}
 
-{%load static%}
+
 {% block content %}
 
 <div >
@@ -25,7 +25,7 @@
                                 <label for="nome">Nome: </label>
                                 </td>
                                 <td align="left">
-                                <input type="text" name="nome" value={{musica.nome}}>
+                                <input type="text" name="nome" value="{{musica.nome}}">
                                 </td>
                             <td></td>
                         </tr>
@@ -35,13 +35,13 @@
                             </td>
                             <td align="left">
                               <select name="volume" tabindex="3">
-                                <option value="1.50" >Volume 150%</option>
-                                <option value="1.25" >Volume 125%</option>
-                                <option value="1" selected>Volume 100%</option>
-                                <option value=".75" >Volume 75%</option>
-                                <option value=".5" >Volume 50%</option>
-                                <option value=".25" >Volume 25%</option>
-                                <option value=".1" >Volume 10%</option>
+                                <option value="1.50" {%if musica.volume == "1.50"%} selected {%endif%}>Volume 150%</option>
+                                <option value="1.25" {%if musica.volume == "1.25"%} selected {%endif%}>Volume 125%</option>
+                                <option value="1" {%if musica.volume == "1"%} selected {%endif%}>Volume 100%</option>
+                                <option value=".75" {%if musica.volume == ".75"%} selected {%endif%}>Volume 75%</option>
+                                <option value=".5" {%if musica.volume == ".5"%} selected {%endif%}>Volume 50%</option>
+                                <option value=".25" {%if musica.volume == ".25"%} selected {%endif%}>Volume 25%</option>
+                                <option value=".1" {%if musica.volume == ".1"%} selected {%endif%}>Volume 10%</option>
                               </select>
                             </td>
                             <td></td>
@@ -52,18 +52,15 @@
                                     <label for="exerand">Execução Randômica: </label>
                                 </td>
                             <td>
-
+                                  {%if musica.execRandom%}
+                                    <INPUT TYPE="checkbox" NAME="exerand" VALUE="True" checked>
+                                  {%else%}
                                     <INPUT TYPE="checkbox" NAME="exerand" VALUE="True">
-
+                                  {%endif%}
                             </td>
                             <td></td>
                                 </tr>
-                        <tr>
-                            <br />
-                            <tr><td>
-                            <button type="submit">Cadastrar</button>
-                          </td>
-                          </tr>
+
         </div>
         </form>
     </table>
@@ -71,7 +68,7 @@
     <br />
      <div id="divCenter">
        <table>
-    <form enctype="multipart/form-data" method="POST" >
+    <form enctype="multipart/form-data" method="POST" action="{% url 'musica_nova' musica.id %}">
       {% csrf_token %}
     <td><input type="file" name="anexGravacao" accept="audio/*"></td>
     <td>
@@ -82,7 +79,13 @@
     </FORM>
   </table>
   </div>
-  
+  <ul>
+    {%for mus in gravacoes%}
+    <li>{{mus.nome}} </li>
+    {%endfor%}
+  </ul>
+
+  <a id="botao" href="/musicas/"><input class="butn" type="button" value="Concluir cadastro"></a>
 </body>
 
 {% endblock %}

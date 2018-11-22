@@ -7,6 +7,7 @@ from django_tables2 import RequestConfig
 from .tables import MusicaTable
 from django.core.files.storage import FileSystemStorage
 from anuncios.models import Gravacao
+from django.core.exceptions import ObjectDoesNotExist
 
 @login_required
 def addcategoria(request):
@@ -34,15 +35,15 @@ def categoria_novo(request):
 
     musicaCategoria = MusicaCategoria(execRandom=execRandom, nome=nome, volume=volume)
     musicaCategoria.save()
+    try:
+        gravacoes = Gravacao.objects.get(musica=musicaCategoria)
+    except ObjectDoesNotExist:
+        gravacoes = None
+    data = {}
+    data['musica'] = musicaCategoria
+    data['gravacoes'] = gravacoes
 
-    myfile = request.FILES['anexMusica']
-    nome = request.POST['nomeGravacao']
-    gravacaoid = upload_file_cad(myfile, nome);
-    gravacao = Gravacao.objects.get(id=gravacaoid)
-    gravacao.musica= musicaCategoria
-    gravacao.save()
-
-    return redirect ('/musicas/')
+    return render(request, 'CadastroMusica2.html', data)
 
 @login_required
 def streaming_novo(request):
@@ -56,7 +57,6 @@ def streaming_novo(request):
 @login_required
 def musica_edita(request, id):
     data = {}
-    #musica = Musica.objects.get(id=id)
 
     try:
         musica=MusicaCategoria.objects.get(id=id)
@@ -82,19 +82,16 @@ def musica_edita(request, id):
                 execRandom = request.POST['exerand']
             else:
                 execRandom = False
+
+            volume = request.POST['volume']
             musica.nome = nome
             musica.execRandom = execRandom
+            musica.volume = volume
             musica.save()
-
-            if 'anexMusica' in request.FILES:
-                myfile = request.FILES['anexMusica']
-                nome = request.POST['nomeGravacao']
-                gravacaoid = upload_file_cad(myfile, nome);
-                gravacao = Gravacao.objects.get(id=gravacaoid)
-                gravacao.musica= musica
-                gravacao.save()
-
-        return redirect('/musicas/')
+        if categoria:
+            gravacoes = Gravacao.objects.filter(musica__exact=musica)
+            data['gravacoes'] = gravacoes
+        return render(request, 'editaMusica.html', data)
     else:
         if categoria:
             return render(request, 'editaMusica.html', data)
@@ -109,26 +106,60 @@ def musica_remove(request, id):
     fs = FileSystemStorage()
     gravacoes = Gravacao.objects.filter(musica__exact=musica)
     for gravacao in gravacoes:
-        fs.delete(gravacao.link)
+        fs.delete("../"+gravacao.link)
         gravacao.delete()
     musica.delete()
     return redirect('/musicas/')
 
-def upload_file_cad(myfile, nome):
+@login_required
+def upload_file_cad(request , id):
+    if request.method == 'POST':
+        musica = MusicaCategoria.objects.get(id=id)
+        myfile = request.FILES['anexGravacao']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
 
-    fs = FileSystemStorage()
-    filename = fs.save(myfile.name, myfile)
+        nome = request.POST['nomeGravacao']
+        tipo = '2'
+        gravacao = Gravacao(nome=nome, link=uploaded_file_url, tipo=tipo, musica=musica)
+        gravacao.save()
 
-    gravacao = Gravacao(nome=nome, link=filename)
-    gravacao.save()
-    return gravacao.id
+        gravacoes = Gravacao.objects.filter(musica__exact=musica)
+        data = {}
+        data['musica'] = musica
+        data['gravacoes'] = gravacoes
+        return render(request, 'CadastroMusica2.html', data)
 
-def gravacao_remove(gravacao, id):
+@login_required
+def gravacao_remove(request, id):
     gravacao = Gravacao.objects.get(id=id)
+    musica = gravacao.musica
     fs = FileSystemStorage()
-    gravacoes = Gravacao.objects.filter(musica__exact=musica)
-    for gravacao in gravacoes:
-        fs.delete(gravacao.link)
-        gravacao.delete()
+    fs.delete("../"+gravacao.link)
     gravacao.delete()
-    return redirect('/musicas/')
+    data = {}
+    data['streaming'] = musica
+    gravacoes = Gravacao.objects.filter(musica__exact=musica)
+    data['gravacoes'] = gravacoes
+    return render(request, 'editaMusica.html', data)
+
+@login_required
+def upload_file_edt(request , id):
+    if request.method == 'POST':
+        musica = MusicaCategoria.objects.get(id=id)
+        myfile = request.FILES['anexGravacao']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
+
+        nome = request.POST['nomeGravacao']
+        tipo = '2'
+        gravacao = Gravacao(nome=nome, link=uploaded_file_url, tipo=tipo, musica=musica)
+        gravacao.save()
+
+        gravacoes = Gravacao.objects.filter(musica__exact=musica)
+        data = {}
+        data['streaming'] = musica
+        data['gravacoes'] = gravacoes
+        return render(request, 'editaMusica.html', data)

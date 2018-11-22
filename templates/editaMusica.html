@@ -1,6 +1,6 @@
 {% extends "menu.html" %}
 
-
+{%load static%}
 {% block content %}
 
 <div>
@@ -30,7 +30,7 @@
                 </tr>
                 <tr>
                         <td>
-                            <label for="exerand">ExecRandom: </label>
+                            <label for="exerand">Execução randômica: </label>
                         </td>
                     <td>
                             {%if streaming.execRandom %}
@@ -44,7 +44,7 @@
 
                   <tr>
                       <td>
-                          <label for="repeticao">Repetição</label>
+                          <label for="repeticao">Volume</label>
                       </td>
                       <td align="left">
                         <select name="volume" tabindex="3">
@@ -60,24 +60,37 @@
                       <td></td>
 
                   </tr>
-                  <td><input type="file" id="anexMusica" name="anexMusica" accept="audio/*"></td>
-                  <td>
-                  <label for="nomeGravacao">Nome da gravação</label>
-                  </td>
-                  <TD><input type="text" name="nomeGravacao"></td></TD>
+                  <tr>
+                      <br />
+                      <tr><td>
+                      <button type="submit">Salvar Alterações</button>
+                    </td>
+                    </tr>
+                  </table>
                     <br />
-        <button type="submit">Salvar Alterações</button>
         </form>
         </div>
-        </body>
+        <br />
+         <div id="divCenter">
+           <table>
+        <form enctype="multipart/form-data" method="POST" action="{% url 'musica_edt' streaming.id %}">
+          {% csrf_token %}
+        <td><input type="file" name="anexGravacao" accept="audio/*"></td>
+        <td>
+        <label for="nomeGravacao">Nome da gravação</label>
+        </td>
+        <TD><input type="text" name="nomeGravacao"></td></TD>
+        <td><button type="submit">Adicionar</button></td>
+        </FORM>
+      </table>
+      </div>
 
     </table>
     <ul>
      {%for mus in gravacoes%}
-     <li>{{mus.nome}}</li>
+     <li>{{mus.nome}} <a class="remove" href="{%url 'gravacao_remove' mus.id %}"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a></li>
      {%endfor%}
-     <a id="botao" href="{% url 'gravacao_remove' streaming.id %}"><input class="butn" type="button" value="Excluir Gravações"></a>
    </ul>
     </div>
+    <a id="botao" href="/musicas/"><input class="butn" type="button" value="Concluir alterações"></a>
 {% endblock %}
-
