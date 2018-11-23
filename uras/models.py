@@ -10,7 +10,7 @@ DISCARDIRETO_CHOICES = (
 
 class URA(Destino):
     nome = models.CharField(max_length=40, blank=False, null=False)
-    descricao = models.CharField(max_length=10, blank=False, null=False)
+    descricao = models.CharField(max_length=100, blank=False, null=False)
     anuncioUra = models.ForeignKey(Anuncio, on_delete=models.SET_NULL, null=True, blank=True)
     discarDireto = models.CharField(max_length=1,choices = DISCARDIRETO_CHOICES)
     timeout = models.IntegerField()

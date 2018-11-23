@@ -18,8 +18,8 @@
             </head>
             <body>
                     <div id="divCenter">
-                            <div align="center"><h2>Adicionar URA:</h2></div>
-        <form action="{% url 'ura_novo' %}" method="POST">
+                            <div align="center"><h2>Editar URA:</h2></div>
+        <form action="{% url 'ura_edita' ura.id %}" method="POST">
             {% csrf_token %}
                 <table cellspacing="10">
                     <tr>
@@ -30,7 +30,7 @@
                                 <select name="anuncio">
                                 <option value="0">Nenhum</option>
                                 {%for anu in anuncios %}
-                                        <option value="{{anu.id}}">{{anu.descricao}}</option>
+                                        <option value="{{anu.id}}"{%if ura.anuncioUra == anu%} selected {%endif%}>{{anu.descricao}}</option>
                                 {%endfor%}
                                </select>
                 </td>
@@ -41,8 +41,8 @@
                     </td>
                     <td align="left">
                      <select name="discar_direto">
-                     <option value="0">Desabilitado</option>
-                      <option value="1">Ramais</option>
+                     <option value="0"{%if ura.discarDireto == "0"%} selected {%endif%}>Desabilitado</option>
+                      <option value="1"{%if ura.discarDireto == "1"%} selected {%endif%}>Ramais</option>
                     </td>
                     <td></td>
                       <td></td>
@@ -54,7 +54,7 @@
                          <label for="timeout">Timeout: </label>
                         </td>
                         <td align="left">
-                         <input type="text" name="timeout" value="10">
+                         <input type="text" name="timeout" value="{{ura.timeout}}">
                         </td>
                         <td></td>
                           <td></td>
@@ -68,17 +68,17 @@
                         <td align="left">
                                 <select name="tent_inv">
                                 <option value="dis">Disabled</option>
-                                <option value="00">00</option>
-                                <option value="01">01</option>
-                                <option value="02">02</option>
-                                <option value="03" selected>03</option>
-                                <option value="04">04</option>
-                                <option value="05">05</option>
-                                <option value="06">06</option>
-                                <option value="07">07</option>
-                                <option value="08">08</option>
-                                <option value="09">09</option>
-                                <option value="10">10</option>
+                                <option value="0"{%if ura.tentativasInvalidas == 0 %} selected {%endif%}>00</option>
+                                <option value="1"{%if ura.tentativasInvalidas == 1 %} selected {%endif%}>01</option>
+                                <option value="2"{%if ura.tentativasInvalidas == 2 %} selected {%endif%}>02</option>
+                                <option value="3" {%if ura.tentativasInvalidas == 3 %} selected {%endif%}>03</option>
+                                <option value="4"{%if ura.tentativasInvalidas == 4 %} selected {%endif%}>04</option>
+                                <option value="5"{%if ura.tentativasInvalidas == 5 %} selected {%endif%}>05</option>
+                                <option value="6"{%if ura.tentativasInvalidas == 6 %} selected {%endif%}>06</option>
+                                <option value="7"{%if ura.tentativasInvalidas == 7 %} selected {%endif%}>07</option>
+                                <option value="8"{%if ura.tentativasInvalidas == 8 %} selected {%endif%}>08</option>
+                                <option value="9"{%if ura.tentativasInvalidas == 9 %} selected {%endif%}>09</option>
+                                <option value="10"{%if ura.tentativasInvalidas == 10 %} selected {%endif%}>10</option>
                             </select>
                         </td>
                         <td></td>
@@ -94,7 +94,7 @@
                                     <select name="invrerecor">
                                     <option value="0">Padrão</option>
                                     {%for g in gravacoes%}
-                                      <option value="{{g.id}}">{{g.nome}}</option>
+                                      <option value="{{g.id}}" {%if ura.gravRepetInvalid == g %} selected {%endif%}>{{g.nome}}</option>
                                     {%endfor%}
                                    </select>
                     </td>
@@ -109,7 +109,7 @@
                                    </td>
                         <td>
 
-                                <INPUT TYPE="checkbox" NAME="app_ann_inv" VALUE="True">
+                                <INPUT TYPE="checkbox" NAME="app_ann_inv" VALUE="True" {%if ura.anexAnuncInvalid %} checked {%endif%}>
 
                         </td>
                         <td></td>
@@ -123,7 +123,7 @@
                                </td>
                     <td>
 
-                            <INPUT TYPE="checkbox" NAME="ReturnInvalid" VALUE="True">
+                            <INPUT TYPE="checkbox" NAME="ReturnInvalid" VALUE="True" {%if ura.returnInvalid %} checked {%endif%}>
 
                     </td>
                     <td></td>
@@ -139,7 +139,7 @@
                          <select name="gravinvalid">
                            <option value="0">Padrão</option>
                            {%for g in gravacoes%}
-                             <option value="{{g.id}}">{{g.nome}}</option>
+                             <option value="{{g.id}}" {%if ura.gravInvalid == g %} selected {%endif%}>{{g.nome}}</option>
                            {%endfor%}
                           </select>
                         </select>
@@ -156,72 +156,174 @@
                             <td align="left">
                               <select name="tipo_des" id="tipo_des" onchange="get_destino()">
                                   <option value="0">Selecione destino</option>
-                                  <option value="1">Anúncio</option>
-                                  <option value="2">Gravação</option>
-                                  <option value="3">Número de Entrada</option>
-                                  <option value="4">URA</option>
-                                  <option value="5">Fila</option>
-                                  <option value="6">Chamada em grupo</option>
-                                  <option value="7">Condições de tempo</option>
-                                  <option value="8">Tronco</option>
+                                  <option value="1" {%if ura.destinoInvalidTipo == "1" %} selected {%endif%}>Anúncio</option>
+                                  <option value="2" {%if ura.destinoInvalidTipo == "2" %} selected {%endif%}>Gravação</option>
+                                  <option value="3" {%if ura.destinoInvalidTipo == "3" %} selected {%endif%}>Número de Entrada</option>
+                                  <option value="4" {%if ura.destinoInvalidTipo == "4" %} selected {%endif%}>URA</option>
+                                  <option value="5" {%if ura.destinoInvalidTipo == "5" %} selected {%endif%}>Fila</option>
+                                  <option value="6" {%if ura.destinoInvalidTipo == "6" %} selected {%endif%}>Chamada em grupo</option>
+                                  <option value="7" {%if ura.destinoInvalidTipo == "7" %} selected {%endif%}>Condições de tempo</option>
+                                  <option value="8" {%if ura.destinoInvalidTipo == "8" %} selected {%endif%}>Tronco</option>
                           </select>
                       </td>
                       <td align="left">
-                              <select  name="dest_anuncios" id="dest_anuncios" hidden>
-                                <option value="0" selected>--</option>
+                        {%if ura.destinoInvalidTipo == '1'%}
+                              <select  name="dest_anuncios" id="dest_anuncios">
+                                <option value="0">--</option>
                                 {%for dest in dest_anuncios %}
-                                  <option value="{{dest.id}}">{{dest.descricao}}</option>
+                                  {%if ura.destinoInvalid == dest.id%}
+                                  <option value="{{dest.id}}" selected>{{dest.descricao}}</option>
+                                  {%else%}
+                                    <option value="{{dest.id}}">{{dest.descricao}}</option>
+                                  {%endif%}
                                 {%endfor%}
+                              </select>
+                        {%else%}
+                          <select  name="dest_anuncios" id="dest_anuncios" hidden>
+                            <option value="0">--</option>
+                            {%for dest in dest_anuncios %}
+                              <option value="{{dest.id}}">{{dest.descricao}}</option>
+                            {%endfor%}
                           </select>
-                      </td>
-                      <td align="left">
-                              <select  name="dest_gravacoes" id="dest_gravacoes" hidden>
-                                <option value="0" selected>--</option>
+                        {%endif%}
+
+                        {%if ura.destinoInvalidTipo == '2'%}
+                              <select  name="dest_gravacoes" id="dest_gravacoes" >
+                                <option value="0">--</option>
                                 {%for dest in dest_gravacoes %}
-                                  <option value="{{dest.id}}">{{dest.nome}}</option>
+                                  {%if ura.destinoInvalid == dest.id%}
+                                    <option value="{{dest.id}}" selected>{{dest.nome}}</option>
+                                    {%else%}
+                                      <option value="{{dest.id}}">{{dest.nome}}</option>
+                                    {%endif%}
                                 {%endfor%}
                           </select>
-                      </td>
-                      <td align="left">
-                              <select  name="dest_numeros" id="dest_numeros" hidden>
-                                <option value="0" selected>--</option>
+                        {%else%}
+                        <select  name="dest_gravacoes" id="dest_gravacoes" hidden>
+                          <option value="0">--</option>
+                          {%for dest in dest_gravacoes %}
+                            <option value="{{dest.id}}">{{dest.nome}}</option>
+                          {%endfor%}
+                        </select>
+                        {%endif%}
+
+                        {%if ura.destinoInvalidTipo == '3'%}
+                              <select  name="dest_numeros" id="dest_numeros" >
+                                <option value="0">--</option>
                                 {%for dest in dest_numeros %}
-                                  <option value="{{dest.id}}">{{dest.numero}}</option>
+                                {%if ura.destinoInvalid == dest.id%}
+                                  <option value="{{dest.id}}" selected>{{dest.numero}}</option>
+                                  {%else%}
+                                    <option value="{{dest.id}}">{{dest.numero}}</option>
+                                  {%endif%}
                                 {%endfor%}
                           </select>
-                      </td>
-                      <td align="left">
-                              <select  name="dest_uras" hidden id="dest_uras">
-                                <option value="0" selected>--</option>
+                          {%else%}
+                          <select  name="dest_numeros" id="dest_numeros" hidden>
+                            <option value="0">--</option>
+                            {%for dest in dest_numeros %}
+                              <option value="{{dest.id}}">{{dest.numero}}</option>
+                            {%endfor%}
+                      </select>
+                      {%endif%}
+
+                        {%if ura.destinoInvalidTipo == '4'%}
+                              <select  name="dest_uras"  id="dest_uras">
+                                <option value="0">--</option>
                                 {%for dest in dest_uras %}
-                                  <option value="{{dest.id}}">{{dest.nome}}</option>
+                                {%if ura.destinoInvalid == dest.id%}
+                                  <option value="{{dest.id}}" selected>{{dest.nome}}</option>
+                                  {%else%}
+                                    <option value="{{dest.id}}">{{dest.nome}}</option>
+                                  {%endif%}
                                 {%endfor%}
                           </select>
-                          <select  name="dest_filas" hidden id="dest_filas">
-                            <option value="0" selected>--</option>
-                            {%for dest in dest_filas %}
+                          {%else%}
+                          <select  name="dest_uras" hidden id="dest_uras">
+                            <option value="0">--</option>
+                            {%for dest in dest_uras %}
                               <option value="{{dest.id}}">{{dest.nome}}</option>
                             {%endfor%}
                       </select>
+                      {%endif%}
+                      {%if ura.destinoInvalidTipo == '5'%}
+                            <select  name="dest_filas"  id="dest_filas">
+                              <option value="0">--</option>
+                              {%for dest in dest_filas %}
+                              {%if ura.destinoInvalid == dest.id%}
+                                <option value="{{dest.id}}" selected>{{dest.nome}}</option>
+                                {%else%}
+                                  <option value="{{dest.id}}">{{dest.nome}}</option>
+                                {%endif%}
+                              {%endfor%}
+                        </select>
+                      {%else%}
+                        <select  name="dest_filas" hidden id="dest_filas">
+                          <option value="0">--</option>
+                          {%for dest in dest_filas %}
+                            <option value="{{dest.id}}">{{dest.nome}}</option>
+                          {%endfor%}
+                        </select>
+                      {%endif%}
+                      {%if ura.destinoInvalidTipo == '6'%}
+                      <select  name="dest_chamadasGrupo"  id="dest_chamadasGrupo">
+                        <option value="0">--</option>
+                        {%for dest in dest_chamadasGrupo %}
+                        {%if ura.destinoInvalid == dest.id%}
+                          <option value="{{dest.id}}" selected>{{dest.descricao}}</option>
+                          {%else%}
+                            <option value="{{dest.id}}">{{dest.descricao}}</option>
+                          {%endif%}
+                        {%endfor%}
+                      </select>
+                      {%else%}
                       <select  name="dest_chamadasGrupo" hidden id="dest_chamadasGrupo">
-                        <option value="0" selected>--</option>
+                        <option value="0">--</option>
                         {%for dest in dest_chamadasGrupo %}
                           <option value="{{dest.id}}">{{dest.descricao}}</option>
                         {%endfor%}
-                  </select>
-                  <select  name="dest_condicoes" hidden id="dest_condicoes">
-                    <option value="0" selected>--</option>
-                    {%for dest in dest_condicoes %}
-                      <option value="{{dest.id}}">{{dest.nome}}</option>
-                    {%endfor%}
-              </select>
-              <select  name="dest_troncos" hidden id="dest_troncos">
-                <option value="0" selected>--</option>
-                {%for dest in dest_troncos %}
-                  <option value="{{dest.id}}">{{dest.nome}}</option>
-                {%endfor%}
-          </select>
-                            </td>
+                      </select>
+                      {%endif%}
+                      {%if ura.destinoInvalidTipo == '7'%}
+                        <select  name="dest_condicoes"  id="dest_condicoes">
+                          <option value="0">--</option>
+                          {%for dest in dest_condicoes %}
+                          {%if ura.destinoInvalid == dest.id%}
+                            <option value="{{dest.id}}" selected>{{dest.nome}}</option>
+                            {%else%}
+                              <option value="{{dest.id}}">{{dest.nome}}</option>
+                            {%endif%}
+                          {%endfor%}
+                        </select>
+                      {%else%}
+                      <select  name="dest_condicoes" hidden id="dest_condicoes">
+                        <option value="0">--</option>
+                        {%for dest in dest_condicoes %}
+                          <option value="{{dest.id}}">{{dest.nome}}</option>
+                        {%endfor%}
+                      </select>
+                      {%endif%}
+                      {%if ura.destinoInvalidTipo == '8'%}
+                      <select  name="dest_troncos"  id="dest_troncos">
+                        <option value="0">--</option>
+                        {%for dest in dest_troncos %}
+                        {%if ura.destinoInvalid == dest.id%}
+                          <option value="{{dest.id}}" selected>{{dest.nome}}</option>
+                          {%else%}
+                            <option value="{{dest.id}}">{{dest.nome}}</option>
+                          {%endif%}
+                        {%endfor%}
+                      </select>
+                      {%else%}
+                      <select  name="dest_troncos" hidden id="dest_troncos">
+                        <option value="0">--</option>
+                        {%for dest in dest_troncos %}
+                          <option value="{{dest.id}}">{{dest.nome}}</option>
+                        {%endfor%}
+                      </select>
+                      {%endif%}
+                         </td>
+
                         </tr>
                         <tr>
                                 <td>
@@ -230,17 +332,17 @@
                                 <td align="left">
                                         <select name="timeout_ret">
                                         <option value="dis">Disabled</option>
-                                        <option value="00">00</option>
-                                        <option value="01">01</option>
-                                        <option value="02">02</option>
-                                        <option value="03" selected>03</option>
-                                        <option value="04">04</option>
-                                        <option value="05">05</option>
-                                        <option value="06">06</option>
-                                        <option value="07">07</option>
-                                        <option value="08">08</option>
-                                        <option value="09">09</option>
-                                        <option value="10">10</option>
+                                        <option value="00" {%if ura.retentativasTimeout == 0 %} selected {%endif%}>00</option>
+                                        <option value="01"{%if ura.retentativasTimeout == 1 %} selected {%endif%}>01</option>
+                                        <option value="02"{%if ura.retentativasTimeout == 2 %} selected {%endif%}>02</option>
+                                        <option value="03" {%if ura.retentativasTimeout == 3 %} selected {%endif%}>03</option>
+                                        <option value="04"{%if ura.retentativasTimeout == 4 %} selected {%endif%}>04</option>
+                                        <option value="05"{%if ura.retentativasTimeout == 5 %} selected {%endif%}>05</option>
+                                        <option value="06"{%if ura.retentativasTimeout == 6 %} selected {%endif%}>06</option>
+                                        <option value="07"{%if ura.retentativasTimeout == 7 %} selected {%endif%}>07</option>
+                                        <option value="08"{%if ura.retentativasTimeout == 8 %} selected {%endif%}>08</option>
+                                        <option value="09"{%if ura.retentativasTimeout == 9 %} selected {%endif%}>09</option>
+                                        <option value="10"{%if ura.retentativasTimeout == 10 %} selected {%endif%}>10</option>
                                     </select>
                                 </td>
                                 <td></td>
@@ -250,13 +352,13 @@
                             </tr>
                             <tr>
                                  <td>
-                                  <label for="ret_tempo_esg">Retentativa de Tempo Esgotado:</label>
+                                  <label for="ret_tempo_esg">Gravação de Retentativa de Tempo Esgotado:</label>
                                  </td>
                                  <td align="left">
                                   <select name="ret_tempo_esg">
                                     <option value="0">Padrão</option>
                                     {%for g in gravacoes%}
-                                      <option value="{{g.id}}">{{g.nome}}</option>
+                                      <option value="{{g.id}}" {%if ura.gravRetentTimeout == g %} selected {%endif%}>{{g.nome}}</option>
                                     {%endfor%}
                                    </select>
                                  </select>
@@ -272,7 +374,7 @@
                                            </td>
                                 <td>
 
-                                        <INPUT TYPE="checkbox" NAME="append_anon_timout" VALUE="True">
+                                        <INPUT TYPE="checkbox" NAME="append_anon_timout" VALUE="True" {%if ura.anexAnuncTimeout %} checked {%endif%}>
 
                                 </td>
                                 <td></td>
@@ -286,7 +388,7 @@
                                            </td>
                                 <td>
 
-                                        <INPUT TYPE="checkbox" NAME="append_anon_timout" VALUE="True">
+                                        <INPUT TYPE="checkbox" NAME="return_timout" VALUE="True" {%if ura.retornarTimeout %} checked {%endif%}>
 
                                 </td>
                                 <td></td>
@@ -302,7 +404,7 @@
                                      <select name="timeout_record">
                                        <option value="0">Padrão</option>
                                        {%for g in gravacoes%}
-                                         <option value="{{g.id}}">{{g.nome}}</option>
+                                         <option value="{{g.id}}" {%if ura.gravTimeout == g %} selected {%endif%}>{{g.nome}}</option>
                                        {%endfor%}
                                       </select>
                                     </select>
@@ -318,73 +420,174 @@
                                         </td>
                                         <td align="left">
                                           <select name="ntipo_des" id="ntipo_des" onchange="get_destinon()">
-                                              <option value="0">Selecione destino</option>
-                                              <option value="1">Anúncio</option>
-                                              <option value="2">Gravação</option>
-                                              <option value="3">Número de Entrada</option>
-                                              <option value="4">URA</option>
-                                              <option value="5">Fila</option>
-                                              <option value="6">Chamada em grupo</option>
-                                              <option value="7">Condições de tempo</option>
-                                              <option value="8">Tronco</option>
+                                            <option value="0">Selecione destino</option>
+                                            <option value="1" {% if ura.destinoTimeoutTipo == '1'%} selected {%endif%}>Anúncio</option>
+                                            <option value="2" {% if ura.destinoTimeoutTipo == '2'%} selected {%endif%}>Gravação</option>
+                                            <option value="3" {% if ura.destinoTimeoutTipo == '3'%} selected {%endif%}>Número de Entrada</option>
+                                            <option value="4" {% if ura.destinoTimeoutTipo == '4'%} selected {%endif%}>URA</option>
+                                            <option value="5" {% if ura.destinoTimeoutTipo == '5'%} selected {%endif%}>Fila</option>
+                                            <option value="6" {% if ura.destinoTimeoutTipo == '6'%} selected {%endif%}>Chamada em grupo</option>
+                                            <option value="7" {% if ura.destinoTimeoutTipo == '7'%} selected {%endif%}>Condições de tempo</option>
+                                            <option value="8" {% if ura.destinoTimeoutTipo == '8'%} selected {%endif%}>Tronco</option>
                                       </select>
                                   </td>
                                   <td align="left">
-                                          <select  name="ndest_anuncios" id="ndest_anuncios" hidden>
-                                            <option value="0" selected>--</option>
+                                    {%if ura.destinoTimeoutTipo == '1'%}
+                                          <select  name="ndest_anuncios" id="ndest_anuncios">
+                                            <option value="0">--</option>
                                             {%for dest in dest_anuncios %}
-                                              <option value="{{dest.id}}">{{dest.descricao}}</option>
+                                              {%if ura.destinoTimeout == dest.id%}
+                                              <option value="{{dest.id}}" selected>{{dest.descricao}}</option>
+                                              {%else%}
+                                                <option value="{{dest.id}}">{{dest.descricao}}</option>
+                                              {%endif%}
                                             {%endfor%}
+                                          </select>
+                                    {%else%}
+                                      <select  name="ndest_anuncios" id="ndest_anuncios" hidden>
+                                        <option value="0">--</option>
+                                        {%for dest in dest_anuncios %}
+                                          <option value="{{dest.id}}">{{dest.descricao}}</option>
+                                        {%endfor%}
                                       </select>
-                                  </td>
-                                  <td align="left">
-                                          <select  name="ndest_gravacoes" id="ndest_gravacoes" hidden>
-                                            <option value="0" selected>--</option>
+                                    {%endif%}
+
+                                    {%if ura.destinoTimeoutTipo == '2'%}
+                                          <select  name="ndest_gravacoes" id="ndest_gravacoes" >
+                                            <option value="0">--</option>
                                             {%for dest in dest_gravacoes %}
-                                              <option value="{{dest.id}}">{{dest.nome}}</option>
+                                              {%if ura.destinoTimeout == dest.id%}
+                                                <option value="{{dest.id}}" selected>{{dest.nome}}</option>
+                                                {%else%}
+                                                  <option value="{{dest.id}}">{{dest.nome}}</option>
+                                                {%endif%}
                                             {%endfor%}
                                       </select>
-                                  </td>
-                                  <td align="left">
-                                          <select  name="ndest_numeros" id="ndest_numeros" hidden>
-                                            <option value="0" selected>--</option>
+                                    {%else%}
+                                    <select  name="ndest_gravacoes" id="ndest_gravacoes" hidden>
+                                      <option value="0">--</option>
+                                      {%for dest in dest_gravacoes %}
+                                        <option value="{{dest.id}}">{{dest.nome}}</option>
+                                      {%endfor%}
+                                    </select>
+                                    {%endif%}
+
+                                    {%if ura.destinoTimeoutTipo == '3'%}
+                                          <select  name="ndest_numeros" id="ndest_numeros" >
+                                            <option value="0">--</option>
                                             {%for dest in dest_numeros %}
-                                              <option value="{{dest.id}}">{{dest.numero}}</option>
+                                            {%if ura.destinoTimeout == dest.id%}
+                                              <option value="{{dest.id}}" selected>{{dest.numero}}</option>
+                                              {%else%}
+                                                <option value="{{dest.id}}">{{dest.numero}}</option>
+                                              {%endif%}
                                             {%endfor%}
                                       </select>
-                                  </td>
-                                  <td align="left">
-                                          <select  name="ndest_uras" hidden id="ndest_uras">
-                                            <option value="0" selected>--</option>
+                                      {%else%}
+                                      <select  name="ndest_numeros" id="ndest_numeros" hidden>
+                                        <option value="0">--</option>
+                                        {%for dest in dest_numeros %}
+                                          <option value="{{dest.id}}">{{dest.numero}}</option>
+                                        {%endfor%}
+                                  </select>
+                                  {%endif%}
+
+                                    {%if ura.destinoTimeoutTipo == '4'%}
+                                          <select  name="ndest_uras"  id="ndest_uras">
+                                            <option value="0">--</option>
                                             {%for dest in dest_uras %}
-                                              <option value="{{dest.id}}">{{dest.nome}}</option>
+                                            {%if ura.destinoTimeout == dest.id%}
+                                              <option value="{{dest.id}}" selected>{{dest.nome}}</option>
+                                              {%else%}
+                                                <option value="{{dest.id}}">{{dest.nome}}</option>
+                                              {%endif%}
                                             {%endfor%}
                                       </select>
-                                      <select  name="ndest_filas" hidden id="ndest_filas">
-                                        <option value="0" selected>--</option>
-                                        {%for dest in dest_filas %}
+                                      {%else%}
+                                      <select  name="ndest_uras" hidden id="ndest_uras">
+                                        <option value="0">--</option>
+                                        {%for dest in dest_uras %}
                                           <option value="{{dest.id}}">{{dest.nome}}</option>
                                         {%endfor%}
                                   </select>
+                                  {%endif%}
+                                  {%if ura.destinoTimeoutTipo == '5'%}
+                                        <select  name="ndest_filas"  id="ndest_filas">
+                                          <option value="0">--</option>
+                                          {%for dest in dest_filas %}
+                                          {%if ura.destinoTimeout == dest.id%}
+                                            <option value="{{dest.id}}" selected>{{dest.nome}}</option>
+                                            {%else%}
+                                              <option value="{{dest.id}}">{{dest.nome}}</option>
+                                            {%endif%}
+                                          {%endfor%}
+                                    </select>
+                                  {%else%}
+                                    <select  name="ndest_filas" hidden id="ndest_filas">
+                                      <option value="0">--</option>
+                                      {%for dest in dest_filas %}
+                                        <option value="{{dest.id}}">{{dest.nome}}</option>
+                                      {%endfor%}
+                                    </select>
+                                  {%endif%}
+                                  {%if ura.destinoTimeoutTipo == '6'%}
+                                  <select  name="ndest_chamadasGrupo"  id="ndest_chamadasGrupo">
+                                    <option value="0">--</option>
+                                    {%for dest in dest_chamadasGrupo %}
+                                    {%if ura.destinoTimeout == dest.id%}
+                                      <option value="{{dest.id}}" selected>{{dest.descricao}}</option>
+                                      {%else%}a
+                                        <option value="{{dest.id}}"a>{{dest.descricao}}</option>
+                                      {%endif%}a
+                                    {%endfor%}
+                                  </select>
+                                  {%else%}
                                   <select  name="ndest_chamadasGrupo" hidden id="ndest_chamadasGrupo">
-                                    <option value="0" selected>--</option>
+                                    <option value="0">--</option>
                                     {%for dest in dest_chamadasGrupo %}
                                       <option value="{{dest.id}}">{{dest.descricao}}</option>
                                     {%endfor%}
-                              </select>
-                              <select  name="ndest_condicoes" hidden id="ndest_condicoes">
-                                <option value="0" selected>--</option>
-                                {%for dest in dest_condicoes %}
-                                  <option value="{{dest.id}}">{{dest.nome}}</option>
-                                {%endfor%}
-                          </select>
-                          <select  name="ndest_troncos" hidden id="ndest_troncos">
-                            <option value="0" selected>--</option>
-                            {%for dest in dest_troncos %}
-                              <option value="{{dest.id}}">{{dest.nome}}</option>
-                            {%endfor%}
-                      </select>
-                                        </td>
+                                  </select>
+                                  {%endif%}
+                                  {%if ura.destinoTimeoutTipo == '7'%}
+                                    <select  name="ndest_condicoes"  id="ndest_condicoes">
+                                      <option value="0">--</option>
+                                      {%for dest in dest_condicoes %}
+                                      {%if ura.destinoTimeout == dest.id%}
+                                        <option value="{{dest.id}}" selected>{{dest.nome}}</option>
+                                        {%else%}
+                                          <option value="{{dest.id}}">{{dest.nome}}</option>
+                                        {%endif%}
+                                      {%endfor%}
+                                    </select>
+                                  {%else%}
+                                  <select  name="ndest_condicoes" hidden id="ndest_condicoes">
+                                    <option value="0">--</option>
+                                    {%for dest in dest_condicoes %}
+                                      <option value="{{dest.id}}">{{dest.nome}}</option>
+                                    {%endfor%}
+                                  </select>
+                                  {%endif%}
+                                  {%if ura.destinoTimeoutTipo == '8'%}
+                                  <select  name="ndest_troncos"  id="ndest_troncos">
+                                    <option value="0">--</option>
+                                    {%for dest in dest_troncos %}
+                                    {%if ura.destinoTimeout == dest.id%}
+                                      <option value="{{dest.id}}" selected>{{dest.nome}}</option>
+                                      {%else%}
+                                        <option value="{{dest.id}}">{{dest.nome}}</option>
+                                      {%endif%}
+                                    {%endfor%}
+                                  </select>
+                                  {%else%}
+                                  <select  name="ndest_troncos" hidden id="ndest_troncos">
+                                    <option value="0">--</option>
+                                    {%for dest in dest_troncos %}
+                                      <option value="{{dest.id}}">{{dest.nome}}</option>
+                                    {%endfor%}
+                                  </select>
+                                  {%endif%}
+                                     </td>
                                     </tr>
                                     <tr>
                                             <td>
@@ -392,7 +595,7 @@
                                                    </td>
                                         <td>
 
-                                                <INPUT TYPE="checkbox" NAME="append_anon_timout" VALUE="True">
+                                                <INPUT TYPE="checkbox" NAME="append_anon_timout" VALUE="True" {%if ura.returnURACaixaPostal%} checked {%endif%}>
 
                                         </td>
                                         <td></td>
@@ -412,7 +615,7 @@
                                  <label for="nome">Nome: </label>
                                 </td>
                                 <td align="left">
-                                 <input type="text" name="nome">
+                                 <input type="text" name="nome_ura" value="{{ura.nome}}">
                                 </td>
                                </tr>
                                <tr>
@@ -420,7 +623,7 @@
                                      <label for="descricao">Descrição: </label>
                                     </td>
                                     <td align="left">
-                                     <input type="text" name="descricao">
+                                     <input type="text" name="descricao" value="{{ura.descricao}}">
                                     </td>
                                    </tr>
                 </table>
@@ -510,7 +713,7 @@
 
                <br />
 
-               <button type="submit">Criar URA</button>
+               <button type="submit">Editar URA</button>
                </form>
 </div>
 

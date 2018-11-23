@@ -12,7 +12,7 @@
       <caption><div align="right">
         </div></caption>
 
-        
+
             <meta http-equiv="content-type" content="text/html;charset=utf-8" />
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -21,9 +21,9 @@
                   function enviardados(){
 
                  if( document.dados.dia_mes_inicio.value == document.dados.dia_mes_termina.value)
-                      {  
+                      {
                         if( document.dados.dia_semana_ini.value != document.dados.dia_semana_ter.value)
-                      { 
+                      {
                         alert( "ERRO! Dia da Semana Inválido" );
                         return false;
                       }
@@ -35,10 +35,10 @@
                           return false;
                           }
                         }
-                      } 
+                      }
 
                   if( document.dados.mes_inicio.value == document.dados.mes_termino.value)
-                  {  
+                  {
                       if( document.dados.dia_mes_inicio.value > document.dados.dia_mes_termina.value)
                       {
                       alert( "Dia de término não pode ser menor que dia de início" );
@@ -48,7 +48,7 @@
                   }
 
                   if( document.dados.mes_inicio.value == "2")
-                  {  
+                  {
                       if(document.dados.dia_mes_inicio.value == 30 || document.dados.dia_mes_inicio.value == 31)
                       {
                       alert( "Dia Inválido!" );
@@ -63,9 +63,9 @@
                       return false;
                       }
                   }
-                  
+
                   if( document.dados.mes_termino.value == "2")
-                  {  
+                  {
                       if(document.dados.dia_mes_inicio.value == 30 || document.dados.dia_mes_inicio.value == 31)
                       {
                       alert( "Dia Inválido!" );
@@ -80,17 +80,17 @@
                       return false;
                       }
                   }
-                  
+
                   if(parseInt(document.dados.mes_inicio.value) > parseInt(document.dados.mes_termino.value))
                   {
                       alert( "O mês do término não pode ser anterior ao mês de início" );
                       document.dados.mes_termino.focus();
                       return false;
                       }
-                    
+
                   return true;
                   }
-                    
+
                   </script>
             </head>
             <body>
@@ -404,7 +404,7 @@
                               <option value="0">--</option>
                               {%for dest in dest_chamadasGrupao %}
                               {%if condicoestempo.destinoNaoCaoincide == dest.id%}
-                                <option value="{{dest.id}}" saelected>{{dest.descricao}}</option>
+                                <option value="{{dest.id}}" selected>{{dest.descricao}}</option>
                                 {%else%}a
                                   <option value="{{dest.id}}"a>{{dest.descricao}}</option>
                                 {%endif%}a
