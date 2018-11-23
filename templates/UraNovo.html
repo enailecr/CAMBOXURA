@@ -28,7 +28,7 @@
                                </td>
                                <td align="left">
                                 <select name="anuncio">
-                                <option value="null">Nenhum</option>
+                                <option value="0">Nenhum</option>
                                 {%for anu in anuncios %}
                                         <option value="{{anu.id}}">{{anu.descricao}}</option>
                                 {%endfor%}
@@ -37,10 +37,12 @@
                   </tr>
                  <tr>
                     <td>
-                     <label for="descrição">Descrição: </label>
+                     <label for="descrição">Discar direto: </label>
                     </td>
                     <td align="left">
-                     <input type="text" name="descrição">
+                     <select name="discar_direto">
+                     <option value="0">Desabilitado</option>
+                      <option value="1">Ramais</option>
                     </td>
                     <td></td>
                       <td></td>
@@ -52,7 +54,7 @@
                          <label for="timeout">Timeout: </label>
                         </td>
                         <td align="left">
-                         <input type="text" name="timeout">
+                         <input type="text" name="timeout" value="10">
                         </td>
                         <td></td>
                           <td></td>
@@ -69,7 +71,7 @@
                                 <option value="00">00</option>
                                 <option value="01">01</option>
                                 <option value="02">02</option>
-                                <option value="03">03</option>
+                                <option value="03" selected>03</option>
                                 <option value="04">04</option>
                                 <option value="05">05</option>
                                 <option value="06">06</option>
@@ -90,7 +92,10 @@
                                    </td>
                                    <td align="left">
                                     <select name="invrerecor">
-                                    <option value="nem">Padrão</option>
+                                    <option value="0">Padrão</option>
+                                    {%for g in gravacoes%}
+                                      <option value="{{g.id}}">{{g.nome}}</option>
+                                    {%endfor%}
                                    </select>
                     </td>
                     <td></td>
@@ -132,7 +137,11 @@
                         </td>
                         <td align="left">
                          <select name="gravinvalid">
-                         <option value="def">Padrão</option>
+                           <option value="0">Padrão</option>
+                           {%for g in gravacoes%}
+                             <option value="{{g.id}}">{{g.nome}}</option>
+                           {%endfor%}
+                          </select>
                         </select>
                         </td>
                         <td></td>
@@ -224,7 +233,7 @@
                                         <option value="00">00</option>
                                         <option value="01">01</option>
                                         <option value="02">02</option>
-                                        <option value="03">03</option>
+                                        <option value="03" selected>03</option>
                                         <option value="04">04</option>
                                         <option value="05">05</option>
                                         <option value="06">06</option>
@@ -239,6 +248,24 @@
                                     <td></td>
                                       <td></td>
                             </tr>
+                            <tr>
+                                 <td>
+                                  <label for="ret_tempo_esg">Retentativa de Tempo Esgotado:</label>
+                                 </td>
+                                 <td align="left">
+                                  <select name="ret_tempo_esg">
+                                    <option value="0">Padrão</option>
+                                    {%for g in gravacoes%}
+                                      <option value="{{g.id}}">{{g.nome}}</option>
+                                    {%endfor%}
+                                   </select>
+                                 </select>
+                                 </td>
+                                 <td></td>
+                                   <td></td>
+                                     <td></td>
+                                       <td></td>
+                             </tr>
                             <tr>
                                     <td>
                                             <label for="append_anon_timout">Anexar Anúncio no Tempo Limite: </label>
@@ -273,18 +300,90 @@
                                     </td>
                                     <td align="left">
                                      <select name="timeout_record">
-                                     <option value="def">Padrão</option>
+                                       <option value="0">Padrão</option>
+                                       {%for g in gravacoes%}
+                                         <option value="{{g.id}}">{{g.nome}}</option>
+                                       {%endfor%}
+                                      </select>
                                     </select>
                                     </td>
+                                    <td></td>
+                                      <td></td>
+                                        <td></td>
+                                          <td></td>
                                 </tr>
                                 <tr>
                                         <td>
                                          <label for="timeout_dest">Destino de Tempo Esgotado:</label>
                                         </td>
                                         <td align="left">
-                                         <select name="timeout_dest">
-                                         <option value="def">==escolha um==</option>
-                                        </select>
+                                          <select name="ntipo_des" id="ntipo_des" onchange="get_destinon()">
+                                              <option value="0">Selecione destino</option>
+                                              <option value="1">Anúncio</option>
+                                              <option value="2">Gravação</option>
+                                              <option value="3">Número de Entrada</option>
+                                              <option value="4">URA</option>
+                                              <option value="5">Fila</option>
+                                              <option value="6">Chamada em grupo</option>
+                                              <option value="7">Condições de tempo</option>
+                                              <option value="8">Tronco</option>
+                                      </select>
+                                  </td>
+                                  <td align="left">
+                                          <select  name="ndest_anuncios" id="ndest_anuncios" hidden>
+                                            <option value="0" selected>--</option>
+                                            {%for dest in dest_anuncios %}
+                                              <option value="{{dest.id}}">{{dest.descricao}}</option>
+                                            {%endfor%}
+                                      </select>
+                                  </td>
+                                  <td align="left">
+                                          <select  name="ndest_gravacoes" id="ndest_gravacoes" hidden>
+                                            <option value="0" selected>--</option>
+                                            {%for dest in dest_gravacoes %}
+                                              <option value="{{dest.id}}">{{dest.nome}}</option>
+                                            {%endfor%}
+                                      </select>
+                                  </td>
+                                  <td align="left">
+                                          <select  name="ndest_numeros" id="ndest_numeros" hidden>
+                                            <option value="0" selected>--</option>
+                                            {%for dest in dest_numeros %}
+                                              <option value="{{dest.id}}">{{dest.numero}}</option>
+                                            {%endfor%}
+                                      </select>
+                                  </td>
+                                  <td align="left">
+                                          <select  name="ndest_uras" hidden id="ndest_uras">
+                                            <option value="0" selected>--</option>
+                                            {%for dest in dest_uras %}
+                                              <option value="{{dest.id}}">{{dest.nome}}</option>
+                                            {%endfor%}
+                                      </select>
+                                      <select  name="ndest_filas" hidden id="ndest_filas">
+                                        <option value="0" selected>--</option>
+                                        {%for dest in dest_filas %}
+                                          <option value="{{dest.id}}">{{dest.nome}}</option>
+                                        {%endfor%}
+                                  </select>
+                                  <select  name="ndest_chamadasGrupo" hidden id="ndest_chamadasGrupo">
+                                    <option value="0" selected>--</option>
+                                    {%for dest in dest_chamadasGrupo %}
+                                      <option value="{{dest.id}}">{{dest.descricao}}</option>
+                                    {%endfor%}
+                              </select>
+                              <select  name="ndest_condicoes" hidden id="ndest_condicoes">
+                                <option value="0" selected>--</option>
+                                {%for dest in dest_condicoes %}
+                                  <option value="{{dest.id}}">{{dest.nome}}</option>
+                                {%endfor%}
+                          </select>
+                          <select  name="ndest_troncos" hidden id="ndest_troncos">
+                            <option value="0" selected>--</option>
+                            {%for dest in dest_troncos %}
+                              <option value="{{dest.id}}">{{dest.nome}}</option>
+                            {%endfor%}
+                      </select>
                                         </td>
                                     </tr>
                                     <tr>
@@ -296,6 +395,10 @@
                                                 <INPUT TYPE="checkbox" NAME="append_anon_timout" VALUE="True">
 
                                         </td>
+                                        <td></td>
+                                          <td></td>
+                                            <td></td>
+                                              <td></td>
                                        </tr>
                 </table>
 

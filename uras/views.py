@@ -2,7 +2,15 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from django.http import HttpResponse
-from .models import URA , Anuncio
+from .models import URA
+from anuncios.models import Anuncio, Gravacao
+from numeros.models import NumeroEntrada
+from uras.models import URA
+from filas.models import Fila
+from chamadasgrupo.models import ChamadaEmGrupo
+from condicoestempo.models import CondicaoTempo
+from troncos.models import Tronco
+
 import re
 from django_tables2 import RequestConfig
 from .tables import URATable
@@ -11,7 +19,27 @@ from .tables import URATable
 @login_required
 def add(request):
     anuncios = Anuncio.objects.all()
-    return render(request, 'UraNovo.html',{'anuncios': anuncios})
+    data = {}
+    dest_anuncios = Anuncio.objects.all()
+    dest_gravacoes = Gravacao.objects.all()
+    dest_numeros = NumeroEntrada.objects.all()
+    dest_uras = URA.objects.all()
+    dest_filas = Fila.objects.all()
+    dest_chamadasGrupo = ChamadaEmGrupo.objects.all()
+    dest_condicoes = CondicaoTempo.objects.all()
+    dest_troncos = Tronco.objects.all()
+    gravacoes = Gravacao.objects.exclude(musica__isnull=False)
+    data['dest_anuncios'] = dest_anuncios
+    data['dest_gravacoes'] = dest_gravacoes
+    data['dest_numeros'] = dest_numeros
+    data['dest_uras'] = dest_uras
+    data['dest_filas'] = dest_filas
+    data['dest_chamadasGrupo'] = dest_chamadasGrupo
+    data['dest_condicoes'] = dest_condicoes
+    data['dest_troncos'] = dest_troncos
+    data['gravacoes'] = gravacoes
+    data['anuncios'] = anuncios
+    return render(request, 'UraNovo.html',data)
 
 @login_required
 def list(request):
@@ -24,7 +52,7 @@ def ura_novo(request):
     nome = request.POST['nome']
     descricao = request.POST['descricao']
     anuncioUra = request.POST['anuncio']
-    #discarDireto = request.POST['descricao']
+    discarDireto = request.POST['discar_direto']
     timeout = request.POST['timeout']
     tentativasInvalidas = request.POST['tent_inv']
     gravRepetInvalid = request.POST['invrerecor']
@@ -40,14 +68,98 @@ def ura_novo(request):
         returnInvalid = False
 
     gravInvalid =request.POST['gravinvalid']
-    # destinoInvalid = models.OneToOneField(
-    #     Destino,
-    #     on_delete=models.CASCADE,
-    #     parent_link=True,
-    #     related_name= 'destinoInvalidURA'
-    # )
+
+    if 'dest_anuncios' in request.POST:
+        dest_anuncios = request.POST['dest_anuncios']
+
+    if 'dest_gravacoes' in request.POST:
+        dest_gravacoes = request.POST['dest_gravacoes']
+
+    if 'dest_numeros' in request.POST:
+        dest_numeros = request.POST['dest_numeros']
+
+    if 'dest_uras' in request.POST:
+        dest_uras = request.POST['dest_uras']
+
+    if 'dest_filas' in request.POST:
+        dest_filas = request.POST['dest_filas']
+
+    if 'dest_chamadasGrupo' in request.POST:
+        dest_chamadasGrupo = request.POST['dest_chamadasGrupo']
+
+    if 'dest_condicoes' in request.POST:
+        dest_condicoes = request.POST['dest_condicoes']
+
+    if 'dest_troncos' in request.POST:
+        dest_troncos = request.POST['dest_troncos']
+
+    destinoId = 0
+    if dest_anuncios != '0':
+        destinoId = dest_anuncios
+    if dest_gravacoes != '0':
+        destinoId = dest_gravacoes
+    if dest_numeros != '0':
+        destinoId = dest_numeros
+    if dest_uras != '0':
+        destinoId = dest_uras
+    if dest_filas != '0':
+        destinoId = dest_filas
+    if dest_chamadasGrupo != '0':
+        destinoId = dest_chamadasGrupo
+    if dest_condicoes != '0':
+        destinoId = dest_condicoes
+    if dest_troncos != '0':
+        destinoId = dest_troncos
+
+    tipoDestino = request.POST['tipo_des']
+
+    if 'ndest_anuncios' in request.POST:
+        ndest_anuncios = request.POST['ndest_anuncios']
+
+    if 'ndest_gravacoes' in request.POST:
+        ndest_gravacoes = request.POST['ndest_gravacoes']
+
+    if 'ndest_numeros' in request.POST:
+        ndest_numeros = request.POST['ndest_numeros']
+
+    if 'ndest_uras' in request.POST:
+        ndest_uras = request.POST['ndest_uras']
+
+    if 'ndest_filas' in request.POST:
+        ndest_filas = request.POST['ndest_filas']
+
+    if 'ndest_chamadasGrupo' in request.POST:
+        ndest_chamadasGrupo = request.POST['ndest_chamadasGrupo']
+
+    if 'ndest_condicoes' in request.POST:
+        ndest_condicoes = request.POST['ndest_condicoes']
+
+    if 'ndest_troncos' in request.POST:
+        ndest_troncos = request.POST['ndest_troncos']
+
+    ndestinoId = 0
+    if ndest_anuncios != '0':
+        ndestinoId = ndest_anuncios
+    if ndest_gravacoes != '0':
+        ndestinoId = ndest_gravacoes
+    if ndest_numeros != '0':
+        ndestinoId = ndest_numeros
+    if ndest_uras != '0':
+        ndestinoId = ndest_uras
+    if ndest_filas != '0':
+        ndestinoId = ndest_filas
+    if ndest_chamadasGrupo != '0':
+        ndestinoId = ndest_chamadasGrupo
+    if ndest_condicoes != '0':
+        ndestinoId = ndest_condicoes
+    if ndest_troncos != '0':
+        ndestinoId = ndest_troncos
+
+    ntipoDestino = request.POST['ntipo_des']
+
     retentativasTimeout = request.POST['timeout_ret']
-    gravRetentTimeout = request.POST['timeout_record']
+    gravRetentTimeout = request.POST['ret_tempo_esg']
+
     if 'descappend_anon_timoutricao' in request.POST:
         anexAnuncTimeout = request.POST['append_anon_timout']
     else:
@@ -59,27 +171,55 @@ def ura_novo(request):
         retornarTimeout = False
 
     gravTimeout = request.POST['timeout_record']
-    # destinoTimeout = models.OneToOneField(
-    #     Destino,
-    #     on_delete=models.CASCADE,
-    #     parent_link=True,
-    #     related_name='destinoTimeoutURA'
-    # )
     if 'append_anon_timout' in request.POST:
         returnURACaixaPostal = request.POST['append_anon_timout']
     else:
         returnURACaixaPostal = False
-    #discarDireto=discarDireto,
+
     tipo = '4'
-    ura = URA(nome=nome,descricao=descricao,
+    ura = URA(nome=nome,descricao=descricao,discarDireto=discarDireto,
     timeout=timeout,tentativasInvalidas=tentativasInvalidas,
     anexAnuncInvalid=anexAnuncInvalid,returnInvalid=returnInvalid,
     retentativasTimeout=retentativasTimeout,
     anexAnuncTimeout=anexAnuncTimeout,retornarTimeout=retornarTimeout,
     returnURACaixaPostal=returnURACaixaPostal, tipo=tipo)
     ura.save()
-    anuncio= Anuncio(gravTimeout=gravTimeout,gravRetentTimeout=gravRetentTimeout,gravInvalid=gravInvalid,gravRepetInvalid=gravRepetInvalid,anuncioUra =anuncioUra )
-    anuncio.save()
+
+    if destinoId != 0:
+        ura.destinoInvalidTipo = tipoDestino
+        ura.destinoInvalid = destinoId
+        ura.save()
+
+    if ndestinoId != 0:
+        ura.destinoTimeoutTipo = ntipoDestino
+        ura.destinoTimeout = ndestinoId
+        ura.save()
+
+    if anuncioUra !=0:
+        anuncio = Anuncio.objects.get(id=anuncioUra)
+        ura.anuncioUra = anuncio
+        ura.save()
+
+    if gravRetentTimeout != 0:
+        gravacao = Gravacao.objects.get(id=gravRetentTimeout)
+        ura.gravRetentTimeout = gravacao
+        ura.save()
+
+    if gravRepetInvalid != 0:
+        gravacao = Gravacao.objects.get(id=gravRepetInvalid)
+        ura.gravRepetInvalid = gravacao
+        ura.save()
+
+    if gravInvalid !=0:
+        gravacao = Gravacao.objects.get(id=gravInvalid)
+        ura.gravInvalid = gravacao
+        ura.save()
+
+    if gravTimeout !=0:
+        gravacao = Gravacao.objects.get(id=gravTimeout)
+        ura.gravTimeout = gravacao
+        ura.save()
+
     return redirect ('/uras/')
 
 

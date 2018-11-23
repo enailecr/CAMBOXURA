@@ -3,8 +3,8 @@ from destinos.models import Destino
 from anuncios.models import Anuncio, Gravacao
 
 DISCARDIRETO_CHOICES = (
-    ('1', 'Desabilitado'),
-    ('2', 'Ramais'),
+    ('0', 'Desabilitado'),
+    ('1', 'Ramais'),
 )
 
 
@@ -19,14 +19,14 @@ class URA(Destino):
     anexAnuncInvalid = models.BooleanField()
     returnInvalid = models.BooleanField()
     gravInvalid = models.ForeignKey(Gravacao, on_delete=models.SET_NULL, null=True, blank=True,related_name='gravInvalidURA')
-    destinoInvalid = models.IntegerField()
+    destinoInvalid = models.IntegerField(blank=True, null=True)
     destinoInvalidTipo = models.CharField(max_length=1,blank=True, null=True)
     retentativasTimeout = models.IntegerField()
     gravRetentTimeout = models.ForeignKey(Gravacao, on_delete=models.SET_NULL, null=True, blank=True,related_name='gravRepetInvalidURA')
     anexAnuncTimeout = models.BooleanField()
     retornarTimeout = models.BooleanField()
     gravTimeout = models.ForeignKey(Gravacao, on_delete=models.SET_NULL, null=True, blank=True,related_name='gravTimeoutURA')
-    destinoTimeout = models.IntegerField()
+    destinoTimeout = models.IntegerField(blank=True, null=True)
     destinoTimeoutTipo = models.CharField(max_length=1,blank=True, null=True)
     returnURACaixaPostal = models.BooleanField()
 
