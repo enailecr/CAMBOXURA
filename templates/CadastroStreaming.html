@@ -12,12 +12,40 @@
             <meta http-equiv="content-type" content="text/html;charset=utf-8" />
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                <script language="JavaScript" >
+                    function enviardados(){
+  
+                            if( document.dados.nome.value == "")
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.dados.nome.focus();
+                            return false;
+                            }
+
+                            if( document.dados.apl.value == "")
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.dados.apl.focus();
+                            return false;
+                            }
+
+                            if( document.dados.form.value == "")
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.dados.form.focus();
+                            return false;
+                            }
+
+                        return true;
+                        }
+                      
+                    </script>
             </head>
             <body>
                     <div id="divCenter">
                             <div align="center"><h2>Adicionar Streaming:</h2></div>
                             <br />
-        <form action="{% url 'streaming_novo'%}" method="POST">
+        <form action="{% url 'streaming_novo'%}" method="POST" name="dados" onSubmit="return enviardados();">
         {% csrf_token %}
                 <table cellspacing="10">
                         <tr>
@@ -47,7 +75,7 @@
                                 </td>
                             <td></td>
                         </tr>
-                        <button type="submit">Cadastrar</button>
+                        <button type="submit" class="formobjects">Cadastrar</button>
         </form>  
         </div>
         </body> 
