@@ -202,27 +202,27 @@ def ura_novo(request):
         ura.destinoTimeout = ndestinoId
         ura.save()
 
-    if anuncioUra !=0:
+    if anuncioUra !="0":
         anuncio = Anuncio.objects.get(id=anuncioUra)
         ura.anuncioUra = anuncio
         ura.save()
 
-    if gravRetentTimeout != 0:
+    if gravRetentTimeout != "0":
         gravacao = Gravacao.objects.get(id=gravRetentTimeout)
         ura.gravRetentTimeout = gravacao
         ura.save()
 
-    if gravRepetInvalid != 0:
+    if gravRepetInvalid != "0":
         gravacao = Gravacao.objects.get(id=gravRepetInvalid)
         ura.gravRepetInvalid = gravacao
         ura.save()
 
-    if gravInvalid !=0:
+    if gravInvalid !="0":
         gravacao = Gravacao.objects.get(id=gravInvalid)
         ura.gravInvalid = gravacao
         ura.save()
 
-    if gravTimeout !=0:
+    if gravTimeout !="0":
         gravacao = Gravacao.objects.get(id=gravTimeout)
         ura.gravTimeout = gravacao
         ura.save()
