@@ -202,9 +202,9 @@
 
   <script type="text/javascript">
         function testremove(dados){
-        var node = document.getElementById(dados);
-        if (node.parentNode) {
-        node.parentNode.removeChild(node);
+            var node = document.getElementById(dados);
+            if (node.parentNode) {
+            node.parentNode.removeChild(node);
         }
     }
       $(document).ready(function(){
@@ -237,9 +237,14 @@
 
          var formData = $("#form").serializeArray();
          for(var j=0; j<i; j++ ){
-           formData.push({name: "precedente"+j, value: $('#precedente'+j).val() });
-           formData.push({name: "prefix"+j, value: $('#prefix'+j).val() });
-           formData.push({name: "match"+j, value: $('#match'+j).val() });
+            // if(document.getElementById("precedente"+j) == null){
+            // }
+            // else{
+                formData.push({name: "precedente"+j, value: $('#precedente'+j).val() });
+                formData.push({name: "prefix"+j, value: $('#prefix'+j).val() });
+                formData.push({name: "match"+j, value: $('#match'+j).val() });
+                // }
+           
           }
 
          $.post('{% url "tronco_edita" tronco.id %}', formData);

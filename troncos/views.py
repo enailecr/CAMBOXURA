@@ -131,12 +131,9 @@ def troncoiax_novo(request):
 
     contador = int(request.POST['count'])
     for i in range(contador):
-        try:
-            precedente.append(request.POST['precedente'+str(i)])
-            prefixo.append(request.POST['prefix'+str(i)])
-            padraoEquiv.append(request.POST['match'+str(i)])
-        except:            
-            pass
+        precedente.append(request.POST['precedente'+str(i)])
+        prefixo.append(request.POST['prefix'+str(i)])
+        padraoEquiv.append(request.POST['match'+str(i)])
 
     cont=0;
     while cont < contador:
@@ -218,12 +215,6 @@ def tronco_edita(request, id):
         prefixo = []
         padraoEquiv = []
 
-        contador = int(request.POST['count'])
-        for i in range(contador):
-            precedente.append(request.POST['precedente'+str(i)])
-            prefixo.append(request.POST['prefix'+str(i)])
-            padraoEquiv.append(request.POST['match'+str(i)])
-
         tronco.nome = nome
         tronco.callerIDSaida = callerIDSaida
         tronco.opcoesCID = opcoesCID
@@ -243,7 +234,17 @@ def tronco_edita(request, id):
         for r in regra:
             r.delete()
 
-        while cont < contador:
+        contador = int(request.POST['count'])
+        conta= 0
+        for i in range(contador):
+            if request.POST['precedente'+str(i)]:
+                precedente.append(request.POST['precedente'+str(i)])
+                prefixo.append(request.POST['prefix'+str(i)])
+                padraoEquiv.append(request.POST['match'+str(i)])
+                conta = conta +1
+
+
+        while cont < conta:
             regramanip = RegraManipulaNum(precedente = precedente[cont],prefixo = prefixo[cont],padrao = padraoEquiv[cont], tronco =tronco)
             regramanip.save()
             cont= cont + 1
