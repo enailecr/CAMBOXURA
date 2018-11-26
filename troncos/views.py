@@ -137,6 +137,7 @@ def troncoiax_novo(request):
             padraoEquiv.append(request.POST['match'+str(i)])
         except:
             print("não existe mais")
+            pass
 
     cont=0;
     while cont < contador:
