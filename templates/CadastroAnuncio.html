@@ -15,12 +15,101 @@
             <meta http-equiv="content-type" content="text/html;charset=utf-8" />
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                <script language="JavaScript" >
+                    function enviardados(){
+  
+                            if( document.dados.descricao.value == "")
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.dados.descricao.focus();
+                            return false;
+                            }
+  
+                            if( document.dados.tipo_des.value == 0)
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.dados.tipo_des.focus();
+                            return false;
+                            }
+  
+                            if(document.dados.tipo_des.value == 1 && document.dados.dest_anuncios.value == 0)
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.dados.dest_anuncios.focus();
+                            return false;
+                            }
+  
+                            if(document.dados.tipo_des.value == 2 && document.dados.dest_gravacoes.value == 0)
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.dados.dest_gravacoes.focus();
+                            return false;
+                            }
+  
+                            if(document.dados.tipo_des.value == 3 && document.dados.dest_numeros.value == 0)
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.dados.dest_numeros.focus();
+                            return false;
+                            }
+  
+                            if(document.dados.tipo_des.value == 4 && document.dados.dest_uras.value == 0)
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.dados.dest_uras.focus();
+                            return false;
+                            }
+  
+                            if(document.dados.tipo_des.value == 5 && document.dados.dest_filas.value == 0)
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.dados.dest_filas.focus();
+                            return false;
+                            }
+  
+                            if(document.dados.tipo_des.value == 6 && document.dados.dest_chamadasGrupo.value == 0)
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.dados.dest_chamadasGrupo.focus();
+                            return false;
+                            }
+  
+                            if(document.dados.tipo_des.value == 7 && document.dados.dest_condicoes.value == 0)
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.dados.dest_condicoes.focus();
+                            return false;
+                            }
+  
+                            if(document.dados.tipo_des.value == 8 && document.dados.dest_troncos.value == 0)
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.dados.dest_troncos.focus();
+                            return false;
+                            }
+  
+                        return true;
+                        }
+                      
+                      function enviagravacao(){
+  
+                            if( document.gravacao.nomeGravacao.value == "")
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.gravacao.nomeGravacao.focus();
+                            return false;
+                            }
+
+
+                        return true;
+                        }
+                    </script>
             </head>
             <body>
 <div align="center"><h2>Adicionar Anúncio:</h2></div>
                     <div id="divCenter">
                       <table>
-                      <form enctype="multipart/form-data" method="POST" action="{% url 'gravacao_nova' %}">
+                      <form enctype="multipart/form-data" method="POST" name="gravacao" onSubmit="return enviagravacao();" action="{% url 'gravacao_nova' %}">
                         {% csrf_token %}
                       <td><input type="file" name="anexGravacao" accept="audio/*"></td>
                       <td>
@@ -32,7 +121,7 @@
                     </table>
                       <br />
 
-                        <form action="{% url 'anuncio_novo' %}" method="POST">
+                        <form action="{% url 'anuncio_novo' %}" method="POST" name="dados" onSubmit="return enviardados();">
                             {% csrf_token %}
 
                         <table cellspacing="10">
@@ -203,7 +292,7 @@
 
         </body>
 
-    <button type="submit">Cadastrar</button>
+    <button type="submit" class="formobjects">Cadastrar</button>
 </form>
 
 
