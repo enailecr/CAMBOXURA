@@ -131,10 +131,12 @@ def troncoiax_novo(request):
 
     contador = int(request.POST['count'])
     for i in range(contador):
-        if request.POST['precedente'+str(i)]:
+        try:
             precedente.append(request.POST['precedente'+str(i)])
             prefixo.append(request.POST['prefix'+str(i)])
             padraoEquiv.append(request.POST['match'+str(i)])
+        except
+            print("não existe mais")
 
     cont=0;
     while cont < contador:
