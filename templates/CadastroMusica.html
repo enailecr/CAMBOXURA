@@ -12,12 +12,27 @@
             <meta http-equiv="content-type" content="text/html;charset=utf-8" />
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                <script language="JavaScript" >
+                    function enviardados(){
+  
+                            if( document.dados.nome.value == "")
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.dados.nome.focus();
+                            return false;
+                            }
+  
+                          
+                        return true;
+                        }
+                      
+                    </script>
             </head>
             <body>
                     <div id="divCenter">
                             <div align="center"><h2>Adicionar Música:</h2></div>
                             <br />
-        <form action="{% url 'categoria_novo'%}" method="POST" >
+        <form action="{% url 'categoria_novo'%}" method="POST" name="dados" onSubmit="return enviardados();">
         {% csrf_token %}
                 <table cellspacing="10">
                         <tr>
@@ -61,7 +76,7 @@
                         <tr>
                             <br />
                             <tr><td>
-                            <button type="submit">Cadastrar</button>
+                            <button type="submit" class="formobjects">Cadastrar </button>
                           </td>
                           </tr>
         </div>
