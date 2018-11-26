@@ -14,7 +14,10 @@ from troncos.models import Tronco
 import re
 from django_tables2 import RequestConfig
 from .tables import URATable
+import logging
+from datetime import datetime
 
+logger = logging.getLogger('aplicacao')
 
 @login_required
 def add(request):
@@ -227,6 +230,9 @@ def ura_novo(request):
         ura.gravTimeout = gravacao
         ura.save()
 
+    data_e_hora_atuais = datetime.now()
+    logger.info("[" +str(data_e_hora_atuais)+"] "+request.user.username+": adicionou a URA: " +nome)
+
     return redirect ('/uras/')
 
 
@@ -438,6 +444,8 @@ def ura_edita(request, id):
             ura.gravTimeout = None
             ura.save()
 
+        data_e_hora_atuais = datetime.now()
+        logger.info("[" +str(data_e_hora_atuais)+"] " +request.user.username+": editou a URA: " +ura.nome)
         return redirect('/uras/')
     else:
         anuncios = Anuncio.objects.all()
@@ -466,5 +474,8 @@ def ura_edita(request, id):
 @login_required
 def ura_remove(request, id):
     ura = URA.objects.get(id=id)
+    nome = ura.nome
     ura.delete()
+    data_e_hora_atuais = datetime.now()
+    logger.info("[" +str(data_e_hora_atuais)+"] " + request.user.username +": removeu a URA: " +nome)
     return redirect('/uras/')

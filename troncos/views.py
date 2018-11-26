@@ -5,6 +5,10 @@ from .models import Tronco, TroncoSIP, TroncoIAX, TroncoCustomizado, RegraManipu
 import re
 from django_tables2 import RequestConfig
 from .tables import TroncoTable
+import logging
+from datetime import datetime
+
+logger = logging.getLogger('aplicacao')
 
 #TroncoSIP
 @login_required
@@ -85,6 +89,8 @@ def troncosip_novo(request):
         regramanip.save()
         cont= cont + 1
 
+    data_e_hora_atuais = datetime.now()
+    logger.info("[" +str(data_e_hora_atuais)+"] "+request.user.username+": adicionou o tronco SIP: " +nome)
     return redirect ('/troncos/')
 
 #TroncoIAX
@@ -141,6 +147,8 @@ def troncoiax_novo(request):
         regramanip.save()
         cont= cont + 1
 
+    data_e_hora_atuais = datetime.now()
+    logger.info("[" +str(data_e_hora_atuais)+"] "+request.user.username+": adicionou o tronco IAX: " +nome)
     return redirect ('/troncos/')
 
 #TroncoCustomizado
@@ -178,6 +186,8 @@ def troncocustomizado_novo(request):
     regramanip = RegraManipulaNum(precedente = precedente,prefixo = prefixo,padraoEquiv = padraoEquiv, tronco =troncoCustom)
     regramanip.save()
 
+    data_e_hora_atuais = datetime.now()
+    logger.info("[" +str(data_e_hora_atuais)+"] "+request.user.username+": adicionou o tronco customizado: " +nome)
     return redirect ('/troncos/')
 
 @login_required
@@ -249,6 +259,9 @@ def tronco_edita(request, id):
             regramanip.save()
             cont= cont + 1
 
+        data_e_hora_atuais = datetime.now()
+        logger.info("[" +str(data_e_hora_atuais)+"] " +request.user.username+": editou o tronco: " +tronco.nome)
+
         return redirect('/troncos/')
     else:
         return render(request, 'editaTronco.html', data)
@@ -256,5 +269,8 @@ def tronco_edita(request, id):
 @login_required
 def tronco_remove(request, id):
     tronco = Tronco.objects.get(id=id)
+    nome= tronco.nome
     tronco.delete()
+    data_e_hora_atuais = datetime.now()
+    logger.info("[" +str(data_e_hora_atuais)+"] " + request.user.username +": removeu o tronco: " +nome)
     return redirect('/troncos/')

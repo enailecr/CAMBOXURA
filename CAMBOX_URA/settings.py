@@ -154,3 +154,40 @@ LOGOUT_REDIRECT_URL = '/'
 
 MEDIA_URL = '/gravacoes/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'gravacoes')
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': './LOG/info.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'propagate': True,
+        },
+        'aplicacao': {
+            'handlers': ['file'],
+            'level': 'INFO',
+        }
+    }
+}

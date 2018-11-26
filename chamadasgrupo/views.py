@@ -14,6 +14,10 @@ from troncos.models import Tronco
 import re
 from django_tables2 import RequestConfig
 from .tables import ChamadaEmGrupoTable
+import logging
+from datetime import datetime
+
+logger = logging.getLogger('aplicacao')
 
 @login_required
 def add(request):
@@ -154,6 +158,9 @@ def chamadasgrupo_novo(request):
         chamadasgrupo.destinoTipo = tipoDestino
         chamadasgrupo.destino = destinoId
         chamadasgrupo.save()
+
+    data_e_hora_atuais = datetime.now()
+    logger.info("[" +str(data_e_hora_atuais)+"] "+request.user.username+": adicionou a chamada em grupo: " +descricao)
     return redirect ('/chamadasgrupo/')
 
 @login_required
@@ -283,6 +290,9 @@ def chamadasgrupo_edita(request, id):
         chamadasgrupo.confirmaChamada = confirmaChamada
 
         chamadasgrupo.save()
+        data_e_hora_atuais = datetime.now()
+        logger.info("[" +str(data_e_hora_atuais)+"] " +request.user.username+": editou a chamada em grupo: " +chamadasgrupo.descricao)
+
         return redirect('/chamadasgrupo/')
     else:
         anuncios = Anuncio.objects.all()
@@ -333,5 +343,8 @@ def chamadasgrupo_edita(request, id):
 @login_required
 def chamadasgrupo_remove(request, id):
     chamadasgrupo = ChamadaEmGrupo.objects.get(id=id)
+    cham = chamadasgrupo.descricao
     chamadasgrupo.delete()
+    data_e_hora_atuais = datetime.now()
+    logger.info("[" +str(data_e_hora_atuais)+"] " + request.user.username +": removeu a chamada em grupo: " +cham)
     return redirect('/chamadasgrupo/')

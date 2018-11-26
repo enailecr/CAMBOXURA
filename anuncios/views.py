@@ -13,6 +13,10 @@ from django_tables2 import RequestConfig
 from .tables import AnuncioTable
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
+import logging
+from datetime import datetime
+
+logger = logging.getLogger('aplicacao')
 
 @login_required
 def add(request):
@@ -120,6 +124,9 @@ def anuncio_novo(request):
         anuncio.destino = destinoId
         anuncio.save()
 
+    data_e_hora_atuais = datetime.now()
+    logger.info("[" +str(data_e_hora_atuais)+"] "+request.user.username+": adicionou o anúncio: " +anuncio.descricao)
+
     return redirect ('/anuncios/')
 
 
@@ -204,6 +211,10 @@ def anuncio_edita(request, id):
         anuncio.retornaURA = retornaURA
         anuncio.canalNaoResp = canalNaoResp
         anuncio.save()
+
+        data_e_hora_atuais = datetime.now()
+        logger.info("[" +str(data_e_hora_atuais)+"] " +request.user.username+": editou o anúncio: " +anuncio.descricao)
+
         return redirect('/anuncios/')
     else:
         gravacoes = Gravacao.objects.exclude(musica__isnull=False)
@@ -237,7 +248,10 @@ def anuncio_edita(request, id):
 @login_required
 def anuncio_remove(request, id):
     anuncio = Anuncio.objects.get(id=id)
+    nome = anuncio.descricao
     anuncio.delete()
+    data_e_hora_atuais = datetime.now()
+    logger.info("[" +str(data_e_hora_atuais)+"] " + request.user.username +": removeu o anúncio: " +nome)
     return redirect('/anuncios/')
 
 @login_required
@@ -252,6 +266,9 @@ def upload_file_cad(request):
         tipo = '2'
         gravacao = Gravacao(nome=nome, link=uploaded_file_url, tipo=tipo)
         gravacao.save()
+
+        data_e_hora_atuais = datetime.now()
+        logger.info("[" +str(data_e_hora_atuais)+"] "+request.user.username+": adicionou a gravação: " +nome)
         gravacoes = Gravacao.objects.exclude(musica__isnull=False)
         data = {}
         data['gravacao'] = gravacao
