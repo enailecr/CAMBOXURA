@@ -183,8 +183,17 @@ def troncocustomizado_novo(request):
     troncoCustom.stringChamada = stringChamada
 
     troncoCustom.save()
-    regramanip = RegraManipulaNum(precedente = precedente,prefixo = prefixo,padraoEquiv = padraoEquiv, tronco =troncoCustom)
-    regramanip.save()
+    contador = int(request.POST['count'])
+    for i in range(contador):
+        precedente.append(request.POST['precedente'+str(i)])
+        prefixo.append(request.POST['prefix'+str(i)])
+        padraoEquiv.append(request.POST['match'+str(i)])
+
+    cont=0;
+    while cont < contador:
+        regramanip = RegraManipulaNum(precedente = precedente[cont],prefixo = prefixo[cont],padrao = padraoEquiv[cont], tronco =troncoIAX)
+        regramanip.save()
+        cont= cont + 1
 
     data_e_hora_atuais = datetime.now()
     logger.info("[" +str(data_e_hora_atuais)+"] "+request.user.username+": adicionou o tronco customizado: " +nome)
@@ -264,7 +273,12 @@ def tronco_edita(request, id):
 
         return redirect('/troncos/')
     else:
-        return render(request, 'editaTronco.html', data)
+        try:
+            tronco = TroncoCustomizado.objects.get(id=id)
+            return render(request, 'editaTroncoCustom.html', data)
+        except MusicaCategoria.DoesNotExist:
+            return render(request, 'editaTronco.html', data)
+
 
 @login_required
 def tronco_remove(request, id):

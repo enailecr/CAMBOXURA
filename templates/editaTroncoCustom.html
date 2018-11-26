@@ -1,0 +1,219 @@
+{% extends "menu.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<div >
+        <table id="CAMTecnoligaTabela">
+
+      <caption><div align="right">
+        </div></caption>
+
+                    <div id="divCenter">
+                            <div align="center"><h2>Editar Tronco:</h2></div>
+        <form method="POST" id="form" name="form">
+        {% csrf_token %}
+        <br />
+        <input type="hidden" name="count" id="count" value="{{count}}"></input>
+            <table cellspacing="10">
+                    <tr>
+                        <td>
+                        <label for="nome">Nome do Tronco: </label>
+                        </td>
+                        <td align="left">
+                        <input type="text" name="nome" value="{{tronco.nome}}">
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                        <label for="callerids">CallerID de saída:</label>
+                        </td>
+                        <td align="left">
+                        <input type="text" name="callerids" value="{{tronco.callerIDSaida}}">
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="op_cid">Opções CID</label>
+                        </td>
+                            <td align="left">
+                            <select name="op_cid" id="op_cid">
+                                <option value="1">Permitir Qualquer ID</option>
+                                <option value="2">Bloquear CIDs Extrangeiros</option>
+                                <option value="3">Remover CNAM</option>
+                                <option value="4">Forçar Tronco CID</option>
+                            </select>
+                        </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="max_canais">Máximo de Canais: </label>
+                            </td>
+                            <td align="left">
+                                <input type="text" name="max_canais" value="{{tronco.maxCanais}}">
+                            </td>
+                            <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="op_asterisk">Opções de Discagem de Tronco Asterisk: </label>
+                                </td>
+                                <td align="left">
+                                    <input type="text" name="op_asterisk" value="{{tronco.opcoesDiskAsterisk}}">
+                                </td>
+                                <td>
+                                    {%if tronco.op_asterisk %}
+                                    <INPUT TYPE="checkbox" NAME="op_asterisk" VALUE="True" checked>Sobrescrever
+                                    {% else %}
+                                    <INPUT TYPE="checkbox" NAME="op_asterisk" VALUE="True">Sobrescrever
+                                    {%endif%}
+                                </td>
+                                </tr>
+                                    <tr>
+                                    <td>
+                                        <label for="continua">Continuar se ocupado: </label>
+                                        </td>
+                                    <td>
+                                            {%if tronco.contSeOcup %}
+                                            <INPUT TYPE="checkbox" NAME="continua_ocup" VALUE="True" checked>Marque para sempre tentar o próximo tronco
+                                            {% else %}
+                                            <INPUT TYPE="checkbox" NAME="continua_ocup" VALUE="True">Marque para sempre tentar o próximo tronco
+                                            {%endif%}
+                                    </td>
+                                            <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                        <label for="continua">Desabilitar o Tronco: </label>
+                                                        </td>
+                                            <td>
+                                                    {%if tronco.desabTronco %}
+                                                    <INPUT TYPE="checkbox" NAME="desab_tronco" VALUE="True" checked>Desabilitado
+                                                        {% else %}
+                                                        <INPUT TYPE="checkbox" NAME="desab_tronco" VALUE="True">Desabilitado
+                                                    {%endif%}
+                                            </td>
+                                            <td></td>
+                                            </tr>
+            </table>
+            <br />
+
+            <div align="center"><label style="display: block"><input type="button" id="add_linha" name="add_linha" value="Adicionar Linha" /></label></div>
+           <br/>
+            <div align="center">
+
+                {% for reg in regra%}
+            <div  id="ramall{{ forloop.counter0 }}" cellspacing="10">
+
+              <tr>
+                <td>
+                  <label for="precedente">(</label>
+                  <input type="text" name="precedente{{ forloop.counter0 }}" id="precedente{{ forloop.counter0 }}" value="{{reg.precedente}}">
+                  <label for="prefix">)</label>
+                  <label for="plus">+</label>
+                  <input type="text" name="prefix{{ forloop.counter0 }}" id="prefix{{ forloop.counter0 }}" value="{{reg.prefixo}}">
+                  <label for="precedente">|</label><label>
+                  <input type="text" name="match{{ forloop.counter0}}" id="match{{ forloop.counter0}}" value="{{reg.padrao}}">
+                    <a onclick="testremove('ramall{{ forloop.counter0 }}')" name="testremove"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a>
+                  </td>
+                  <td></td>
+                </tr>
+
+              </div>
+              {%endfor%}
+              <fieldset id="inputs_adicionais" style="border: none"></fieldset>
+        </div>
+
+            <br />
+            <br />
+            <br />
+            <table cellspacing="10">
+              <tr>
+            <td>
+             <label for="prefixo_saida">Prefixo de chamadas de saída: </label>
+            </td>
+            <td align="left">
+             <input type="text" name="prefixo_saida" value="{{tronco.prefixChamSaida}}">
+            </td>
+          </tr>
+          </table>
+          <br />
+          <br />
+          <table cellspacing="10">
+            <tr>
+          <td>
+           <label for="prefi">String de chamada personalizada: </label>
+          </td>
+          <td align="left">
+           <input type="text" name="prefixo_saida" value="{{tronco.stringChamada}}">
+          </td>
+        </tr>
+
+        </table>
+            <br />
+        <button type="submit">Salvar Alterações</button>
+        </form>
+        </div>
+        </body>
+    </table>
+
+  <script type="text/javascript">
+        function testremove(dados){
+            var node = document.getElementById(dados);
+            if (node.parentNode) {
+            node.parentNode.removeChild(node);
+        }
+    }
+      $(document).ready(function(){
+        var i = $('#count').val();
+
+      $("#add_linha").on('click', function (e){
+          e.preventDefault();
+
+            var input = '<div cellspacing="10"><tr><td><label for="precedente">(</label><input type="text" name="precedente'+i+'" id="precedente'+i+'" placeholder="Precedente"></input><label for="prefix">)</label><label for="plus">+</label><input type="text" name="prefix'+i+'" id="prefix'+i+'" placeholder="Prefixo"></input><label for="precedente">|</label><input type="text" name="match'+i+'" id="match'+i+'" placeholder="Padrão Equivalente"></input><a class="remove"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a> </td></tr></div>'
+          var newTextBoxDiv = $('</fieldset>');
+
+              newTextBoxDiv.html(input);
+              newTextBoxDiv.appendTo("#inputs_adicionais");
+              $('#inputs_adicionais').append(input);
+              i++;
+              $('#count').val(i);
+          });
+
+      $('#inputs_adicionais').delegate('a','click',function( e ){
+          e.preventDefault();
+          $( this ).parent('div').remove();
+          i--;
+          $('#count').val(i);
+      });
+
+
+        $("#form").submit( function(e) {
+         //prevent the default submithandling
+         e.preventDefault();
+
+         var formData = $("#form").serializeArray();
+         for(var j=0; j<i; j++ ){
+            // if(document.getElementById("precedente"+j) == null){
+            // }
+            // else{
+                formData.push({name: "precedente"+j, value: $('#precedente'+j).val() });
+                formData.push({name: "prefix"+j, value: $('#prefix'+j).val() });
+                formData.push({name: "match"+j, value: $('#match'+j).val() });
+                // }
+
+          }
+
+         $.post('{% url "tronco_edita" tronco.id %}', formData);
+         console.log( formData );
+         return window.location.href ="/troncos/";
+       });
+
+      });
+
+      </script>
+{% endblock %}
