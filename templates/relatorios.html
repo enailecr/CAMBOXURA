@@ -1,4 +1,6 @@
 {% extends "menu.html" %}
+{% load static %}
+
 {% load render_table from django_tables2 %}
 
 
@@ -141,16 +143,36 @@
             <br />
             <tr>
                 <td>
-                        <td><button type="submit">Imprimir</button></td>
-                        <td><button type="submit">Exportar para Excel</button></td>
+                       
                 </td>
             </tr>
 <table>
         <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-        {% render_table table %}
 
 </table>
+</body>
+</form>
+<button type="submit">Imprimir</button></td>
+<button type="btnExport">Exportar para Excel</button></td>
+{% render_table table %}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="{% static 'js/jquery.btechco.excelexport.js' %}"></script>
+<script src="{% static 'js/jquery.base64.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        $("#btnExport").click(function () {
+                    // trocar nome da tabela btnExport
 
+            $("#tblExport").btechco_excelexport({
+                        // trocar nome da tabela btnExport
+
+                containerid: "tblExport"
+               , datatype: $datatype.Table
+               , filename: 'sample'
+            });
+        });
+    });
+</script>
 {% endblock %}
 
 
