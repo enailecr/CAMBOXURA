@@ -135,8 +135,7 @@ def troncoiax_novo(request):
             precedente.append(request.POST['precedente'+str(i)])
             prefixo.append(request.POST['prefix'+str(i)])
             padraoEquiv.append(request.POST['match'+str(i)])
-        except:
-            contador = contador -1
+        except:            
             pass
 
     cont=0;
