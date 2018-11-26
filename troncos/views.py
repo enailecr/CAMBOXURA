@@ -276,7 +276,7 @@ def tronco_edita(request, id):
         try:
             tronco = TroncoCustomizado.objects.get(id=id)
             return render(request, 'editaTroncoCustom.html', data)
-        except MusicaCategoria.DoesNotExist:
+        except TroncoCustomizado.DoesNotExist:
             return render(request, 'editaTronco.html', data)
 
 
