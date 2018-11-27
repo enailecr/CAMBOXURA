@@ -8,10 +8,7 @@ from .tables import MusicaTable
 from django.core.files.storage import FileSystemStorage
 from anuncios.models import Gravacao
 from django.core.exceptions import ObjectDoesNotExist
-import logging
-from datetime import datetime
-
-logger = logging.getLogger('aplicacao')
+from logs.models import Log
 
 @login_required
 def addcategoria(request):
@@ -47,7 +44,9 @@ def categoria_novo(request):
     data['musica'] = musicaCategoria
     data['gravacoes'] = gravacoes
     data_e_hora_atuais = datetime.now()
-    logger.info("[" +str(data_e_hora_atuais)+"] "+request.user.username+": adicionou a categoria de música: " +nome)
+    texto = request.user.username + " adicionou a categoria de música: " +nome
+    log = Log(log= texto)
+    log.save()
 
     return render(request, 'CadastroMusica2.html', data)
 
@@ -58,8 +57,10 @@ def streaming_novo(request):
     nome = request.POST['nome']
     streaming = Streaming(aplicacao=aplicacao,formato=formato, nome=nome)
     streaming.save()
-    data_e_hora_atuais = datetime.now()
-    logger.info("[" +str(data_e_hora_atuais)+"] "+request.user.username+": adicionou o streaming de música: " +nome)
+    texto = request.user.username + " adicionou o streaming de música: " +nome
+    log = Log(log= texto)
+    log.save()
+
     return redirect ('/musicas/')
 
 @login_required
@@ -85,8 +86,9 @@ def musica_edita(request, id):
             musica.nome = nome
             musica.formato = formato
             musica.save()
-            data_e_hora_atuais = datetime.now()
-            logger.info("[" +str(data_e_hora_atuais)+"] " +request.user.username+": editou o streaming de música: " +musica.nome)
+            texto = request.user.username + " editou o streaming de música: " +musica.nome
+            log = Log(log= texto)
+            log.save()
         else:
             if 'exerand' in request.POST:
                 execRandom = request.POST['exerand']
@@ -98,8 +100,9 @@ def musica_edita(request, id):
             musica.execRandom = execRandom
             musica.volume = volume
             musica.save()
-            data_e_hora_atuais = datetime.now()
-            logger.info("[" +str(data_e_hora_atuais)+"] " +request.user.username+": editou a categoria de música: " +musica.nome)
+            texto = request.user.username + " editou a categoria de música: " +musica.nome
+            log = Log(log= texto)
+            log.save()
 
         if categoria:
             gravacoes = Gravacao.objects.filter(musica__exact=musica)
@@ -122,8 +125,10 @@ def musica_remove(request, id):
         fs.delete("../"+gravacao.link)
         gravacao.delete()
     musica.delete()
-    data_e_hora_atuais = datetime.now()
-    logger.info("[" +str(data_e_hora_atuais)+"] " + request.user.username +": removeu o número de entrada: " +nome)
+    texto = request.user.username + " removeu o número de entrada: " +nome
+    log = Log(log= texto)
+    log.save()
+
     return redirect('/musicas/')
 
 @login_required

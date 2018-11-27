@@ -15,10 +15,7 @@ import re
 from django_tables2 import RequestConfig
 from .tables import NumeroTable
 import sys
-import logging
-from datetime import datetime
-
-logger = logging.getLogger('aplicacao')
+from logs.models import Log
 
 @login_required
 def add(request):
@@ -127,8 +124,9 @@ def numero_novo(request):
         numeroEntrada.destino = destinoId
         numeroEntrada.save()
 
-    data_e_hora_atuais = datetime.now()
-    logger.info("[" +str(data_e_hora_atuais)+"] "+request.user.username+": adicionou o número de entrada: " +numero)
+    texto = request.user.username + " adicionou o número de entrada: " +numero
+    log = Log(log= texto)
+    log.save()
 
     return redirect ('/numeros/')
 
@@ -204,8 +202,10 @@ def numero_edita(request, id):
 
         numero.save()
 
-        data_e_hora_atuais = datetime.now()
-        logger.info("[" +str(data_e_hora_atuais)+"] " +request.user.username+": editou o número de entrada: " +numero.numero)
+        texto = request.user.username + " editou o número de entrada: " +numero.numero
+        log = Log(log= texto)
+        log.save()
+
         return redirect('/numeros/')
 
     else:
@@ -233,8 +233,10 @@ def numero_remove(request, id):
     numero = NumeroEntrada.objects.get(id=id)
     num = numero.numero
     numero.delete()
-    data_e_hora_atuais = datetime.now()
-    logger.info("[" +str(data_e_hora_atuais)+"] " + request.user.username +": removeu o número de entrada: " +num)
+    texto = request.user.username + ": removeu o número de entrada: " +num
+    log = Log(log= texto)
+    log.save()
+
     return redirect('/numeros/')
 
 def carregaDestinos(request):

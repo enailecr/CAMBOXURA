@@ -1,7 +1,7 @@
 from django.forms import ModelForm
-from .models import Logs
+from .models import Log
 
 class LogsForm(ModelForm):
     class Meta:
-        model = Logs
+        model = Log
         fields = '__all__'

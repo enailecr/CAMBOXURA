@@ -5,10 +5,8 @@ from .models import Tronco, TroncoSIP, TroncoIAX, TroncoCustomizado, RegraManipu
 import re
 from django_tables2 import RequestConfig
 from .tables import TroncoTable
-import logging
-from datetime import datetime
-
-logger = logging.getLogger('aplicacao')
+from django.core.exceptions import ObjectDoesNotExist
+from logs.models import Log
 
 #TroncoSIP
 @login_required
@@ -89,8 +87,9 @@ def troncosip_novo(request):
         regramanip.save()
         cont= cont + 1
 
-    data_e_hora_atuais = datetime.now()
-    logger.info("[" +str(data_e_hora_atuais)+"] "+request.user.username+": adicionou o tronco SIP: " +nome)
+    texto = request.user.username + " adicionou o tronco SIP: " +nome
+    log = Log(log= texto)
+    log.save()
     return redirect ('/troncos/')
 
 #TroncoIAX
@@ -147,8 +146,10 @@ def troncoiax_novo(request):
         regramanip.save()
         cont= cont + 1
 
-    data_e_hora_atuais = datetime.now()
-    logger.info("[" +str(data_e_hora_atuais)+"] "+request.user.username+": adicionou o tronco IAX: " +nome)
+    texto = request.user.username + " adicionou o tronco IAX: " +nome
+    log = Log(log= texto)
+    log.save()
+
     return redirect ('/troncos/')
 
 #TroncoCustomizado
@@ -195,8 +196,10 @@ def troncocustomizado_novo(request):
         regramanip.save()
         cont= cont + 1
 
-    data_e_hora_atuais = datetime.now()
-    logger.info("[" +str(data_e_hora_atuais)+"] "+request.user.username+": adicionou o tronco customizado: " +nome)
+    texto = request.user.username + " adicionou o tronco customizado: " +nome
+    log = Log(log= texto)
+    log.save()
+
     return redirect ('/troncos/')
 
 @login_required
@@ -268,8 +271,9 @@ def tronco_edita(request, id):
             regramanip.save()
             cont= cont + 1
 
-        data_e_hora_atuais = datetime.now()
-        logger.info("[" +str(data_e_hora_atuais)+"] " +request.user.username+": editou o tronco: " +tronco.nome)
+        texto = request.user.username + " editou o tronco: " +nome
+        log = Log(log= texto)
+        log.save()
 
         return redirect('/troncos/')
     else:
@@ -285,6 +289,7 @@ def tronco_remove(request, id):
     tronco = Tronco.objects.get(id=id)
     nome= tronco.nome
     tronco.delete()
-    data_e_hora_atuais = datetime.now()
-    logger.info("[" +str(data_e_hora_atuais)+"] " + request.user.username +": removeu o tronco: " +nome)
+    texto = request.user.username + " removeu o tronco: " +nome
+    log = Log(log= texto)
+    log.save()
     return redirect('/troncos/')

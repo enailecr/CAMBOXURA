@@ -10,10 +10,7 @@ from uras.models import URA
 from filas.models import Fila
 from chamadasgrupo.models import ChamadaEmGrupo
 from troncos.models import Tronco
-import logging
-from datetime import datetime
-
-logger = logging.getLogger('aplicacao')
+from logs.models import Log
 
 @login_required
 def add(request):
@@ -162,8 +159,10 @@ def condicoestempo_novo(request):
     diaSemanaFim=diaSemanaFim, diaMesInicio=diaMesInicio, diaMesFim= diaMesFim,mesIncio=mesIncio,mesFim=mesFim, condTempo=condicoestempo)
     grupotempo.save()
 
-    data_e_hora_atuais = datetime.now()
-    logger.info("[" +str(data_e_hora_atuais)+"] "+request.user.username+": adicionou a condição de tempo: " +nome)
+    texto = request.user.username + " adicionou a condição de tempo: " +nome
+    log = Log(log= texto)
+    log.save()
+
     return redirect ('/condicoestempo/')
 
 @login_required
@@ -298,8 +297,9 @@ def condicoestempo_edita(request, id):
         grupotempo.mesFim = mesFim
 
         grupotempo.save()
-        data_e_hora_atuais = datetime.now()
-        logger.info("[" +str(data_e_hora_atuais)+"] " +request.user.username+": editou a condição de tempo: " +nome)
+        texto = request.user.username + " editou a condição de tempo: " +nome
+        log = Log(log= texto)
+        log.save()
 
         return redirect('/condicoestempo/')
     else:
@@ -329,6 +329,7 @@ def condicoestempo_remove(request, id):
     condicoestempo = CondicaoTempo.objects.get(id=id)
     nome = condicoestempo.nome
     condicoestempo.delete()
-    data_e_hora_atuais = datetime.now()
-    logger.info("[" +str(data_e_hora_atuais)+"] " + request.user.username +": removeu a condição de tempo: " +nome)
+    texto = request.user.username + " removeu a condição de tempo: " +nome
+    log = Log(log= texto)
+    log.save()
     return redirect('/condicoestempo/')

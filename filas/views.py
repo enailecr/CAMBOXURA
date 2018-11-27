@@ -17,10 +17,7 @@ from chamadasgrupo.models import ChamadaEmGrupo
 from condicoestempo.models import CondicaoTempo
 from troncos.models import Tronco
 from django.shortcuts import render, redirect
-import logging
-from datetime import datetime
-
-logger = logging.getLogger('aplicacao')
+from logs.models import Log
 
 @login_required
 def add(request):
@@ -263,8 +260,10 @@ def fila_novo(request):
     if limMembrosPenal !='0':
         fila.limMembrosPenal = limMembrosPenal
 
-    data_e_hora_atuais = datetime.now()
-    logger.info("[" +str(data_e_hora_atuais)+"] "+request.user.username+": adicionou a fila: " +nome)
+    texto = request.user.username + " adicionou a fila: " +nome
+    log = Log(log= texto)
+    log.save()
+
     return redirect ('/filas/')
 
 @login_required
@@ -472,8 +471,9 @@ def fila_edita(request, id):
         if menuSaidaURA != '0':
             fila.menuSaidaURA = menuSaidaURA
             fila.save()
-        data_e_hora_atuais = datetime.now()
-        logger.info("[" +str(data_e_hora_atuais)+"] " +request.user.username+": editou a fila: " +fila.nome)
+        texto = request.user.username + " editou a fila: " +fila.nome
+        log = Log(log= texto)
+        log.save()
 
         return redirect('/filas/')
     else:
@@ -511,7 +511,8 @@ def fila_remove(request, id):
     fila = Fila.objects.get(id=id)
     nome = fila.nome
     fila.delete()
-    data_e_hora_atuais = datetime.now()
-    logger.info("[" +str(data_e_hora_atuais)+"] " + request.user.username +": removeu a fila: " +nome)
+    texto = request.user.username + " removeu a fila: " +nome
+    log = Log(log= texto)
+    log.save()
 
     return redirect('/filas/')
