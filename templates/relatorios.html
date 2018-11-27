@@ -152,9 +152,12 @@
 </table>
 </body>
 </form>
-<button type="submit">Imprimir</button></td>
+<!-- <button type="submit">Imprimir</button></td> -->
+<input type="button" value="Imprimir" onclick="printPage('block1');"></input>
 <button type="btnExport">Exportar para Excel</button></td>
+<div id=block1>
 {% render_table table %}
+</div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <script src="{% static 'js/jquery.btechco.excelexport.js' %}"></script>
 <script src="{% static 'js/jquery.base64.js' %}"></script>
@@ -173,6 +176,22 @@
         });
     });
 </script>
+<script>
+    function printPage(id)
+    {
+       var html="<html>";
+       html+= document.getElementById(id).innerHTML;
+    
+       html+="</html>";
+    
+       var printWin = window.open('','','left=0,top=0,width=1,height=1,toolbar=0,scrollbars=0,status  =0');
+       printWin.document.write(html);
+       printWin.document.close();
+       printWin.focus();
+       printWin.print();
+       printWin.close();
+    }
+    </script>
 {% endblock %}
 
 
