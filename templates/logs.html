@@ -5,13 +5,13 @@
 {% block content %}
 <div >
         <table id="CAMTecnoligaTabela">
-    
+
       <caption><h1>Logs</h1><div align="right">
         </div></caption>
-    
+
         <caption><div align="right">
         </div></caption>
-    
+
             <meta http-equiv="content-type" content="text/html;charset=utf-8" />
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -19,25 +19,30 @@
             <body>
                     <div id="divCenter">
                             <br />
-        <form action="{% url 'streaming_novo'%}" method="POST">
+        <form action="{% url 'busca_logs'%}" method="POST">
+          {% csrf_token %}
                 <table cellspacing="10">
                         <tr>
                                 <td>
                                 <label for="data_inicio">Data Início: </label>
                                 </td>
                                 <td align="left">
-                                <input type="date" name="data_inicio">
+                                <input type="date" name="data_inicio" value="{{dataInicio}}">
                                 </td>
                                     <td align="left">
-                                      <select name="campo">
-                                        <option value="ura">URA</option>                                       
-                                        <option value="tronco">Tronco</option>
-                                        <option value="mus">Música</option>
-                                        <option value="fila">Fila</option>
-                                        <option value="cham">Chamada em grupo</option>
+                                      <select name="tipo_log">
+                                        <option value="todos" {%if tipoLog == "todos"%} selected {%endif%}>Todos os logs</option>
+                                        <option value="ura" {%if tipoLog == "ura"%} selected {%endif%}>URA</option>
+                                        <option value="num" {%if tipoLog == "num"%} selected {%endif%}>Número de entrada</option>
+                                        <option value="tronco" {%if tipoLog == "tronco"%} selected {%endif%}>Tronco</option>
+                                        <option value="anun" {%if tipoLog == "anun"%} selected {%endif%}>Anúncio</option>
+                                        <option value="cham" {%if tipoLog == "cham"%} selected {%endif%}>Chamada em grupo</option>
+                                        <option value="fila" {%if tipoLog == "fila"%} selected {%endif%}>Fila</option>
+                                        <option value="mus" {%if tipoLog == "mus"%} selected {%endif%}>Música em espera</option>
+                                        <option value="cond" {%if tipoLog == "cond"%} selected {%endif%}>Condições de tempo</option>
                                         </select>
-                                    </td>   
-                                           
+                                    </td>
+
                             <td></td>
                         </tr>
                         <tr>
@@ -45,7 +50,7 @@
                                 <label for="data_fim">Data Fim: </label>
                                 </td>
                                 <td align="left">
-                                <input type="date" name="data_fim">
+                                <input type="date" name="data_fim" value="{{dataFim}}">
                                 </td>
                                 <td></td>
                                 <td></td>

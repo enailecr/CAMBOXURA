@@ -125,7 +125,7 @@ def musica_remove(request, id):
         fs.delete("../"+gravacao.link)
         gravacao.delete()
     musica.delete()
-    texto = request.user.username + " removeu o número de entrada: " +nome
+    texto = request.user.username + " removeu a música: " +nome
     log = Log(log= texto)
     log.save()
 
