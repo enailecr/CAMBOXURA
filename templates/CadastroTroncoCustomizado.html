@@ -219,7 +219,7 @@
              formData.push({name: "match"+j, value: $('#match'+j).val() });
             }
 
-           $.post('{% url "troncoiax_novo" %}', formData);
+           $.post('{% url "troncocustomizado_novo" %}', formData);
            console.log( formData );
            return window.location.href ="/troncos/";
          });
