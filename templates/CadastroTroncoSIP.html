@@ -12,10 +12,10 @@
                 <script language="JavaScript" >
                     function enviardados(){
   
-                            if( document.form.nome_tronco.value == "")
+                            if( document.form.nome.value == "")
                             {
                             alert( "Há campos a serem preenchidos!" );
-                            document.form.nome_tronco.focus();
+                            document.form.nome.focus();
                             return false;
                             }
   
@@ -42,8 +42,17 @@
   
                         return true;
                         }
+
+                            function disable() {
+                                document.getElementById("op_asterisk").disabled=true;
+                            }
+                            function enable() {
+                                    document.getElementById("op_asterisk").disabled=false;
+                                
+                            }
                         </script>
             </head>
+            <body onload ="disable()">
                     <div id="divCenter">
                     <div align="center"><h2>Adicionar Tronco SIP:</h2></div>
                     <form method="POST" id="form" name="form" onSubmit="return enviardados();">
@@ -95,16 +104,14 @@
                                                            </tr>
                                                            <tr>
                                                                 <td>
-                                                                 <label for="op_asterisk">Opções de Discagem de Tronco Asterisk: </label>
+                                                                    <label for="op_asterisk">Opções de Discagem de Tronco Asterisk: </label>
                                                                 </td>
                                                                 <td align="left">
-                                                                 <input type="text" name="op_asterisk">
+                                                                    <input type="text" name="op_asterisk" id="op_asterisk">
                                                                 </td>
-                                                            <td>
-
-                                                                    <INPUT TYPE="checkbox" NAME="op_asterisk" VALUE="op1">Sobrescrever
-
-                                                            </td>
+                                                                <td>
+                                                                    <INPUT TYPE="checkbox" NAME="op_asteriskp" onclick="enable()" VALUE="True">Sobrescrever
+                                                                </td>
                                                                </tr>
                                                                <tr>
                                                                     <td>
