@@ -1,0 +1,79 @@
+{% extends "menu.html" %}
+{% load render_table from django_tables2 %}
+
+
+{% block content %}
+<div >
+        <table id="CAMTecnoligaTabela">
+
+      <caption><h1>Logs</h1><div align="right">
+        </div></caption>
+
+        <caption><div align="right">
+        </div></caption>
+
+            <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+            <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            </head>
+            <body>
+                    <div id="divCenter">
+                            <br />
+        <form action="{% url 'busca_logs_cambox'%}" method="POST">
+          {% csrf_token %}
+                <table cellspacing="10">
+                        <tr>
+                                <td>
+                                <label for="data_inicio">Data Início: </label>
+                                </td>
+                                <td align="left">
+                                <input type="date" name="data_inicio" value="{{dataInicio}}">
+                                </td>
+                                    <td align="left">
+                                      <select name="tipo_log">
+                                        <option value="" {%if tipoLog == ""%} selected {%endif%}>Todos os tipos</option>
+                                        <option value="VERBOSE" {%if tipoLog == "VERBOSE"%} selected {%endif%}>VERBOSE</option>
+                                        </select>
+                                    </td>
+
+                            <td></td>
+                        </tr>
+                        <tr>
+                                <td>
+                                <label for="data_fim">Data Fim: </label>
+                                </td>
+                                <td align="left">
+                                <input type="date" name="data_fim" value="{{dataFim}}">
+                                </td>
+                                <td>
+                                  <td></td>
+                      <tr>
+                        <td>
+                        <label for="data_fim">Chamada: </label>
+                        </td>
+                        <td align="left">
+                        <input type="text" name="chamada" value="{{chamada}}">
+                        </td>
+                        <td>
+                        </td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>
+                        <label for="data_fim">Processo: </label>
+                        </td>
+                        <td align="left">
+                        <input type="text" name="processo" value="{{processo}}">
+                        </td>
+                        <td>
+                        </td>
+                        <td></td>
+                      </tr>
+    </table>
+    <br />
+    <div align="center"><button type="submit">Pesquisar</button></div>
+    {% render_table table %}
+
+
+    </div>
+{% endblock %}
