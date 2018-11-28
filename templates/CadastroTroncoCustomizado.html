@@ -9,46 +9,46 @@
       <caption><div align="right">
         </div></caption>
 
-        <head>
-            <script language="JavaScript" >
-                function enviardados(){
+          <!-- <head>
+                <script language="JavaScript" >
+                    function enviardados(){
 
-                        if( document.form.nome.value == "")
-                        {
-                        alert( "Há campos a serem preenchidos!" );
-                        document.form.nome.focus();
-                        return false;
+                            if( document.form.nome_tronco.value == "")
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.form.nome_tronco.focus();
+                            return false;
+                            }
+
+                            if( document.form.callerids.value == "")
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.form.callerids.focus();
+                            return false;
+                            }
+
+                            if( document.form.max_canais.value == "")
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.form.max_canais.focus();
+                            return false;
+                            }
+
+                            if( document.form.op_asterisk.value == "")
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.form.op_asterisk.focus();
+                            return false;
+                            }
+
+                        return true;
                         }
-
-                        if( document.form.callerids.value == "")
-                        {
-                        alert( "Há campos a serem preenchidos!" );
-                        document.form.callerids.focus();
-                        return false;
-                        }
-
-                        if( document.form.max_canais.value == "")
-                        {
-                        alert( "Há campos a serem preenchidos!" );
-                        document.form.max_canais.focus();
-                        return false;
-                        }
-
-                        if( document.form.op_asterisk.value == "")
-                        {
-                        alert( "Há campos a serem preenchidos!" );
-                        document.form.op_asterisk.focus();
-                        return false;
-                        }
-
-                    return true;
-                    }
-                    </script>
-        </head>
+                        </script>
+            </head> -->
 
                     <div id="divCenter">
                     <div align="center"><h2>Adicionar Tronco Customizado:</h2></div>
-                    <form method="POST" id="form" name="form" onSubmit="return enviardados();">
+                    <form method="POST" id="form" name="form">
                       {% csrf_token %}
                             <br />
                             <input type="hidden" name="count" id="count" value="1"></input>
@@ -117,7 +117,7 @@
 
                                                                 </td>
                                                                 <td></td>
-                                                               </tr>
+                                                                u                     </tr>
                                                                <tr>
                                                                     <td>
                                                                             <label for="continua">Desabilitar o Tronco: </label>
@@ -179,7 +179,7 @@
 
         </table>
 
-        <button type="submit" class="formobjects">Cadastrar</button>
+        <button type="submit">Cadastrar</button>
 </div>
 
 </form>
