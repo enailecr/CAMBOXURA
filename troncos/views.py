@@ -168,9 +168,9 @@ def troncocustomizado_novo(request):
         desabTronco = request.POST['desab_tronco']
     else:
         desabTronco = False
-    precedente = request.POST['precedente']
-    prefixo = request.POST['prefix']
-    padraoEquiv = request.POST['match']
+    # precedente = request.POST['precedente']
+    # prefixo = request.POST['prefix']
+    # padraoEquiv = request.POST['match']
     prefixChamSaida = request.POST['prefixo_saida']
 
     stringChamada = request.POST['string_chamada']
@@ -184,6 +184,10 @@ def troncocustomizado_novo(request):
     troncoCustom.stringChamada = stringChamada
 
     troncoCustom.save()
+    precedente = []
+    prefixo = []
+    padraoEquiv = []
+
     contador = int(request.POST['count'])
     for i in range(contador):
         precedente.append(request.POST['precedente'+str(i)])
@@ -192,7 +196,7 @@ def troncocustomizado_novo(request):
 
     cont=0;
     while cont < contador:
-        regramanip = RegraManipulaNum(precedente = precedente[cont],prefixo = prefixo[cont],padrao = padraoEquiv[cont], tronco =troncoIAX)
+        regramanip = RegraManipulaNum(precedente = precedente[cont],prefixo = prefixo[cont],padrao = padraoEquiv[cont], tronco =troncoCustom)
         regramanip.save()
         cont= cont + 1
 
