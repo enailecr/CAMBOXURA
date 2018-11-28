@@ -87,7 +87,7 @@ def troncosip_novo(request):
         regramanip.save()
         cont= cont + 1
 
-    texto = request.user.username + " adicionou o tronco SIP: " +tronco.nome
+    texto = request.user.username + " adicionou o tronco SIP: " +nome
     log = Log(log= texto)
     log.save()
     return redirect ('/troncos/')
@@ -146,7 +146,7 @@ def troncoiax_novo(request):
         regramanip.save()
         cont= cont + 1
 
-    texto = request.user.username + " adicionou o tronco IAX: " +tronco.nome
+    texto = request.user.username + " adicionou o tronco IAX: " +nome
     log = Log(log= texto)
     log.save()
 
@@ -196,7 +196,7 @@ def troncocustomizado_novo(request):
         regramanip.save()
         cont= cont + 1
 
-    texto = request.user.username + " adicionou o tronco customizado: " +tronco.nome
+    texto = request.user.username + " adicionou o tronco customizado: " +nome
     log = Log(log= texto)
     log.save()
 
