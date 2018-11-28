@@ -10,9 +10,46 @@
           <caption><div align="right">
             </div></caption>
 
+              <head>
+                <script language="JavaScript" >
+                    function enviardados(){
+
+                            if( document.form.nome_tronco.value == "")
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.form.nome_tronco.focus();
+                            return false;
+                            }
+
+                            if( document.form.callerids.value == "")
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.form.callerids.focus();
+                            return false;
+                            }
+
+                            if( document.form.max_canais.value == "")
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.form.max_canais.focus();
+                            return false;
+                            }
+
+                            if( document.form.op_asterisk.value == "")
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.form.op_asterisk.focus();
+                            return false;
+                            }
+
+                        return true;
+                        }
+                        </script>
+            </head>
+
     <div id="divCenter">
       <div align="center"><h2>Adicionar Tronco IAX:</h2></div>
-      <form method="POST" id="form" name="form">
+      <form method="POST" id="form" name="form" onSubmit="return enviardados();">
         {% csrf_token %}
         <br />
         <input type="hidden" name="count" id="count" value="1"></input>
@@ -172,7 +209,7 @@
           </table>
           <br />
 
-          <button type="submit" >Cadastrar</button>
+          <button type="submit" class="formobjects">Cadastrar</button>
         </div>
 
     </form>
