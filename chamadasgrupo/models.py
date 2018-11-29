@@ -54,5 +54,5 @@ class ChamadaEmGrupo(Destino):
 
 class ListaExtensao(models.Model):
     chamada = models.ForeignKey('ChamadaEmGrupo', on_delete=models.CASCADE)
-    numero = models.ForeignKey(NumeroEntrada, on_delete=models.CASCADE)
+    numero = models.CharField(max_length=10,blank=True, null=True)
     ordem = models.IntegerField()
