@@ -11,44 +11,44 @@
 
           <head>
                 <script language="JavaScript" >
-                    // // function enviardados(){
+                    function enviardados(){
 
-                    // //         if( document.form.nome_tronco.value == "")
-                    // //         {
-                    // //         alert( "Há campos a serem preenchidos!" );
-                    // //         document.form.nome_tronco.focus();
-                    // //         return false;
-                    // //         }
+                            if( document.dado.nome_tronco.value == "")
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.dado.nome_tronco.focus();
+                            return false;
+                            }
 
-                    // //         if( document.form.callerids.value == "")
-                    // //         {
-                    // //         alert( "Há campos a serem preenchidos!" );
-                    // //         document.form.callerids.focus();
-                    // //         return false;
-                    // //         }
+                            if( document.dado.callerids.value == "")
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.form.callerids.focus();
+                            return false;
+                            }
 
-                    // //         if( document.form.max_canais.value == "")
-                    // //         {
-                    // //         alert( "Há campos a serem preenchidos!" );
-                    // //         document.form.max_canais.focus();
-                    // //         return false;
-                    // //         }
+                            if( document.dado.max_canais.value == "")
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.form.max_canais.focus();
+                            return false;
+                            }
 
-                    // //         if( document.form.op_asterisk.value == "")
-                    // //         {
-                    // //         alert( "Há campos a serem preenchidos!" );
-                    // //         document.form.op_asterisk.focus();
-                    // //         return false;
-                    // //         }
+                            if( document.dado.op_asterisk.value == "")
+                            {
+                            alert( "Há campos a serem preenchidos!" );
+                            document.form.op_asterisk.focus();
+                            return false;
+                            }
 
-                    // //     return true;
-                    //     }
+                        return true;
+                        }
 
                         function disable() {
                                 document.getElementById("op_asterisk").disabled=true;
                             }
                             function enable() {
-                                        if (document.form.op_asteriskp.checked == true)
+                                        if (document.dado.op_asteriskp.checked == true)
                                             document.getElementById("op_asterisk").disabled=false;
                                         else
                                             document.getElementById("op_asterisk").disabled=true;
@@ -60,17 +60,17 @@
             <body onload ="disable()">
                     <div id="divCenter">
                     <div align="center"><h2>Adicionar Tronco Customizado:</h2></div>
-                    <form method="POST" id="form" name="form">
+                    <form method="POST" id="dado" name="dado" onSubmit="return enviardados();">
                       {% csrf_token %}
                             <br />
-                            <input type="hidden" name="count" id="count" value="1"></input>
+                            <input type="hidden" name="count" id="count" value="1"> 
                              <table cellspacing="10">
                                      <tr>
                                              <td>
                                               <label for="nome_tronco">Nome do Tronco: </label>
                                              </td>
                                              <td align="left">
-                                              <input type="text" name="nome">
+                                              <input type="text" name="nome_tronco">
                                              </td>
                                              <td></td>
                                             </tr>
@@ -129,7 +129,7 @@
 
                                                                 </td>
                                                                 <td></td>
-                                                                u                     </tr>
+                                                                                     </tr>
                                                                <tr>
                                                                     <td>
                                                                             <label for="continua">Desabilitar o Tronco: </label>
@@ -191,7 +191,7 @@
 
         </table>
 
-        <button type="submit">Cadastrar</button>
+        <button type="submit" class="formobjects">Cadastrar</button>
 </div>
 
 </form>
