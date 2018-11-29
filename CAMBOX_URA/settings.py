@@ -191,3 +191,6 @@ LOGGING = {
         }
     }
 }
+CRONJOBS = [
+    ('*/2 * * * *','dashboard.cron.MyCronJob')
+]
