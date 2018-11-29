@@ -19,7 +19,7 @@
                             return false;
                             }
   
-                            if( document.form.callerids.value == "")
+                            if( document.form.op_asteriskp.value == "bolha")
                             {
                             alert( "Há campos a serem preenchidos!" );
                             document.form.callerids.focus();
@@ -47,7 +47,11 @@
                                 document.getElementById("op_asterisk").disabled=true;
                             }
                             function enable() {
-                                    document.getElementById("op_asterisk").disabled=false;
+                                        if (document.form.op_asteriskp.checked == true)
+                                            document.getElementById("op_asterisk").disabled=false;
+                                        else
+                                            document.getElementById("op_asterisk").disabled=true;
+
                                 
                             }
                         </script>

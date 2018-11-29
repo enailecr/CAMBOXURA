@@ -44,9 +44,21 @@
 
                         return true;
                         }
+
+                        function disable() {
+                                document.getElementById("op_asterisk").disabled=true;
+                            }
+                            function enable() {
+                                        if (document.form.op_asteriskp.checked == true)
+                                            document.getElementById("op_asterisk").disabled=false;
+                                        else
+                                            document.getElementById("op_asterisk").disabled=true;
+
+                                
+                            }
                         </script>
             </head>
-
+    <body onload ="disable()">
     <div id="divCenter">
       <div align="center"><h2>Adicionar Tronco IAX:</h2></div>
       <form method="POST" id="form" name="form" onSubmit="return enviardados();">
@@ -100,10 +112,10 @@
               <label for="op_asterisk">Opções de Discagem de Tronco Asterisk: </label>
             </td>
             <td align="left">
-              <input type="text" name="op_asterisk">
+              <input type="text" name="op_asterisk" id="op_asterisk">
             </td>
             <td>
-              <INPUT TYPE="checkbox" NAME="op_asterisk" VALUE="op1">Sobrescrever</input>
+              <INPUT TYPE="checkbox" NAME="op_asteriskp" onclick="enable()" VALUE="True">Sobrescrever</input>
             </td>
           </tr>
           <tr>

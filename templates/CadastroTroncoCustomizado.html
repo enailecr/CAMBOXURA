@@ -9,43 +9,55 @@
       <caption><div align="right">
         </div></caption>
 
-          <!-- <head>
+          <head>
                 <script language="JavaScript" >
-                    function enviardados(){
+                    // // function enviardados(){
 
-                            if( document.form.nome_tronco.value == "")
-                            {
-                            alert( "Há campos a serem preenchidos!" );
-                            document.form.nome_tronco.focus();
-                            return false;
+                    // //         if( document.form.nome_tronco.value == "")
+                    // //         {
+                    // //         alert( "Há campos a serem preenchidos!" );
+                    // //         document.form.nome_tronco.focus();
+                    // //         return false;
+                    // //         }
+
+                    // //         if( document.form.callerids.value == "")
+                    // //         {
+                    // //         alert( "Há campos a serem preenchidos!" );
+                    // //         document.form.callerids.focus();
+                    // //         return false;
+                    // //         }
+
+                    // //         if( document.form.max_canais.value == "")
+                    // //         {
+                    // //         alert( "Há campos a serem preenchidos!" );
+                    // //         document.form.max_canais.focus();
+                    // //         return false;
+                    // //         }
+
+                    // //         if( document.form.op_asterisk.value == "")
+                    // //         {
+                    // //         alert( "Há campos a serem preenchidos!" );
+                    // //         document.form.op_asterisk.focus();
+                    // //         return false;
+                    // //         }
+
+                    // //     return true;
+                    //     }
+
+                        function disable() {
+                                document.getElementById("op_asterisk").disabled=true;
                             }
+                            function enable() {
+                                        if (document.form.op_asteriskp.checked == true)
+                                            document.getElementById("op_asterisk").disabled=false;
+                                        else
+                                            document.getElementById("op_asterisk").disabled=true;
 
-                            if( document.form.callerids.value == "")
-                            {
-                            alert( "Há campos a serem preenchidos!" );
-                            document.form.callerids.focus();
-                            return false;
+                                
                             }
-
-                            if( document.form.max_canais.value == "")
-                            {
-                            alert( "Há campos a serem preenchidos!" );
-                            document.form.max_canais.focus();
-                            return false;
-                            }
-
-                            if( document.form.op_asterisk.value == "")
-                            {
-                            alert( "Há campos a serem preenchidos!" );
-                            document.form.op_asterisk.focus();
-                            return false;
-                            }
-
-                        return true;
-                        }
                         </script>
-            </head> -->
-
+            </head>
+            <body onload ="disable()">
                     <div id="divCenter">
                     <div align="center"><h2>Adicionar Tronco Customizado:</h2></div>
                     <form method="POST" id="form" name="form">
@@ -99,11 +111,11 @@
                                                                  <label for="op_asterisk">Opções de Discagem de Tronco Asterisk: </label>
                                                                 </td>
                                                                 <td align="left">
-                                                                 <input type="text" name="op_asterisk">
+                                                                 <input type="text" name="op_asterisk" id="op_asterisk">
                                                                 </td>
                                                             <td>
 
-                                                                    <INPUT TYPE="checkbox" NAME="op_asterisk" VALUE="op1">Sobrescrever
+                                                                    <INPUT TYPE="checkbox" NAME="op_asteriskp" onclick="enable()" VALUE="True">Sobrescrever
 
                                                             </td>
                                                                </tr>
