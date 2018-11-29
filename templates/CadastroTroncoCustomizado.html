@@ -10,45 +10,39 @@
         </div></caption>
 
           <head>
+            
                 <script language="JavaScript" >
-                    function enviardados(){
 
-                            if( document.dado.nome_tronco.value == "")
+                  function enviardados(){
+
+                            if( document.form.nome_tronco.value == "")
                             {
                             alert( "Há campos a serem preenchidos!" );
-                            document.dado.nome_tronco.focus();
+                            document.form.nome.focus();
                             return false;
                             }
 
-                            if( document.dado.callerids.value == "")
-                            {
-                            alert( "Há campos a serem preenchidos!" );
-                            document.form.callerids.focus();
-                            return false;
-                            }
-
-                            if( document.dado.max_canais.value == "")
+                            if( document.form.max_canais.value == "")
                             {
                             alert( "Há campos a serem preenchidos!" );
                             document.form.max_canais.focus();
                             return false;
                             }
 
-                            if( document.dado.op_asterisk.value == "")
+                            if( document.form.callerids.value == "")
                             {
                             alert( "Há campos a serem preenchidos!" );
-                            document.form.op_asterisk.focus();
+                            document.form.callerids.focus();
                             return false;
                             }
 
-                        return true;
-                        }
-
+                            return true;
+                            }
                         function disable() {
                                 document.getElementById("op_asterisk").disabled=true;
                             }
                             function enable() {
-                                        if (document.dado.op_asteriskp.checked == true)
+                                        if (document.form.op_asteriskp.checked == true)
                                             document.getElementById("op_asterisk").disabled=false;
                                         else
                                             document.getElementById("op_asterisk").disabled=true;
@@ -60,7 +54,7 @@
             <body onload ="disable()">
                     <div id="divCenter">
                     <div align="center"><h2>Adicionar Tronco Customizado:</h2></div>
-                    <form method="POST" id="dado" name="dado" onSubmit="return enviardados();">
+                    <form method="POST" id="form" name="form" onSubmit="return enviardados();">
                       {% csrf_token %}
                             <br />
                             <input type="hidden" name="count" id="count" value="1"> 
