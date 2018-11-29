@@ -8,7 +8,7 @@ from anuncios.models import Anuncio, Gravacao
 from numeros.models import NumeroEntrada
 from uras.models import URA
 from filas.models import Fila
-from chamadasgrupo.models import ChamadaEmGrupo
+from chamadasgrupo.models import ChamadaEmGrupo, ListaExtensao
 from condicoestempo.models import CondicaoTempo
 from troncos.models import Tronco
 import re
@@ -156,6 +156,14 @@ def chamadasgrupo_novo(request):
         chamadasgrupo.destino = destinoId
         chamadasgrupo.save()
 
+    lista_area = request.POST['lista_ext']
+    cont = 1
+    lista = lista_area.splitlines()
+    for linha in lista:
+        lista = ListaExtensao(numero=linha, ordem=cont, chamada=chamadasgrupo)
+        lista.save()
+        cont = cont +1
+
     texto = request.user.username + " adicionou a chamada em grupo: " +descricao
     log = Log(log= texto)
     log.save()
@@ -289,6 +297,21 @@ def chamadasgrupo_edita(request, id):
         chamadasgrupo.confirmaChamada = confirmaChamada
 
         chamadasgrupo.save()
+
+        listai = ListaExtensao.objects.filter(chamada=id)
+        for item in listai:
+            item.delete()
+
+        lista_area = request.POST['lista_ext']
+        cont = 1
+        lista = lista_area.splitlines()
+        for linha in lista:
+            lin = linha.strip(" ")
+            if lin != "":
+                lista = ListaExtensao(numero=lin, ordem=cont, chamada=chamadasgrupo)
+                lista.save()
+                cont = cont +1
+
         texto = request.user.username + " editou a chamada em grupo: " +descricao
         log = Log(log= texto)
         log.save()
@@ -337,6 +360,12 @@ def chamadasgrupo_edita(request, id):
         data['dest_chamadasGrupo'] = dest_chamadasGrupo
         data['dest_condicoes'] = dest_condicoes
         data['dest_troncos'] = dest_troncos
+
+        listai = ListaExtensao.objects.filter(chamada=id)
+        lista = ""
+        for num in listai:
+            lista = lista+num.numero.strip() +"\n"
+        data['lista'] = lista
 
         return render(request, 'editaChamadaEmGrupo.html', data)
 

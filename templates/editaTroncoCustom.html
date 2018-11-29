@@ -3,7 +3,57 @@
 
 
 {% block content %}
+            <head>
+                <script language="JavaScript" >
+                    function enviardados(){
+            
+                                if( document.form.nome.value == "")
+                                {
+                                alert( "Há campos a serem preenchidos!" );
+                                document.form.nome.focus();
+                                return false;
+                                }
 
+                                if( document.form.callerids.value == "")
+                                {
+                                alert( "Há campos a serem preenchidos!" );
+                                document.form.callerids.focus();
+                                return false;
+                                }
+
+                                if( document.form.max_canais.value == "")
+                                {
+                                alert( "Há campos a serem preenchidos!" );
+                                document.form.max_canais.focus();
+                                return false;
+                                }
+
+                                if( document.form.op_asterisk.value == "")
+                                {
+                                alert( "Há campos a serem preenchidos!" );
+                                document.form.op_asterisk.focus();
+                                return false;
+                                }
+
+                                return true;
+            }
+
+            function disable() {
+                if (document.form.op_asteriskp.checked == true)
+                            document.getElementById("op_asterisk").disabled=false;
+                        else
+                            document.getElementById("op_asterisk").disabled=true;
+            }
+            function enable() {
+                        if (document.form.op_asteriskp.checked == true)
+                            document.getElementById("op_asterisk").disabled=false;
+                        else
+                            document.getElementById("op_asterisk").disabled=true;
+
+                
+            }
+</script>
+</head>
 <div >
         <table id="CAMTecnoligaTabela">
 
@@ -12,10 +62,10 @@
 
                     <div id="divCenter">
                             <div align="center"><h2>Editar Tronco:</h2></div>
-        <form method="POST" id="form" name="form">
+        <form method="POST" id="form" name="form" onSubmit="return enviardados();">
         {% csrf_token %}
         <br />
-        <input type="hidden" name="count" id="count" value="{{count}}"></input>
+        <input type="hidden" name="count" id="count" value="{{count}}" onSubmit="return enviardados();"></input>
             <table cellspacing="10">
                     <tr>
                         <td>
@@ -63,13 +113,13 @@
                                     <label for="op_asterisk">Opções de Discagem de Tronco Asterisk: </label>
                                 </td>
                                 <td align="left">
-                                    <input type="text" name="op_asterisk" value="{{tronco.opcoesDiskAsterisk}}">
+                                    <input type="text" name="op_asterisk" id="op_asterisk" value="{{tronco.opcoesDiskAsterisk}}">
                                 </td>
                                 <td>
                                     {%if tronco.op_asterisk %}
-                                    <INPUT TYPE="checkbox" NAME="op_asterisk" VALUE="True" checked>Sobrescrever
+                                    <INPUT TYPE="checkbox" NAME="op_asterisk" onclick="enable()" VALUE="True" checked>Sobrescrever
                                     {% else %}
-                                    <INPUT TYPE="checkbox" NAME="op_asterisk" VALUE="True">Sobrescrever
+                                    <INPUT TYPE="checkbox" NAME="op_asteriskp" onclick="enable()" VALUE="True">Sobrescrever
                                     {%endif%}
                                 </td>
                                 </tr>
@@ -155,7 +205,7 @@
 
         </table>
             <br />
-        <button type="submit">Salvar Alterações</button>
+        <button type="submit" class="formobjects">Salvar Alterações</button>
         </form>
         </div>
         </body>
