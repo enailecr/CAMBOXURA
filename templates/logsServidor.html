@@ -1,6 +1,6 @@
 {% extends "menu.html" %}
 {% load render_table from django_tables2 %}
-
+{%load static%}
 
 {% block content %}
 <div >
@@ -19,7 +19,7 @@
             <body>
                     <div id="divCenter">
                             <br />
-        <form action="{% url 'busca_logs_cambox'%}" method="POST">
+        <form action="{% url 'busca_logs_server'%}" method="POST">
           {% csrf_token %}
                 <table cellspacing="10">
                         <tr>
@@ -29,15 +29,6 @@
                                 <td align="left">
                                 <input type="date" name="data_inicio" value="{{dataInicio}}">
                                 </td>
-                                    <td align="left">
-                                      <select name="tipo_log">
-                                        <option value="" {%if tipoLog == ""%} selected {%endif%}>Todos os tipos</option>
-                                        <option value="VERBOSE" {%if tipoLog == "VERBOSE"%} selected {%endif%}>VERBOSE</option>
-                                        <option value="DEBUG" {%if tipoLog == "DEBUG"%} selected {%endif%}>DEBUG</option>
-                                        <option value="ERROR" {%if tipoLog == "ERROR"%} selected {%endif%}>ERROR</option>
-                                        <option value="WARNING" {%if tipoLog == "WARNING"%} selected {%endif%}>WARNING</option>
-                                        </select>
-                                    </td>
 
                             <td></td>
                         </tr>
@@ -52,26 +43,16 @@
                                   <td></td>
                       <tr>
                         <td>
-                        <label for="data_fim">Chamada: </label>
+                        <label for="data_fim">Filtro: </label>
                         </td>
                         <td align="left">
-                        <input type="text" name="chamada" value="{{chamada}}">
+                        <input type="text" name="filtro" value="{{filtro}}">
                         </td>
                         <td>
                         </td>
                         <td></td>
                       </tr>
-                      <tr>
-                        <td>
-                        <label for="data_fim">Processo: </label>
-                        </td>
-                        <td align="left">
-                        <input type="text" name="processo" value="{{processo}}">
-                        </td>
-                        <td>
-                        </td>
-                        <td></td>
-                      </tr>
+
     </table>
     <br />
     <div align="center"><button type="submit">Pesquisar</button></div>

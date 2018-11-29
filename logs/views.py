@@ -21,9 +21,21 @@ def list(request):
 def busca_logs(request):
     utc=pytz.UTC
 
-    tipoLog = request.POST['tipo_log']
-    di = request.POST['data_inicio']
-    df = request.POST['data_fim']
+    if 'tipo_log' in request.POST:
+        tipoLog = request.POST['tipo_log']
+        request.session['tipo_log'] = request.POST['tipo_log']
+    else:
+        tipoLog = request.session['tipo_log']
+    if 'data_inicio' in request.POST:
+        di = request.POST['data_inicio']
+        request.session['dataInicio'] = request.POST['data_inicio']
+    else:
+        di = request.session['dataInicio']
+    if 'data_fim' in request.POST:
+        df = request.POST['data_fim']
+        request.session['dataFim'] = request.POST['data_fim']
+    else:
+        df = request.session['dataFim']
 
     dataInicio = None
     dataFim = None
@@ -83,14 +95,14 @@ def busca_logs(request):
         if dataInicio or dataFim:
             for log in logs:
                 if dataInicio:
-                    if dataInicio< log.data:
+                    if dataInicio<= log.data:
                         if dataFim:
-                            if dataFim >log.data:
+                            if dataFim >=log.data:
                                 logs_filtrados.append(log)
                         else:
                             logs_filtrados.append(log)
                 else:
-                    if dataFim >log.data:
+                    if dataFim >=log.data:
                         logs_filtrados.append(log)
         else:
             logs_filtrados = logs
@@ -131,11 +143,31 @@ def lista_logs_cambox(request):
 @login_required
 def busca_logs_cambox(request):
 
-    dataInicio = request.POST['data_inicio']
-    dataFim = request.POST['data_fim']
-    chamada = request.POST['chamada']
-    processo = request.POST['processo']
-    tipoLog = request.POST['tipo_log']
+    if 'data_inicio' in request.POST:
+        dataInicio = request.POST['data_inicio']
+        request.session['dataInicio'] = request.POST['data_inicio']
+    else:
+        dataInicio = request.session['dataInicio']
+    if 'data_fim' in request.POST:
+        dataFim = request.POST['data_fim']
+        request.session['dataFim'] = request.POST['data_fim']
+    else:
+        dataFim = request.session['dataFim']
+    if 'chamada' in request.POST:
+        chamada = request.POST['chamada']
+        request.session['chamada'] = request.POST['chamada']
+    else:
+        chamada = request.session['chamada']
+    if 'chamada' in request.POST:
+        processo = request.POST['processo']
+        request.session['processo'] = request.POST['processo']
+    else:
+        processo = request.session['processo']
+    if 'tipo_log' in request.POST:
+        tipoLog = request.POST['tipo_log']
+        request.session['tipo_log'] = request.POST['tipo_log']
+    else:
+        tipoLog = request.session['tipo_log']
 
     arq = open('/var/log/asterisk/cambox', 'r')
     texto = arq.readlines()
@@ -179,14 +211,14 @@ def busca_logs_cambox(request):
         if dataInicio or dataFim:
             for log in logs:
                 if dataInicio:
-                    if dataInicio< log.data:
+                    if dataInicio<= log.data:
                         if dataFim:
-                            if dataFim >log.data:
+                            if dataFim >=log.data:
                                 logs_filtrados.append(log)
                         else:
                             logs_filtrados.append(log)
                 else:
-                    if dataFim >log.data:
+                    if dataFim >=log.data:
                         logs_filtrados.append(log)
         else:
             logs_filtrados = logs
@@ -204,11 +236,101 @@ def busca_logs_cambox(request):
 
 @login_required
 def lista_logs_server(request):
+    arq = open('/var/log/messages', 'r')
+    texto = arq.readlines()
+    logs = []
+    now = datetime.now()
+
+    for linha in texto :
+        grupo = re.match('(... .. ..:..:.. )(.*)', linha)
+        data = grupo.group(1)
+        data_ano = str(now.year) + " " +data
+        data_e_hora = datetime.strptime(data_ano, '%Y %b %d %H:%M:%S ')
+        log = grupo.group(2)
+        log = Log(data=data_e_hora, log=log)
+        logs.append(log)
+    arq.close()
+
+    data = {}
+    table = LogsTable(logs)
+    data['table'] = table
+    RequestConfig(request, paginate={'per_page': 15}).configure(table)
+    return render(request, 'logsServidor.html',data)
+
+@login_required
+def busca_logs_server(request):
+    if 'data_inicio' in request.POST:
+        di = request.POST['data_inicio']
+        request.session['dataInicio'] = request.POST['data_inicio']
+    else:
+        di = request.session['dataInicio']
+    if 'data_fim' in request.POST:
+        df = request.POST['data_fim']
+        request.session['dataFim'] = request.POST['data_fim']
+    else:
+        df = request.session['dataFim']
+    if 'filtro' in request.POST:
+        filtro = request.POST['filtro']
+        request.session['filtro'] = request.POST['filtro']
+    else:
+        filtro = request.session['filtro']
+
+    arq = open('/var/log/messages', 'r')
+    texto = arq.readlines()
+    logs = []
+    now = datetime.now()
+
+    for linha in texto :
+        if filtro:
+            if re.search(filtro, linha):
+                grupo = re.match('(... .. ..:..:.. )(.*)', linha)
+                log = grupo.group(2)
+                data = grupo.group(1)
+                data_ano = str(now.year) + " " +data
+                data_e_hora = datetime.strptime(data_ano, '%Y %b %d %H:%M:%S ')
+
+                log = Log(data=data_e_hora, log=log)
+                logs.append(log)
+        else:
+            grupo = re.match('(... .. ..:..:.. )(.*)', linha)
+            log = grupo.group(2)
+            data = grupo.group(1)
+            data_ano = str(now.year) + " " +data
+            data_e_hora = datetime.strptime(data_ano, '%Y %b %d %H:%M:%S ')
+
+            log = Log(data=data_e_hora, log=log)
+            logs.append(log)
+    arq.close()
+
+    dataInicio = None
+    dataFim = None
+    if di:
+        dataInicio = datetime.strptime(di, '%Y-%m-%d')
+    if df:
+        dataFim = datetime.strptime(df, '%Y-%m-%d')
+
+    logs_filtrados = []
+    if logs:
+        if dataInicio or dataFim:
+            for log in logs:
+                if dataInicio:
+                    if dataInicio<= log.data:
+                        if dataFim:
+                            if dataFim >=log.data:
+                                logs_filtrados.append(log)
+                        else:
+                            logs_filtrados.append(log)
+                else:
+                    if dataFim >=log.data:
+                        logs_filtrados.append(log)
+        else:
+            logs_filtrados = logs
+
     data = {}
     data['dataInicio'] = di
     data['dataFim'] = df
-    data['tipoLog'] = tipoLog
+    data['filtro'] = filtro
     table = LogsTable(logs_filtrados)
     data['table'] = table
-    RequestConfig(request, paginate={'per_page': 10}).configure(table)
-    return render(request, 'logs.html',data)
+    RequestConfig(request, paginate={'per_page': 15}).configure(table)
+    return render(request, 'logsServidor.html',data)
