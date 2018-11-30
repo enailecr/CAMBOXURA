@@ -35,5 +35,7 @@ class URA(Destino):
 
 class OpcaoURA(models.Model):
     ura = models.ForeignKey('URA', on_delete=models.CASCADE,)
-    destino = models.IntegerField()
+    destino = models.IntegerField(null=True,blank=True)
+    tipoDestino = models.IntegerField(null=True,blank=True)
+    ramal = models.CharField(max_length=10,blank=True, null=True)
     retornar = models.BooleanField()
