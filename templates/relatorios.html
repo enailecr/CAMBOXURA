@@ -16,69 +16,11 @@
         <meta http-equiv="content-type" content="text/html;charset=utf-8" />
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-            <script language="JavaScript" >
-                        function enviardados(){
-      
-                       
-                            if(document.dados.data_inicio.value < document.dados.data_fim.value)
-                            {
-                            alert( "Data Inválida!" );
-                            document.dados.data_inicio.focus();
-                            return false;
-                            }
-
-                          
-                        // if( document.dados.dia_mes_inicio.value > document.dados.dia_mes_termina.value)
-                        // {
-                        // alert( "Dia de término não pode ser menor que dia de início" );
-                        // document.dados.dia_mes_inicio.focus();
-                        // return false;
-                        // }
-      
-                        // if( document.dados.mes_inicio.value == "fev")
-                        // {  
-                        //     if(document.dados.dia_mes_inicio.value == 30 || document.dados.dia_mes_inicio.value == 31)
-                        //     {
-                        //     alert( "Dia Inválido!" );
-                        //     document.dados.hora_inicio.focus();
-                        //     return false;
-                        //     }
-      
-                        //     if(document.dados.dia_mes_termina.value == 30 || document.dados.dia_mes_termina.value == 31)
-                        //     {
-                        //     alert( "Dia Inválido!" );
-                        //     document.dados.hora_inicio.focus();
-                        //     return false;
-                        //     }
-                        // }
-                        
-                        // if( document.dados.mes_termino.value == "fev")
-                        // {  
-                        //     if(document.dados.dia_mes_inicio.value == 30 || document.dados.dia_mes_inicio.value == 31)
-                        //     {
-                        //     alert( "Dia Inválido!" );
-                        //     document.dados.hora_inicio.focus();
-                        //     return false;
-                        //     }
-      
-                        //     if(document.dados.dia_mes_termina.value == 30 || document.dados.dia_mes_termina.value == 31)
-                        //     {
-                        //     alert( "Dia Inválido!" );
-                        //     document.dados.hora_inicio.focus();
-                        //     return false;
-                        //     }
-                        // }
-                          
-                        return true;
-                        }
-                          
-                        </script>
         </head>
         <body>
                 <div id="divCenter">
                         <br />
-    <form action="{% url 'streaming_novo'%}" method="POST" name="dados" onSubmit="return enviardados();">
+    <form action="#" method="POST" name="dados" onSubmit="return enviardados();">
                 {% csrf_token %}
             <table cellspacing="10">
                     <tr>
