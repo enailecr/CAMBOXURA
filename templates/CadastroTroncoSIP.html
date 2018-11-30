@@ -11,14 +11,14 @@
         <head>
                 <script language="JavaScript" >
                     function enviardados(){
-  
+
                             if( document.form.nome.value == "")
                             {
                             alert( "Há campos a serem preenchidos!" );
                             document.form.nome.focus();
                             return false;
                             }
-  
+
                             if( document.form.callerids.value == "")
                             {
                             alert( "Há campos a serem preenchidos!" );
@@ -39,7 +39,7 @@
                             document.form.op_asterisk.focus();
                             return false;
                             }
-  
+
                         return true;
                         }
 
@@ -52,7 +52,7 @@
                                         else
                                             document.getElementById("op_asterisk").disabled=true;
 
-                                
+
                             }
                         </script>
             </head>
@@ -111,7 +111,7 @@
                                                                     <label for="op_asterisk">Opções de Discagem de Tronco Asterisk: </label>
                                                                 </td>
                                                                 <td align="left">
-                                                                    <input type="text" name="op_asterisk" id="op_asterisk">
+                                                                    <input type="text" name="op_asterisk">
                                                                 </td>
                                                                 <td>
                                                                     <INPUT TYPE="checkbox" NAME="op_asteriskp" onclick="enable()" VALUE="True">Sobrescrever

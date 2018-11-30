@@ -10,7 +10,7 @@
         </div></caption>
 
           <head>
-            
+
                 <script language="JavaScript" >
 
                   function enviardados(){
@@ -47,7 +47,7 @@
                                         else
                                             document.getElementById("op_asterisk").disabled=true;
 
-                                
+
                             }
                         </script>
             </head>
@@ -57,7 +57,7 @@
                     <form method="POST" id="form" name="form" onSubmit="return enviardados();">
                       {% csrf_token %}
                             <br />
-                            <input type="hidden" name="count" id="count" value="1"> 
+                            <input type="hidden" name="count" id="count" value="1">
                              <table cellspacing="10">
                                      <tr>
                                              <td>
@@ -105,7 +105,7 @@
                                                                  <label for="op_asterisk">Opções de Discagem de Tronco Asterisk: </label>
                                                                 </td>
                                                                 <td align="left">
-                                                                 <input type="text" name="op_asterisk" id="op_asterisk">
+                                                                 <input type="text" name="op_asterisk">
                                                                 </td>
                                                             <td>
 
@@ -137,7 +137,7 @@
                                                                </tr>
                              </table>
                              <br />
-               
+
                              <div align="center"><label style="display: block"><input type="button" name="add" id="add_linha" value="Adicionar Linha" /></label></div>
                              <div align="center">
                                <div  id="ramall" cellspacing="10">
@@ -157,7 +157,7 @@
                                </div>
                                <fieldset id="inputs_adicionais" style="border: none"></fieldset>
                              </div>
-                     
+
                              <br />
                              <br />
             <table cellspacing="10">

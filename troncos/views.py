@@ -209,12 +209,20 @@ def troncocustomizado_novo(request):
 @login_required
 def tronco_edita(request, id):
     data = {}
-    tronco = Tronco.objects.get(id=id)
+    try:
+        tronco = TroncoSIP.objects.get(id=id)
+    except TroncoSIP.DoesNotExist:
+        try:
+            tronco = TroncoIAX.objects.get(id=id)
+        except TroncoIAX.DoesNotExist:
+            tronco = TroncoCustomizado.objects.get(id=id)
+
     data['tronco'] = tronco
     regra = RegraManipulaNum.objects.filter(tronco=tronco)
     count= len(regra)
     data['regra'] = regra
     data['count'] = count
+
     if request.method == 'POST':
         nome = request.POST['nome']
         callerIDSaida = request.POST['callerids']
@@ -231,49 +239,86 @@ def tronco_edita(request, id):
             desabTronco = False
         prefixChamSaida = request.POST['prefixo_saida']
 
-        nomeTronco = request.POST['nome_tronco']
-        detalhesPEER = request.POST['detalhes_PEER']
-        contextoUsuario = request.POST['contexto']
-        detalhesUsuario = request.POST['detalhes_usuarios']
-        stringRegistro = request.POST['string_reg']
+        try:
+            tronco = TroncoCustomizado.objects.get(id=id)
+            stringChamada = request.POST['string_chamada']
 
-        precedente = []
-        prefixo = []
-        padraoEquiv = []
+            precedente = []
+            prefixo = []
+            padraoEquiv = []
 
-        tronco.nome = nome
-        tronco.callerIDSaida = callerIDSaida
-        tronco.opcoesCID = opcoesCID
-        tronco.maxCanais = maxCanais
-        tronco.opcoesDiskAsterisk = opcoesDiskAsterisk
-        tronco.contSeOcup = contSeOcup
-        tronco.desabTronco = desabTronco
-        tronco.prefixChamSaida = prefixChamSaida
-        tronco.nomeTronco = nomeTronco
-        tronco.detalhesPEER = detalhesPEER
-        tronco.contextoUsuario = contextoUsuario
-        tronco.detalhesUsuario = detalhesUsuario
-        tronco.stringRegistro = stringRegistro
-        tronco.save()
+            tronco.nome = nome
+            tronco.callerIDSaida = callerIDSaida
+            tronco.opcoesCID = opcoesCID
+            tronco.maxCanais = maxCanais
+            tronco.opcoesDiskAsterisk = opcoesDiskAsterisk
+            tronco.contSeOcup = contSeOcup
+            tronco.desabTronco = desabTronco
+            tronco.prefixChamSaida = prefixChamSaida
+            tronco.stringChamada = stringChamada
+            tronco.save()
 
-        cont=0;
-        for r in regra:
-            r.delete()
+            cont=0;
+            for r in regra:
+                r.delete()
 
-        contador = int(request.POST['count'])
-        conta= 0
-        for i in range(contador):
-            if request.POST['precedente'+str(i)]:
-                precedente.append(request.POST['precedente'+str(i)])
-                prefixo.append(request.POST['prefix'+str(i)])
-                padraoEquiv.append(request.POST['match'+str(i)])
-                conta = conta +1
+            contador = int(request.POST['count'])
+            conta= 0
+            for i in range(contador):
+                if request.POST['precedente'+str(i)]:
+                    precedente.append(request.POST['precedente'+str(i)])
+                    prefixo.append(request.POST['prefix'+str(i)])
+                    padraoEquiv.append(request.POST['match'+str(i)])
+                    conta = conta +1
 
+            while cont < conta:
+                regramanip = RegraManipulaNum(precedente = precedente[cont],prefixo = prefixo[cont],padrao = padraoEquiv[cont], tronco =tronco)
+                regramanip.save()
+                cont= cont + 1
 
-        while cont < conta:
-            regramanip = RegraManipulaNum(precedente = precedente[cont],prefixo = prefixo[cont],padrao = padraoEquiv[cont], tronco =tronco)
-            regramanip.save()
-            cont= cont + 1
+        except TroncoCustomizado.DoesNotExist:
+            nomeTronco = request.POST['nome_tronco']
+            detalhesPEER = request.POST['detalhes_PEER']
+            contextoUsuario = request.POST['contexto']
+            detalhesUsuario = request.POST['detalhes_usuarios']
+            stringRegistro = request.POST['string_reg']
+
+            precedente = []
+            prefixo = []
+            padraoEquiv = []
+
+            tronco.nome = nome
+            tronco.callerIDSaida = callerIDSaida
+            tronco.opcoesCID = opcoesCID
+            tronco.maxCanais = maxCanais
+            tronco.opcoesDiskAsterisk = opcoesDiskAsterisk
+            tronco.contSeOcup = contSeOcup
+            tronco.desabTronco = desabTronco
+            tronco.prefixChamSaida = prefixChamSaida
+            tronco.nomeTronco = nomeTronco
+            tronco.detalhesPEER = detalhesPEER
+            tronco.contextoUsuario = contextoUsuario
+            tronco.detalhesUsuario = detalhesUsuario
+            tronco.stringRegistro = stringRegistro
+            tronco.save()
+
+            cont=0;
+            for r in regra:
+                r.delete()
+
+            contador = int(request.POST['count'])
+            conta= 0
+            for i in range(contador):
+                if request.POST['precedente'+str(i)]:
+                    precedente.append(request.POST['precedente'+str(i)])
+                    prefixo.append(request.POST['prefix'+str(i)])
+                    padraoEquiv.append(request.POST['match'+str(i)])
+                    conta = conta +1
+
+            while cont < conta:
+                regramanip = RegraManipulaNum(precedente = precedente[cont],prefixo = prefixo[cont],padrao = padraoEquiv[cont], tronco =tronco)
+                regramanip.save()
+                cont= cont + 1
 
         texto = request.user.username + " editou o tronco: " +tronco.nome
         log = Log(log= texto)

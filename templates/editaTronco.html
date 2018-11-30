@@ -1,6 +1,6 @@
 {% extends "menu.html" %}
 {% load static %}
-  
+
 
 {% block content %}
 
@@ -12,14 +12,14 @@
         <head>
                 <script language="JavaScript" >
                     function enviardados(){
-  
+
                             if( document.form.nome.value == "")
                             {
                             alert( "Há campos a serem preenchidos!" );
                             document.form.nome.focus();
                             return false;
                             }
-  
+
                             if( document.form.callerids.value == "")
                             {
                             alert( "Há campos a serem preenchidos!" );
@@ -40,7 +40,7 @@
                             document.form.op_asterisk.focus();
                             return false;
                             }
-  
+
                         return true;
                         }
 
@@ -56,7 +56,7 @@
                                         else
                                             document.getElementById("op_asterisk").disabled=true;
 
-                                
+
                             }
                         </script>
             </head>
@@ -114,7 +114,7 @@
                                     <label for="op_asterisk">Opções de Discagem de Tronco Asterisk: </label>
                                 </td>
                                 <td align="left">
-                                    <input type="text" name="op_asterisk" id="op_asterisk" value="{{tronco.opcoesDiskAsterisk}}">
+                                    <input type="text" name="op_asterisk" value="{{tronco.opcoesDiskAsterisk}}">
                                 </td>
                                 <td>
                                     {%if tronco.op_asterisk %}
@@ -217,7 +217,8 @@
                                     <label for="detalhes_peer">Detalhes do PEER: </label>
                                 </td>
                                 <td align="left">
-                                        <textarea rows="10" cols="25" name="detalhes_PEER" value="{{tronco.detalhesPEER}}">
+                                        <textarea rows="10" cols="25" name="detalhes_PEER" >
+                                          {{tronco.detalhesPEER}}
                                                 </textarea>
                                 </td>
 
@@ -225,11 +226,8 @@
                                         <label for="detalhes_usuário">Detalhes do Usuário: </label>
                                     </td>
                                     <td align="left">
-                                            <textarea rows="10" cols="25" name="detalhes_usuarios" value="{{tronco.detalhesUsuario}}">
-                                                    host=***provider ip address***
-                                                    username=***userid***
-                                                    secret=***password***
-                                                    type=peer
+                                            <textarea rows="10" cols="25" name="detalhes_usuarios" >
+                                                  {{tronco.detalhesUsuario}}
                                                     </textarea>
                                     </td>
                             </tr>
@@ -295,7 +293,7 @@
                 formData.push({name: "prefix"+j, value: $('#prefix'+j).val() });
                 formData.push({name: "match"+j, value: $('#match'+j).val() });
                 // }
-           
+
           }
 
          $.post('{% url "tronco_edita" tronco.id %}', formData);
