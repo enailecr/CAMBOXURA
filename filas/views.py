@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .forms import FilaForm
-from .models import Fila
+from .models import Fila, AgentesDinamicos, MembrosDinamicos
 import re
 from django_tables2 import RequestConfig
 from .tables import FilaTable
@@ -259,6 +259,27 @@ def fila_novo(request):
 
     if limMembrosPenal !='0':
         fila.limMembrosPenal = limMembrosPenal
+        fila.save()
+
+    lista_area = request.POST['agentes_est']
+    cont = 1
+    agentes = lista_area.splitlines()
+    for linha in agentes:
+        lin = linha.strip(" ")
+        if lin != "":
+            agente = AgentesDinamicos(numero=lin, ordem=cont, fila=fila)
+            agente.save()
+            cont = cont +1
+
+    lista_area = request.POST['membros_din']
+    cont = 1
+    agentes = lista_area.splitlines()
+    for linha in agentes:
+        lin = linha.strip(" ")
+        if lin != "":
+            agente = MembrosDinamicos(numero=lin, ordem=cont, fila=fila)
+            agente.save()
+            cont = cont +1
 
     texto = request.user.username + " adicionou a fila: " +nome
     log = Log(log= texto)
@@ -471,6 +492,35 @@ def fila_edita(request, id):
         if menuSaidaURA != '0':
             fila.menuSaidaURA = menuSaidaURA
             fila.save()
+
+        agentesE = AgentesDinamicos.objects.filter(fila=id)
+        for item in agentesE:
+            item.delete()
+
+        agentes_area = request.POST['agentes_est']
+        cont = 1
+        lista = agentes_area.splitlines()
+        for linha in lista:
+            lin = linha.strip(" ")
+            if lin != "":
+                lista = AgentesDinamicos(numero=lin, ordem=cont, fila=fila)
+                lista.save()
+                cont = cont +1
+
+        membrosD = MembrosDinamicos.objects.filter(fila=id)
+        for item in membrosD:
+            item.delete()
+
+        membros_area = request.POST['membros_din']
+        cont = 1
+        lista = membros_area.splitlines()
+        for linha in lista:
+            lin = linha.strip(" ")
+            if lin != "":
+                lista = MembrosDinamicos(numero=lin, ordem=cont, fila=fila)
+                lista.save()
+                cont = cont +1
+
         texto = request.user.username + " editou a fila: " +fila.nome
         log = Log(log= texto)
         log.save()
@@ -503,6 +553,18 @@ def fila_edita(request, id):
         data['anun_uniao'] = anun_uniao
         data['agen_anunc'] = agen_anunc
         data['break_out'] = break_out
+
+        agentesD = AgentesDinamicos.objects.filter(fila=id)
+        agentesEstaticos = ""
+        for num in agentesD:
+            agentesEstaticos = agentesEstaticos+num.numero.strip() +"\n"
+        data['agentesEstaticos'] = agentesEstaticos
+
+        membrosD = MembrosDinamicos.objects.filter(fila=id)
+        membrosDinamicos = ""
+        for num in membrosD:
+            membrosDinamicos = membrosDinamicos+num.numero.strip() +"\n"
+        data['membrosDinamicos'] = membrosDinamicos
 
         return render(request, 'editaFila.html', data)
 

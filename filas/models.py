@@ -178,10 +178,10 @@ class Fila(Destino):
 
 class AgentesDinamicos(models.Model):
     fila = models.ForeignKey('Fila', on_delete=models.CASCADE)
-    numero = models.ForeignKey(NumeroEntrada, on_delete=models.CASCADE)
+    numero = models.CharField(max_length=15,null=True)
     ordem =models.IntegerField()
 
 class MembrosDinamicos(models.Model):
     fila = models.ForeignKey('Fila', on_delete=models.CASCADE)
-    numero = models.ForeignKey(NumeroEntrada, on_delete=models.CASCADE)
+    numero = models.CharField(max_length=15,null=True)
     ordem =models.IntegerField()
