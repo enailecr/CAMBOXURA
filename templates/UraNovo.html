@@ -524,10 +524,10 @@
                                                 <div id="ramal">
                                                         <tr>
                                                                 <td>
-                                                                <label for="nome">Nome: </label>
+                                                                <label for="nome">Ramal: </label>
                                                                 </td>
                                                                 <td align="left">
-                                                                <input type="text" name="nome0">
+                                                                <input type="text" name="ramal0">
                                                               </td>
                                                         </tr>
                                                         <tr>
@@ -649,7 +649,7 @@
                         e.preventDefault();
                           var input = '<div cellspacing="10"><tr><td>'+
                             '<label for="nome">Nome: </label>'+
-                            '<input type="text" name="nome'+i+'">'+
+                            '<input type="text" name="ramal'+i+'">'+
                             '<td>'+
                             '<label for="destino">Destino: </label>'+
                           '</td>'+
@@ -749,7 +749,7 @@
 
                        var formData = $("#form").serializeArray();
                        for(var j=1; j<i; j++ ){
-                         formData.push({name: "nome"+j, value: $('#nome'+j).val() });
+                         formData.push({name: "ramal"+j, value: $('#nome'+j).val() });
                          formData.push({name: "tipo_des"+j, value: $('#tipo_des'+j).val() });
                          formData.push({name: "dest_anuncios"+j, value: $('#dest_anuncios'+j).val() });
                          formData.push({name: "dest_gravacoes"+j, value: $('#dest_gravacoes'+j).val() });

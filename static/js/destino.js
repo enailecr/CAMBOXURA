@@ -341,3 +341,177 @@ function get_destinon(){
   }
   }
 }
+
+function get_destino_ramal(element){
+  var idElemento = element.id;
+  var tipo = document.getElementById(idElemento);
+  var i = idElemento[8]
+  if (tipo.value == 1){
+    document.getElementById("dest_anuncios"+i).style.display = 'block';
+    document.getElementById("dest_gravacoes"+i).style.display = 'none';
+    document.getElementById("dest_numeros"+i).style.display = 'none';
+    document.getElementById("dest_uras"+i).style.display = 'none';
+    document.getElementById("dest_filas"+i).style.display = 'none';
+    document.getElementById("dest_chamadasGrupo"+i).style.display = 'none';
+    document.getElementById("dest_condicoes"+i).style.display = 'none';
+    document.getElementById("dest_troncos"+i).style.display = 'none';
+    document.getElementById('dest_anuncios'+i).value='0';
+    document.getElementById('dest_gravacoes'+i).value='0';
+    document.getElementById('dest_numeros'+i).value='0';
+    document.getElementById('dest_uras'+i).value='0';
+    document.getElementById('dest_filas'+i).value='0';
+    document.getElementById('dest_chamadasGrupo'+i).value='0';
+    document.getElementById('dest_condicoes'+i).value='0';
+    document.getElementById('dest_troncos'+i).value='0';
+  }else{
+    if (tipo.value == 2){
+      document.getElementById("dest_anuncios"+i).style.display = 'none';
+      document.getElementById("dest_gravacoes"+i).style.display = 'block';
+      document.getElementById("dest_numeros"+i).style.display = 'none';
+      document.getElementById("dest_uras"+i).style.display = 'none';
+      document.getElementById("dest_filas"+i).style.display = 'none';
+      document.getElementById("dest_chamadasGrupo"+i).style.display = 'none';
+      document.getElementById("dest_condicoes"+i).style.display = 'none';
+      document.getElementById("dest_troncos"+i).style.display = 'none';
+      document.getElementById('dest_anuncios'+i).value='0';
+      document.getElementById('dest_gravacoes'+i).value='0';
+      document.getElementById('dest_numeros'+i).value='0';
+      document.getElementById('dest_uras'+i).value='0';
+      document.getElementById('dest_filas'+i).value='0';
+      document.getElementById('dest_chamadasGrupo'+i).value='0';
+      document.getElementById('dest_condicoes'+i).value='0';
+      document.getElementById('dest_troncos'+i).value='0';
+    }else{
+      if (tipo.value == 3){
+        document.getElementById("dest_anuncios"+i).style.display = 'none';
+        document.getElementById("dest_gravacoes"+i).style.display = 'none';
+        document.getElementById("dest_numeros"+i).style.display = 'block';
+        document.getElementById("dest_uras"+i).style.display = 'none';
+        document.getElementById("dest_filas"+i).style.display = 'none';
+        document.getElementById("dest_chamadasGrupo"+i).style.display = 'none';
+        document.getElementById("dest_condicoes"+i).style.display = 'none';
+        document.getElementById("dest_troncos"+i).style.display = 'none';
+        document.getElementById('dest_anuncios'+i).value='0';
+        document.getElementById('dest_gravacoes'+i).value='0';
+        document.getElementById('dest_numeros'+i).value='0';
+        document.getElementById('dest_uras'+i).value='0';
+        document.getElementById('dest_filas'+i).value='0';
+        document.getElementById('dest_chamadasGrupo'+i).value='0';
+        document.getElementById('dest_condicoes'+i).value='0';
+        document.getElementById('dest_troncos'+i).value='0';
+      }else{
+        if (tipo.value == 4){
+          document.getElementById("dest_anuncios"+i).style.display = 'none';
+          document.getElementById("dest_gravacoes"+i).style.display = 'none';
+          document.getElementById("dest_numeros"+i).style.display = 'none';
+          document.getElementById("dest_uras"+i).style.display = 'block';
+          document.getElementById("dest_filas"+i).style.display = 'none';
+          document.getElementById("dest_chamadasGrupo"+i).style.display = 'none';
+          document.getElementById("dest_condicoes"+i).style.display = 'none';
+          document.getElementById("dest_troncos"+i).style.display = 'none';
+          document.getElementById('dest_anuncios'+i).value='0';
+          document.getElementById('dest_gravacoes'+i).value='0';
+          document.getElementById('dest_numeros'+i).value='0';
+          document.getElementById('dest_uras'+i).value='0';
+          document.getElementById('dest_filas'+i).value='0';
+          document.getElementById('dest_chamadasGrupo'+i).value='0';
+          document.getElementById('dest_condicoes'+i).value='0';
+          document.getElementById('dest_troncos'+i).value='0';
+        }else{
+          if (tipo.value == 5){
+            document.getElementById("dest_anuncios"+i).style.display = 'none';
+            document.getElementById("dest_gravacoes"+i).style.display = 'none';
+            document.getElementById("dest_numeros"+i).style.display = 'none';
+            document.getElementById("dest_uras"+i).style.display = 'none';
+            document.getElementById("dest_filas"+i).style.display = 'block';
+            document.getElementById("dest_chamadasGrupo"+i).style.display = 'none';
+            document.getElementById("dest_condicoes"+i).style.display = 'none';
+            document.getElementById("dest_troncos"+i).style.display = 'none';
+            document.getElementById('dest_anuncios'+i).value='0';
+            document.getElementById('dest_gravacoes'+i).value='0';
+            document.getElementById('dest_numeros'+i).value='0';
+            document.getElementById('dest_uras'+i).value='0';
+            document.getElementById('dest_filas'+i).value='0';
+            document.getElementById('dest_chamadasGrupo'+i).value='0';
+            document.getElementById('dest_condicoes'+i).value='0';
+            document.getElementById('dest_troncos'+i).value='0';
+          }else{
+            if (tipo.value == 6){
+              document.getElementById("dest_anuncios"+i).style.display = 'none';
+              document.getElementById("dest_gravacoes"+i).style.display = 'none';
+              document.getElementById("dest_numeros"+i).style.display = 'none';
+              document.getElementById("dest_uras"+i).style.display = 'none';
+              document.getElementById("dest_filas"+i).style.display = 'none';
+              document.getElementById("dest_chamadasGrupo"+i).style.display = 'block';
+              document.getElementById("dest_condicoes"+i).style.display = 'none';
+              document.getElementById("dest_troncos"+i).style.display = 'none';
+              document.getElementById('dest_anuncios'+i).value='0';
+              document.getElementById('dest_gravacoes'+i).value='0';
+              document.getElementById('dest_numeros'+i).value='0';
+              document.getElementById('dest_uras'+i).value='0';
+              document.getElementById('dest_filas'+i).value='0';
+              document.getElementById('dest_chamadasGrupo'+i).value='0';
+              document.getElementById('dest_condicoes'+i).value='0';
+              document.getElementById('dest_troncos'+i).value='0';
+            }else{
+              if (tipo.value == 7){
+                document.getElementById("dest_anuncios"+i).style.display = 'none';
+                document.getElementById("dest_gravacoes"+i).style.display = 'none';
+                document.getElementById("dest_numeros"+i).style.display = 'none';
+                document.getElementById("dest_uras"+i).style.display = 'none';
+                document.getElementById("dest_filas"+i).style.display = 'none';
+                document.getElementById("dest_chamadasGrupo"+i).style.display = 'none';
+                document.getElementById("dest_condicoes"+i).style.display = 'block';
+                document.getElementById("dest_troncos"+i).style.display = 'none';
+                document.getElementById('dest_anuncios'+i).value='0';
+                document.getElementById('dest_gravacoes'+i).value='0';
+                document.getElementById('dest_numeros'+i).value='0';
+                document.getElementById('dest_uras'+i).value='0';
+                document.getElementById('dest_filas'+i).value='0';
+                document.getElementById('dest_chamadasGrupo'+i).value='0';
+                document.getElementById('dest_condicoes'+i).value='0';
+                document.getElementById('dest_troncos'+i).value='0';
+              }else{
+                if (tipo.value == 8){
+                  document.getElementById("dest_anuncios"+i).style.display = 'none';
+                  document.getElementById("dest_gravacoes"+i).style.display = 'none';
+                  document.getElementById("dest_numeros"+i).style.display = 'none';
+                  document.getElementById("dest_uras"+i).style.display = 'none';
+                  document.getElementById("dest_filas"+i).style.display = 'none';
+                  document.getElementById("dest_chamadasGrupo"+i).style.display = 'none';
+                  document.getElementById("dest_condicoes"+i).style.display = 'none';
+                  document.getElementById("dest_troncos"+i).style.display = 'block';
+                  document.getElementById('dest_anuncios'+i).value='0';
+                  document.getElementById('dest_gravacoes'+i).value='0';
+                  document.getElementById('dest_numeros'+i).value='0';
+                  document.getElementById('dest_uras'+i).value='0';
+                  document.getElementById('dest_filas'+i).value='0';
+                  document.getElementById('dest_chamadasGrupo'+i).value='0';
+                  document.getElementById('dest_condicoes'+i).value='0';
+                  document.getElementById('dest_troncos'+i).value='0';
+                }else{
+                  document.getElementById("dest_anuncios"+i).style.display = 'none';
+                  document.getElementById("dest_gravacoes"+i).style.display = 'none';
+                  document.getElementById("dest_numeros"+i).style.display = 'none';
+                  document.getElementById("dest_uras"+i).style.display = 'none';
+                  document.getElementById("dest_filas"+i).style.display = 'none';
+                  document.getElementById("dest_chamadasGrupo"+i).style.display = 'none';
+                  document.getElementById("dest_condicoes"+i).style.display = 'none';
+                  document.getElementById("dest_troncos"+i).style.display = 'none';
+                  document.getElementById('dest_anuncios'+i).value='0';
+                  document.getElementById('dest_gravacoes'+i).value='0';
+                  document.getElementById('dest_numeros'+i).value='0';
+                  document.getElementById('dest_uras'+i).value='0';
+                  document.getElementById('dest_filas'+i).value='0';
+                  document.getElementById('dest_chamadasGrupo'+i).value='0';
+                  document.getElementById('dest_condicoes'+i).value='0';
+                  document.getElementById('dest_troncos'+i).value='0';
+                }
+            }
+          }
+        }
+      }
+    }
+  }
+  }
+}
