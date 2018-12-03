@@ -176,21 +176,21 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': './LOG/info.log',
-        },
+        # 'file': {
+        #     'level': 'INFO',
+        #     'class': 'logging.FileHandler',
+        #     'filename': './LOG/info.log',
+        # },
     },
     'loggers': {
         'django': {
             'handlers': ['console'],
             'propagate': True,
         },
-        'aplicacao': {
-            'handlers': ['file'],
-            'level': 'INFO',
-        }
+        # 'aplicacao': {
+        #     'handlers': ['file'],
+        #     'level': 'INFO',
+        # }
     }
 }
 CRONJOBS = [
