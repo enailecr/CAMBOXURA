@@ -52,7 +52,8 @@ INSTALLED_APPS = [
     'musicas',
     'django_tables2',
     'bootstrap3',
-    'psutil'
+    'psutil',
+    'django_crontab',
     # 'django_filters',
 
 ]
@@ -193,5 +194,5 @@ LOGGING = {
     }
 }
 CRONJOBS = [
-    ('*/2 * * * *','dashboard.cron.MyCronJob')
+    ('*/2 * * * *','dashboard.cron.MyCronJob1')
 ]
