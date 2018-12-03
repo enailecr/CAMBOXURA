@@ -18,108 +18,108 @@
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                 <script language="JavaScript" >
                         function enviardados(){
-    
+
                                 if( document.dados.descricao.value == "")
                                 {
                                 alert( "Há campos a serem preenchidos!" );
                                 document.dados.descricao.focus();
                                 return false;
                                 }
-    
+
                                 if( document.dados.tempoChamada.value == "")
                                 {
                                 alert( "Há campos a serem preenchidos!" );
                                 document.dados.tempoChamada.focus();
                                 return false;
                                 }
-    
+
                                 if( document.dados.prefixCID.value == "")
                                 {
                                 alert( "Há campos a serem preenchidos!" );
                                 document.dados.prefixCID.focus();
                                 return false;
                                 }
-    
+
                                 if( document.dados.prefixCID.value == "")
                                 {
                                 alert( "Há campos a serem preenchidos!" );
                                 document.dados.prefixCID.focus();
                                 return false;
                                 }
-    
+
                                 if( document.dados.valorFixoCID.value == "")
                                 {
                                 alert( "Há campos a serem preenchidos!" );
                                 document.dados.prefixCID.focus();
                                 return false;
                                 }
-    
+
                                 if( document.dados.tipo_des.value == 0)
                                 {
                                 alert( "Há campos a serem preenchidos!" );
                                 document.dados.tipo_des.focus();
                                 return false;
                                 }
-    
+
                                 if(document.dados.tipo_des.value == 1 && document.dados.dest_anuncios.value == 0)
                                 {
                                 alert( "Há campos a serem preenchidos!" );
                                 document.dados.dest_anuncios.focus();
                                 return false;
                                 }
-    
+
                                 if(document.dados.tipo_des.value == 2 && document.dados.dest_gravacoes.value == 0)
                                 {
                                 alert( "Há campos a serem preenchidos!" );
                                 document.dados.dest_gravacoes.focus();
                                 return false;
                                 }
-    
+
                                 if(document.dados.tipo_des.value == 3 && document.dados.dest_numeros.value == 0)
                                 {
                                 alert( "Há campos a serem preenchidos!" );
                                 document.dados.dest_numeros.focus();
                                 return false;
                                 }
-    
+
                                 if(document.dados.tipo_des.value == 4 && document.dados.dest_uras.value == 0)
                                 {
                                 alert( "Há campos a serem preenchidos!" );
                                 document.dados.dest_uras.focus();
                                 return false;
                                 }
-    
+
                                 if(document.dados.tipo_des.value == 5 && document.dados.dest_filas.value == 0)
                                 {
                                 alert( "Há campos a serem preenchidos!" );
                                 document.dados.dest_filas.focus();
                                 return false;
                                 }
-    
+
                                 if(document.dados.tipo_des.value == 6 && document.dados.dest_chamadasGrupo.value == 0)
                                 {
                                 alert( "Há campos a serem preenchidos!" );
                                 document.dados.dest_chamadasGrupo.focus();
                                 return false;
                                 }
-    
+
                                 if(document.dados.tipo_des.value == 7 && document.dados.dest_condicoes.value == 0)
                                 {
                                 alert( "Há campos a serem preenchidos!" );
                                 document.dados.dest_condicoes.focus();
                                 return false;
                                 }
-    
+
                                 if(document.dados.tipo_des.value == 8 && document.dados.dest_troncos.value == 0)
                                 {
                                 alert( "Há campos a serem preenchidos!" );
                                 document.dados.dest_troncos.focus();
                                 return false;
                                 }
-    
+
                             return true;
                             }
-    
+
                         </script>
                 </head>
             <body onload="devolveValores()">
@@ -182,9 +182,7 @@
                                     <label for="listao">Lista de Extensão: </label>
                                 </td>
                                 <td align="left">
-                                        <textarea rows="10" cols="25" name="lista_ext">
-                                        {{lista}}
-                                                </textarea>
+                                        <textarea rows="10" cols="25" name="lista_ext">{{lista}}</textarea>
                                 </td>
                                 <td></td>
                         </tr>
