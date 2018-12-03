@@ -20,80 +20,80 @@
 
 
 
-                          if( document.dados.nome.value == "")
+                          if( document.form.nome.value == "")
                           {
                           alert( "Há campos a serem preenchidos!" );
-                          document.dados.nome.focus();
+                          document.form.nome.focus();
                           return false;
                           }
 
-                          if( document.dados.descricao.value == "")
+                          if( document.form.descricao.value == "")
                           {
                           alert( "Há campos a serem preenchidos!" );
-                          document.dados.descricao.focus();
+                          document.form.descricao.focus();
                           return false;
                           }
 
-                          if( document.dados.tipo_des.value == 0)
+                          if( document.form.tipo_des.value == 0)
                             {
                             alert( "Há campos a serem preenchidos!" );
-                            document.dados.tipo_des.focus();
+                            document.form.tipo_des.focus();
                             return false;
                             }
 
-                            if(document.dados.tipo_des.value == 1 && document.dados.dest_anuncios.value == 0)
+                            if(document.form.tipo_des.value == 1 && document.form.dest_anuncios.value == 0)
                             {
                             alert( "Há campos a serem preenchidos!" );
-                            document.dados.dest_anuncios.focus();
+                            document.form.dest_anuncios.focus();
                             return false;
                             }
 
-                            if(document.dados.tipo_des.value == 2 && document.dados.dest_gravacoes.value == 0)
+                            if(document.form.tipo_des.value == 2 && document.form.dest_gravacoes.value == 0)
                             {
                             alert( "Há campos a serem preenchidos!" );
-                            document.dados.dest_gravacoes.focus();
+                            document.form.dest_gravacoes.focus();
                             return false;
                             }
 
-                            if(document.dados.tipo_des.value == 3 && document.dados.dest_numeros.value == 0)
+                            if(document.form.tipo_des.value == 3 && document.form.dest_numeros.value == 0)
                             {
                             alert( "Há campos a serem preenchidos!" );
-                            document.dados.dest_numeros.focus();
+                            document.form.dest_numeros.focus();
                             return false;
                             }
 
-                            if(document.dados.tipo_des.value == 4 && document.dados.dest_uras.value == 0)
+                            if(document.form.tipo_des.value == 4 && document.form.dest_uras.value == 0)
                             {
                             alert( "Há campos a serem preenchidos!" );
-                            document.dados.dest_uras.focus();
+                            document.form.dest_uras.focus();
                             return false;
                             }
 
-                            if(document.dados.tipo_des.value == 5 && document.dados.dest_filas.value == 0)
+                            if(document.form.tipo_des.value == 5 && document.form.dest_filas.value == 0)
                             {
                             alert( "Há campos a serem preenchidos!" );
-                            document.dados.dest_filas.focus();
+                            document.form.dest_filas.focus();
                             return false;
                             }
 
-                            if(document.dados.tipo_des.value == 6 && document.dados.dest_chamadasGrupo.value == 0)
+                            if(document.form.tipo_des.value == 6 && document.form.dest_chamadasGrupo.value == 0)
                             {
                             alert( "Há campos a serem preenchidos!" );
-                            document.dados.dest_chamadasGrupo.focus();
+                            document.form.dest_chamadasGrupo.focus();
                             return false;
                             }
 
-                            if(document.dados.tipo_des.value == 7 && document.dados.dest_condicoes.value == 0)
+                            if(document.form.tipo_des.value == 7 && document.form.dest_condicoes.value == 0)
                             {
                             alert( "Há campos a serem preenchidos!" );
-                            document.dados.dest_condicoes.focus();
+                            document.form.dest_condicoes.focus();
                             return false;
                             }
 
-                            if(document.dados.tipo_des.value == 8 && document.dados.dest_troncos.value == 0)
+                            if(document.form.tipo_des.value == 8 && document.form.dest_troncos.value == 0)
                             {
                             alert( "Há campos a serem preenchidos!" );
-                            document.dados.dest_troncos.focus();
+                            document.form.dest_troncos.focus();
                             return false;
                             }
 
@@ -105,7 +105,7 @@
             <body>
                     <div id="divCenter">
                             <div align="center"><h2>Adicionar URA:</h2></div>
-        <form action="{% url 'ura_novo' %}" method="POST" name="dados" onSubmit="return enviardados();">
+        <form method="POST" id="form" name="form" onSubmit="return enviardados();">
             {% csrf_token %}
             <input type="hidden" name="count" id="count" value="1"></input>
                 <table cellspacing="10">
@@ -648,7 +648,7 @@
                     $("#add_linha").on('click', function (e){
                         e.preventDefault();
                           var input = '<div cellspacing="10"><tr><td>'+
-                            '<label for="nome">Nome: </label>'+
+                            '<label for="nome">Ramal: </label>'+
                             '<input type="text" name="ramal'+i+'">'+
                             '<td>'+
                             '<label for="destino">Destino: </label>'+
@@ -749,7 +749,7 @@
 
                        var formData = $("#form").serializeArray();
                        for(var j=1; j<i; j++ ){
-                         formData.push({name: "ramal"+j, value: $('#nome'+j).val() });
+                         formData.push({name: "ramal"+j, value: $('#ramal'+j).val() });
                          formData.push({name: "tipo_des"+j, value: $('#tipo_des'+j).val() });
                          formData.push({name: "dest_anuncios"+j, value: $('#dest_anuncios'+j).val() });
                          formData.push({name: "dest_gravacoes"+j, value: $('#dest_gravacoes'+j).val() });

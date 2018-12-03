@@ -43,7 +43,7 @@ def categoria_novo(request):
     data = {}
     data['musica'] = musicaCategoria
     data['gravacoes'] = gravacoes
-    data_e_hora_atuais = datetime.now()
+
     texto = request.user.username + " adicionou a categoria de música: " +nome
     log = Log(log= texto)
     log.save()

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from django.http import HttpResponse
-from .models import URA
+from .models import URA, OpcaoURA
 from anuncios.models import Anuncio, Gravacao
 from numeros.models import NumeroEntrada
 from uras.models import URA
@@ -226,6 +226,60 @@ def ura_novo(request):
         gravacao = Gravacao.objects.get(id=gravTimeout)
         ura.gravTimeout = gravacao
         ura.save()
+
+    tipoDestino = []
+    dest_anuncios = []
+    dest_gravacoes = []
+    dest_numeros = []
+    dest_uras = []
+    dest_filas = []
+    dest_chamadasGrupo = []
+    dest_condicoes = []
+    dest_troncos = []
+    ramal = []
+    retornar = []
+
+    contador = int(request.POST['count'])
+    for i in range(contador):
+        ramal.append(request.POST['ramal'+str(i)])
+        tipoDestino.append(request.POST['tipo_des'+str(i)])
+        dest_anuncios.append(request.POST['dest_anuncios'+str(i)])
+        dest_gravacoes.append(request.POST['dest_gravacoes'+str(i)])
+        dest_numeros.append(request.POST['dest_numeros'+str(i)])
+        dest_uras.append(request.POST['dest_uras'+str(i)])
+        dest_filas.append(request.POST['dest_filas'+str(i)])
+        dest_chamadasGrupo.append(request.POST['dest_chamadasGrupo'+str(i)])
+        dest_condicoes.append(request.POST['dest_condicoes'+str(i)])
+        dest_troncos.append(request.POST['dest_troncos'+str(i)])
+        retorna = 'retornar' + str(i)
+        if retorna in request.POST:
+            retornar.append(True)
+        else:
+            retornar.append(False)
+
+    cont=0;
+    while cont < contador:
+        if tipoDestino[cont] == '1':
+            destino = dest_anuncios[cont]
+        if tipoDestino[cont] == '2':
+            destino = dest_gravacoes[cont]
+        if tipoDestino[cont] == '3':
+            destino = dest_numeros[cont]
+        if tipoDestino[cont] == '4':
+            destino = dest_uras[cont]
+        if tipoDestino[cont] == '5':
+            destino = dest_filas[cont]
+        if tipoDestino[cont] == '6':
+            destino = dest_chamadasGrupo[cont]
+        if tipoDestino[cont] == '7':
+            destino = dest_condicoes[cont]
+        if tipoDestino[cont] == '8':
+            destino = dest_troncos[cont]
+
+        if destino:
+            opcaoURA = OpcaoURA(ura = ura,tipoDestino = tipoDestino[cont],destino = destino, ramal=ramal[cont], retornar=retornar[cont])
+            opcaoURA.save()
+        cont= cont + 1
 
     texto = request.user.username + " adicionou a URA: " +nome
     log = Log(log= texto)
