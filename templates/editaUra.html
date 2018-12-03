@@ -20,92 +20,92 @@
 
 
 
-                          if( document.dados.nome.value == "")
+                          if( document.form.nome.value == "")
                           {
                           alert( "Há campos a serem preenchidos!" );
-                          document.dados.nome.focus();
+                          document.form.nome.focus();
                           return false;
                           }
 
-                          if( document.dados.descricao.value == "")
+                          if( document.form.descricao.value == "")
                           {
                           alert( "Há campos a serem preenchidos!" );
-                          document.dados.descricao.focus();
+                          document.form.descricao.focus();
                           return false;
                           }
 
-                          if( document.dados.tipo_des.value == 0)
+                          if( document.form.tipo_des.value == 0)
                             {
                             alert( "Há campos a serem preenchidos!" );
-                            document.dados.tipo_des.focus();
+                            document.form.tipo_des.focus();
                             return false;
                             }
-  
-                            if(document.dados.tipo_des.value == 1 && document.dados.dest_anuncios.value == 0)
+
+                            if(document.form.tipo_des.value == 1 && document.form.dest_anuncios.value == 0)
                             {
                             alert( "Há campos a serem preenchidos!" );
-                            document.dados.dest_anuncios.focus();
+                            document.form.dest_anuncios.focus();
                             return false;
                             }
-  
-                            if(document.dados.tipo_des.value == 2 && document.dados.dest_gravacoes.value == 0)
+
+                            if(document.form.tipo_des.value == 2 && document.form.dest_gravacoes.value == 0)
                             {
                             alert( "Há campos a serem preenchidos!" );
-                            document.dados.dest_gravacoes.focus();
+                            document.form.dest_gravacoes.focus();
                             return false;
                             }
-  
-                            if(document.dados.tipo_des.value == 3 && document.dados.dest_numeros.value == 0)
+
+                            if(document.form.tipo_des.value == 3 && document.form.dest_numeros.value == 0)
                             {
                             alert( "Há campos a serem preenchidos!" );
-                            document.dados.dest_numeros.focus();
+                            document.form.dest_numeros.focus();
                             return false;
                             }
-  
-                            if(document.dados.tipo_des.value == 4 && document.dados.dest_uras.value == 0)
+
+                            if(document.form.tipo_des.value == 4 && document.form.dest_uras.value == 0)
                             {
                             alert( "Há campos a serem preenchidos!" );
-                            document.dados.dest_uras.focus();
+                            document.form.dest_uras.focus();
                             return false;
                             }
-  
-                            if(document.dados.tipo_des.value == 5 && document.dados.dest_filas.value == 0)
+
+                            if(document.form.tipo_des.value == 5 && document.form.dest_filas.value == 0)
                             {
                             alert( "Há campos a serem preenchidos!" );
-                            document.dados.dest_filas.focus();
+                            document.form.dest_filas.focus();
                             return false;
                             }
-  
-                            if(document.dados.tipo_des.value == 6 && document.dados.dest_chamadasGrupo.value == 0)
+
+                            if(document.form.tipo_des.value == 6 && document.form.dest_chamadasGrupo.value == 0)
                             {
                             alert( "Há campos a serem preenchidos!" );
-                            document.dados.dest_chamadasGrupo.focus();
+                            document.form.dest_chamadasGrupo.focus();
                             return false;
                             }
-  
-                            if(document.dados.tipo_des.value == 7 && document.dados.dest_condicoes.value == 0)
+
+                            if(document.form.tipo_des.value == 7 && document.form.dest_condicoes.value == 0)
                             {
                             alert( "Há campos a serem preenchidos!" );
-                            document.dados.dest_condicoes.focus();
+                            document.form.dest_condicoes.focus();
                             return false;
                             }
-  
-                            if(document.dados.tipo_des.value == 8 && document.dados.dest_troncos.value == 0)
+
+                            if(document.form.tipo_des.value == 8 && document.form.dest_troncos.value == 0)
                             {
                             alert( "Há campos a serem preenchidos!" );
-                            document.dados.dest_troncos.focus();
+                            document.form.dest_troncos.focus();
                             return false;
                             }
 
                       return true;
                       }
-                    
+
                   </script>
             </head>
             <body>
                     <div id="divCenter">
                             <div align="center"><h2>Editar URA:</h2></div>
-        <form action="{% url 'ura_edita' ura.id %}" method="POST" name="dados" onSubmit="return enviardados();">
+        <form method="POST" id="form" name="form" onSubmit="return enviardados();">
             {% csrf_token %}
                 <table cellspacing="10">
                     <tr>
@@ -716,80 +716,250 @@
                <br />
 
                <br />
+               <input type="hidden" name="count" id="count" value="{{count}}"></input>
                <!-- ENDEREÇO -->
-               <div class="container" align="center">
-               <a class="btn btn-primary" href="javascript:void(0)" id="addInput">
-                        <img  src="{% static 'img/plus.png' %}" style="cursor: pointer;" >
-               </a>
-        </div>
-                <table cellspacing="10" id="ramall">
+               <div align="center"><label style="display: block"><input type="button" name="add" id="add_linha" value="Adicionar Ramal" /></label></div>
+               <br />
+               <div align="center">
+                 <div id="dynamicDiv" >
+                   {%for op in opcoes%}
+                                 <div id="ramall{{ forloop.counter0 }}">
+                                         <tr>
+                                                 <td>
+                                                 <label for="nome">Ramal: </label>
+                                                 </td>
+                                                 <td align="left">
+                                                 <input type="text" name="ramal{{ forloop.counter0 }}" value="{{op.ramal}}">
+                                               </td>
+                                         </tr>
+                                         <tr>
+                                                 <td>
+                                                 <label for="destino">Destino: </label>
+                                               </td>
+                                               <td align="left">
+                                                         <select name="tipo_des{{ forloop.counter0 }}" id="tipo_des{{ forloop.counter0 }}" onchange="get_destino_ramal(this);">
+                                                             <option value="0">Selecione destino</option>
+                                                             <option value="1" {%if op.tipoDestino == 1 %} selected {%endif%}>Anúncio</option>
+                                                             <option value="2" {%if op.tipoDestino == 2 %} selected {%endif%}>Gravação</option>
+                                                             <option value="3" {%if op.tipoDestino == 3 %} selected {%endif%}>Número de Entrada</option>
+                                                             <option value="4" {%if op.tipoDestino == 4 %} selected {%endif%}>URA</option>
+                                                             <option value="5" {%if op.tipoDestino == 5 %} selected {%endif%}>Fila</option>
+                                                             <option value="6" {%if op.tipoDestino == 6 %} selected {%endif%}>Chamada em grupo</option>
+                                                             <option value="7" {%if op.tipoDestino == 7 %} selected {%endif%}>Condições de tempo</option>
+                                                             <option value="8" {%if op.tipoDestino == 8 %} selected {%endif%}>Tronco</option>
+                                                     </select>
+                                                 </td>
+                                                 <td align="left">
+                                                         <select  name="dest_anuncios{{ forloop.counter0 }}" id="dest_anuncios{{ forloop.counter0 }}" {%if op.tipoDestino != 1%}hidden{%endif%}>
+                                                           <option value="0" selected>--</option>
+                                                           {%for dest in dest_anuncios %}
+                                                             <option value="{{dest.id}}" {%if op.tipoDestino == 1 and op.destino == dest.id%} selected {%endif%}>{{dest.descricao}}</option>
+                                                           {%endfor%}
+                                                     </select>
+                                                 </td>
+                                                 <td align="left">
+                                                         <select  name="dest_gravacoes{{ forloop.counter0 }}" id="dest_gravacoes{{ forloop.counter0 }}" {%if op.tipoDestino != 2%}hidden{%endif%}>
+                                                           <option value="0" selected>--</option>
+                                                           {%for dest in dest_gravacoes %}
+                                                             <option value="{{dest.id}}" {%if op.tipoDestino == 2 and op.destino == dest.id%} selected {%endif%}>{{dest.nome}}</option>
+                                                           {%endfor%}
+                                                     </select>
+                                                 </td>
+                                                 <td align="left">
+                                                         <select  name="dest_numeros{{ forloop.counter0 }}" id="dest_numeros{{ forloop.counter0 }}" {%if op.tipoDestino != 3%}hidden{%endif%}>
+                                                           <option value="0" selected>--</option>
+                                                           {%for dest in dest_numeros %}
+                                                             <option value="{{dest.id}}" {%if op.tipoDestino == 3 and op.destino == dest.id%} selected {%endif%}>{{dest.numero}}</option>
+                                                           {%endfor%}
+                                                     </select>
+                                                 </td>
+                                                 <td align="left">
+                                                         <select  name="dest_uras{{ forloop.counter0 }}" {%if op.tipoDestino != 4%}hidden{%endif%} id="dest_uras{{ forloop.counter0 }}">
+                                                           <option value="0" selected>--</option>
+                                                           {%for dest in dest_uras %}
+                                                             <option value="{{dest.id}}" {%if op.tipoDestino == 4 and op.destino == dest.id%} selected {%endif%}>{{dest.nome}}</option>
+                                                           {%endfor%}
+                                                     </select>
+                                                     <select  name="dest_filas{{ forloop.counter0 }}" {%if op.tipoDestino != 5%}hidden{%endif%} id="dest_filas{{ forloop.counter0 }}">
+                                                       <option value="0" selected>--</option>
+                                                       {%for dest in dest_filas %}
+                                                         <option value="{{dest.id}}" {%if op.tipoDestino == 5 and op.destino == dest.id%} selected {%endif%}>{{dest.nome}}</option>
+                                                             {%endfor%}
+                                                       </select>
+                                                       <select  name="dest_chamadasGrupo{{ forloop.counter0 }}" {%if op.tipoDestino != 6%}hidden{%endif%} id="dest_chamadasGrupo{{ forloop.counter0 }}">
+                                                         <option value="0" selected>--</option>
+                                                         {%for dest in dest_chamadasGrupo %}
+                                                           <option value="{{dest.id}}" {%if op.tipoDestino == 6 and op.destino == dest.id%} selected {%endif%}>{{dest.descricao}}</option>
+                                                         {%endfor%}
+                                                   </select>
+                                                           <select  name="dest_condicoes{{ forloop.counter0 }}" {%if op.tipoDestino != 7%}hidden{%endif%} id="dest_condicoes{{ forloop.counter0 }}">
+                                                             <option value="0" selected>--</option>
+                                                             {%for dest in dest_condicoes %}
+                                                               <option value="{{dest.id}}" {%if op.tipoDestino == 7 and op.destino == dest.id%} selected {%endif%}>{{dest.nome}}</option>
+                                                             {%endfor%}
+                                                       </select>
+                                                       <select  name="dest_troncos{{ forloop.counter0 }}" {%if op.tipoDestino != 8%}hidden{%endif%} id="dest_troncos{{ forloop.counter0 }}">
+                                                         <option value="0" selected>--</option>
+                                                         {%for dest in dest_troncos %}
+                                                           <option value="{{dest.id}}" {%if op.tipoDestino == 8 and op.destino == dest.id%} selected {%endif%}>{{dest.nome}}</option>
+                                                         {%endfor%}
+                                                           </select>
+                                               </td>
+                                         </tr>
+                                         <tr>
+                                                 <td>
+                                                 <label for="returna">Retornar: </label>
+                                         </td>
+                                         <td align="left">
+                                                 <INPUT TYPE="checkbox" NAME="retorna{{ forloop.counter0 }}" VALUE="True" {%if op.retornar%} checked {%endif%}>
+                                                 <a onclick="testremove('ramall{{ forloop.counter0 }}')" name="testremove">
+                                                   <img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" >
+                                                 </a>
+                                         </td>
+                                         </tr>
+                                       </div>
+                {%endfor%}
+                                       </div>
+                                       <fieldset id="inputs_adicionais" style="border: none"></fieldset>
+                                     </div>
+                                   </div>
+ </div>
+                        <script>
 
+                                var i = $('#count').val();
+                                function testremove(dados){
+                                    var node = document.getElementById(dados);
+                                    if (node.parentNode) {
+                                      node.parentNode.removeChild(node);
+                                    }
+                                }
 
+                            $(document).ready(function(){
+                              var k = $('#count').val();
+                                $("#add_linha").on('click', function (e){
 
-                                <div id="dynamicDiv" >
-                                                <div id="ramal">
-                                                        <tr>
-                                                                <td>
-                                                                <label for="nome">Nome: </label>
-                                                                </td>
-                                                                <td align="left">
-                                                                <input type="text" name="nome">
-                                                        </td>
-                                                        </tr>
-                                                        <tr>
-                                                                <td>
-                                                                <label for="destino">Destino: </label>
-                                                        </td>
-                                                        <td align="left">
-                                                                <select name="tipo_destino">
-                                                                <option value="def">==escolha um==</option>
-                                                                </select>
-                                                                <select hidden name="destino">
-                                                                <option value="def">==escolha um==</option>
-                                                                </select>
-                                                        </td>
-                                                        </tr>
-                                                        <tr>
-                                                                <td>
-                                                                <label for="returna">Retornar: </label>
-                                                        </td>
-                                                        <td align="left">
-                                                                <INPUT TYPE="checkbox" NAME="retorna" VALUE="True">
-                                                                <a class="btn btn-danger" href="javascript:void(0)" id="remInput">
-                                                                <img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" >
-                                                                </a>
-                                                        </td>
-                                                        </tr>
-
-                                </div>
-                </div>
-                                <script>
-                                                $(function () {
-                                                    var scntDiv = $('#ramall');
-                                                    $(document).on('click', '#addInput', function () {
-                                                        $('<p>'+
-                                        '<label for="nome">Nome: </label>'+
-                                        '<input type="text" name="nome">'+
+                                    e.preventDefault();
+                                      var input = '<div cellspacing="10"><tr><td>'+
+                                        '<label for="nome">Ramal: </label>'+
+                                        '<input type="text" name="ramal'+i+'" id="ramal'+i+'">'+
+                                        '<td>'+
                                         '<label for="destino">Destino: </label>'+
-                                        '<select name="tipo_destino"> '+
-                                        '<option value="def">==escolha um==</option> ' +
+                                      '</td>'+
+                                  '<td align="left">'+
+                                            '<select name="tipo_des'+i+'" id="tipo_des'+i+'" onchange="get_destino_ramal(this);">'+
+                                                '<option value="0">Selecione destino</option>'+
+                                                '<option value="1">Anúncio</option>'+
+                                                '<option value="2">Gravação</option>'+
+                                                '<option value="3">Número de Entrada</option>'+
+                                                '<option value="4">URA</option>'+
+                                                '<option value="5">Fila</option>'+
+                                                '<option value="6">Chamada em grupo</option>'+
+                                                '<option value="7">Condições de tempo</option>'+
+                                                '<option value="8">Tronco</option>'+
                                         '</select>'+
-                                        '<select hidden name="destino">'+
-                                        '<option value="def">==escolha um==</option>'+
+                                    '</td>'+
+                                    '<td align="left">'+
+                                            '<select  name="dest_anuncios'+i+'" id="dest_anuncios'+i+'" hidden>'+
+                                              '<option value="0" selected>--</option>'+
+                                              '{%for dest in dest_anuncios %}'+
+                                                '<option value="{{dest.id}}">{{dest.descricao}}</option>'+
+                                              '{%endfor%}'+
                                         '</select>'+
+                                    '</td>'+
+                                    '<td align="left">'+
+                                            '<select  name="dest_gravacoes'+i+'" id="dest_gravacoes'+i+'" hidden>'+
+                                              '<option value="0" selected>--</option>'+
+                                              '{%for dest in dest_gravacoes %}'+
+                                                '<option value="{{dest.id}}">{{dest.nome}}</option>'+
+                                              '{%endfor%}'+
+                                        '</select>'+
+                                    '</td>'+
+                                    '<td align="left">'+
+                                            '<select  name="dest_numeros'+i+'" id="dest_numeros'+i+'" hidden>'+
+                                              '<option value="0" selected>--</option>'+
+                                              '{%for dest in dest_numeros %}'+
+                                                '<option value="{{dest.id}}">{{dest.numero}}</option>'+
+                                              '{%endfor%}'+
+                                        '</select>'+
+                                    '</td>'+
+                                    '<td align="left">'+
+                                            '<select  name="dest_uras'+i+'" hidden id="dest_uras'+i+'">'+
+                                              '<option value="0" selected>--</option>'+
+                                              '{%for dest in dest_uras %}'+
+                                                '<option value="{{dest.id}}">{{dest.nome}}</option>'+
+                                              '{%endfor%}'+
+                                        '</select>'+
+                                        '<select  name="dest_filas'+i+'" hidden id="dest_filas'+i+'">'+
+                                          '<option value="0" selected>--</option>'+
+                                          '{%for dest in dest_filas %}'+
+                                            '<option value="{{dest.id}}">{{dest.nome}}</option>'+
+                                                '{%endfor%}'+
+                                          '</select>'+
+                                          '<select  name="dest_chamadasGrupo'+i+'" hidden id="dest_chamadasGrupo'+i+'">'+
+                                            '<option value="0" selected>--</option>'+
+                                            '{%for dest in dest_chamadasGrupo %}'+
+                                              '<option value="{{dest.id}}">{{dest.descricao}}</option>'+
+                                            '{%endfor%}'+
+                                      '</select>'+
+                                              '<select  name="dest_condicoes'+i+'" hidden id="dest_condicoes'+i+'">'+
+                                                '<option value="0" selected>--</option>'+
+                                                '{%for dest in dest_condicoes %}'+
+                                                  '<option value="{{dest.id}}">{{dest.nome}}</option>'+
+                                                '{%endfor%}'+
+                                          '</select>'+
+                                          '<select  name="dest_troncos'+i+'" hidden id="dest_troncos'+i+'">'+
+                                            '<option value="'+i+'" selected>--</option>'+
+                                            '{%for dest in dest_troncos %}'+
+                                              '<option value="{{dest.id}}">{{dest.nome}}</option>'+
+                                            '{%endfor%}'+
+                                              '</select>'+
                                         '<label for="returna">Retornar: </label>'+
-                                        '<INPUT TYPE="checkbox" NAME="retorna" VALUE="True">'+
-                                        '<a class="btn btn-danger" href="javascript:void(0)" id="remInput">'+
+                                        '<INPUT TYPE="checkbox" NAME="retorna'+i+'" VALUE="True">'+
+                                        '<a class="btn btn-danger" >'+
                                         '<img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" >'+
                                         '</a>'+
-                                        '</p>').appendTo(scntDiv);
-                                                        return false;
-                                                    });
-                                                    $(document).on('click', '#remInput', function () {
-                                                    $(this).parents('p').remove();
-                                                        return false;
-                                                    });
-                                                });
+                                        '</td></tr></div>'
+                                    var newTextBoxDiv = $('</fieldset>');
+
+                                        newTextBoxDiv.html(input);
+                                        newTextBoxDiv.appendTo("#inputs_adicionais");
+                                        $('#inputs_adicionais').append(input);
+                                        i++;
+                                        $('#count').val(i);
+                                    });
+
+                                $('#inputs_adicionais').delegate('a','click',function( e ){
+                                    e.preventDefault();
+                                    $( this ).parent('div').remove();
+                                    i--;
+                                    $('#count').val(i);
+                                });
+
+                                  $("#form").submit( function(e) {
+                                   //prevent the default submithandling
+                                   e.preventDefault();
+
+                                   var formData = $("#form").serializeArray();
+                                   for(j=k;j<i; j++ ){
+                                     formData.push({name: "ramal"+j, value: $('#ramal'+j).val() });
+                                     formData.push({name: "tipo_des"+j, value: $('#tipo_des'+j).val() });
+                                     formData.push({name: "dest_anuncios"+j, value: $('#dest_anuncios'+j).val() });
+                                     formData.push({name: "dest_gravacoes"+j, value: $('#dest_gravacoes'+j).val() });
+                                     formData.push({name: "dest_numeros"+j, value: $('#dest_numeros'+j).val() });
+                                     formData.push({name: "dest_uras"+j, value: $('#dest_uras'+j).val() });
+                                     formData.push({name: "dest_filas"+j, value: $('#dest_filas'+j).val() });
+                                     formData.push({name: "dest_chamadasGrupo"+j, value: $('#dest_chamadasGrupo'+j).val() });
+                                     formData.push({name: "dest_condicoes"+j, value: $('#dest_condicoes'+j).val() });
+                                     formData.push({name: "dest_troncos"+j, value: $('#dest_troncos'+j).val() });
+                                     formData.push({name: "retorna"+j, value: $('#retorna'+j).val() });
+                                    }
+
+                                   $.post('{% url "ura_edita" ura.id %}', formData);
+                                   console.log( formData );
+                                   return window.location.href ="/uras/";
+                                 });
+
+                                });
                                                 </script>
 
                 </table>
