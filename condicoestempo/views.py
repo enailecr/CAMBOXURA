@@ -44,14 +44,6 @@ def list(request):
 @login_required
 def condicoestempo_novo(request):
     nome = request.POST['nome']
-    horaInicio = request.POST['hora_inicio']
-    horaFim = request.POST['hora_termino']
-    diaSemanaInicio = request.POST['dia_semana_ini']
-    diaSemanaFim = request.POST['dia_semana_ter']
-    diaMesInicio = request.POST['dia_mes_inicio']
-    diaMesFim = request.POST['dia_mes_termina']
-    mesIncio = request.POST['mes_inicio']
-    mesFim = request.POST['mes_termino']
 
     if 'dest_anuncios' in request.POST:
         dest_anuncios = request.POST['dest_anuncios']
@@ -155,9 +147,31 @@ def condicoestempo_novo(request):
         condicoestempo.save()
 
     tipo = '7'
-    grupotempo = GrupoTempo( horaInicio=horaInicio,horaFim=horaFim, diaSemanaInicio=diaSemanaInicio, tipo=tipo,
-    diaSemanaFim=diaSemanaFim, diaMesInicio=diaMesInicio, diaMesFim= diaMesFim,mesIncio=mesIncio,mesFim=mesFim, condTempo=condicoestempo)
-    grupotempo.save()
+    horaInicio = []
+    horaFim = []
+    diaSemanaInicio = []
+    diaSemanaFim = []
+    diaMesInicio = []
+    diaMesFim = []
+    mesIncio = []
+    mesFim = []
+
+    contador = int(request.POST['count'])
+    for i in range(contador):
+        horaInicio.append(request.POST['hora_inicio'+str(i)])
+        horaFim.append(request.POST['hora_termino'+str(i)])
+        diaSemanaInicio.append(request.POST['dia_semana_ini'+str(i)])
+        diaSemanaFim.append(request.POST['dia_semana_ter'+str(i)])
+        diaMesInicio.append(request.POST['dia_mes_inicio'+str(i)])
+        diaMesFim.append(request.POST['dia_mes_termina'+str(i)])
+        mesIncio.append(request.POST['mes_inicio'+str(i)])
+        mesFim.append(request.POST['mes_termino'+str(i)])
+    cont=0;
+    while cont < contador:
+        grupotempo = GrupoTempo( horaInicio=horaInicio[cont],horaFim=horaFim[cont], diaSemanaInicio=diaSemanaInicio[cont], tipo=tipo,
+        diaSemanaFim=diaSemanaFim[cont], diaMesInicio=diaMesInicio[cont], diaMesFim= diaMesFim[cont],mesIncio=mesIncio[cont],mesFim=mesFim[cont], condTempo=condicoestempo)
+        grupotempo.save()
+        cont= cont + 1
 
     texto = request.user.username + " adicionou a condição de tempo: " +nome
     log = Log(log= texto)
