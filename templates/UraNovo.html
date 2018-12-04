@@ -666,7 +666,11 @@
                                     '<option value="8">Tronco</option>'+
                             '</select>'+
                         '</td>'+
+                        '<td>'+
+                        '<td>'+
                         '<td align="left">'+
+                        '<tr>'+
+                        '<td>'+
                                 '<select  name="dest_anuncios'+i+'" id="dest_anuncios'+i+'" hidden>'+
                                   '<option value="0" selected>--</option>'+
                                   '{%for dest in dest_anuncios %}'+
@@ -674,23 +678,35 @@
                                   '{%endfor%}'+
                             '</select>'+
                         '</td>'+
+                        '</tr>'+
+                        '</td>'+
                         '<td align="left">'+
+                          '<tr>'+
+                        '<td>'+
                                 '<select  name="dest_gravacoes'+i+'" id="dest_gravacoes'+i+'" hidden>'+
                                   '<option value="0" selected>--</option>'+
                                   '{%for dest in dest_gravacoes %}'+
                                     '<option value="{{dest.id}}">{{dest.nome}}</option>'+
                                   '{%endfor%}'+
                             '</select>'+
+                            '</td>'+
+                        '</tr>'+
                         '</td>'+
                         '<td align="left">'+
+                          '<tr>'+
+                        '<td>'+
                                 '<select  name="dest_numeros'+i+'" id="dest_numeros'+i+'" hidden>'+
                                   '<option value="0" selected>--</option>'+
                                   '{%for dest in dest_numeros %}'+
                                     '<option value="{{dest.id}}">{{dest.numero}}</option>'+
                                   '{%endfor%}'+
                             '</select>'+
+                            '</td>'+
+                        '</tr>'+
                         '</td>'+
                         '<td align="left">'+
+                          '<td>'+
+                        '<tr>'+
                                 '<select  name="dest_uras'+i+'" hidden id="dest_uras'+i+'">'+
                                   '<option value="0" selected>--</option>'+
                                   '{%for dest in dest_uras %}'+
@@ -703,12 +719,18 @@
                                 '<option value="{{dest.id}}">{{dest.nome}}</option>'+
                                     '{%endfor%}'+
                               '</select>'+
+                              '</td>'+
+                        '</tr>'+
+                        '<td>'+
+                        '<tr>'+
                               '<select  name="dest_chamadasGrupo'+i+'" hidden id="dest_chamadasGrupo'+i+'">'+
                                 '<option value="0" selected>--</option>'+
                                 '{%for dest in dest_chamadasGrupo %}'+
                                   '<option value="{{dest.id}}">{{dest.descricao}}</option>'+
                                 '{%endfor%}'+
                           '</select>'+
+                          '<td>'+
+                        '<tr>'+
                                   '<select  name="dest_condicoes'+i+'" hidden id="dest_condicoes'+i+'">'+
                                     '<option value="0" selected>--</option>'+
                                     '{%for dest in dest_condicoes %}'+
@@ -721,6 +743,7 @@
                                   '<option value="{{dest.id}}">{{dest.nome}}</option>'+
                                 '{%endfor%}'+
                                   '</select>'+
+                                  '</td>'+
                             '<label for="returna">Retornar: </label>'+
                             '<INPUT TYPE="checkbox" NAME="retorna'+i+'" VALUE="True">'+
                             '<a class="btn btn-danger" >'+
