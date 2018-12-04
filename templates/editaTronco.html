@@ -114,10 +114,10 @@
                                     <label for="op_asterisk">Opções de Discagem de Tronco Asterisk: </label>
                                 </td>
                                 <td align="left">
-                                    <input type="text" name="op_asterisk" value="{{tronco.opcoesDiskAsterisk}}">
+                                    <input type="text" name="op_asterisk" {%if tronco.opcoesDiskAsterisk %} value="{{tronco.opcoesDiskAsterisk}}"{%else%} disabled {%endif%}>
                                 </td>
                                 <td>
-                                    {%if tronco.op_asterisk %}
+                                    {%if tronco.opcoesDiskAsterisk %}
                                     <INPUT TYPE="checkbox" NAME="op_asteriskp" onclick="enable()" VALUE="True" checked>Sobrescrever
                                     {% else %}
                                     <INPUT TYPE="checkbox" NAME="op_asteriskp" onclick="enable()" VALUE="True">Sobrescrever

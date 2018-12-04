@@ -37,7 +37,10 @@ def troncosip_novo(request):
     callerIDSaida = request.POST['callerids']
     opcoesCID = request.POST['op_cid']
     maxCanais = request.POST['max_canais']
-    opcoesDiskAsterisk = request.POST['op_asterisk']
+    if 'op_asterisk' in request.POST:
+        opcoesDiskAsterisk = request.POST['op_asterisk']
+    else:
+        opcoesDiskAsterisk = None
     if 'continua_ocup' in request.POST:
         contSeOcup = request.POST['continua_ocup']
     else:
@@ -62,7 +65,8 @@ def troncosip_novo(request):
 
     troncoSIP.callerIDSaida = callerIDSaida
     troncoSIP.maxCanais = maxCanais
-    troncoSIP.opcoesDiskAsterisk = opcoesDiskAsterisk
+    if opcoesDiskAsterisk:
+        troncoSIP.opcoesDiskAsterisk = opcoesDiskAsterisk
     troncoSIP.nomeTronco = nomeTronco
     troncoSIP.detalhesPEER = detalhesPEER
     troncoSIP.contextoUsuario = contextoUsuario
@@ -99,7 +103,10 @@ def troncoiax_novo(request):
     callerIDSaida = request.POST['callerids']
     opcoesCID = request.POST['op_cid']
     maxCanais = request.POST['max_canais']
-    opcoesDiskAsterisk = request.POST['op_asterisk']
+    if 'op_asterisk' in request.POST:
+        opcoesDiskAsterisk = request.POST['op_asterisk']
+    else:
+        opcoesDiskAsterisk = None
     if 'continua_ocup' in request.POST:
         contSeOcup = request.POST['continua_ocup']
     else:
@@ -122,7 +129,8 @@ def troncoiax_novo(request):
 
     troncoIAX.callerIDSaida = callerIDSaida
     troncoIAX.maxCanais = maxCanais
-    troncoIAX.opcoesDiskAsterisk = opcoesDiskAsterisk
+    if opcoesDiskAsterisk:
+        troncoIAX.opcoesDiskAsterisk = opcoesDiskAsterisk
     troncoIAX.nomeTronco = nomeTronco
     troncoIAX.detalhesPEER = detalhesPEER
     troncoIAX.contextoUsuario = contextoUsuario
@@ -155,11 +163,15 @@ def troncoiax_novo(request):
 #TroncoCustomizado
 @login_required
 def troncocustomizado_novo(request):
-    nome = request.POST['nome']
+    nome = request.POST['nome_tronco']
     callerIDSaida = request.POST['callerids']
     opcoesCID = request.POST['op_cid']
     maxCanais = request.POST['max_canais']
-    opcoesDiskAsterisk = request.POST['op_asterisk']
+
+    if 'opc_asterisk' in request.POST:
+        opcoesDiskAsterisk = request.POST['opc_asterisk']
+    else:
+        opcoesDiskAsterisk = None
     if 'continua_ocup' in request.POST:
         contSeOcup = request.POST['continua_ocup']
     else:
@@ -180,7 +192,8 @@ def troncocustomizado_novo(request):
 
     troncoCustom.callerIDSaida = callerIDSaida
     troncoCustom.maxCanais = maxCanais
-    troncoCustom.opcoesDiskAsterisk = opcoesDiskAsterisk
+    if opcoesDiskAsterisk:
+        troncoCustom.opcoesDiskAsterisk = opcoesDiskAsterisk
     troncoCustom.stringChamada = stringChamada
 
     troncoCustom.save()
@@ -228,7 +241,10 @@ def tronco_edita(request, id):
         callerIDSaida = request.POST['callerids']
         opcoesCID = request.POST['op_cid']
         maxCanais = request.POST['max_canais']
-        opcoesDiskAsterisk = request.POST['op_asterisk']
+        if 'op_asterisk' in request.POST:
+            opcoesDiskAsterisk = request.POST['op_asterisk']
+        else:
+            opcoesDiskAsterisk = None
         if 'continua_ocup' in request.POST:
             contSeOcup = request.POST['continua_ocup']
         else:
@@ -251,7 +267,8 @@ def tronco_edita(request, id):
             tronco.callerIDSaida = callerIDSaida
             tronco.opcoesCID = opcoesCID
             tronco.maxCanais = maxCanais
-            tronco.opcoesDiskAsterisk = opcoesDiskAsterisk
+            if opcoesDiskAsterisk:
+                tronco.opcoesDiskAsterisk = opcoesDiskAsterisk
             tronco.contSeOcup = contSeOcup
             tronco.desabTronco = desabTronco
             tronco.prefixChamSaida = prefixChamSaida
@@ -291,7 +308,8 @@ def tronco_edita(request, id):
             tronco.callerIDSaida = callerIDSaida
             tronco.opcoesCID = opcoesCID
             tronco.maxCanais = maxCanais
-            tronco.opcoesDiskAsterisk = opcoesDiskAsterisk
+            if opcoesDiskAsterisk:
+                tronco.opcoesDiskAsterisk = opcoesDiskAsterisk
             tronco.contSeOcup = contSeOcup
             tronco.desabTronco = desabTronco
             tronco.prefixChamSaida = prefixChamSaida
