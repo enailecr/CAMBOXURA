@@ -33,12 +33,6 @@
                             return false;
                             }
 
-                            if( document.form.op_asterisk.value == "")
-                            {
-                            alert( "Há campos a serem preenchidos!" );
-                            document.form.op_asterisk.focus();
-                            return false;
-                            }
 
                         return true;
                         }
@@ -49,6 +43,7 @@
                             function enable() {
                                         if (document.form.op_asteriskp.checked == true)
                                             document.getElementById("op_asterisk").disabled=false;
+                                            //document.getElementById("op_asterisk").setAttribute("disabled", false);
                                         else
                                             document.getElementById("op_asterisk").disabled=true;
 
@@ -111,7 +106,7 @@
                                                                     <label for="op_asterisk">Opções de Discagem de Tronco Asterisk: </label>
                                                                 </td>
                                                                 <td align="left">
-                                                                    <input type="text" name="op_asterisk">
+                                                                    <input type="text" name="op_asterisk" id="op_asterisk" disabled>
                                                                 </td>
                                                                 <td>
                                                                     <INPUT TYPE="checkbox" NAME="op_asteriskp" onclick="enable()" VALUE="True">Sobrescrever
