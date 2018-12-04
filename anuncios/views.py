@@ -270,11 +270,27 @@ def upload_file_cad(request):
         texto = request.user.username + ": adicionou a gravação: " +nome
         log = Log(log= texto)
         log.save()
-    
+
         gravacoes = Gravacao.objects.exclude(musica__isnull=False)
         data = {}
         data['gravacao'] = gravacao
         data['gravacoes'] = gravacoes
+        dest_anuncios = Anuncio.objects.all()
+        dest_gravacoes = Gravacao.objects.all()
+        dest_numeros = NumeroEntrada.objects.all()
+        dest_uras = URA.objects.all()
+        dest_filas = Fila.objects.all()
+        dest_chamadasGrupo = ChamadaEmGrupo.objects.all()
+        dest_condicoes = CondicaoTempo.objects.all()
+        dest_troncos = Tronco.objects.all()
+        data['dest_anuncios'] = dest_anuncios
+        data['dest_gravacoes'] = dest_gravacoes
+        data['dest_numeros'] = dest_numeros
+        data['dest_uras'] = dest_uras
+        data['dest_filas'] = dest_filas
+        data['dest_chamadasGrupo'] = dest_chamadasGrupo
+        data['dest_condicoes'] = dest_condicoes
+        data['dest_troncos'] = dest_troncos
         return render(request, 'CadastroAnuncio.html', data)
 
 @login_required
@@ -295,4 +311,20 @@ def upload_file_edt(request, id):
 
         data['gravacao'] = gravacao
         data['gravacoes'] = gravacoes
+        dest_anuncios = Anuncio.objects.all()
+        dest_gravacoes = Gravacao.objects.all()
+        dest_numeros = NumeroEntrada.objects.all()
+        dest_uras = URA.objects.all()
+        dest_filas = Fila.objects.all()
+        dest_chamadasGrupo = ChamadaEmGrupo.objects.all()
+        dest_condicoes = CondicaoTempo.objects.all()
+        dest_troncos = Tronco.objects.all()
+        data['dest_anuncios'] = dest_anuncios
+        data['dest_gravacoes'] = dest_gravacoes
+        data['dest_numeros'] = dest_numeros
+        data['dest_uras'] = dest_uras
+        data['dest_filas'] = dest_filas
+        data['dest_chamadasGrupo'] = dest_chamadasGrupo
+        data['dest_condicoes'] = dest_condicoes
+        data['dest_troncos'] = dest_troncos
         return render(request, 'editaAnuncio.html', data)
