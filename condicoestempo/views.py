@@ -184,8 +184,10 @@ def condicoestempo_edita(request, id):
     data = {}
     condicoestempo = CondicaoTempo.objects.get(id=id)
     data['condicoestempo'] = condicoestempo
-    grupotempo = GrupoTempo.objects.get(condTempo=condicoestempo)
-    data['grupotempo'] = grupotempo
+    grupotempo = GrupoTempo.objects.filter(condTempo=condicoestempo)
+    data['grupostempo'] = grupotempo
+    count= len(grupotempo)
+    data['count'] = count
 
     if request.method == 'POST':
 
@@ -291,26 +293,41 @@ def condicoestempo_edita(request, id):
             condicoestempo.destinoNaoCoincide = ndestinoId
             condicoestempo.save()
 
-        horaInicio = request.POST['hora_inicio']
-        horaFim = request.POST['hora_termino']
-        diaSemanaInicio = request.POST['dia_semana_ini']
-        diaSemanaFim = request.POST['dia_semana_ter']
-        diaMesInicio = request.POST['dia_mes_inicio']
-        diaMesFim = request.POST['dia_mes_termina']
-        mesIncio = request.POST['mes_inicio']
-        mesFim = request.POST['mes_termino']
+        horaInicio = []
+        horaFim = []
+        diaSemanaInicio = []
+        diaSemanaFim = []
+        diaMesInicio = []
+        diaMesFim = []
+        mesIncio = []
+        mesFim = []
 
-        grupotempo.nome= nome
-        grupotempo.horaInicio = horaInicio
-        grupotempo.horaFim = horaFim
-        grupotempo.diaSemanaInicio = diaSemanaInicio
-        grupotempo.diaSemanaFim = diaSemanaFim
-        grupotempo.diaMesInicio = diaMesInicio
-        grupotempo.diaMesFim = diaMesFim
-        grupotempo.mesIncio = mesIncio
-        grupotempo.mesFim = mesFim
+        cont=0;
+        for g in grupotempo:
+            g.delete()
 
-        grupotempo.save()
+        contador = int(request.POST['count'])
+        conta= 0
+        for i in range(contador):
+            hora = 'hora_inicio'+str(i)
+            if hora in request.POST:
+                horaInicio.append(request.POST['hora_inicio'+str(i)])
+                horaFim.append(request.POST['hora_termino'+str(i)])
+                diaSemanaInicio.append(request.POST['dia_semana_ini'+str(i)])
+                diaSemanaFim.append(request.POST['dia_semana_ter'+str(i)])
+                diaMesInicio.append(request.POST['dia_mes_inicio'+str(i)])
+                diaMesFim.append(request.POST['dia_mes_termina'+str(i)])
+                mesIncio.append(request.POST['mes_inicio'+str(i)])
+                mesFim.append(request.POST['mes_termino'+str(i)])
+                conta = conta +1
+
+        tipo='7'
+        while cont < conta:
+            grupotempo = GrupoTempo( horaInicio=horaInicio[cont],horaFim=horaFim[cont], diaSemanaInicio=diaSemanaInicio[cont], tipo=tipo,
+            diaSemanaFim=diaSemanaFim[cont], diaMesInicio=diaMesInicio[cont], diaMesFim= diaMesFim[cont],mesIncio=mesIncio[cont],mesFim=mesFim[cont], condTempo=condicoestempo)
+            grupotempo.save()
+            cont= cont + 1
+
         texto = request.user.username + " editou a condição de tempo: " +nome
         log = Log(log= texto)
         log.save()
