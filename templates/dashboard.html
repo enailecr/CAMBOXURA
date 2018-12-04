@@ -7,6 +7,17 @@
 <br />
        <table>
    <div align="center">
+      <input type="hidden" id="disponivelCPU" name="disponivelCPU" value="50,5">
+      <!-- {{dashboard.CPU}} -->
+      <input type="hidden" id="ocupadoCPU" name="ocupadoCPU" value="100">
+      
+      <input type="hidden" id="disponivelRAM" name="disponivelRAM" value="{{dashboard.RAMF}}">
+      <input type="hidden" id="ocupadoRAM" name="ocupadoRAM" value="{{dashboard.RAMU}}">
+
+      <input type="hidden" id="disponivelSWAP" name="disponivelSWAP" value="{{dashboard.SWAPF}}">
+      <input type="hidden" id="ocupadoSWAP" name="ocupadoSWAP" value="{{dashboard.SWAPU}}">
+      <input type="hidden" id="disponivelDR" name="disponivelCPU" value="100">
+      <input type="hidden" id="ocupadoDR" name="ocupadoDR" value="100">
    <tr>
         <td>
                 <div align="justify">
@@ -15,10 +26,12 @@
           google.charts.load("current", {packages:["corechart"]});
           google.charts.setOnLoadCallback(drawChart);
           function drawChart() {
+            var disponivelCPU = 1*document.getElementById("disponivelCPU").value
+            var ocupadoCPU = 1*document.getElementById("ocupadoCPU").value
             var data = google.visualization.arrayToDataTable([
               ['Status', 'Valor'],
-              ['Ocupado',     88],
-              ['Disponível',      143],
+              ['Ocupado',    ocupadoCPU],
+              ['Disponível',   disponivelCPU],
             ]);
     
             var options = {
@@ -41,10 +54,12 @@
             google.charts.load("current", {packages:["corechart"]});
             google.charts.setOnLoadCallback(drawChart);
             function drawChart() {
+              var disponivelRAM = 1*document.getElementById("disponivelRAM").value
+              var ocupadoRAM = 1*document.getElementById("ocupadoRAM").value
               var data = google.visualization.arrayToDataTable([
                 ['Status', 'Valor'],
-                ['Ocupado',     100],
-                ['Disponível',      676],
+                ['Ocupado',    ocupadoRAM ],
+                ['Disponível',     disponivelRAM ],
               ]);
       
               var options = {
@@ -66,10 +81,12 @@
             google.charts.load("current", {packages:["corechart"]});
             google.charts.setOnLoadCallback(drawChart);
             function drawChart() {
+              var disponivelSWAP = 1*document.getElementById("disponivelSWAP").value
+              var ocupadoSWAP = 1*document.getElementById("ocupadoSWAP").value
               var data = google.visualization.arrayToDataTable([
                 ['Status', 'Valor'],
-                ['Ocupado',     754],
-                ['Disponível',      3376],
+                ['Ocupado',    ocupadoSWAP ],
+                ['Disponível',    disponivelSWAP ],
               ]);
       
               var options = {

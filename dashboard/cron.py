@@ -8,12 +8,14 @@ def MyCronJob1():
     swapp=psutil.swap_memory()
     #>>> swap[3] = porcentagem da SWAP usada
     #(total, used, free, percent, sin, sout)
+    SWAPF = swapp[2]
+    SWAPU = swapp[1]
 
     SWAP = swapp[3]
     disco = psutil.disk_usage('/')
     discoUsado = disco[3]
     discoLivre = 100 - disco[3]
-    #capacidadeDisco = disco[0]
+    capacidadeDisco = disco[0]
     #>>> disco[3] = porcentagem do disco usado
     #(total, used, free, percent)
 
@@ -22,8 +24,10 @@ def MyCronJob1():
     
     mem = psutil.virtual_memory()
     RAM = mem[2]
-    dashboard = Dashboard(SWAP=SWAP,RAM=RAM,CPU=CPU,discoUsado=discoUsado,discoLivre=discoLivre)
+    RAMU = mem[3]
+    RAMF = mem[1]
+    dashboard = Dashboard(RAMU=RAMU,RAMF=RAMF,SWAP=SWAP, SWAPF=SWAPF,SWAPU=SWAPU,RAM=RAM,CPU=CPU,discoUsado=discoUsado,discoLivre=discoLivre,capacidadeDisco=capacidadeDisco)
     dashboard.save()
-    #,capacidadeDisco=capacidadeDisco
+    #
     ##>>> mem[2] = porcentagem da memoria usada
     #(total, available, percent, used, free, active, inactive, buffers, cached, shared, slab)
