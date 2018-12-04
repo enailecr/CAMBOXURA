@@ -20,9 +20,9 @@
                   function enviardados(){
 
                        if( document.dados.dia_mes_inicio.value == document.dados.dia_mes_termina.value)
-                      {  
+                      {
                         if( document.dados.dia_semana_ini.value != document.dados.dia_semana_ter.value)
-                      { 
+                      {
                         alert( "ERRO! Dia da Semana Inválido" );
                         return false;
                       }
@@ -34,11 +34,11 @@
                           return false;
                           }
                         }
-                      } 
+                      }
 
 
                       if( document.dados.mes_inicio.value == document.dados.mes_termino.value)
-                      {  
+                      {
                           if( document.dados.dia_mes_inicio.value > document.dados.dia_mes_termina.value)
                           {
                           alert( "Dia de término não pode ser menor que dia de início" );
@@ -49,7 +49,7 @@
                       }
 
                       if( document.dados.mes_inicio.value == "2")
-                      {  
+                      {
                           if(document.dados.dia_mes_inicio.value == 30 || document.dados.dia_mes_inicio.value == 31)
                           {
                           alert( "Dia Inválido!" );
@@ -66,7 +66,7 @@
                       }
 
                       if( document.dados.mes_termino.value == "2")
-                      {  
+                      {
                           if(document.dados.dia_mes_inicio.value == 30 || document.dados.dia_mes_inicio.value == 31)
                           {
                           alert( "Dia Inválido!" );
@@ -88,16 +88,16 @@
                           document.dados.mes_termino.focus();
                           return false;
                           }
-                        
+
                       return true;
                       }
-                    
+
                   </script>
             </head>
             <body>
                     <div id="divCenter">
                             <div align="center"><h2>Adicionar Condição de Tempo:</h2></div>
-                <form action="{% url 'condicoestempo_novo' %}" method="post" name="dados" onSubmit="return enviardados();">
+                <form  method="post" name="dados" id="dados" onSubmit="return enviardados();">
                     {% csrf_token %}
                          <table cellspacing="10">
                           <tr>
@@ -110,7 +110,7 @@
                            <td></td>
                            <td></td>
                           </tr>
-      
+
                           <tr>
                             <td>
                              <label for="dest_coin">Destino se o Horário Coincidir:</label>
@@ -265,7 +265,11 @@
                          </table>
 
                         <br />
-
+                        <div align="center"><label style="display: block"><input type="button" name="add" id="add_linha" value="Adicionar outro Grupo de Tempo" /></label></div>
+                        <br />
+                        <div align="center">
+                          <div id="dynamicDiv" >
+                          <div id="grupoTempo">
                          <table cellspacing="10">
 
                             <tr>
@@ -273,7 +277,7 @@
                                  <label for="hora_inicio">Hora de Início:</label>
                                 </td>
                                 <td align="left">
-                                        <input type = "time" name="hora_inicio">
+                                        <input type = "time" name="hora_inicio0" id="hora_inicio0">
                                 </td>
                                </tr>
                           <tr>
@@ -281,7 +285,7 @@
                                         <label for="hora_termino">Hora de Término:</label>
                                        </td>
                                        <td align="left">
-                                           <input type = "time" name="hora_termino">
+                                           <input type = "time" name="hora_termino0" id="hora_termino0">
                                        </td>
 
                           </tr>
@@ -290,7 +294,7 @@
                             <label for="dia_semana_ini">Dia de Semana que Inicia:</label>
                            </td>
                            <td align="left">
-                            <select name="dia_semana_ini">
+                            <select name="dia_semana_ini0" id="dia_semana_ini0">
                                 <option value="seg">segunda-feira</option>
                                 <option value="ter">terça-feira</option>
                                 <option value="qua">quarta-feira</option>
@@ -306,7 +310,7 @@
                                 <label for="dia_semana_ter">Dia de Semana que Termina:</label>
                             </td>
                             <td align="left">
-                             <select name="dia_semana_ter">
+                             <select name="dia_semana_ter0" id="dia_semana_ter0">
                                  <option value="seg">segunda-feira</option>
                                  <option value="ter">terça-feira</option>
                                  <option value="qua">quarta-feira</option>
@@ -322,7 +326,7 @@
                                         <label for="dia_mes_inicio">Dia do Mês que Inicia:</label>
                                        </td>
                                        <td align="left">
-                                        <select name="dia_mes_inicio">
+                                        <select name="dia_mes_inicio0" id="dia_mes_inicio0">
                                         <option value="01">01</option>
                                         <option value="02">02</option>
                                         <option value="03">03</option>
@@ -332,15 +336,7 @@
                                         <option value="07">07</option>
                                         <option value="08">08</option>
                                         <option value="09">09</option>
-                                        if( document.dados.dia_mes_inicio.value == document.dados.dia_mes_termina.value)
-                                        {  
-                                            if(document.dados.hora_termino.value < document.dados.hora_inicio.value)
-                                            {
-                                            alert( "Horário de término não pode ser menor que horário de início" );
-                                            document.dados.hora_inicio.focus();
-                                            return false;
-                                            }
-                                        }     <option value="10">10</option>
+                                        <option value="10">10</option>
                                         <option value="11">11</option>
                                         <option value="12">12</option>
                                         <option value="13">13</option>
@@ -370,7 +366,7 @@
                                         <label for="dia_mes_termina">Dia do Mês que Termina:</label>
                                        </td>
                                        <td align="left">
-                                        <select name="dia_mes_termina">                                      
+                                        <select name="dia_mes_termina0" id="dia_mes_termina0">
                                         <option value="01">01</option>
                                         <option value="02">02</option>
                                         <option value="03">03</option>
@@ -384,15 +380,7 @@
                                         <option value="11">11</option>
                                         <option value="12">12</option>
                                         <option value="13">13</option>
-                                        if( document.dados.dia_mes_inicio.value == document.dados.dia_mes_termina.value)
-                                        {  
-                                            if(document.dados.hora_termino.value < document.dados.hora_inicio.value)
-                                            {
-                                            alert( "Horário de término não pode ser menor que horário de início" );
-                                            document.dados.hora_inicio.focus();
-                                            return false;
-                                            }
-                                        }      <option value="14">14</option>
+                                        <option value="14">14</option>
                                         <option value="15">15</option>
                                         <option value="16">16</option>
                                         <option value="17">17</option>
@@ -402,15 +390,7 @@
                                         <option value="21">21</option>
                                         <option value="22">22</option>
                                         <option value="23">23</option>
-                                        if( document.dados.dia_mes_inicio.value == document.dados.dia_mes_termina.value)
-                                        {  
-                                            if(document.dados.hora_termino.value < document.dados.hora_inicio.value)
-                                            {
-                                            alert( "Horário de término não pode ser menor que horário de início" );
-                                            document.dados.hora_inicio.focus();
-                                            return false;
-                                            }
-                                        }      <option value="24">24</option>
+                                        <option value="24">24</option>
                                         <option value="25">25</option>
                                         <option value="26">26</option>
                                         <option value="27">27</option>
@@ -426,7 +406,7 @@
                                         <label for="mes_inicio">Mês que Inicia:</label>
                                        </td>
                                        <td align="left">
-                                        <select name="mes_inicio">
+                                        <select name="mes_inicio0" id="mes_inicio0">
                                         <option value="1">Janeiro</option>
                                         <option value="2">Fevereiro</option>
                                         <option value="3">Março</option>
@@ -447,7 +427,7 @@
                                         <label for="mes_termino">Mês que Termina:</label>
                                        </td>
                                        <td align="left">
-                                        <select name="mes_termino">
+                                        <select name="mes_termino0" id="mes_termino0">
                                         <option value="1">Janeiro</option>
                                         <option value="2">Fevereiro</option>
                                         <option value="3">Março</option>
@@ -464,12 +444,15 @@
                         </td>
                           </tr>
                          </table>
+                       </div>
                         <br />
 
-
+<fieldset id="inputs_adicionais" style="border: none"></fieldset>
+</div></div>
                         <br />
-
+                        <input type="hidden" name="count" id="count" value="1"></input>
                         <button type="submit" class="formobjects">Cadastrar</button>
+
                         </form>
 
 
@@ -478,5 +461,228 @@
         </body>
 
     </table>
+
+    <script>
+
+
+                    $(document).ready(function(){
+                      var i = 1;
+
+                    $("#add_linha").on('click', function (e){
+                        e.preventDefault();
+                          var input = '<div cellspacing="10"><table cellspacing="10">'+
+                             '<tr>'+
+                                 '<td>'+
+                                  '<label for="hora_inicio">Hora de Início:</label>'
+                                 +'</td>'
+                                 +'<td align="left">'
+                                  +       '<input type = "time" name="hora_inicio'+i+'" id="hora_inicio'+i+'">'
+                                 +'</td>'
+                              +  '</tr>'
+                          + '<tr>'
+                          +       '<td>'
+                          +               '<label for="hora_termino">Hora de Término:</label>'
+                          +              '</td>'
+                          +              '<td align="left">'
+                          +                  '<input type = "time" name="hora_termino'+i+'" id="hora_termino'+i+'">'
+                          +              '</td>'
+                           +'</tr>'
+                          + '<tr>'
+                          +  '<td>'
+                          +   '<label for="dia_semana_ini">Dia de Semana que Inicia:</label>'
+                          +  '</td>'
+                          +  '<td align="left">'
+                          +   '<select name="dia_semana_ini'+i+'"  id="dia_semana_ini'+i+'">'
+                          +       '<option value="seg">segunda-feira</option>'
+                          +       '<option value="ter">terça-feira</option>'
+                          +       '<option value="qua">quarta-feira</option>'
+                          +       '<option value="qui">quinta-feira</option>'
+                          +       '<option value="sex">sexta-feira</option>'
+                          +       '<option value="sab">sábado</option>'
+                          +       '<option value="dom">domingo</option>'
+                          +  '</select>'
+                          +  '</td>'
+                          +'</tr>'
+                          + '<tr>'
+                          +  '<td>'
+                          +       '<label for="dia_semana_ter">Dia de Semana que Termina:</label>'
+                          +   '</td>'
+                          +   '<td align="left">'
+                          +    '<select name="dia_semana_ter'+i+'" id="dia_semana_ter'+i+'">'
+                          +        '<option value="seg">segunda-feira</option>'
+                          +        '<option value="ter">terça-feira</option>'
+                          +        '<option value="qua">quarta-feira</option>'
+                          +        '<option value="qui">quinta-feira</option>'
+                          +        '<option value="sex">sexta-feira</option>'
+                          +        '<option value="sab">sábado</option>'
+                          +        '<option value="dom">domingo</option>'
+                          +   '</select>'
+                          +  '</td>'
+                          + '</tr>'
+                          + '<tr>'
+                          +       '<td>'
+                          +               '<label for="dia_mes_inicio">Dia do Mês que Inicia:</label>'
+                          +              '</td>'
+                          +              '<td align="left">'
+                          +               '<select name="dia_mes_inicio'+i+'" id="dia_mes_inicio'+i+'">'
+                          +               '<option value="01">01</option>'
+                          +               '<option value="02">02</option>'
+                          +               '<option value="03">03</option>'
+                          +               '<option value="04">04</option>'
+                          +               '<option value="05">05</option>'
+                          +               '<option value="06">06</option>'
+                          +               '<option value="07">07</option>'
+                          +               '<option value="08">08</option>'
+                          +               '<option value="09">09</option>'
+                          +               '<option value="10">10</option>'
+                          +               '<option value="11">11</option>'
+                          +               '<option value="12">12</option>'
+                          +               '<option value="13">13</option>'
+                          +               '<option value="14">14</option>'
+                          +               '<option value="15">15</option>'
+                          +               '<option value="16">16</option>'
+                          +               '<option value="17">17</option>'
+                          +               '<option value="18">18</option>'
+                          +               '<option value="19">19</option>'
+                          +               '<option value="20">20</option>'
+                          +               '<option value="21">21</option>'
+                          +               '<option value="22">22</option>'
+                          +               '<option value="23">23</option>'
+                          +               '<option value="24">24</option>'
+                          +               '<option value="25">25</option>'
+                          +               '<option value="26">26</option>'
+                          +               '<option value="27">27</option>'
+                          +               '<option value="28">28</option>'
+                          +               '<option value="29">29</option>'
+                          +               '<option value="30">30</option>'
+                          +               '<option value="31">31</option>'
+                          +              '</select>'
+                        + '</td>'
+                        +   '</tr>'
+                        +   '<tr>'
+                        +         '<td>'
+                        +                 '<label for="dia_mes_termina">Dia do Mês que Termina:</label>'
+                        +                '</td>'
+                        +                '<td align="left">'
+                        +                 '<select name="dia_mes_termina'+i+'" id="dia_mes_termina'+i+'">'
+                        +                 '<option value="01">01</option>'
+                        +                 '<option value="02">02</option>'
+                        +                 '<option value="03">03</option>'
+                        +                 '<option value="04">04</option>'
+                        +                 '<option value="05">05</option>'
+                        +                 '<option value="06">06</option>'
+                        +                 '<option value="07">07</option>'
+                        +                 '<option value="08">08</option>'
+                        +                 '<option value="09">09</option>'
+                        +                 '<option value="10">10</option>'
+                        +                 '<option value="11">11</option>'
+                        +                 '<option value="12">12</option>'
+                        +                 '<option value="13">13</option>'
+                        +                 '<option value="14">14</option>'
+                        +                 '<option value="15">15</option>'
+                        +                 '<option value="16">16</option>'
+                        +                 '<option value="17">17</option>'
+                        +                 '<option value="18">18</option>'
+                        +                 '<option value="19">19</option>'
+                        +                 '<option value="20">20</option>'
+                        +                 '<option value="21">21</option>'
+                        +                 '<option value="22">22</option>'
+                        +                 '<option value="23">23</option>'
+                        +                 '<option value="24">24</option>'
+                        +                 '<option value="25">25</option>'
+                        +                 '<option value="26">26</option>'
+                        +                 '<option value="27">27</option>'
+                        +                 '<option value="28">28</option>'
+                        +                 '<option value="29">29</option>'
+                        +                 '<option value="30">30</option>'
+                        +                 '<option value="31">31</option>'
+                        +                '</select>'
+                        + '</td>'
+                        +   '</tr>'
+                        +   '<tr>'
+                        +         '<td>'
+                        +                 '<label for="mes_inicio">Mês que Inicia:</label>'
+                        +                '</td>'
+                        +                '<td align="left">'
+                        +                 '<select name="mes_inicio'+i+'" id="mes_inicio'+i+'">'
+                        +                 '<option value="1">Janeiro</option>'
+                        +                 '<option value="2">Fevereiro</option>'
+                        +                 '<option value="3">Março</option>'
+                        +                 '<option value="4">Abril</option>'
+                        +                 '<option value="5">Maio</option>'
+                        +                 '<option value="6">Junho</option>'
+                        +                 '<option value="7">Julho</option>'
+                        +                 '<option value="8">Agosto</option>'
+                        +                 '<option value="9">Setembro</option>'
+                        +                 '<option value="10">Outubro</option>'
+                        +                 '<option value="11">Novembro</option>'
+                        +                 '<option value="12">Dezembro</option>'
+                        +                '</select>'
+                        + '</td>'
+                        +   '</tr>'
+                        +   '<tr>'
+                        +         '<td>'
+                        +                 '<label for="mes_termino">Mês que Termina:</label>'
+                        +                '</td>'
+                        +                '<td align="left">'
+                        +                 '<select name="mes_termino'+i+'" id="mes_termino'+i+'">'
+                        +                 '<option value="1">Janeiro</option>'
+                        +                 '<option value="2">Fevereiro</option>'
+                        +                 '<option value="3">Março</option>'
+                        +                 '<option value="4">Abril</option>'
+                        +                 '<option value="5">Maio</option>'
+                        +                 '<option value="6">Junho</option>'
+                        +                 '<option value="7">Julho</option>'
+                        +                 '<option value="8">Agosto</option>'
+                        +                 '<option value="9">Setembro</option>'
+                        +                 '<option value="10">Outubro</option>'
+                        +                 '<option value="11">Novembro</option>'
+                        +                 '<option value="12">Dezembro</option>'
+                        +                '</select>'
+                         +'</td>'
+                          + '</tr>'
+                          +'<a class="btn btn-danger" >'
+                          +'<img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" >'
+                          +'</a>'
+                          +'</table><br /></div>';
+                        var newTextBoxDiv = $('</fieldset>');
+
+                            newTextBoxDiv.html(input);
+                            newTextBoxDiv.appendTo("#inputs_adicionais");
+                            $('#inputs_adicionais').append(input);
+                            i++;
+                            $('#count').val(i);
+                        });
+
+                    $('#inputs_adicionais').delegate('a','click',function( e ){
+                        e.preventDefault();
+                        $( this ).parent('div').remove();
+                        i--;
+                        $('#count').val(i);
+                    });
+
+                      $("#dados").submit( function(e) {
+                       //prevent the default submithandling
+                       e.preventDefault();
+
+                       var formData = $("#dados").serializeArray();
+                       for(var j=1; j<i; j++ ){
+                         formData.push({name: "hora_inicio"+j, value: $('#hora_inicio'+j).val() });
+                         formData.push({name: "hora_termino"+j, value: $('#hora_termino'+j).val() });
+                         formData.push({name: "dia_semana_ini"+j, value: $('#dia_semana_ini'+j).val() });
+                         formData.push({name: "dia_semana_ter"+j, value: $('#dia_semana_ter'+j).val() });
+                         formData.push({name: "dia_mes_inicio"+j, value: $('#dia_mes_inicio'+j).val() });
+                         formData.push({name: "dia_mes_termina"+j, value: $('#dia_mes_termina'+j).val() });
+                         formData.push({name: "mes_inicio"+j, value: $('#mes_inicio'+j).val() });
+                         formData.push({name: "mes_termino"+j, value: $('#mes_termino'+j).val() });
+                        }
+
+                       $.post('{% url "condicoestempo_novo" %}', formData);
+                       console.log( formData );
+                       return window.location.href ="/condicoestempo/";
+                     });
+
+                    });
+                    </script>
     </div>
 {% endblock %}
