@@ -1,7 +1,7 @@
 from django.db import models
 
 class Dashboard(models.Model):
-    CPU = models.FloatField()
+    CPU = models.IntegerField()
     RAM = models.FloatField()
     RAMU = models.BigIntegerField()
     RAMF = models.BigIntegerField()
@@ -9,6 +9,6 @@ class Dashboard(models.Model):
     SWAPF = models.BigIntegerField()
     SWAPU = models.BigIntegerField()
     #tempoFuncinamento = models.DateTimeField()
-    discoUsado = models.FloatField()
-    discoLivre = models.FloatField()
+    discoUsado = models.BigIntegerField()
+    discoLivre = models.BigIntegerField()
     capacidadeDisco = models.BigIntegerField()

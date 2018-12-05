@@ -7,17 +7,17 @@
 <br />
        <table>
    <div align="center">
-      <input type="hidden" id="disponivelCPU" name="disponivelCPU" value="50,5">
+      <input type="hidden" id="disponivelCPU" name="disponivelCPU" value="100">
       <!-- {{dashboard.CPU}} -->
-      <input type="hidden" id="ocupadoCPU" name="ocupadoCPU" value="100">
+      <input type="hidden" id="ocupadoCPU" name="ocupadoCPU" value="{{dashboard.CPU}}">
       
       <input type="hidden" id="disponivelRAM" name="disponivelRAM" value="{{dashboard.RAMF}}">
       <input type="hidden" id="ocupadoRAM" name="ocupadoRAM" value="{{dashboard.RAMU}}">
 
       <input type="hidden" id="disponivelSWAP" name="disponivelSWAP" value="{{dashboard.SWAPF}}">
       <input type="hidden" id="ocupadoSWAP" name="ocupadoSWAP" value="{{dashboard.SWAPU}}">
-      <input type="hidden" id="disponivelDR" name="disponivelCPU" value="100">
-      <input type="hidden" id="ocupadoDR" name="ocupadoDR" value="100">
+      <input type="hidden" id="disponivelDR" name="disponivelDR" value="{{dashboard.discoLivre}}">
+      <input type="hidden" id="ocupadoDR" name="ocupadoDR" value="{{dashboard.discoUsado}}">
    <tr>
         <td>
                 <div align="justify">
@@ -26,7 +26,7 @@
           google.charts.load("current", {packages:["corechart"]});
           google.charts.setOnLoadCallback(drawChart);
           function drawChart() {
-            var disponivelCPU = 1*document.getElementById("disponivelCPU").value
+            var disponivelCPU = 1*document.getElementById("disponivelCPU").value - 1*document.getElementById("ocupadoCPU").value
             var ocupadoCPU = 1*document.getElementById("ocupadoCPU").value
             var data = google.visualization.arrayToDataTable([
               ['Status', 'Valor'],
@@ -125,10 +125,12 @@
          google.charts.load("current", {packages:["corechart"]});
          google.charts.setOnLoadCallback(drawChart);
          function drawChart() {
+          var disponivelDR = 1*document.getElementById("disponivelDR").value
+          var ocupadoDR = 1*document.getElementById("ocupadoDR").value
            var data = google.visualization.arrayToDataTable([
              ['Status', 'Valor'],
-             ['Usado',     133],
-             ['Livre',      400],
+             ['Usado',     ocupadoDR],
+             ['Livre',      disponivelDR],
            ]);
    
            var options = {

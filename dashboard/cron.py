@@ -13,13 +13,13 @@ def MyCronJob1():
 
     SWAP = swapp[3]
     disco = psutil.disk_usage('/')
-    discoUsado = disco[3]
-    discoLivre = 100 - disco[3]
+    discoUsado = disco[1]
+    discoLivre = disco[2]
     capacidadeDisco = disco[0]
     #>>> disco[3] = porcentagem do disco usado
     #(total, used, free, percent)
 
-    CPU=psutil.cpu_percent()
+    CPU=int(psutil.cpu_percent())
     #porcentagem cpu
     
     mem = psutil.virtual_memory()
