@@ -44,7 +44,7 @@
             chart.draw(data, options);
           }
         </script>
-       
+       <input type="button" value="gerar grafico">
         <div id="donutchart" style="width:360px; height: 250px;"></div>
         </div>
         </td>
@@ -72,6 +72,8 @@
               chart.draw(data, options);
             }
           </script>
+          <input type="button" value="gerar grafico">
+
            <div id="donutRAM" style="width:360px; height: 250px;"></div>
            </div>
         </td>
@@ -99,6 +101,7 @@
               chart.draw(data, options);
             }
           </script>
+          <input type="button" value="gerar grafico">
            <div id="donutSWAP" style="width:360px; height: 250px;"></div>
            </div>
         </td>
@@ -106,6 +109,8 @@
     <tr>
       <td>
         <label for="text">Tempo de Funcionamento: </label>
+        
+        
        </td>
        <td></td>
        <td></td>
@@ -143,14 +148,14 @@
            chart.draw(data, options);
          }
        </script>
-      
+      <input type="button" value="gerar grafico">
        <div id="donutdisc" style="width:360px; height: 150px;"></div>
        </div>
        </td>
       </tr>
       <tr>
         <td>
-          <label for="text">Capacidade de Disco: </label>
+          <label for="text">Capacidade de Disco: {{dashboard.capacidadeDisco}}</label>
          </td>
          <td></td>
     </table>
