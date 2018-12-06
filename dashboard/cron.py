@@ -1,4 +1,5 @@
 from dashboard.models import Dashboard
+from datetime import datetime
 import os, platform
 import psutil
 
@@ -26,7 +27,15 @@ def MyCronJob1():
     RAM = mem[2]
     RAMU = mem[3]
     RAMF = mem[1]
-    dashboard = Dashboard(RAMU=RAMU,RAMF=RAMF,SWAP=SWAP, SWAPF=SWAPF,SWAPU=SWAPU,RAM=RAM,CPU=CPU,discoUsado=discoUsado,discoLivre=discoLivre,capacidadeDisco=capacidadeDisco)
+
+    now=datetime.now()
+    year= now.year
+    month = now.month
+    day = now.day
+    hour = now.hour
+    minute = now.minute
+
+    dashboard = Dashboard(minute=minute,hour=hour,day=day,month=month,year=year,RAMU=RAMU,RAMF=RAMF,SWAP=SWAP, SWAPF=SWAPF,SWAPU=SWAPU,RAM=RAM,CPU=CPU,discoUsado=discoUsado,discoLivre=discoLivre,capacidadeDisco=capacidadeDisco)
     dashboard.save()
     #
     ##>>> mem[2] = porcentagem da memoria usada

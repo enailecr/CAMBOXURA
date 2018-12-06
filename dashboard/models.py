@@ -12,3 +12,8 @@ class Dashboard(models.Model):
     discoUsado = models.BigIntegerField()
     discoLivre = models.BigIntegerField()
     capacidadeDisco = models.BigIntegerField()
+    year= models.IntegerField()
+    month = models.IntegerField()
+    day = models.IntegerField()
+    hour = models.IntegerField()
+    minute = models.IntegerField()
