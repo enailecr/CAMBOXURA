@@ -8,7 +8,7 @@
        <table>
    <div align="center">
       <input type="hidden" id="disponivelCPU" name="disponivelCPU" value="100">
-      <!-- {{dashboard.CPU}} -->
+      <!-- {{todos}} -->
       <input type="hidden" id="ocupadoCPU" name="ocupadoCPU" value="{{dashboard.CPU}}">
       
       <input type="hidden" id="disponivelRAM" name="disponivelRAM" value="{{dashboard.RAMF}}">
@@ -156,6 +156,11 @@
       <tr>
         <td>
           <label for="text">Capacidade de Disco: {{dashboard.capacidadeDisco}}</label>
+          
+         </td>
+         <td>
+          <label for="text">Ultima atualização: {{dashboard.day}}/{{dashboard.month}}/{{dashboard.year}} Hora:{{dashboard.hour}}:{{dashboard.minute}}</label>
+          
          </td>
          <td></td>
     </table>
