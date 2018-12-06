@@ -44,7 +44,7 @@
             chart.draw(data, options);
           }
         </script>
-       <input type="button" onclick="aparece()" value="Gerar Gráfico">
+       <input type="button" onclick="aparece_CPU()" value="Gerar Gráfico">
         <div id="donutchart" style="width:360px; height: 250px;"></div>
         </div>
         </td>
@@ -72,7 +72,7 @@
               chart.draw(data, options);
             }
           </script>
-          <input type="button" value="Gerar Gráfico">
+          <input type="button" onclick="aparece_RAM()" value="Gerar Gráfico">
 
            <div id="donutRAM" style="width:360px; height: 250px;"></div>
            </div>
@@ -101,7 +101,7 @@
               chart.draw(data, options);
             }
           </script>
-          <input type="button" value="Gerar Gráfico">
+          <input type="button" onclick="aparece_SWAP()" value="Gerar Gráfico">
            <div id="donutSWAP" style="width:360px; height: 250px;"></div>
            </div>
         </td>
@@ -148,7 +148,7 @@
            chart.draw(data, options);
          }
        </script>
-      <input type="button" value="Gerar Gráfico">
+      <input type="button" onclick="aparece_DR()" value="Gerar Gráfico">
        <div id="donutdisc" style="width:360px; height: 150px;"></div>
        </div>
        </td>
@@ -176,9 +176,12 @@
       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
       <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
-        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(drawChartCPU);
+        google.charts.setOnLoadCallback(drawChartRAM);
+        google.charts.setOnLoadCallback(drawChartSWAP);
+        google.charts.setOnLoadCallback(drawChartDR);
   
-        function drawChart() {
+        function drawChartCPU() {
           var data = google.visualization.arrayToDataTable([
             ['Year', 'CPU'],
             ['2004',  1000],
@@ -188,26 +191,119 @@
           ]);
   
           var options = {
-            title: 'Company Performance',
+            title: 'Gráfico - CPU',
             curveType: 'function',
             legend: { position: 'bottom' }
           };
   
-          var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+          var chart = new google.visualization.LineChart(document.getElementById('curve_chart_CPU'));
+  
+          chart.draw(data, options);
+        }
+
+        function drawChartRAM() {
+          var data = google.visualization.arrayToDataTable([
+            ['Year', 'RAM'],
+            ['2004',  1040],
+            ['2005',  1650],
+            ['2006',  880],
+            ['2007',  1020]
+          ]);
+  
+          var options = {
+            title: 'FOB',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+          };
+  
+          var chart = new google.visualization.LineChart(document.getElementById('curve_chart_RAM'));
+  
+          chart.draw(data, options);
+        }
+
+        function drawChartSWAP() {
+          var data = google.visualization.arrayToDataTable([
+            ['Year', 'SWAP'],
+            ['2004',  2030],
+            ['2005',  1610],
+            ['2006',  160],
+            ['2007',  140]
+          ]);
+  
+          var options = {
+            title: 'Gráfico - SWAP',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+          };
+  
+          var chart = new google.visualization.LineChart(document.getElementById('curve_chart_SWAP'));
+  
+          chart.draw(data, options);
+        }
+
+        function drawChartDR() {
+          var data = google.visualization.arrayToDataTable([
+            ['Year', 'Disco Rígido'],
+            ['2004',  231],
+            ['2005',  1170],
+            ['2006',  666],
+            ['2007',  2341]
+          ]);
+  
+          var options = {
+            title: 'Gráfico - Disco Rígido',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+          };
+  
+          var chart = new google.visualization.LineChart(document.getElementById('curve_chart_DR'));
   
           chart.draw(data, options);
         }
 
          function esconde() {
-                                document.getElementById("curve_chart").hidden=true;
+                                document.getElementById("curve_chart_CPU").hidden=true;
+                                document.getElementById("curve_chart_RAM").hidden=true;
+                                document.getElementById("curve_chart_SWAP").hidden=true;
+                                document.getElementById("curve_chart_DR").hidden=true;
+                                document.getElementById("b_esconde").hidden=true;
                             }
-         function aparece() {
-              document.getElementById("curve_chart").hidden=false;
+         function aparece_CPU() {
+              document.getElementById("curve_chart_CPU").hidden=false;
+              document.getElementById("b_esconde").hidden=false;
+              document.getElementById("curve_chart_RAM").hidden=true;
+              document.getElementById("curve_chart_SWAP").hidden=true;
+              document.getElementById("curve_chart_DR").hidden=true;
+          }
+          function aparece_RAM() {
+              document.getElementById("curve_chart_RAM").hidden=false;
+              document.getElementById("b_esconde").hidden=false;
+              document.getElementById("curve_chart_CPU").hidden=true;
+              document.getElementById("curve_chart_SWAP").hidden=true;
+              document.getElementById("curve_chart_DR").hidden=true; 
+          }
+          function aparece_SWAP() {
+              document.getElementById("curve_chart_SWAP").hidden=false;
+              document.getElementById("b_esconde").hidden=false;
+              document.getElementById("curve_chart_RAM").hidden=true;
+              document.getElementById("curve_chart_CPU").hidden=true;
+              document.getElementById("curve_chart_DR").hidden=true; 
+          }
+          function aparece_DR() {
+              document.getElementById("curve_chart_DR").hidden=false;
+              document.getElementById("b_esconde").hidden=false;
+              document.getElementById("curve_chart_RAM").hidden=true;
+              document.getElementById("curve_chart_CPU").hidden=true;
+              document.getElementById("curve_chart_SWAP").hidden=true; 
           }
       </script>
     </head>
     <body onload ="esconde()">
-      <div id="curve_chart" style="width: 900px; height: 500px"></div>
+      <div id="curve_chart_CPU" style="width: 900px; height: 500px"></div>
+      <div id="curve_chart_RAM" style="width: 900px; height: 500px"></div>
+      <div id="curve_chart_SWAP" style="width: 900px; height: 500px"></div>
+      <div id="curve_chart_DR" style="width: 900px; height: 500px"></div>
+      <input type="button" id="b_esconde" onclick="esconde()" value="Esconder Gráfico">
     </body>
   </div>
   </html>
