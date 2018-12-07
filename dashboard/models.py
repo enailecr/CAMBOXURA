@@ -17,3 +17,4 @@ class Dashboard(models.Model):
     day = models.IntegerField()
     hour = models.IntegerField()
     minute = models.IntegerField()
+    timestamp = models.DateTimeField(auto_now_add=True)

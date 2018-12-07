@@ -18,6 +18,9 @@
       <input type="hidden" id="ocupadoSWAP" name="ocupadoSWAP" value="{{dashboard.SWAPU}}">
       <input type="hidden" id="disponivelDR" name="disponivelDR" value="{{dashboard.discoLivre}}">
       <input type="hidden" id="ocupadoDR" name="ocupadoDR" value="{{dashboard.discoUsado}}">
+
+      <input type="hidden" id="swapp" name="swapp" value="{{grafico}}">
+
    <tr>
         <td>
                 <div align="justify">
@@ -227,12 +230,22 @@
         }
 
         function drawChartSWAP() {
+          var swa = new Array() ;
+          swa.push( 3);
+          var grafico = document.getElementById("swapp")
+          for (min in grafico){
+              date= String(min["month"]) ;
+              // +"/"+ String(min["day"]) +" "+ String(min["hour"])+ ":" +String(min.["minute"]);
+              swa.push( min["SWAPU"]);
+              console.log(date);
+          } 
           var data = google.visualization.arrayToDataTable([
             ['Year', 'SWAP'],
-            ['2004',  2030],
-            ['2005',  1610],
-            ['2006',  160],
-            ['2007',  140]
+             ['2004',  2030],
+            // ['2005',  1610],
+            // ['2006',  160],
+            // ['2007',  140]
+            ['2007', swa[0]],
           ]);
   
           var options = {
