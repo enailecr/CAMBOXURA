@@ -104,7 +104,17 @@ DATABASES = {
         'OPTIONS': {
             'sql_mode' :'STRICT_TRANS_TABLES',
         }
-
+    },
+    'relatorios': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'asteriskcdrdb',
+        'USER': 'root',
+        'PASSWORD': 'camtec!2013',
+        'HOST': '10.255.255.7',
+        'PORT': '3306',
+        'OPTIONS': {
+            'sql_mode' :'STRICT_TRANS_TABLES',
+        }
     }
 }
 
