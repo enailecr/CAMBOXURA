@@ -5,3 +5,32 @@ class Relatorios(models.Model):
     data = models.BooleanField()
     retornaURA = models.BooleanField()
     canalNaoResp = models.BooleanField()
+
+class Cdr(models.Model):
+    calldate = models.DateTimeField(verbose_name='Data',)
+    clid = models.CharField(max_length=80)
+    src = models.CharField(verbose_name='Origem',max_length=80)
+    dst = models.CharField(verbose_name='Destino',max_length=80)
+    dcontext = models.CharField(max_length=80)
+    channel = models.CharField(verbose_name='Canal Origem',max_length=80)
+    dstchannel = models.CharField(verbose_name='Canal Destino',max_length=80)
+    lastapp = models.CharField(max_length=80)
+    lastdata = models.CharField(max_length=80)
+    duration = models.IntegerField(verbose_name='Duração',)
+    billsec = models.IntegerField()
+    disposition = models.CharField(verbose_name='Status',max_length=45)
+    amaflags = models.IntegerField()
+    accountcode = models.CharField(verbose_name='Account Code',max_length=20)
+    uniqueid = models.CharField(max_length=32)
+    userfield = models.CharField(max_length=255)
+    recordingfile = models.CharField(max_length=255)
+    cnum = models.CharField(max_length=40)
+    cnam = models.CharField(max_length=40)
+    outbound_cnum = models.CharField(max_length=40)
+    outbound_cnam = models.CharField(max_length=40)
+    dst_cnam = models.CharField(max_length=40)
+    did = models.CharField(max_length=50)
+
+    class Meta:
+        managed = False
+        db_table = 'cdr'

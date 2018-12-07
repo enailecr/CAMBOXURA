@@ -3,7 +3,7 @@
 # encoding: win-1252
 import django_tables2 as tables
 #import django_filters
-from .models import Relatorios
+from .models import Cdr
 
 from django.db import models
 from django.utils import six
@@ -23,5 +23,5 @@ class RelatoriosTable(tables.Table):
     #     verbose_name=''
     #     )
     class Meta:
-        model = Relatorios
-        fields = ('data', 'origem','número de Destino','canal Origem','canal de Destino','ação da URA','código de Contuta', 'status', 'duração','áudio')
+        model = Cdr
+        fields = ('calldate', 'src','dst','channel','dstchannel','duration','accountcode', 'disposition')
