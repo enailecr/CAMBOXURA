@@ -18,9 +18,12 @@
       <input type="hidden" id="ocupadoSWAP" name="ocupadoSWAP" value="{{dashboard.SWAPU}}">
       <input type="hidden" id="disponivelDR" name="disponivelDR" value="{{dashboard.discoLivre}}">
       <input type="hidden" id="ocupadoDR" name="ocupadoDR" value="{{dashboard.discoUsado}}">
+      {%for g in grafico%}
+      <div id="teste{{ forloop.counter0 }}">
+      <input type="hidden" id="swapp" name="swapp" value="{{grafico.timestamp}}">
+      <input type="hidden" id="swapp" name="swapp" value="{{gtes1.RAMU}}">
 
-      <input type="hidden" id="swapp" name="swapp" value="{{grafico}}">
-
+      {%endfor%}
    <tr>
         <td>
                 <div align="justify">
@@ -231,12 +234,15 @@
 
         function drawChartSWAP() {
           var swa = new Array() ;
+          var da = new Array() ;
+          var grafico = new Array() ;
           swa.push( 3);
           var grafico = document.getElementById("swapp")
           for (min in grafico){
-              date= String(min["month"]) ;
+              date= (min["month"]) ;
               // +"/"+ String(min["day"]) +" "+ String(min["hour"])+ ":" +String(min.["minute"]);
               swa.push( min["SWAPU"]);
+              da.push(date)
               console.log(date);
           } 
           var data = google.visualization.arrayToDataTable([
@@ -246,6 +252,8 @@
             // ['2006',  160],
             // ['2007',  140]
             ['2007', swa[0]],
+            [ swa[1],swa[0]],
+            [ da[1],swa[5]],
           ]);
   
           var options = {
