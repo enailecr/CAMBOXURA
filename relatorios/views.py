@@ -54,24 +54,6 @@ def busca_relatorios(request):
         dataFim = datetime.strptime(df, '%Y-%m-%d')
         dataFim = utc.localize(dataFim)
 
-    # relatorios = Cdr.objects.using('relatorios').all()
-    # logs_filtrados = []
-    # if relatorios:
-    #     if dataInicio or dataFim:
-    #         for log in relatorios:
-    #             if dataInicio:
-    #                 if dataInicio<= log.calldate:
-    #                     if dataFim:
-    #                         if dataFim >=log.calldate:
-    #                             logs_filtrados.append(log)
-    #                     else:
-    #                         logs_filtrados.append(log)
-    #             else:
-    #                 if dataFim >=log.calldate:
-    #                     logs_filtrados.append(log)
-    #     else:
-    #         logs_filtrados = logs
-
     if dataInicio or dataFim:
         if dataInicio:
             if dataFim:
@@ -82,6 +64,15 @@ def busca_relatorios(request):
             relatorios = Cdr.objects.using('relatorios').exclude(calldate__gte=dataFim)
     else:
         relatorios =  Cdr.objects.using('relatorios').all()
+
+    if status:
+        relatorios = relatorios.filter(disposition=status)
+
+    if campo == "org":
+        relatorios = relatorios.filter(src=campo_input)
+
+    if campo == "dest":
+        relatorios = relatorios.filter(dst=campo_input)
 
     data = {}
     data['dataInicioRelatorio'] = di
