@@ -24,8 +24,9 @@ def list(request):
                 
                 # else:
         grafico_ordenado = grafico.order_by('timestamp')   
-                
-        data['grafico'] = grafico_ordenado
+        for i in range(len(grafico)):
+                data['gtes'+str(i)] = grafico_ordenado[i]        
+        #data['grafico'] = grafico_ordenado
         return render(request, 'dashboard.html',data)
 
 #     for j in range(12):
