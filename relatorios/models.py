@@ -21,7 +21,7 @@ class Cdr(models.Model):
     disposition = models.CharField(verbose_name='Status',max_length=45)
     amaflags = models.IntegerField()
     accountcode = models.CharField(verbose_name='Account Code',max_length=20)
-    uniqueid = models.CharField(max_length=32)
+    uniqueid = models.CharField(max_length=32, primary_key=True)
     userfield = models.CharField(max_length=255)
     recordingfile = models.CharField(max_length=255)
     cnum = models.CharField(max_length=40)
