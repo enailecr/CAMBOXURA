@@ -84,3 +84,11 @@ def busca_relatorios(request):
     data['table'] = table
     RequestConfig(request, paginate={'per_page': 10}).configure(table)
     return render(request, 'relatorios.html',data)
+
+# @login_required
+# def detalhes(request):
+#     id = request.GET.get('id', None)
+#     data = {
+#         'registro': Cdr.objects.using('relatorios').get(uniqueid=id)
+#     }
+#     return JsonResponse(data)

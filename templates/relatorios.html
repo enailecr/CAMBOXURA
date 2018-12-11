@@ -6,6 +6,7 @@
 
 {% block content %}
 
+<script src="{% static 'js/modal.js' %}"></script>
 <div >
     <table id="CAMTecnoligaTabela">
             <caption><h1>Relatórios</h1><div align="right">
@@ -20,6 +21,17 @@
         <body>
                 <div id="divCenter">
                         <br />
+  <div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p></p>
+    <fieldset id="detahesModal"></fieldset>
+  </div>
+
+</div>
+
     <form action="{% url 'busca_relatorios'%}" method="POST" name="dados" >
                 {% csrf_token %}
             <table cellspacing="10">
@@ -38,7 +50,7 @@
                                         <option value="vazio">Nenhum</option>
                                         <option value="org" {%if campo == "org"%} selected{%endif%}>Origem</option>
                                         <option value="dest" {%if campo == "dest"%} selected{%endif%}>Destino</option>
-                                        <option value="cano" {%if campo == "cano"%} selected{%endif%}>Canal Origem</option>                                      
+                                        <option value="cano" {%if campo == "cano"%} selected{%endif%}>Canal Origem</option>
                                         <option value="cand" {%if campo == "cand"%} selected{%endif%}>Canal Destino</option>
                                     </select>
                                 </td>
@@ -59,11 +71,11 @@
                                 </td>
                                 <td align="left">
                                         <select name="status">
-                                        <option value="all">Todos</option>
-                                        <option value="ANSWERED" {%if campo == "ANSWERED"%} selected{%endif%}>Respondidos</option>
-                                        <option value="BUSY" {%if campo == "BUSY"%} selected{%endif%}>Ocupados</option>
-                                        <option value="FAILED" {%if campo == "FAILED"%} selected{%endif%}>Fracassados</option>
-                                        <option value="NO ANSWER" {%if campo == "NO ANSWER"%} selected{%endif%}>Sem Resposta</option>
+                                        <option value="">Todos</option>
+                                        <option value="ANSWERED" {%if status == "ANSWERED"%} selected{%endif%}>Respondidos</option>
+                                        <option value="BUSY" {%if status == "BUSY"%} selected{%endif%}>Ocupados</option>
+                                        <option value="FAILED" {%if status == "FAILED"%} selected{%endif%}>Fracassados</option>
+                                        <option value="NO ANSWER" {%if status == "NO ANSWER"%} selected{%endif%}>Sem Resposta</option>
                                     </select>
                                 </td>
                         <td></td>

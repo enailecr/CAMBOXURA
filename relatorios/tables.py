@@ -12,16 +12,17 @@ from django.utils.html import escape, format_html
 from django_tables2.utils import AttributeDict, ucfirst
 
 class RelatoriosTable(tables.Table):
-    # excluir = tables.TemplateColumn(
-    #         '<form action="/uras/ura-remove/{{record.id}}/" method="post">{% csrf_token %}<input type="hidden" name="_method" value="Excluir"><button data-toggle="tooltip" title="Please note that deletion cannot be undone" type="submit" class="btn btn-danger btn-xs">Excluir</button></form>',
-    #     orderable=False,
-    #     verbose_name=''
-    #     )
-    # editar = tables.TemplateColumn(
-    #         '<form action="/uras/ura-edita/{{record.id}}/" method="get">{% csrf_token %}<input type="hidden" name="_method" value="Editar"><button data-toggle="tooltip" title="Please note that deletion cannot be undone" type="submit" class="btn btn-danger btn-xs">Editar</button></form>',
-    #     orderable=False,
-    #     verbose_name=''
-    #     )
+
+    detalhes = tables.TemplateColumn(
+            '<button data-toggle="tooltip" onClick="mostraDetalhes(\'{{record.calldate}}\',\'{{record.clid}}\''
+            +',\'{{record.src}}\',\'{{record.dst}}\',\'{{record.dcontext}}\',\'{{record.channel}}\',\'{{record.dstchannel}}\''
+            +',\'{{record.lastapp}}\',\'{{record.lastdata}}\',\'{{record.duration}}\',\'{{record.billsec}}\',\'{{record.disposition}}\''
+            +',\'{{record.amaflags}}\',\'{{record.accountcode}}\',\'{{record.userfield}}\',\'{{record.recordingfile}}\',\'{{record.cnum}}\''
+            +',\'{{record.cnam}}\',\'{{record.outbound_cnum}}\',\'{{record.outbound_cnam}}\',\'{{record.dst_cnam}}\',\'{{record.did}}\');"'
+            +'  type="button" class="btn btn-danger btn-xs">Detalhes</button>',
+        orderable=False,
+        verbose_name=''
+        )
     class Meta:
         model = Cdr
-        fields = ('calldate', 'src','dst','channel','dstchannel','duration','accountcode', 'disposition')
+        fields = ('calldate', 'src','dst','channel','dstchannel','duration','accountcode', 'disposition', 'detalhes')
