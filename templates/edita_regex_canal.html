@@ -2,9 +2,9 @@
 {% load static %}
 
 {% block content %}
-<div align="center"><caption><h1>Adicionar canal</h1></div>
+<div align="center"><caption><h1>Editar canal</h1></div>
 <br />
-<form method="POST" id="form" name="form">
+<form method="POST">
   {% csrf_token %}
   <input type="hidden" name="count" id="count" value="1">
   <TABLE>
@@ -73,7 +73,7 @@
        $.post('{% url "add_canal" %}', formData);
        console.log( formData );
        alert("Cadastrado com sucesso!")
-       return window.location.href ="/relatorios/canais/";
+       return window.location.href ="/relatorios/";
      });
 
     });

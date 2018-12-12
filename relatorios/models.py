@@ -1,10 +1,20 @@
 from django.db import models
 
 
-class Relatorios(models.Model):
-    data = models.BooleanField()
-    retornaURA = models.BooleanField()
-    canalNaoResp = models.BooleanField()
+class Canal(models.Model):
+    nome = models.CharField(max_length=80)
+
+    class Meta:
+        managed = False
+        db_table = 'Canal'
+
+class Regex(models.Model):
+    canal = models.ForeignKey(Canal, on_delete=models.CASCADE)
+    expressao = models.CharField(max_length=80)
+
+    class Meta:
+        managed = False
+        db_table = 'Regex'
 
 class Cdr(models.Model):
     calldate = models.DateTimeField(verbose_name='Data',)

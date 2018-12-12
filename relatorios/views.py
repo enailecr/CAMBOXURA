@@ -1,10 +1,10 @@
 from django.shortcuts import render ,redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from .models import Relatorios, Cdr
+from .models import  Cdr, Canal, Regex
 import re
 from django_tables2 import RequestConfig
-from .tables import RelatoriosTable
+from .tables import RelatoriosTable, CanaisTable
 from datetime import datetime
 import pytz
 
@@ -14,6 +14,13 @@ def list(request):
     table = RelatoriosTable(relatorios)
     RequestConfig(request, paginate={'per_page': 10}).configure(table)
     return render(request, 'relatorios.html',{'table': table})
+
+@login_required
+def lista_canais(request):
+    relatorios = Canal.objects.using('relatorios').all()
+    table = CanaisTable(relatorios)
+    RequestConfig(request, paginate={'per_page': 10}).configure(table)
+    return render(request, 'canais.html',{'table': table})
 
 @login_required
 def busca_relatorios(request):
@@ -88,3 +95,36 @@ def busca_relatorios(request):
 @login_required
 def canal_novo(request):
     return render(request, 'regex_canal.html')
+
+@login_required
+def add_canal(request):
+    nome = request.POST['nome']
+    canal = Canal(nome=nome)
+    canal.save(using='relatorios')
+
+    regras = []
+
+    contador = int(request.POST['count'])
+    for i in range(contador):
+        regras.append(request.POST['regex'+str(i)])
+
+    cont=0;
+    while cont < contador:
+        regex = Regex(expressao = regras[cont], canal=canal)
+        regex.save(using='relatorios')
+        cont= cont + 1
+
+    return render(request, 'regex_canal.html')
+
+@login_required
+def canal_remove(request, id):
+    canal = Canal.objects.using('relatorios').get(id=id)
+    canal.delete()
+
+    return redirect('/relatorios/canais/')
+
+@login_required
+def canal_edita(request, id):
+    canal = Canal.objects.using('relatorios').get(id=id)
+    data['canal'] = canal
+    return render(request, 'edita_regex_canal.html',data)
