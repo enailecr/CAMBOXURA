@@ -11,6 +11,27 @@ import pytz
 @login_required
 def list(request):
     relatorios = Cdr.objects.using('relatorios').all()
+    regras = Regex.objects.using('relatorios').all()
+    for registro in relatorios:
+        if registro.disposition == "NO ANSWER":
+            registro.disposition = "Sem resposta"
+        if registro.disposition == "BUSY":
+            registro.disposition = "Ocupado"
+        if registro.disposition == "ANSWERED":
+            registro.disposition = "Respondido"
+        if registro.disposition == "FAILED":
+            registro.disposition = "Falha"
+        for regra in regras:
+            string = "("+regra.expressao+")"+"(.*?)(-)(.*)"
+            canalorigem = re.match(string, registro.channel)
+            if canalorigem:
+                canal = regra.canal.nome
+                registro.channel = canal
+            canaldest = re.match(string, registro.dstchannel)
+            if canaldest:
+                canal = regra.canal.nome
+                registro.dstchannel = canal
+
     table = RelatoriosTable(relatorios)
     RequestConfig(request, paginate={'per_page': 10}).configure(table)
     return render(request, 'relatorios.html',{'table': table})
@@ -81,6 +102,36 @@ def busca_relatorios(request):
     if campo == "dest":
         relatorios = relatorios.filter(dst=campo_input)
 
+    regras = Regex.objects.using('relatorios').all()
+    for registro in relatorios:
+        if registro.disposition == "NO ANSWER":
+            registro.disposition = "Sem resposta"
+        if registro.disposition == "BUSY":
+            registro.disposition = "Ocupado"
+        if registro.disposition == "ANSWERED":
+            registro.disposition = "Respondido"
+        if registro.disposition == "FAILED":
+            registro.disposition = "Falha"
+        for regra in regras:
+            string = "("+regra.expressao+")"+"(.*?)(-)(.*)"
+            canalorigem = re.match(string, registro.channel)
+            if canalorigem:
+                canal = regra.canal.nome
+                registro.channel = canal
+            canaldest = re.match(string, registro.dstchannel)
+            if canaldest:
+                canal = regra.canal.nome
+                registro.dstchannel = canal
+
+    rel_filtrado =[]
+    if campo == "cano" or campo == "cand":
+        for registro in relatorios:
+            if ((campo == "cano" and re.match('(.*?)'+campo_input+'(.*?)', registro.channel)) or (campo == "cand" and re.match('(.*?)'+campo_input+'(.*?)', registro.dstchannel))):
+                rel_filtrado.append(registro)
+
+    if rel_filtrado:
+        relatorios = rel_filtrado
+
     data = {}
     data['dataInicioRelatorio'] = di
     data['dataFimRelatorio'] = df
@@ -125,6 +176,35 @@ def canal_remove(request, id):
 
 @login_required
 def canal_edita(request, id):
+    data = {}
     canal = Canal.objects.using('relatorios').get(id=id)
     data['canal'] = canal
-    return render(request, 'edita_regex_canal.html',data)
+    regras = Regex.objects.using('relatorios').filter(canal=canal)
+    data['regras'] = regras
+    count= len(regras)
+    data['count'] = count
+    if request.method == 'POST':
+        nome = request.POST['nome']
+        canal.nome = nome
+        canal.save(using='relatorios')
+
+        cont=0;
+        for r in regras:
+            r.delete()
+
+        regra =[]
+        contador = int(request.POST['count'])
+        conta= 0
+        for i in range(contador):
+            if 'regex'+str(i) in request.POST:
+                regra.append(request.POST['regex'+str(i)])
+                conta = conta +1
+
+        while cont < conta:
+            regex = Regex(expressao = regra[cont], canal=canal)
+            regex.save(using='relatorios')
+            cont= cont + 1
+
+        return redirect('/relatorios/canais/')
+    else:
+        return render(request, 'edita_regex_canal.html',data)

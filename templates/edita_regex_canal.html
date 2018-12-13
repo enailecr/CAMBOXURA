@@ -6,14 +6,14 @@
 <br />
 <form method="POST">
   {% csrf_token %}
-  <input type="hidden" name="count" id="count" value="1">
+  <input type="hidden" name="count" id="count" value="{{count}}" ></input>
   <TABLE>
     <tr>
       <td>
         Nome do Canal
       </td>
       <td>
-        <input type="text" name="nome"></input>
+        <input type="text" name="nome" value="{{canal.nome}}"></input>
       </td>
     </tr>
   </TABLE>
@@ -21,26 +21,34 @@
   <div align="center"><label style="display: block"><input type="button" name="add" id="add_linha" value="Adicionar Regra" /></label></div>
   <br />
   <div align="center">
-    <div  id="ramall" cellspacing="10">
+    {%for regra in regras%}
+    <div  id="regras{{ forloop.counter0 }}" cellspacing="10">
       <tr>
         <td>
           Regra para identificação
         </td>
         <td>
-          <input type="text" name="regex0"></input>
-          <a class="remove"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a>
+          <input type="text" name="regex{{forloop.counter0}}" id="regex{{forloop.counter0}}" value="{{regra.expressao}}"></input>
+          <a onclick="remove('regras{{ forloop.counter0 }}')" name="testremove"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a>
         </td>
       </tr>
-
     </div>
+    {%endfor%}
     <fieldset id="inputs_adicionais" style="border: none"></fieldset>
   </div>
-  <button type="submit">Cadastrar</button>
+  <button type="submit">Salvar</button>
 </form>
 </body>
 <script type="text/javascript">
+  function remove(dados){
+      var node = document.getElementById(dados);
+      if (node.parentNode) {
+        node.parentNode.removeChild(node);
+      }
+  }
     $(document).ready(function(){
-      var i = 1;
+      var i = $('#count').val();
+      var k = $('#count').val();
 
     $("#add_linha").on('click', function (e){
         e.preventDefault();
@@ -62,18 +70,16 @@
     });
 
       $("#form").submit( function(e) {
-       //prevent the default submithandling
        e.preventDefault();
 
        var formData = $("#form").serializeArray();
-       for(var j=1; j<i; j++ ){
+       for(var j=k; j<i; j++ ){
          formData.push({name: "regex"+j, value: $('#regex'+j).val() });
         }
 
        $.post('{% url "add_canal" %}', formData);
        console.log( formData );
-       alert("Cadastrado com sucesso!")
-       return window.location.href ="/relatorios/";
+       return window.location.href ="/relatorios/canais/";
      });
 
     });
