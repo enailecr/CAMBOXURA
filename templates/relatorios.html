@@ -3,7 +3,7 @@
 
 {% load render_table from django_tables2 %}
 
-
+{% load querystring from django_tables2 %}
 {% block content %}
 
 <script src="{% static 'js/modal.js' %}"></script>
@@ -101,7 +101,7 @@
 <!-- <button type="submit">Imprimir</button></td> -->
 <input type="button" value="Imprimir" onclick="printPage('block1');"></input>
 <!-- <button type="btnExport">Exportar para Excel</button></td> -->
-<button onclick="exportTableToExcel('block1')">Exportar para Excel</button>
+<a href="{% querystring '_export'='xls' %}"><button>Exportar para Excel</button></a>
 
 <div id=block1>
     <table id=tblData>

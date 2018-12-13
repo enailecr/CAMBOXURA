@@ -21,7 +21,8 @@ class RelatoriosTable(tables.Table):
             +',\'{{record.cnam}}\',\'{{record.outbound_cnum}}\',\'{{record.outbound_cnam}}\',\'{{record.dst_cnam}}\',\'{{record.did}}\');"'
             +'  type="button" class="btn btn-danger btn-xs">Detalhes</button>',
         orderable=False,
-        verbose_name=''
+        verbose_name='',
+        exclude_from_export=True
         )
     class Meta:
         model = Cdr

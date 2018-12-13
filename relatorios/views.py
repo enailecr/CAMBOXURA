@@ -7,6 +7,8 @@ from django_tables2 import RequestConfig
 from .tables import RelatoriosTable, CanaisTable
 from datetime import datetime
 import pytz
+from django_tables2.config import RequestConfig
+from django_tables2.export.export import TableExport
 
 @login_required
 def list(request):
@@ -34,6 +36,12 @@ def list(request):
 
     table = RelatoriosTable(relatorios)
     RequestConfig(request, paginate={'per_page': 10}).configure(table)
+
+    export_format = request.GET.get('_export', None)
+    if TableExport.is_valid_format(export_format):
+        exporter = TableExport(export_format, table)
+        return exporter.response('table.{}'.format(export_format))
+
     return render(request, 'relatorios.html',{'table': table})
 
 @login_required
@@ -141,6 +149,12 @@ def busca_relatorios(request):
     table = RelatoriosTable(relatorios)
     data['table'] = table
     RequestConfig(request, paginate={'per_page': 10}).configure(table)
+
+    export_format = request.GET.get('_export', None)
+    if TableExport.is_valid_format(export_format):
+        exporter = TableExport(export_format, table)
+        return exporter.response('table.{}'.format(export_format))
+
     return render(request, 'relatorios.html',data)
 
 @login_required
