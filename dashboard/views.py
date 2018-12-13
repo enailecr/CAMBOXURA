@@ -59,6 +59,7 @@ def list(request):
 
         #teste = [1,2,3]
         # teste=str(teste).strip('[]')
+        
         teste=str(grafico_ordenado)
         teste= teste[12:-3]
         teste = teste.replace("(","")
@@ -67,6 +68,7 @@ def list(request):
         teste = teste[1:-1]
         teste = teste.replace("', '","zz")
         aaa= teste
+        
         # json_posts = json.dumps(list(grafico_ordenado))
         # grafico_ordenado = lista.append(grafico_ordenado.values())
         # queryset = list_to_queryset(grafico_ordenado)
