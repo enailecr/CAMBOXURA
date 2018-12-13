@@ -21,7 +21,7 @@ table {
 }
 
 .pagination-number:hover, .pagination-current {
-    background-color: #3354AA;      
+    background-color: #3354AA;
 }
 
 .pagination-action {
@@ -33,19 +33,19 @@ table {
 }
 
 .pagination-action:hover, .pagination-previous, .pagination-next {
-    color: #3354AA;  
+    color: #3354AA;
 }
 }
 table a{
   text-decoration:none;
-  
+
 }
 
 thead {
   background-color:#a22428;
   border-top: 1px solid #a22428;
   border-bottom: 1px solid #a22428;
-  
+
 }
 thead a{
   color: #fff;
@@ -65,7 +65,7 @@ tr:nth-child(even) {
 th {
   font-weight: normal;
   text-align: left;
-  
+
 }
 a {
 text-decoration: none;
@@ -117,7 +117,7 @@ th, td {
   background-image: -o-linear-gradient(top, #eb0707, #d40b0b);
   background-image: linear-gradient(to bottom, #eb0707, #d40b0b);
   text-decoration: none;
-  
+
 }
 
 .edit-button{
@@ -140,9 +140,48 @@ th, td {
   background-image:url("../images/vermelho.png");
   width:20px;
   float: right;
-  
+
 }.verde-button{
   background-image:url("../images/verde.png");
   width:20px;
   float: right;
+}
+
+
+/* The Modal (background) */
+.modal {
+ display: none; /* Hidden by default */
+ position: fixed; /* Stay in place */
+ z-index: 1; /* Sit on top */
+ left: 0;
+ top: 0;
+ width: 100%; /* Full width */
+ height: 100%; /* Full height */
+ overflow: auto; /* Enable scroll if needed */
+ background-color: rgb(0,0,0); /* Fallback color */
+ background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+ background-color: #fefefe;
+ margin: 15% auto; /* 15% from the top and centered */
+ padding: 20px;
+ border: 1px solid #888;
+ width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+ color: #aaa;
+ float: right;
+ font-size: 28px;
+ font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+ color: black;
+ text-decoration: none;
+ cursor: pointer;
 }

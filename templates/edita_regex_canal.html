@@ -1,0 +1,88 @@
+{% extends "menu.html" %}
+{% load static %}
+
+{% block content %}
+<div align="center"><caption><h1>Editar canal</h1></div>
+<br />
+<form method="POST">
+  {% csrf_token %}
+  <input type="hidden" name="count" id="count" value="{{count}}" ></input>
+  <TABLE>
+    <tr>
+      <td>
+        Nome do Canal
+      </td>
+      <td>
+        <input type="text" name="nome" value="{{canal.nome}}"></input>
+      </td>
+    </tr>
+  </TABLE>
+  <br />
+  <div align="center"><label style="display: block"><input type="button" name="add" id="add_linha" value="Adicionar Regra" /></label></div>
+  <br />
+  <div align="center">
+    {%for regra in regras%}
+    <div  id="regras{{ forloop.counter0 }}" cellspacing="10">
+      <tr>
+        <td>
+          Regra para identificação
+        </td>
+        <td>
+          <input type="text" name="regex{{forloop.counter0}}" id="regex{{forloop.counter0}}" value="{{regra.expressao}}"></input>
+          <a onclick="remove('regras{{ forloop.counter0 }}')" name="testremove"><img  src="{% static 'img/minus.png' %}" style="cursor: pointer;" ></a>
+        </td>
+      </tr>
+    </div>
+    {%endfor%}
+    <fieldset id="inputs_adicionais" style="border: none"></fieldset>
+  </div>
+  <button type="submit">Salvar</button>
+</form>
+</body>
+<script type="text/javascript">
+  function remove(dados){
+      var node = document.getElementById(dados);
+      if (node.parentNode) {
+        node.parentNode.removeChild(node);
+      }
+  }
+    $(document).ready(function(){
+      var i = $('#count').val();
+      var k = $('#count').val();
+
+    $("#add_linha").on('click', function (e){
+        e.preventDefault();
+          var input = '<div><tr><td>Regra para identificação</td><td><input type="text" name="regex'+i+'"  id="regex'+i+'"></input><a class="remove"><img  src="{% static "img/minus.png" %}" style="cursor: pointer;" ></a></td> </tr></div>'
+        var newTextBoxDiv = $('</fieldset>');
+
+            newTextBoxDiv.html(input);
+            newTextBoxDiv.appendTo("#inputs_adicionais");
+            $('#inputs_adicionais').append(input);
+            i++;
+            $('#count').val(i);
+        });
+
+    $('#inputs_adicionais').delegate('a','click',function( e ){
+        e.preventDefault();
+        $( this ).parent('div').remove();
+        i--;
+        $('#count').val(i);
+    });
+
+      $("#form").submit( function(e) {
+       e.preventDefault();
+
+       var formData = $("#form").serializeArray();
+       for(var j=k; j<i; j++ ){
+         formData.push({name: "regex"+j, value: $('#regex'+j).val() });
+        }
+
+       $.post('{% url "add_canal" %}', formData);
+       console.log( formData );
+       return window.location.href ="/relatorios/canais/";
+     });
+
+    });
+
+    </script>
+{% endblock %}

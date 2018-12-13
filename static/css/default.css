@@ -50,7 +50,7 @@ a
 .pagination {
     text-align: center;
 	margin-top: 1em;
-	
+
 }
 .pagination a{
 	text-decoration:none;
@@ -80,7 +80,7 @@ a
 }
 
 .pagination-number:hover, .pagination-current {
-    background-color: #3354AA;      
+    background-color: #3354AA;
 }
 
 .pagination-action {
@@ -92,7 +92,7 @@ a
 }
 
 .pagination-action:hover, .pagination-previous, .pagination-next {
-    color: #3354AA;  
+    color: #3354AA;
 }
 a:hover
 {
@@ -410,7 +410,7 @@ ul.contact li a.icon-rss:before
 /*********************************************************************************/
 /* Header                                                                        */
 /*********************************************************************************/
-	
+
 #header-wrapper
 {
 	background: #FFF;
@@ -517,7 +517,7 @@ ul.contact li a.icon-rss:before
 /*********************************************************************************/
 /* Banner                                                                        */
 /*********************************************************************************/
-	
+
 	#banner-wrapper
 {
 	overflow: hidden;
@@ -852,7 +852,7 @@ ul.contact li a.icon-rss:before
 	position: absolute;
 	top: 150px;
 	right: 0;
-	
+
 }
 
 #slider .indicator
@@ -997,4 +997,3 @@ ul.contact li a.icon-rss:before
 {
 	float: right;
 }
-

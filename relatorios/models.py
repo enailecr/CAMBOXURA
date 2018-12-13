@@ -1,10 +1,20 @@
 from django.db import models
 
 
-class Relatorios(models.Model):
-    data = models.BooleanField()
-    retornaURA = models.BooleanField()
-    canalNaoResp = models.BooleanField()
+class Canal(models.Model):
+    nome = models.CharField(max_length=80)
+
+    class Meta:
+        managed = False
+        db_table = 'Canal'
+
+class Regex(models.Model):
+    canal = models.ForeignKey(Canal, on_delete=models.CASCADE)
+    expressao = models.CharField(max_length=80)
+
+    class Meta:
+        managed = False
+        db_table = 'Regex'
 
 class Cdr(models.Model):
     calldate = models.DateTimeField(verbose_name='Data',)
@@ -21,7 +31,7 @@ class Cdr(models.Model):
     disposition = models.CharField(verbose_name='Status',max_length=45)
     amaflags = models.IntegerField()
     accountcode = models.CharField(verbose_name='Account Code',max_length=20)
-    uniqueid = models.CharField(max_length=32)
+    uniqueid = models.CharField(max_length=32, primary_key=True)
     userfield = models.CharField(max_length=255)
     recordingfile = models.CharField(max_length=255)
     cnum = models.CharField(max_length=40)

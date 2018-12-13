@@ -6,6 +6,7 @@
 
 {% block content %}
 
+<script src="{% static 'js/modal.js' %}"></script>
 <div >
     <table id="CAMTecnoligaTabela">
             <caption><h1>Relatórios</h1><div align="right">
@@ -20,7 +21,18 @@
         <body>
                 <div id="divCenter">
                         <br />
-    <form action="#" method="POST" name="dados" onSubmit="return enviardados();">
+  <div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p></p>
+    <fieldset id="detahesModal"></fieldset>
+  </div>
+
+</div>
+
+    <form action="{% url 'busca_relatorios'%}" method="POST" name="dados" >
                 {% csrf_token %}
             <table cellspacing="10">
                     <tr>
@@ -28,22 +40,22 @@
                             <label for="data_inicio">Data Início: </label>
                             </td>
                             <td align="left">
-                            <input type="date" name="data_inicio">
+                            <input type="date" name="data_inicio" value="{{dataInicioRelatorio}}">
                             </td>
                             <td>
                                     <label for="campo">Campo</label>
                                 </td>
                                 <td align="left">
                                         <select name="campo">
-                                        <option value="dest">Destino</option>
-                                        <option value="org">Origem</option>                                       
-                                        <option value="cano">Canal Origem</option>
-                                        <option value="cod">Código da Conta</option>
-                                        <option value="cand">Canal Destino</option>
+                                        <option value="vazio">Nenhum</option>
+                                        <option value="org" {%if campo == "org"%} selected{%endif%}>Origem</option>
+                                        <option value="dest" {%if campo == "dest"%} selected{%endif%}>Destino</option>
+                                        <option value="cano" {%if campo == "cano"%} selected{%endif%}>Canal Origem</option>
+                                        <option value="cand" {%if campo == "cand"%} selected{%endif%}>Canal Destino</option>
                                     </select>
-                                </td>   
+                                </td>
                                         <td align="left">
-                                        <input type="text" name="campo">
+                                        <input type="text" name="campo_input" value="{{campo_input}}">
                                         </td>
                         <td></td>
                     </tr>
@@ -52,40 +64,32 @@
                             <label for="data_fim">Data Fim: </label>
                             </td>
                             <td align="left">
-                            <input type="date" name="data_fim">
+                            <input type="date" name="data_fim" value="{{dataFimRelatorio}}">
                             </td>
                             <td>
                                     <label for="status">Status</label>
                                 </td>
                                 <td align="left">
                                         <select name="status">
-                                        <option value="all">Todos</option>                                       
-                                        <option value="resp">Respondidos</option>
-                                        <option value="ocup">Ocupados</option>
-                                        <option value="fail">Fracassados</option>
-                                        <option value="no_resp">Sem Resposta</option>
+                                        <option value="">Todos</option>
+                                        <option value="ANSWERED" {%if status == "ANSWERED"%} selected{%endif%}>Respondidos</option>
+                                        <option value="BUSY" {%if status == "BUSY"%} selected{%endif%}>Ocupados</option>
+                                        <option value="FAILED" {%if status == "FAILED"%} selected{%endif%}>Fracassados</option>
+                                        <option value="NO ANSWER" {%if status == "NO ANSWER"%} selected{%endif%}>Sem Resposta</option>
                                     </select>
                                 </td>
                         <td></td>
                         <td></td>
                     </tr>
                     <tr>
-                            <td>
-                                    <label for="chamada">Chamada em Grupo</label>
-                                </td>
-                                <td align="left">
-                                        <select name="chamada">
-                                        <option value="1">600/CAM</option>
-                                        <option value="all">Qualquer Chamada em Grupo</option>
-                                    </select>
-                                </td>
+
                             <td><button type="submit" class="formobjects">Pesquisar</button></td>
                             </tr>
             </table>
             <br />
             <tr>
                 <td>
-                       
+
                 </td>
             </tr>
 <table>
@@ -113,15 +117,15 @@
     var dataType = 'application/vnd.ms-excel';
     var tableSelect = document.getElementById(tableID);
     var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
-    
+
     // Specify file name
     filename = filename?filename+'.xls':'excel_data.xls';
-    
+
     // Create download link element
     downloadLink = document.createElement("a");
-    
+
     document.body.appendChild(downloadLink);
-    
+
     if(navigator.msSaveOrOpenBlob){
         var blob = new Blob(['\ufeff', tableHTML], {
             type: dataType
@@ -130,10 +134,10 @@
     }else{
         // Create a link to the file
         downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
-    
+
         // Setting the file name
         downloadLink.download = filename;
-        
+
         //triggering the function
         downloadLink.click();
     }
@@ -144,9 +148,9 @@
     {
        var html="<html>";
        html+= document.getElementById(id).innerHTML;
-    
+
        html+="</html>";
-    
+
        var printWin = window.open('','','left=0,top=0,width=1,height=1,toolbar=0,scrollbars=0,status  =0');
        printWin.document.write(html);
        printWin.document.close();
@@ -156,5 +160,3 @@
     }
     </script>
 {% endblock %}
-
-
