@@ -19,7 +19,34 @@
       <input type="hidden" id="disponivelDR" name="disponivelDR" value="{{dashboard.discoLivre}}">
       <input type="hidden" id="ocupadoDR" name="ocupadoDR" value="{{dashboard.discoUsado}}">
       <input type="hidden" id="swapp" name="swapp" value="{{grafico}}">
-      <input type="hidden" id="swappteste" name="swappteste" value="{{gtes1}}">
+      
+      <script>
+            var dataGoogleGraphic = [];
+            dataGoogleGraphic['CPU'] = [];
+            dataGoogleGraphic['RAM'] = [];
+            dataGoogleGraphic['SWAP'] = [];
+            dataGoogleGraphic['DISCO'] = [];
+
+            var jsonSwapTesteObject = JSON.parse('{{ gtes1 | escapejs }}');
+            var index, len;
+            
+            var indexArray = 0;
+            dataGoogleGraphic['CPU'][indexArray] = Array("Day", "CPU MAX", "CPU MIN", "CPU AVG");
+            dataGoogleGraphic['RAM'][indexArray] = Array("Day", "RAM MAX", "RAM MIN", "RAM AVG");
+            dataGoogleGraphic['SWAP'][indexArray] = Array("Day", "SWAP MAX", "SWAP MIN", "SWAP AVG");
+            dataGoogleGraphic['DISCO'][indexArray] = Array("Day", "DISCO MAX", "DISCO MIN", "DISCO AVG");
+            indexArray++;
+
+            for (index = 0, len = jsonSwapTesteObject.length; index < len; ++index) {
+                dayROW = jsonSwapTesteObject[index];
+                dataGoogleGraphic['CPU'][indexArray] = Array(dayROW["day"] + '', dayROW["CPU_MAX"], dayROW['CPU_MIN'], dayROW['CPU_AVG']);
+                dataGoogleGraphic['RAM'][indexArray] = Array(dayROW["day"] + '', dayROW["RAM_MAX"], dayROW['RAM_MIN'], dayROW['RAM_AVG']);
+                dataGoogleGraphic['SWAP'][indexArray] = Array(dayROW["day"] + '', dayROW["SWAP_MAX"], dayROW['SWAP_MIN'], dayROW['SWAP_AVG']);
+                dataGoogleGraphic['DISCO'][indexArray] = Array(dayROW["day"] + '', dayROW["DISCO_MAX"], dayROW['DISCO_MIN'], dayROW['DISCO_AVG']);
+                indexArray++;
+            }
+
+      </script>
       <!-- {%for g in grafico%}
       <div id="teste{{ forloop.counter0 }}">
       <input type="hidden" id="swapp" name="swapp" value="{{grafico |safe}}">
@@ -196,14 +223,9 @@
         google.charts.setOnLoadCallback(drawChartDR);
   
         function drawChartCPU() {
-          var data = google.visualization.arrayToDataTable([
-            ['Year', 'CPU','max'],
-            ['2004',  1000,1200],
-            ['2005',  1170,1200],
-            ['2006',  660,1000],
-            ['2007',  1030,1200]
-          ]);
-  
+
+          var data = google.visualization.arrayToDataTable(dataGoogleGraphic["CPU"]);
+    
           var options = {
             title: 'Gráfico - CPU',
             curveType: 'function',
@@ -216,15 +238,8 @@
         }
 
         function drawChartRAM() {
-          var bla = $('#swappteste').val();
-          //  var array = bla.split("zz ");
-          var data = google.visualization.arrayToDataTable([
-            ['Year', 'RAM'],
-            ['2004',  1040],
-            ['2005',  1650],
-            ['2006',  880],
-            ['2007',  1020]
-          ]);
+          
+          var data = google.visualization.arrayToDataTable(dataGoogleGraphic["RAM"]);
   
           var options = {
             title: 'Gráfico - RAM',
@@ -238,31 +253,9 @@
         }
 
         function drawChartSWAP() {
-          // var swa = new Array() ;
-          var da = new Array() ;
-          //var grafico = new Array() ;
-          
-          // swa.push( 3);
-          // var grafico = document.getElementById("swappteste").value;
-          var bla = $('#swappteste').val();
-
-          var array = bla.split("zz ");
-          var a=array[0];
-          a=a.split(",");
-          // a[11]= Integer.parseInt(a[11]);
-          a[11] = parseInt(a[11]);
-          
-
-          var data = google.visualization.arrayToDataTable([
-            ['Year', 'SWAP','max','min'],
-              [a[0],  2030, 70,0],
-             ['2005',  610, 60,30],
-            ['2006',  160, 55,0],
-            // ['2007',  140]
-            // ['2007', swa,]
-            // [ swa[1],swa[0]],
-            // [ da[1],swa[5]],
-          ]);
+                 
+          var data = google.visualization.arrayToDataTable(dataGoogleGraphic["SWAP"]);
+  
   
           var options = {
             title: 'Gráfico - SWAP',
@@ -276,13 +269,9 @@
         }
 
         function drawChartDR() {
-          var data = google.visualization.arrayToDataTable([
-            ['Year', 'Disco Rígido'],
-            ['2004',  231],
-            ['2005',  1170],
-            ['2006',  666],
-            ['2007',  2341]
-          ]);
+                 
+          var data = google.visualization.arrayToDataTable(dataGoogleGraphic["DISCO"]);
+  
   
           var options = {
             title: 'Gráfico - Disco Rígido',

@@ -9,11 +9,17 @@ from django.core import serializers
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 import simplejson
+from rest_framework.renderers import JSONRenderer
+from rest_framework.response import Response
+# from rest_framework import serializers
+from django.contrib.auth.models import User
+
+from rest_framework.views import APIView
 
 
 # from django.core.serializers.json import DjangoJSONEncoder
 # from django.db.models.utils import list_to_queryset
-@login_required
+# @login_required
 def list(request):
         data = {}
         todos = Dashboard.objects.all()
@@ -34,46 +40,21 @@ def list(request):
                 
                 # else:
         grafico_ordenado = grafico.order_by('timestamp')
-        grafico_ordenado = grafico_ordenado.values_list('day', 'month', 'year').annotate(CPU_MAX=Max('CPU'), CPU_AVG=Avg('CPU'),CPU_MIN=Min('CPU'),RAM_MAX=Max('RAM'), RAM_AVG=Avg('RAM'),RAM_MIN=Min('RAM'),SWAP_MAX=Max('SWAP'), SWAP_AVG=Avg('SWAP'),SWAP_MIN=Min('SWAP'),disco_MAX=Max('disco'), disco_AVG=Avg('disco'),disco_MIN=Min('disco')).order_by('day', 'month', 'year')
-        # .filter(day=0)
-        teste = grafico_ordenado.aggregate(Max('CPU'),Max('RAM'),Max('SWAP'),Max('disco'),Min('CPU'),Min('RAM'),Min('SWAP'),Min('disco'),Avg('CPU'),Avg('RAM'),Avg('SWAP'),Avg('disco'))
-        # for i in range(grafico):  
+        QuerySETGraficoAgrupado = grafico_ordenado.values('day', 'month', 'year').annotate(CPU_MAX=Max('CPU'), CPU_AVG=Avg('CPU'),CPU_MIN=Min('CPU'),RAM_MAX=Max('RAM'), RAM_AVG=Avg('RAM'),RAM_MIN=Min('RAM'),SWAP_MAX=Max('SWAP'), SWAP_AVG=Avg('SWAP'),SWAP_MIN=Min('SWAP'),DISCO_MAX=Max('disco'), DISCO_AVG=Avg('disco'),DISCO_MIN=Min('disco')).order_by('day', 'month', 'year')
+
+        #QuerySETGraficoAgrupado
+        #QuerySETGraficoAgrupado = <QuerySet [(0, 0, 0, 100, 70.2028, 20, 97, 69.4056, 14, 19, 1.5127, 0, 0, 0.0, 0), (6, 12, 2018, 100, 69.1132, 6, 90, 74.7044, 13, 4, 3.0587, 0, 0, 0.0, 0), (7, 12, 2018, 100, 66.2387, 9, 90, 42.739, 12, 1, 0.0785, 0, 0, 0.0, 0), (10, 12, 2018, 100, 69.8956, 6, 87, 70.0566, 13, 4, 0.3221, 0, 0, 0.0, 0), (11, 12, 2018, 100, 66.7481, 25, 98, 84.9292, 22, 96, 30.6317, 0, 5, 4.5411, 0), (12, 12, 2018, 100, 72.514, 6, 95, 75.64, 13, 16, 5.486, 0, 5, 5.0, 5), (13, 12, 2018, 100, 73.5367, 23, 99, 72.0604, 13, 21, 3.308, 0, 5, 5.0, 5)]>
         i=1
-        #teste=grafico_ordenado[i]
-        # output = serializers.serialize('json', grafico_ordenado)
 
-        # temp_output = serializers.serialize('python', grafico_ordenado)
-        # output = json.dumps(temp_output, cls=DjangoJSONEncoder)
-        # json_serialized_objects = serializers.serialize("json", grafico_ordenado)
-        #lists = grafico_ordenado.(query)
-        # json_posts = json.dumps(list(posts))
-        lista=[]
-        lista1=[]
-        # datass = serializers.serialize('json', list(grafico_ordenado))
+        resultList = []
 
-        # data = json.dumps(list(grafico_ordenado))
-        # prices_json = json.dumps(list(grafico_ordenado), cls=DjangoJSONEncoder)
-        # prices_json = json.dumps(list(grafico_ordenado), cls=DjangoJSONEncoder)
-        # django_list = list(grafico_ordenado)
-        #json_list = simplejson.dumps(grafico_ordenado)
+        for row in QuerySETGraficoAgrupado:
+                resultList.append(row)
 
-        #teste = [1,2,3]
-        # teste=str(teste).strip('[]')
-        
-        teste=str(grafico_ordenado)
-        teste= teste[12:-3]
-        teste = teste.replace("(","")
-        teste = teste.split("),")
-        teste = str(teste).strip('[]')
-        teste = teste[1:-1]
-        teste = teste.replace("', '","zz")
-        aaa= teste
-        
-        # json_posts = json.dumps(list(grafico_ordenado))
-        # grafico_ordenado = lista.append(grafico_ordenado.values())
-        # queryset = list_to_queryset(grafico_ordenado)
-        data['gtes'+str(i)] = aaa        
-        data['grafico'] = grafico_ordenado
+        objectJson = json.dumps(resultList)
+
+        data['gtes'+str(i)] = objectJson
+        #data['grafico'] = objectJson
         j=0
         # lista=[]
         # lista.append(grafico_ordenado[j].CPU)
