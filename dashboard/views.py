@@ -9,12 +9,12 @@ from django.core import serializers
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 import simplejson
-from rest_framework.renderers import JSONRenderer
-from rest_framework.response import Response
+# from rest_framework.renderers import JSONRenderer
+# from rest_framework.response import Response
 # from rest_framework import serializers
 from django.contrib.auth.models import User
 
-from rest_framework.views import APIView
+# from rest_framework.views import APIView
 
 
 # from django.core.serializers.json import DjangoJSONEncoder
@@ -31,13 +31,13 @@ def list(request):
         if len(todos) < 21600:
                 n=21600 - len(todos)
                 grafico = Dashboard.objects.all().order_by('-timestamp')
-        else:    
+        else:
                 grafico = Dashboard.objects.all().order_by('-timestamp')[:21600]
                 # if n:
                 #      primeiro_dia = grafico.order_by('timestamp')[0]
                 #      primeiro_dia.timestamp
                 #      hoje= datetime.now()
-                
+
                 # else:
         grafico_ordenado = grafico.order_by('timestamp')
         QuerySETGraficoAgrupado = grafico_ordenado.values('day', 'month', 'year').annotate(CPU_MAX=Max('CPU'), CPU_AVG=Avg('CPU'),CPU_MIN=Min('CPU'),RAM_MAX=Max('RAM'), RAM_AVG=Avg('RAM'),RAM_MIN=Min('RAM'),SWAP_MAX=Max('SWAP'), SWAP_AVG=Avg('SWAP'),SWAP_MIN=Min('SWAP'),DISCO_MAX=Max('disco'), DISCO_AVG=Avg('disco'),DISCO_MIN=Min('disco')).order_by('day', 'month', 'year')
@@ -65,7 +65,7 @@ def list(request):
 
         # for i in range (len(grafico)):
         #         if j==i:
-        #                 diacomeca = grafico_ordenado[j].day  
+        #                 diacomeca = grafico_ordenado[j].day
         #                 conta = 0
         #                 maxcpu = grafico_ordenado[j].CPU
         #                 mincpu = maxcpu
@@ -100,7 +100,7 @@ def list(request):
         #                                         if mindisco > grafico_ordenado[j].disco:
         #                                                 mindisco = grafico_ordenado[j].disco
         #                                 else:
-        #                                         break                                                                                                   
+        #                                         break
         #                 lista[0] = lista[0]/conta
         #                 lista[1] = lista[1]/conta
         #                 lista[2] = lista[2]/conta
@@ -117,8 +117,8 @@ def list(request):
 
 
         # for i in range(len(grafico)):
-        #         data['gtes'+str(i)] = grafico_ordenado[i]        
-        
+        #         data['gtes'+str(i)] = grafico_ordenado[i]
+
         return render(request, 'dashboard.html',data)
 
 #     for j in range(12):
@@ -142,8 +142,8 @@ def list(request):
 #                 lista[9].append(todos[i].discoUsado)
 #                 lista[10].append(todos[i].discoLivre)
 #                 lista[11].append(todos[i].CPU)
-           
-            
+
+
     #valor referente a um mes de dados
 #     if len(todos) < 21600:
 #         n=21600 - len(todos)
@@ -156,7 +156,7 @@ def list(request):
         #     todos[i].year=0
         #     todos[i].RAMU=0
         #     todos[i].RAMF=0
-        #     todos[i].SWAP=0 
+        #     todos[i].SWAP=0
         #     todos[i].SWAPF=0
         #     todos[i].SWAPU=0
         #     todos[i].RAM=0
@@ -164,4 +164,3 @@ def list(request):
         #     todos[i].discoUsado=0
         #     todos[i].discoLivre=0
         #     todos[i].capacidadeDisco=0
-    
