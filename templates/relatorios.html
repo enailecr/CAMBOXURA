@@ -99,8 +99,8 @@
 </body>
 </form>
 <!-- <button type="submit">Imprimir</button></td> -->
-<input type="button" value="Imprimir" onclick="printPage('block1');"></input>
-<!-- <button type="btnExport">Exportar para Excel</button></td> -->
+<!--<input type="button" value="Imprimir em PDF" onclick="printPage('block1');"></input>-->
+<a href="{% querystring '_export'='pdf' %}"><button>Imprimir em PDF</button></a>
 <a href="{% querystring '_export'='xls' %}"><button>Exportar para Excel</button></a>
 
 <div id=block1>
@@ -111,38 +111,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <script src="{% static 'js/jquery.btechco.excelexport.js' %}"></script>
 <script src="{% static 'js/jquery.base64.js' %}"></script>
-<script>
-    function exportTableToExcel(tableID, filename = ''){
-    var downloadLink;
-    var dataType = 'application/vnd.ms-excel';
-    var tableSelect = document.getElementById(tableID);
-    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
 
-    // Specify file name
-    filename = filename?filename+'.xls':'excel_data.xls';
-
-    // Create download link element
-    downloadLink = document.createElement("a");
-
-    document.body.appendChild(downloadLink);
-
-    if(navigator.msSaveOrOpenBlob){
-        var blob = new Blob(['\ufeff', tableHTML], {
-            type: dataType
-        });
-        navigator.msSaveOrOpenBlob( blob, filename);
-    }else{
-        // Create a link to the file
-        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
-
-        // Setting the file name
-        downloadLink.download = filename;
-
-        //triggering the function
-        downloadLink.click();
-    }
-}
-</script>
 <script>
     function printPage(id)
     {
