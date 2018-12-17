@@ -9,6 +9,8 @@ from django.core import serializers
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 import simplejson
+from django.contrib.admin.views.decorators import staff_member_required
+
 # from rest_framework.renderers import JSONRenderer
 # from rest_framework.response import Response
 # from rest_framework import serializers
@@ -20,6 +22,7 @@ from django.contrib.auth.models import User
 # from django.core.serializers.json import DjangoJSONEncoder
 # from django.db.models.utils import list_to_queryset
 # @login_required
+@staff_member_required
 def list(request):
         data = {}
         todos = Dashboard.objects.all()

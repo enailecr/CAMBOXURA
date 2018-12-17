@@ -2,11 +2,9 @@ from django.shortcuts import render , redirect
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.admin.views.decorators import staff_member_required
 
 def login(request):
     return render(request, 'login.html')
-@staff_member_required
 def add(request):
     return render(request, 'cadastroUsuario.html')
 
