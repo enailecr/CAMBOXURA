@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 
 def login(request):
     return render(request, 'login.html')
-
 def add(request):
     return render(request, 'cadastroUsuario.html')
 

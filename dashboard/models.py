@@ -19,3 +19,4 @@ class Dashboard(models.Model):
     hour = models.IntegerField()
     minute = models.IntegerField()
     timestamp = models.DateTimeField(auto_now_add=True)
+    tempof = models.CharField(max_length=30)
