@@ -18,10 +18,16 @@ var fieldset = document.getElementById('detahesModal');
 });
 
 
-function mostraDetalhes(calldate, clid, src , dst, dcontext, channel, dstchannel, lastapp, lastdata,duration, billsec ,disposition, amaflags, accountcode, userfield, recordingfile, cnum, cnam, outbound_cnum, outbound_cnam, dst_cnam, did){
+function mostraDetalhes(calldate, clid, src , dst, dcontext, channel, dstchannel, lastapp, lastdata,duration, billsec ,disposition, amaflags, accountcode, userfield, cnum, cnam, outbound_cnum, outbound_cnam, dst_cnam, did, recordingfile){
   var modal = document.getElementById('myModal');
   var table = "";
-  if (recordingfile != ""){
+  if (recordingfile !=null){
+    var string = recordingfile.substring(0, 34);
+    if(string == "/media/var/spool/asterisk/monitor/"){
+      aux = recordingfile.split("/media/var/spool/asterisk/monitor/");
+      recordingfile = "/media/" +aux[1];
+    }
+
     table= "<table>"
     +"<tr><td>Data:</td><td>"+calldate+"</td></tr>"
     +"<tr><td>Clid:</td><td>"+clid+"</td></tr>"
@@ -69,7 +75,7 @@ function mostraDetalhes(calldate, clid, src , dst, dcontext, channel, dstchannel
     +"<tr><td>Outbound_cnam:</td><td>"+outbound_cnam+"</td></tr>"
     +"<tr><td>Dst_cnam:</td><td>"+dst_cnam+"</td></tr>"
     +"<tr><td>Did:</td><td>"+did+"</td></tr>"
-    +"<tr><td>Recordingfile:</td><td>"+recordingfile+"</td></tr>"
+    +"<tr><td>Sem gravação cadastrada</td><td></td></tr>"
     +"</table>";
   }
 

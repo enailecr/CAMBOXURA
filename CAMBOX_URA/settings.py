@@ -173,6 +173,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static_files'
 
+
 STATICFILES_DIRS = [
 	"static",
 ]
@@ -182,6 +183,9 @@ LOGOUT_REDIRECT_URL = '/'
 
 MEDIA_URL = '/gravacoes/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'gravacoes')
+
+MEDIA2_URL = '/media/'
+MEDIA2_ROOT = os.path.abspath('/var/spool/asterisk/monitor/')
 
 LOGGING = {
     'version': 1,

@@ -1,5 +1,8 @@
 from django.db import models
+from django.core.files.storage import FileSystemStorage
+from django.conf import settings
 
+upload_storage = FileSystemStorage(location=settings.MEDIA2_ROOT, base_url=settings.MEDIA2_URL)
 
 class Canal(models.Model):
     nome = models.CharField(max_length=80)
@@ -33,7 +36,7 @@ class Cdr(models.Model):
     accountcode = models.CharField(verbose_name='Account Code',max_length=20)
     uniqueid = models.CharField(max_length=32, primary_key=True)
     userfield = models.CharField(max_length=255)
-    recordingfile = models.CharField(max_length=255)
+    recordingfile = models.FileField(storage=upload_storage, null=True, blank=True)
     cnum = models.CharField(max_length=40)
     cnam = models.CharField(max_length=40)
     outbound_cnum = models.CharField(max_length=40)

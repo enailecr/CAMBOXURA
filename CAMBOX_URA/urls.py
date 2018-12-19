@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path, include
 from .views import home
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path(r'', home),
@@ -19,4 +21,4 @@ urlpatterns = [
     path(r'relatorios/', include('relatorios.urls')),
     path(r'logs/', include('logs.urls')),
     path(r'aplicar/', include('aplicar.urls')),
-]
+]+ static(settings.MEDIA2_URL, document_root=settings.MEDIA2_ROOT)
