@@ -1,0 +1,58 @@
+{% extends "menu.html" %}
+
+{% block content %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+var originados = {{originados | safe}}
+var destinados = {{destinados | safe}}
+
+google.charts.load("current", {packages:["corechart"]});
+google.charts.setOnLoadCallback(montaGraficoOriginadas);
+google.charts.setOnLoadCallback(montaGraficoDestinadas);
+
+function montaGraficoOriginadas(){
+  var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows(originados);
+  var options = {'title':'Chamadas originadas por canal',
+                  'colors': ['7f0000','ff9999', 'fac9b8', 'e2d4b7','9c9583','a62639', 'db324d', 'f15946','faedca','e6eed6'],
+                  'width':400,
+                  'height':300};
+
+  var chart = new google.visualization.PieChart(document.getElementById('chart1_div'));
+  chart.draw(data, options);
+
+}
+
+function montaGraficoDestinadas(){
+  var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows(destinados);
+  var options = {'title':'Chamadas destinadas ao canal',
+                  'colors': ['7f0000','ff9999', 'fac9b8', 'e2d4b7','9c9583','a62639', 'db324d', 'f15946','faedca','e6eed6'],
+                  'width':400,
+                  'height':300};
+
+  var chart = new google.visualization.PieChart(document.getElementById('chart2_div'));
+  chart.draw(data, options);
+
+}
+
+</script>
+<div>
+  <br />
+  <table>
+    <tr>
+      <td>
+        <div id="chart1_div" style="width:400; height:300"></div>
+      </td>
+      <td>
+        <div id="chart2_div" style="width:400; height:300"></div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+{%endblock%}

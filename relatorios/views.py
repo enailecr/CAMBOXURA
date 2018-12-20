@@ -22,6 +22,9 @@ from reportlab.lib.units import inch
 from weasyprint import HTML
 import tempfile
 from django.template.loader import render_to_string
+from django.http import JsonResponse
+import json
+from django.db import connections
 
 @login_required
 def list(request):
@@ -71,48 +74,6 @@ def list(request):
             response.write(output.read())
 
         return response
-        # doc = SimpleDocTemplate("/tmp/relatorio.pdf", pagesize=A4, rightMargin=30,leftMargin=30, topMargin=30,bottomMargin=18)
-        # doc.pagesize = landscape(A4)
-        # elements = []
-        # s = getSampleStyleSheet()
-        #
-        # data = [['Data','Origem','Destino','Canal Origem','Canal Destino','Duração','Status']]
-        # for registro in relatorios:
-        #     linha = []
-        #     linha.append(registro.calldate.strftime('%m/%d/%Y %H:%M:%S'))
-        #     linha.append(str(registro.src))
-        #     linha.append(str(registro.dst))
-        #     linha.append(str(registro.channel))
-        #     linha.append(str(registro.dstchannel))
-        #     linha.append(str(registro.duration))
-        #     linha.append(str(registro.disposition))
-        #     data.append(linha)
-        #
-        # style = TableStyle([('ALIGN',(1,1),(-2,-2),'RIGHT'),
-        #                ('VALIGN',(0,0),(0,-1),'TOP'),
-        #                ('ALIGN',(0,-1),(-1,-1),'CENTER'),
-        #                ('VALIGN',(0,-1),(-1,-1),'MIDDLE'),
-        #                ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
-        #                ('BOX', (0,0), (-1,-1), 0.25, colors.black),
-        #                ])
-        #
-        # s = s["BodyText"]
-        # s.wordWrap = 'CJK'
-        # # data2 = [[Paragraph(cell, s) for cell in row] for row in data]
-        # t=Table(data)
-        # t.setStyle(style)
-        #
-        # #Send the data and build the file
-        # elements.append(t)
-        # doc.build(elements)
-        #
-        # fs = FileSystemStorage("/tmp")
-        # with fs.open("relatorio.pdf") as pdf:
-        #     response = HttpResponse(pdf, content_type='application/pdf')
-        #     response['Content-Disposition'] = 'attachment; filename="relatorio.pdf"'
-        #     return response
-        #
-        # return response
 
     return render(request, 'relatorios.html',{'table': table})
 
@@ -338,3 +299,34 @@ def canal_edita(request, id):
         return redirect('/relatorios/canais/')
     else:
         return render(request, 'edita_regex_canal.html',data)
+
+def originados_sql():
+    with connections['relatorios'].cursor() as cursor:
+        cursor.execute("SELECT Ca.nome, COUNT(ch.uniqueid) as qtd from cdr ch,Canal Ca, Regex r WHERE ch.calldate >= CURDATE() AND ch.channel like CONCAT(\'%\' ,r.expressao , \'%\') and r.canal_id = Ca.id group by Ca.nome;")
+        row = cursor.fetchall()
+
+    return row
+
+def destinados_sql():
+    with connections['relatorios'].cursor() as cursor:
+        cursor.execute("SELECT Ca.nome, COUNT(ch.uniqueid) as qtd from cdr ch,Canal Ca, Regex r WHERE ch.calldate >= CURDATE() AND ch.dstchannel like CONCAT(\'%\' ,r.expressao , \'%\') and r.canal_id = Ca.id group by Ca.nome;")
+        row = cursor.fetchall()
+
+    return row
+
+
+@login_required
+def lista_graficos(request):
+    hoje = datetime.now()
+    originados = originados_sql()
+    destinados = destinados_sql()
+
+    originados = json.dumps(originados)
+    destinados = json.dumps(destinados)
+
+    data ={}
+    data['originados'] = originados
+    data['destinados'] = destinados
+    js_data = json.dumps(data)
+
+    return render(request, 'graficos.html',data)
