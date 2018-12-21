@@ -317,7 +317,6 @@ def destinados_sql():
 
 @login_required
 def lista_graficos(request):
-    hoje = datetime.now()
     originados = originados_sql()
     destinados = destinados_sql()
 
@@ -327,6 +326,34 @@ def lista_graficos(request):
     data ={}
     data['originados'] = originados
     data['destinados'] = destinados
-    js_data = json.dumps(data)
 
     return render(request, 'graficos.html',data)
+
+@login_required
+def busca_pizza(request):
+    filtro = request.GET.get('filtro', None)
+    if filtro == "dia":
+        dia = request.GET.get('dia', None)
+        originados = originadosdia_sql(dia)
+        destinados = destinadosdia_sql(dia)
+
+    data ={}
+    data['originados'] = originados
+    data['destinados'] = destinados
+    js_data = json.dumps(data)
+
+    return JsonResponse(js_data, safe=False)
+
+def originadosdia_sql(dia):
+    with connections['relatorios'].cursor() as cursor:
+        cursor.execute("SELECT Ca.nome, COUNT(ch.uniqueid) as qtd from cdr ch,Canal Ca, Regex r WHERE ch.calldate >= %s AND ch.channel like CONCAT(\'%%\' ,r.expressao , \'%%\') and r.canal_id = Ca.id group by Ca.nome;", [dia])
+        row = cursor.fetchall()
+
+    return row
+
+def destinadosdia_sql(dia):
+    with connections['relatorios'].cursor() as cursor:
+        cursor.execute("SELECT Ca.nome, COUNT(ch.uniqueid) as qtd from cdr ch,Canal Ca, Regex r WHERE ch.calldate >= %s AND ch.dstchannel like CONCAT(\'%%\' ,r.expressao , \'%%\') and r.canal_id = Ca.id group by Ca.nome;", [dia])
+        row = cursor.fetchall()
+
+    return row

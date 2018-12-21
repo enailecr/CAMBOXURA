@@ -1,6 +1,15 @@
 {% extends "menu.html" %}
 
 {% block content %}
+{% load static %}
+<script src="{% static 'js/relGraficos.js' %}"></script>
+
+<style>
+.hidden {
+  display: none;
+}
+</style>
+{% block javascript %}{% endblock %}
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
 var originados = {{originados | safe}}
@@ -41,6 +50,65 @@ function montaGraficoDestinadas(){
 }
 
 </script>
+<br />
+<div>
+
+  <form method="GET" name="dados" id="dados" >
+              {% csrf_token %}
+          <table cellspacing="10">
+                  <tr>
+
+                          <td>
+                                  <label for="campo">Filtro</label>
+                              </td>
+                              <td align="left">
+                                      <select name="filtro" id="filtro" onChange="selecionaFiltroPizza();">
+                                      <option value="vazio">Nenhum</option>
+                                      <option value="hora" {%if campo == "hora"%} selected{%endif%}>Hora</option>
+                                      <option value="dia" {%if campo == "dia"%} selected{%endif%}>Dia</option>
+                                      <option value="inter" {%if campo == "inter"%} selected{%endif%}>Intervalo</option>
+
+                                  </select>
+                              </td>
+                              <td align="left" class="hidden" id="dia">
+                                <input type="date" name="dia"  value="{{dia}}">
+                              </td>
+                              <td align="left" class="hidden" id="hora">
+                                <input type="time" name="hora"  value="{{hora}}">
+                              </td>
+
+                              <td align="left" class="hidden" id="data_inicio">
+                                <input type="date" name="data_inicio"  value="{{dataInicioGraficoPizza}}">
+                              </td>
+
+                              <td align="left" class="hidden" id="data_fim">
+                                <input type="date" name="data_fim"  value="{{dataFimGraficoPizza}}">
+                              </td>
+                      <td></td>
+                  </tr>
+
+                  <tr>
+
+                          <td><button type="submit" class="formobjects">Pesquisar</button></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          </tr>
+          </table>
+          <br />
+          <tr>
+              <td>
+
+              </td>
+          </tr>
+  <table>
+      <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+
+  </table>
+  </body>
+  </form>
+</div>
+
 <div>
   <br />
   <table>
