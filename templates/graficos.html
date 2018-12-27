@@ -14,10 +14,16 @@
 <script>
 var originados = {{originados | safe}}
 var destinados = {{destinados | safe}}
+var canais = {{canais | safe}}
+var relatorio = {{relatorio | safe}}
+console.log(relatorio)
 
 google.charts.load("current", {packages:["corechart"]});
 google.charts.setOnLoadCallback(montaGraficoOriginadas);
 google.charts.setOnLoadCallback(montaGraficoDestinadas);
+
+google.charts.load('current', {'packages':['line']});
+google.charts.setOnLoadCallback(montaRelatorios);
 
 function montaGraficoOriginadas(){
   var data = new google.visualization.DataTable();
@@ -49,6 +55,37 @@ function montaGraficoDestinadas(){
 
 }
 
+function montaRelatorios() {
+
+  var data = new google.visualization.DataTable();
+  data.addColumn('string', 'Dia');
+  for(var i in canais){
+     var nome = canais[i];
+     data.addColumn('number', nome);
+  }
+
+  data.addRows(relatorio);
+
+  var options = {
+    chart: {
+      title: 'Relatório de chamadas por canal'
+    },
+    width: 800,
+    height: 400
+  };
+
+  var chart = new google.charts.Line(document.getElementById('chart3_div'));
+
+  chart.draw(data, google.charts.Line.convertOptions(options));
+    }
+  </script>
+</head>
+<body>
+  <div id="line_top_x"></div>
+</body>
+</html>
+
+
 </script>
 <br />
 <div>
@@ -63,10 +100,10 @@ function montaGraficoDestinadas(){
                               </td>
                               <td align="left">
                                       <select name="filtro" id="filtro" onChange="selecionaFiltroPizza();">
-                                      <option value="vazio">Nenhum</option>
-                                      <option value="hora" {%if campo == "hora"%} selected{%endif%}>Hora</option>
-                                      <option value="dia" {%if campo == "dia"%} selected{%endif%}>Dia</option>
-                                      <option value="inter" {%if campo == "inter"%} selected{%endif%}>Intervalo</option>
+                                      <option value="vazio" selected>Nenhum</option>
+                                      <option value="hora" >Hora</option>
+                                      <option value="dia" >Dia</option>
+                                      <option value="inter" >Intervalo</option>
 
                                   </select>
                               </td>
@@ -122,5 +159,41 @@ function montaGraficoDestinadas(){
     </tr>
   </table>
 </div>
+<br />
+<br />
+<form method="GET" name="relatoriocanal" id="relatoriocanal" >
+  <table>
+    <tr>
+      <td>Filtro de tempo</td>
+      <td>
+        <select name="apurar" id="apurar">
+          <option value="dia" selected>Dia</option>
+          <option value="hora" >Hora</option>
+          <option value="min" >Minuto</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Tipo de chamadas</td>
+      <td>
+        <select name="chamadas" id="chamadas">
+          <option value="todas" selected>Todas as chamadas</option>
+          <option value="atend" >Chamadas atendidas</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+
+  <br /> <br />
+
+  <table>
+    <tr>
+      <td>
+        <div id="chart3_div" ></div>
+      </td>
+    </tr>
+  </table>
+
+</form>
 
 {%endblock%}

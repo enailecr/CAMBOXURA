@@ -5,7 +5,7 @@ from .models import  Cdr, Canal, Regex
 import re
 from django_tables2 import RequestConfig
 from .tables import RelatoriosTable, CanaisTable
-from datetime import datetime
+from datetime import datetime, date
 import pytz
 from django_tables2.config import RequestConfig
 from django_tables2.export.export import TableExport
@@ -25,6 +25,7 @@ from django.template.loader import render_to_string
 from django.http import JsonResponse
 import json
 from django.db import connections
+from datetime import timedelta
 
 @login_required
 def list(request):
@@ -314,28 +315,91 @@ def destinados_sql():
 
     return row
 
+def chamDia_sql(inicioDia, fimdia):
+    with connections['relatorios'].cursor() as cursor:
+        cursor.execute("SELECT date(c.calldate) as dia,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE c.channel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= %s AND c.calldate <= %s AND ca.id = r.canal_id group by ca.nome;", [inicioDia,fimdia])
+        row = cursor.fetchall()
+
+    return row
+
+def chamHoje_sql():
+    with connections['relatorios'].cursor() as cursor:
+        cursor.execute("SELECT date(c.calldate) as dia,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE c.channel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= CURDATE() AND ca.id = r.canal_id group by ca.nome;")
+        row = cursor.fetchall()
+
+    return row
 
 @login_required
 def lista_graficos(request):
     originados = originados_sql()
     destinados = destinados_sql()
+    canaisTudo = Canal.objects.using('relatorios').all()
+    canais =[]
+    for canal in canaisTudo:
+        canais.append(canal.nome)
+
+    relatorio = []
+    mesAtras = date.today() - timedelta(days=30)
+    while mesAtras <= date.today():
+        if mesAtras ==date.today():
+            linhaRel = chamHoje_sql()
+        else:
+            inicioDia = datetime.combine(mesAtras, datetime.min.time())
+            fimdia = datetime.combine(mesAtras, datetime.max.time())
+            linhaRel = chamDia_sql(inicioDia, fimdia)
+        linhaRelatorio = []
+        linhaRelatorio.append(mesAtras.strftime("%d/%m/%Y"))
+        j=0;
+        tam = len(linhaRel)
+        for i in range(len(canaisTudo)):
+            if j< tam:
+                if canaisTudo[i].nome == linhaRel[j][1]:
+                    linhaRelatorio.append(linhaRel[j][2])
+                    j = j +1
+                else:
+                    linhaRelatorio.append(0)
+            else:
+                linhaRelatorio.append(0)
+
+        relatorio.append(linhaRelatorio)
+        mesAtras = mesAtras + timedelta(days=1)
 
     originados = json.dumps(originados)
     destinados = json.dumps(destinados)
+    canais = json.dumps(canais)
+    relatorio = json.dumps(relatorio)
 
     data ={}
     data['originados'] = originados
     data['destinados'] = destinados
+    data['canais'] = canais
+    data['relatorio'] = relatorio
 
     return render(request, 'graficos.html',data)
 
 @login_required
 def busca_pizza(request):
     filtro = request.GET.get('filtro', None)
+
     if filtro == "dia":
         dia = request.GET.get('dia', None)
         originados = originadosdia_sql(dia)
         destinados = destinadosdia_sql(dia)
+    else:
+        if filtro =="hora":
+            dia = request.GET.get('dia', None)
+            hora = request.GET.get('hora', None)
+            diaHoraString = dia + " " + hora
+            diaHoraInicial = datetime.strptime(diaHoraString, '%Y-%m-%d %H:%S')
+            diaHoraFinal = diaHoraInicial + timedelta(hours=1)
+            originados = originadoshora_sql(diaHoraInicial,diaHoraFinal)
+            destinados = destinadoshora_sql(diaHoraInicial,diaHoraFinal)
+        else:
+            if filtro == "inter":
+                diaInicio = request.GET.get('data_inicio', None)
+                diaFim = request.GET.get('data_fim', None)
+                originados = originadoshora_sql(diaInicio,diaFim)
+                destinados = destinadoshora_sql(diaInicio,diaFim)
 
     data ={}
     data['originados'] = originados
@@ -354,6 +418,20 @@ def originadosdia_sql(dia):
 def destinadosdia_sql(dia):
     with connections['relatorios'].cursor() as cursor:
         cursor.execute("SELECT Ca.nome, COUNT(ch.uniqueid) as qtd from cdr ch,Canal Ca, Regex r WHERE ch.calldate >= %s AND ch.dstchannel like CONCAT(\'%%\' ,r.expressao , \'%%\') and r.canal_id = Ca.id group by Ca.nome;", [dia])
+        row = cursor.fetchall()
+
+    return row
+
+def originadoshora_sql(diaHoraInicial,diaHoraFinal):
+    with connections['relatorios'].cursor() as cursor:
+        cursor.execute("SELECT Ca.nome, COUNT(ch.uniqueid) as qtd from cdr ch,Canal Ca, Regex r WHERE ch.calldate >= %s AND ch.calldate <= %s AND  ch.channel like CONCAT(\'%%\' ,r.expressao , \'%%\') and r.canal_id = Ca.id group by Ca.nome;", [diaHoraInicial,diaHoraFinal])
+        row = cursor.fetchall()
+
+    return row
+
+def destinadoshora_sql(diaHoraInicial,diaHoraFinal):
+    with connections['relatorios'].cursor() as cursor:
+        cursor.execute("SELECT Ca.nome, COUNT(ch.uniqueid) as qtd from cdr ch,Canal Ca, Regex r WHERE ch.calldate >= %s AND ch.calldate <= %s AND ch.dstchannel like CONCAT(\'%%\' ,r.expressao , \'%%\') and r.canal_id = Ca.id group by Ca.nome;", [diaHoraInicial,diaHoraFinal])
         row = cursor.fetchall()
 
     return row

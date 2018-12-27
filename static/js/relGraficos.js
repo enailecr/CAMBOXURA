@@ -10,7 +10,7 @@ $(document).ready(function(){
     	type: "GET",
     	data: formData,
       dataType: 'json',
-    	success: function(dados){        
+    	success: function(dados){
         var dados = JSON.parse(dados);
         var data = new google.visualization.DataTable();
               data.addColumn('string', 'Topping');
@@ -46,7 +46,7 @@ function selecionaFiltroPizza(){
   var filtro = document.getElementById('filtro').value;
   if(filtro == "hora") {
     document.getElementById('hora').style.display = "block";
-    document.getElementById('dia').style.display ="none";
+    document.getElementById('dia').style.display ="block";
     document.getElementById('data_inicio').style.display = "none";
     document.getElementById('data_fim').style.display = "none";
   }else{
