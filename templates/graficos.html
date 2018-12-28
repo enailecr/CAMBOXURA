@@ -94,7 +94,6 @@ function montaRelatorios() {
               {% csrf_token %}
           <table cellspacing="10">
                   <tr>
-
                           <td>
                                   <label for="campo">Filtro</label>
                               </td>
@@ -166,11 +165,20 @@ function montaRelatorios() {
     <tr>
       <td>Filtro de tempo</td>
       <td>
-        <select name="apurar" id="apurar">
+        <select name="apurar" id="apurar" onChange="selecionaFiltroLinha();">
           <option value="dia" selected>Dia</option>
           <option value="hora" >Hora</option>
           <option value="min" >Minuto</option>
         </select>
+      </td>
+      <td >
+        <input type="date" name="data_inicioR" id="data_inicioR" value="{{diaInicio|date:"Y-m-d"}}"></input>
+      </td>
+      <td >
+        <input type="date" name="data_fimR" id="data_fimR" value="{{diaAtual|date:"Y-m-d"}}"></input>
+      </td>
+      <td class="hidden" name="horaR" id="horaR">
+        <input type="time" name="horaR" id="horaR"></input>
       </td>
     </tr>
     <tr>
@@ -181,6 +189,12 @@ function montaRelatorios() {
           <option value="atend" >Chamadas atendidas</option>
         </select>
       </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><button type="submit" class="formobjects">Pesquisar</button></td>
     </tr>
   </table>
 

@@ -329,6 +329,20 @@ def chamHoje_sql():
 
     return row
 
+def chamHora_sql(inicioDia, fimdia):
+    with connections['relatorios'].cursor() as cursor:
+        cursor.execute("SELECT hour(c.calldate) as hora,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE c.channel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= %s AND c.calldate <= %s AND ca.id = r.canal_id group by ca.nome, hour(c.calldate);", [inicioDia,fimdia])
+        row = cursor.fetchall()
+
+    return row
+
+def chamMin_sql(inicioDia, fimdia):
+    with connections['relatorios'].cursor() as cursor:
+        cursor.execute("SELECT minute(c.calldate) as minuto, second(c.calldate) as segundo, ca.nome as canal,  c.duration as duracao from Canal ca, cdr c, Regex r WHERE c.channel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= %s AND c.calldate <= %s AND ca.id = r.canal_id order by minuto, segundo;", [inicioDia,fimdia])
+        row = cursor.fetchall()
+
+    return row
+
 @login_required
 def lista_graficos(request):
     originados = originados_sql()
@@ -374,6 +388,8 @@ def lista_graficos(request):
     data['destinados'] = destinados
     data['canais'] = canais
     data['relatorio'] = relatorio
+    data['diaInicio'] = date.today() - timedelta(days=30)
+    data['diaAtual'] = date.today()
 
     return render(request, 'graficos.html',data)
 
@@ -435,3 +451,97 @@ def destinadoshora_sql(diaHoraInicial,diaHoraFinal):
         row = cursor.fetchall()
 
     return row
+
+@login_required
+def busca_linha(request):
+    filtro = request.GET.get('apurar', None)
+    canaisTudo = Canal.objects.using('relatorios').all()
+    canais =[]
+    for canal in canaisTudo:
+        canais.append(canal.nome)
+
+    relatorio = []
+    if filtro == "dia":
+        diaInicio = datetime.strptime(request.GET.get('data_inicioR', None), "%Y-%m-%d")
+        diaFim = datetime.strptime(request.GET.get('data_fimR', None), "%Y-%m-%d")
+
+        while diaInicio <= diaFim:
+            if diaInicio ==date.today():
+                linhaRel = chamHoje_sql()
+            else:
+                inicioDia = datetime.combine(diaInicio, datetime.min.time())
+                fimdia = datetime.combine(diaInicio, datetime.max.time())
+                linhaRel = chamDia_sql(inicioDia, fimdia)
+            linhaRelatorio = []
+            linhaRelatorio.append(diaInicio.strftime("%d/%m/%Y"))
+            j=0;
+            tam = len(linhaRel)
+            for i in range(len(canaisTudo)):
+                if j< tam:
+                    if canaisTudo[i].nome == linhaRel[j][1]:
+                        linhaRelatorio.append(linhaRel[j][2])
+                        j = j +1
+                    else:
+                        linhaRelatorio.append(0)
+                else:
+                    linhaRelatorio.append(0)
+
+            relatorio.append(linhaRelatorio)
+            diaInicio = diaInicio + timedelta(days=1)
+    else:
+        if filtro =="hora":
+            diaInicio = datetime.strptime(request.GET.get('data_inicioR', None), "%Y-%m-%d")
+
+            inicioDia = datetime.combine(diaInicio, datetime.min.time())
+            fimdia = datetime.combine(diaInicio, datetime.max.time())
+            linhaRel = chamHora_sql(inicioDia, fimdia)
+            relatorio = []
+            hora = 0
+            while hora <24:
+                linhaRelatorio = []
+                linhaRelatorio.append(str(hora) +":00")
+                j=0;
+                tam = len(linhaRel)
+
+                for canal in canaisTudo:
+                    k= 1
+                    for i in range(len(linhaRel)):
+                        if hora == int(linhaRel[i][0]):
+                            if linhaRel[i][1] == canal.nome:
+                                linhaRelatorio.append(linhaRel[i][2])
+                                break
+                            else:
+                                if k==tam:
+                                    linhaRelatorio.append(0)
+                        else:
+                            if k==tam:
+                                linhaRelatorio.append(0)
+
+                        k = k + 1
+                relatorio.append(linhaRelatorio)
+                hora = hora + 1
+        else:
+            if filtro == "min":
+                # diaInicio = request.GET.get('data_inicioR', None)
+                # horaInicio = request.GET.get('horaR', None)
+                # inicioDia= diaInicio + " " +horaInicio
+                #
+                # inicioDia = datetime.strptime(inicioDia, "%Y-%m-%d %H:%M")
+                # fimdia = inicioDia.replace(minute=59, second=59)
+                # lin haRel = chamMin_sql(inicioDia, fimdia)
+                #
+                # relatorio = []
+                # min = 0
+                # while min <60:
+                #
+                #     min = min +1
+                # diaFim = request.GET.get('data_fim', None)
+                # originados = originadoshora_sql(diaInicio,diaFim)
+                # destinados = destinadoshora_sql(diaInicio,diaFim)
+
+    data ={}
+    data['relatorio'] = relatorio
+    data['canais'] = canais
+    js_data = json.dumps(data)
+
+    return JsonResponse(js_data, safe=False)

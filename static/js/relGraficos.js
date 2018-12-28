@@ -1,4 +1,44 @@
 $(document).ready(function(){
+
+  $("#relatoriocanal").submit( function(e) {
+   e.preventDefault();
+
+   var formData = $("#relatoriocanal").serializeArray();
+
+   $.ajax({
+      url: '/relatorios/busca-grafico-qtd/',
+      cache: false,
+      type: "GET",
+      data: formData,
+      dataType: 'json',
+      success: function(dados){
+        var dados = JSON.parse(dados);
+        console.log(dados['relatorio']);
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Hora');
+        var canais = dados['canais']
+        for(var i in canais){
+           var nome = canais[i];
+           data.addColumn('number', nome);
+        }
+
+        data.addRows(dados['relatorio']);
+
+        var options = {
+          chart: {
+            title: 'Relatório de chamadas por canal'
+          },
+          width: 800,
+          height: 400
+        };
+
+        var chart = new google.charts.Line(document.getElementById('chart3_div'));
+
+        chart.draw(data, google.charts.Line.convertOptions(options));
+      }
+    });
+  });
+
   $("#dados").submit( function(e) {
    e.preventDefault();
 
@@ -38,6 +78,8 @@ $(document).ready(function(){
     	}
     });
   });
+
+
 
 });
 
@@ -84,4 +126,25 @@ function montaGraficoOriginadas(originados){
   var chart = new google.visualization.PieChart(document.getElementById('chart1_div'));
   chart.draw(data, options);
 
+}
+
+function selecionaFiltroLinha(){
+  var filtro = document.getElementById('apurar').value;
+  if(filtro == "dia") {
+    document.getElementById('horaR').style.display = "none";
+    document.getElementById('data_inicioR').style.display = "block";
+    document.getElementById('data_fimR').style.display = "block";
+  }else{
+    if(filtro == "hora") {
+      document.getElementById('horaR').style.display = "none";
+      document.getElementById('data_inicioR').style.display = "block";
+      document.getElementById('data_fimR').style.display = "none";
+    }else{
+      if(filtro == "min") {
+        document.getElementById('horaR').style.display = "block";
+        document.getElementById('data_inicioR').style.display = "block";
+        document.getElementById('data_fimR').style.display = "none";
+      }
+    }
+  }
 }
