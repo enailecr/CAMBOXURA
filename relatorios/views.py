@@ -5,6 +5,7 @@ from .models import  Cdr, Canal, Regex
 import re
 from django_tables2 import RequestConfig
 from .tables import RelatoriosTable, CanaisTable
+import time
 from datetime import datetime, date
 import pytz
 from django_tables2.config import RequestConfig
@@ -315,30 +316,42 @@ def destinados_sql():
 
     return row
 
-def chamDia_sql(inicioDia, fimdia):
+def chamDia_sql(inicioDia, fimdia, todas):
     with connections['relatorios'].cursor() as cursor:
-        cursor.execute("SELECT date(c.calldate) as dia,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE c.channel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= %s AND c.calldate <= %s AND ca.id = r.canal_id group by ca.nome;", [inicioDia,fimdia])
+        if todas:
+            cursor.execute("SELECT date(c.calldate) as dia,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE c.channel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= %s AND c.calldate <= %s AND ca.id = r.canal_id group by ca.nome;", [inicioDia,fimdia])
+        else:
+            cursor.execute('SELECT date(c.calldate) as dia,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE c.channel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= %s AND c.calldate <= %s AND c.disposition = "ANSWERED" AND ca.id = r.canal_id group by ca.nome;', [inicioDia,fimdia])
         row = cursor.fetchall()
 
     return row
 
-def chamHoje_sql():
+def chamHoje_sql(todas):
     with connections['relatorios'].cursor() as cursor:
-        cursor.execute("SELECT date(c.calldate) as dia,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE c.channel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= CURDATE() AND ca.id = r.canal_id group by ca.nome;")
+        if todas:
+            cursor.execute("SELECT date(c.calldate) as dia,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE c.channel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= CURDATE() AND ca.id = r.canal_id group by ca.nome;")
+        else:
+            cursor.execute('SELECT date(c.calldate) as dia,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE c.channel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= CURDATE() AND c.disposition = "ANSWERED" AND ca.id = r.canal_id group by ca.nome;')
         row = cursor.fetchall()
 
     return row
 
-def chamHora_sql(inicioDia, fimdia):
+def chamHora_sql(inicioDia, fimdia, todas):
     with connections['relatorios'].cursor() as cursor:
-        cursor.execute("SELECT hour(c.calldate) as hora,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE c.channel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= %s AND c.calldate <= %s AND ca.id = r.canal_id group by ca.nome, hour(c.calldate);", [inicioDia,fimdia])
+        if todas:
+            cursor.execute("SELECT hour(c.calldate) as hora,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE c.channel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= %s AND c.calldate <= %s AND ca.id = r.canal_id group by ca.nome, hour(c.calldate);", [inicioDia,fimdia])
+        else:
+            cursor.execute('SELECT hour(c.calldate) as hora,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE c.channel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= %s AND c.calldate <= %s AND c.disposition = "ANSWERED" AND ca.id = r.canal_id group by ca.nome, hour(c.calldate);', [inicioDia,fimdia])
         row = cursor.fetchall()
 
     return row
 
-def chamMin_sql(inicioDia, fimdia):
+def chamMin_sql(inicioDia, fimdia,todas):
     with connections['relatorios'].cursor() as cursor:
-        cursor.execute("SELECT minute(c.calldate) as minuto, second(c.calldate) as segundo, ca.nome as canal,  c.duration as duracao from Canal ca, cdr c, Regex r WHERE c.channel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= %s AND c.calldate <= %s AND ca.id = r.canal_id order by minuto, segundo;", [inicioDia,fimdia])
+        if todas:
+            cursor.execute("SELECT minute(c.calldate) as minuto, second(c.calldate) as segundo, ca.nome as canal,  c.duration as duracao from Canal ca, cdr c, Regex r WHERE c.channel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= %s AND c.calldate <= %s AND ca.id = r.canal_id order by minuto, segundo;", [inicioDia,fimdia])
+        else:
+            cursor.execute('SELECT minute(c.calldate) as minuto, second(c.calldate) as segundo, ca.nome as canal,  c.duration as duracao from Canal ca, cdr c, Regex r WHERE c.channel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= %s AND c.calldate <= %s AND c.disposition = "ANSWERED" AND ca.id = r.canal_id order by minuto, segundo;', [inicioDia,fimdia])
         row = cursor.fetchall()
 
     return row
@@ -356,11 +369,11 @@ def lista_graficos(request):
     mesAtras = date.today() - timedelta(days=30)
     while mesAtras <= date.today():
         if mesAtras ==date.today():
-            linhaRel = chamHoje_sql()
+            linhaRel = chamHoje_sql(True)
         else:
             inicioDia = datetime.combine(mesAtras, datetime.min.time())
             fimdia = datetime.combine(mesAtras, datetime.max.time())
-            linhaRel = chamDia_sql(inicioDia, fimdia)
+            linhaRel = chamDia_sql(inicioDia, fimdia, True)
         linhaRelatorio = []
         linhaRelatorio.append(mesAtras.strftime("%d/%m/%Y"))
         j=0;
@@ -455,6 +468,11 @@ def destinadoshora_sql(diaHoraInicial,diaHoraFinal):
 @login_required
 def busca_linha(request):
     filtro = request.GET.get('apurar', None)
+    cham = request.GET.get('chamadas', None)
+    if cham == "todas":
+        todas = True
+    else:
+        todas = False
     canaisTudo = Canal.objects.using('relatorios').all()
     canais =[]
     for canal in canaisTudo:
@@ -467,11 +485,11 @@ def busca_linha(request):
 
         while diaInicio <= diaFim:
             if diaInicio ==date.today():
-                linhaRel = chamHoje_sql()
+                linhaRel = chamHoje_sql(todas)
             else:
                 inicioDia = datetime.combine(diaInicio, datetime.min.time())
                 fimdia = datetime.combine(diaInicio, datetime.max.time())
-                linhaRel = chamDia_sql(inicioDia, fimdia)
+                linhaRel = chamDia_sql(inicioDia, fimdia,todas)
             linhaRelatorio = []
             linhaRelatorio.append(diaInicio.strftime("%d/%m/%Y"))
             j=0;
@@ -494,7 +512,7 @@ def busca_linha(request):
 
             inicioDia = datetime.combine(diaInicio, datetime.min.time())
             fimdia = datetime.combine(diaInicio, datetime.max.time())
-            linhaRel = chamHora_sql(inicioDia, fimdia)
+            linhaRel = chamHora_sql(inicioDia, fimdia, todas)
             relatorio = []
             hora = 0
             while hora <24:
@@ -522,22 +540,47 @@ def busca_linha(request):
                 hora = hora + 1
         else:
             if filtro == "min":
-                # diaInicio = request.GET.get('data_inicioR', None)
-                # horaInicio = request.GET.get('horaR', None)
-                # inicioDia= diaInicio + " " +horaInicio
-                #
-                # inicioDia = datetime.strptime(inicioDia, "%Y-%m-%d %H:%M")
-                # fimdia = inicioDia.replace(minute=59, second=59)
-                # lin haRel = chamMin_sql(inicioDia, fimdia)
-                #
-                # relatorio = []
-                # min = 0
-                # while min <60:
-                #
-                #     min = min +1
-                # diaFim = request.GET.get('data_fim', None)
-                # originados = originadoshora_sql(diaInicio,diaFim)
-                # destinados = destinadoshora_sql(diaInicio,diaFim)
+                diaInicio = request.GET.get('data_inicioR', None)
+                horaInicio = request.GET.get('horaR', None)
+                inicioDia= diaInicio + " " +horaInicio
+
+                inicioDia = datetime.strptime(inicioDia, "%Y-%m-%d %H:%M")
+                fimdia = inicioDia.replace(minute=59, second=59)
+                linhaRel = chamMin_sql(inicioDia, fimdia,todas)
+                for i in range(len(linhaRel)):
+                    min = linhaRel[i][0]
+                    seg = linhaRel[i][1]
+
+                    duracao = timedelta(seconds=linhaRel[i][3])
+                    tempo = inicioDia.replace(minute=min, second=seg)
+                    total = tempo + duracao
+
+                    if int(total.minute) > min:
+                        min = min + 1
+                        while min <= int(total.minute):
+                            linhaRel = linhaRel + ((min,0,linhaRel[i][2],0),)
+                            min = min + 1
+
+                tam = len(linhaRel)
+                relatorio = []
+                min = 0
+                while min <60:
+                    linhaRelatorio = []
+                    if min < 10:
+                        min = "0" + str(min)
+                    linhaRelatorio.append(str(inicioDia.hour) +":" + str(min))
+
+                    countCham =0
+                    for canal in canaisTudo:
+                        countCham =0
+                        for i in range(len(linhaRel)):
+                            if int(min) == int(linhaRel[i][0]):
+                                if linhaRel[i][2] == canal.nome:
+                                    countCham = countCham + 1
+                        linhaRelatorio.append(countCham)
+
+                    relatorio.append(linhaRelatorio)
+                    min = int(min) +1
 
     data ={}
     data['relatorio'] = relatorio

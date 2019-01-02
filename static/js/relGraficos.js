@@ -15,7 +15,23 @@ $(document).ready(function(){
         var dados = JSON.parse(dados);
         console.log(dados['relatorio']);
         var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Hora');
+        if (document.getElementById('apurar').value == "dia"){
+          data.addColumn('string', 'Dia');
+        }else{
+          if (document.getElementById('apurar').value == "hora"){
+            data.addColumn('string', 'Hora');
+          }else{
+            data.addColumn('string', 'Minuto');
+          }
+        }
+
+        var titulo;
+        if (document.getElementById('apurar').value == "min"){
+          titulo= "Relatório de chamadas simultâneas por canal"
+        } else{
+          titulo= "Relatório de chamadas por canal"
+        }
+
         var canais = dados['canais']
         for(var i in canais){
            var nome = canais[i];
