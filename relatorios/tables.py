@@ -14,11 +14,7 @@ from django_tables2.utils import AttributeDict, ucfirst
 class RelatoriosTable(tables.Table):
 
     detalhes = tables.TemplateColumn(
-            '<button data-toggle="tooltip" onClick="mostraDetalhes(\'{{record.calldate}}\',\'{{record.clid}}\''
-            +',\'{{record.src}}\',\'{{record.dst}}\',\'{{record.dcontext}}\',\'{{record.channel}}\',\'{{record.dstchannel}}\''
-            +',\'{{record.lastapp}}\',\'{{record.lastdata}}\',\'{{record.duration}}\',\'{{record.billsec}}\',\'{{record.disposition}}\''
-            +',\'{{record.amaflags}}\',\'{{record.accountcode}}\',\'{{record.userfield}}\',\'{{record.cnum}}\''
-            +',\'{{record.cnam}}\',\'{{record.outbound_cnum}}\',\'{{record.outbound_cnam}}\',\'{{record.dst_cnam}}\',\'{{record.did}}\',{%if record.recordingfile%}\'{{record.recordingfile.url}}\',{%endif%});"'
+            '<button data-toggle="tooltip" onClick="mostraDet(\'{{record.uniqueid}}\');"'
             +'  type="button" class="btn btn-danger btn-xs">Detalhes</button>',
         orderable=False,
         verbose_name='',

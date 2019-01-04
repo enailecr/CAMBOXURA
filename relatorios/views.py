@@ -1,7 +1,7 @@
 from django.shortcuts import render ,redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from .models import  Cdr, Canal, Regex
+from .models import  Cdr, Canal, Regex, Variaveis
 import re
 from django_tables2 import RequestConfig
 from .tables import RelatoriosTable, CanaisTable
@@ -80,6 +80,68 @@ def list(request):
     return render(request, 'relatorios.html',{'table': table})
 
 @login_required
+def detalhes(request):
+    id = request.GET.get('id', None)
+    chamada = Cdr.objects.using('relatorios').get(uniqueid=id)
+    variaveis = Variaveis.objects.using('relatorios').filter(uniqueid=id)
+    regras = Regex.objects.using('relatorios').all()
+
+    detalhes = {}
+    detalhes['calldate'] = chamada.calldate.strftime('%m/%d/%Y %H:%M:%S')
+    detalhes['clid'] = chamada.clid
+    detalhes['src'] = chamada.src
+    detalhes['dst'] = chamada.dst
+    detalhes['dcontext'] = chamada.dcontext
+    for regra in regras:
+        string = "("+regra.expressao+")"+"(.*?)(-)(.*)"
+        canalorigem = re.match(string, chamada.channel)
+        if canalorigem:
+            canal = regra.canal.nome
+            chamada.channel = canal
+        canaldest = re.match(string, chamada.dstchannel)
+        if canaldest:
+            canal = regra.canal.nome
+            chamada.dstchannel = canal
+
+    detalhes['channel'] = chamada.channel
+    detalhes['dstchannel'] = chamada.dstchannel
+    detalhes['lastapp'] = chamada.lastapp
+    detalhes['lastdata'] = chamada.lastdata
+    detalhes['duration'] = chamada.duration
+    detalhes['billsec'] = chamada.billsec
+    if chamada.disposition == "NO ANSWER":
+        chamada.disposition = "Sem resposta"
+    if chamada.disposition == "BUSY":
+        chamada.disposition = "Ocupado"
+    if chamada.disposition == "ANSWERED":
+        chamada.disposition = "Respondido"
+    if chamada.disposition == "FAILED":
+        chamada.disposition = "Falha"
+    detalhes['disposition'] = chamada.disposition
+    detalhes['amaflags'] = chamada.amaflags
+    detalhes['accountcode'] = chamada.accountcode
+    detalhes['userfield'] = chamada.userfield
+    if chamada.recordingfile:
+        detalhes['recordingfile'] = chamada.recordingfile.url
+    detalhes['cnum'] = chamada.cnum
+    detalhes['cnam'] = chamada.cnam
+    detalhes['outbound_cnum'] = chamada.outbound_cnum
+    detalhes['outbound_cnam'] = chamada.outbound_cnam
+    detalhes['dst_cnam'] = chamada.dst_cnam
+    detalhes['did'] = chamada.did
+
+    detalhes['tamVar'] = len(variaveis)
+    i=0
+    for variavel in variaveis:
+        detalhes['var'+str(i)] = variavel.variavel
+        detalhes['valor' + str(i)] = variavel.valor
+        i = i+1
+
+    js_data = json.dumps(detalhes)
+
+    return JsonResponse(js_data, safe=False)
+
+@login_required
 def lista_canais(request):
     relatorios = Canal.objects.using('relatorios').all()
     table = CanaisTable(relatorios)
@@ -116,6 +178,12 @@ def busca_relatorios(request):
     else:
         df = request.session['dataFimRelatorio']
 
+    if 'variavel' in request.POST:
+        variavel = request.POST['variavel']
+        request.session['variavel'] = request.POST['variavel']
+    else:
+        variavel = request.session['variavel']
+
     dataInicio = None
     dataFim = None
     if di:
@@ -146,39 +214,61 @@ def busca_relatorios(request):
         relatorios = relatorios.filter(dst=campo_input)
 
     regras = Regex.objects.using('relatorios').all()
-    for registro in relatorios:
-        if registro.disposition == "NO ANSWER":
-            registro.disposition = "Sem resposta"
-        if registro.disposition == "BUSY":
-            registro.disposition = "Ocupado"
-        if registro.disposition == "ANSWERED":
-            registro.disposition = "Respondido"
-        if registro.disposition == "FAILED":
-            registro.disposition = "Falha"
-        for regra in regras:
-            string = "("+regra.expressao+")"+"(.*?)(-)(.*)"
-            canalorigem = re.match(string, registro.channel)
-            if canalorigem:
-                canal = regra.canal.nome
-                registro.channel = canal
-            canaldest = re.match(string, registro.dstchannel)
-            if canaldest:
-                canal = regra.canal.nome
-                registro.dstchannel = canal
-
-    rel_filtrado =[]
-    if campo == "cano" or campo == "cand":
+    if relatorios:
         for registro in relatorios:
-            if ((campo == "cano" and re.match('(.*?)'+campo_input+'(.*?)', registro.channel)) or (campo == "cand" and re.match('(.*?)'+campo_input+'(.*?)', registro.dstchannel))):
-                rel_filtrado.append(registro)
+            horario = registro.calldate.strftime('%m/%d/%Y %H:%M:%S')
+            registro.calldate = datetime.strptime(horario, '%m/%d/%Y %H:%M:%S')
+            if registro.disposition == "NO ANSWER":
+                registro.disposition = "Sem resposta"
+            if registro.disposition == "BUSY":
+                registro.disposition = "Ocupado"
+            if registro.disposition == "ANSWERED":
+                registro.disposition = "Respondido"
+            if registro.disposition == "FAILED":
+                registro.disposition = "Falha"
+            for regra in regras:
+                string = "("+regra.expressao+")"+"(.*?)(-)(.*)"
+                canalorigem = re.match(string, registro.channel)
+                if canalorigem:
+                    canal = regra.canal.nome
+                    registro.channel = canal
+                canaldest = re.match(string, registro.dstchannel)
+                if canaldest:
+                    canal = regra.canal.nome
+                    registro.dstchannel = canal
 
-    if rel_filtrado:
+        rel_filtrado =[]
+        if campo == "cano" or campo == "cand" or variavel:
+            for registro in relatorios:
+                if campo == "cano" or campo == "cand":
+                    if ((campo == "cano" and re.match('(.*?)'+campo_input+'(.*?)', registro.channel, re.IGNORECASE)))  or (campo == "cand" and re.match('(.*?)'+campo_input+'(.*?)', registro.dstchannel, re.IGNORECASE)):
+                        if variavel:
+                            variaveis = Variaveis.objects.using('relatorios').filter(variavel__icontains=variavel)
+                            if variaveis:
+                                for var in variaveis:
+                                    if registro.uniqueid == var.uniqueid:
+                                        rel_filtrado.append(registro)
+                                        break
+                        else:
+                            rel_filtrado.append(registro)
+                else:
+                    if variavel:
+                        variaveis = Variaveis.objects.using('relatorios').filter(variavel__icontains=variavel)
+                        if variaveis:
+                            for var in variaveis:
+                                if registro.uniqueid == var.uniqueid:
+                                    rel_filtrado.append(registro)
+                                    break
+
         relatorios = rel_filtrado
+    else:
+        relatorios = None
 
     data = {}
     data['dataInicioRelatorio'] = di
     data['dataFimRelatorio'] = df
     data['campo'] = campo
+    data['variavel'] = variavel
     data['campo_input'] = campo_input
     data['status'] = status
     table = RelatoriosTable(relatorios)
@@ -419,7 +509,7 @@ def busca_pizza(request):
             dia = request.GET.get('dia', None)
             hora = request.GET.get('hora', None)
             diaHoraString = dia + " " + hora
-            diaHoraInicial = datetime.strptime(diaHoraString, '%Y-%m-%d %H:%S')
+            diaHoraInicial = datetime.strptime(diaHoraString, '%Y-%m-%d %H:%M:%S')
             diaHoraFinal = diaHoraInicial + timedelta(hours=1)
             originados = originadoshora_sql(diaHoraInicial,diaHoraFinal)
             destinados = destinadoshora_sql(diaHoraInicial,diaHoraFinal)

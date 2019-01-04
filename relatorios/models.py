@@ -47,3 +47,12 @@ class Cdr(models.Model):
     class Meta:
         managed = False
         db_table = 'cdr'
+
+class Variaveis(models.Model):
+    uniqueid = models.CharField(max_length=32)
+    variavel = models.CharField(max_length=255, blank=True, null=True)
+    valor = models.CharField(max_length=100, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'variaveis'
