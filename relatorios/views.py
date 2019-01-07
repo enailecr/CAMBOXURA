@@ -260,9 +260,7 @@ def busca_relatorios(request):
                                     rel_filtrado.append(registro)
                                     break
 
-        relatorios = rel_filtrado
-    else:
-        relatorios = None
+                relatorios = rel_filtrado
 
     data = {}
     data['dataInicioRelatorio'] = di
@@ -509,7 +507,7 @@ def busca_pizza(request):
             dia = request.GET.get('dia', None)
             hora = request.GET.get('hora', None)
             diaHoraString = dia + " " + hora
-            diaHoraInicial = datetime.strptime(diaHoraString, '%Y-%m-%d %H:%M:%S')
+            diaHoraInicial = datetime.strptime(diaHoraString, '%Y-%m-%d %H:%M')
             diaHoraFinal = diaHoraInicial + timedelta(hours=1)
             originados = originadoshora_sql(diaHoraInicial,diaHoraFinal)
             destinados = destinadoshora_sql(diaHoraInicial,diaHoraFinal)
