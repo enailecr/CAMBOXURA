@@ -27,11 +27,14 @@ from django.http import JsonResponse
 import json
 from django.db import connections
 from datetime import timedelta
+from django.db.models import Count
 
 @login_required
 def list(request):
     relatorios = Cdr.objects.using('relatorios').all()
     regras = Regex.objects.using('relatorios').all()
+    variaveis = Variaveis.objects.using('relatorios').values('variavel').annotate(dcount=Count('variavel'))
+
     for registro in relatorios:
         if registro.disposition == "NO ANSWER":
             registro.disposition = "Sem resposta"
@@ -76,8 +79,11 @@ def list(request):
             response.write(output.read())
 
         return response
+    data = {}
+    data['table'] = table
+    data['variaveis'] = variaveis
 
-    return render(request, 'relatorios.html',{'table': table})
+    return render(request, 'relatorios.html',data)
 
 @login_required
 def detalhes(request):
@@ -87,7 +93,7 @@ def detalhes(request):
     regras = Regex.objects.using('relatorios').all()
 
     detalhes = {}
-    detalhes['calldate'] = chamada.calldate.strftime('%m/%d/%Y %H:%M:%S')
+    detalhes['calldate'] = chamada.calldate.strftime('%d/%m/%Y %H:%M:%S')
     detalhes['clid'] = chamada.clid
     detalhes['src'] = chamada.src
     detalhes['dst'] = chamada.dst
@@ -243,7 +249,7 @@ def busca_relatorios(request):
                 if campo == "cano" or campo == "cand":
                     if ((campo == "cano" and re.match('(.*?)'+campo_input+'(.*?)', registro.channel, re.IGNORECASE)))  or (campo == "cand" and re.match('(.*?)'+campo_input+'(.*?)', registro.dstchannel, re.IGNORECASE)):
                         if variavel:
-                            variaveis = Variaveis.objects.using('relatorios').filter(variavel__icontains=variavel)
+                            variaveis = Variaveis.objects.using('relatorios').filter(variavel=variavel)
                             if variaveis:
                                 for var in variaveis:
                                     if registro.uniqueid == var.uniqueid:
@@ -253,7 +259,7 @@ def busca_relatorios(request):
                             rel_filtrado.append(registro)
                 else:
                     if variavel:
-                        variaveis = Variaveis.objects.using('relatorios').filter(variavel__icontains=variavel)
+                        variaveis = Variaveis.objects.using('relatorios').filter(variavel=variavel)
                         if variaveis:
                             for var in variaveis:
                                 if registro.uniqueid == var.uniqueid:
@@ -266,9 +272,10 @@ def busca_relatorios(request):
     data['dataInicioRelatorio'] = di
     data['dataFimRelatorio'] = df
     data['campo'] = campo
-    data['variavel'] = variavel
     data['campo_input'] = campo_input
     data['status'] = status
+    variaveis = Variaveis.objects.using('relatorios').values('variavel').annotate(dcount=Count('variavel'))
+    data['variaveis'] = variaveis
     table = RelatoriosTable(relatorios)
     data['table'] = table
     RequestConfig(request, paginate={'per_page': 10}).configure(table)
@@ -414,12 +421,52 @@ def chamDia_sql(inicioDia, fimdia, todas):
 
     return row
 
+def chamDiaDest_sql(inicioDia, fimdia, todas):
+    with connections['relatorios'].cursor() as cursor:
+        if todas:
+            cursor.execute("SELECT date(c.calldate) as dia,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE c.dstchannel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= %s AND c.calldate <= %s AND ca.id = r.canal_id group by ca.nome;", [inicioDia,fimdia])
+        else:
+            cursor.execute('SELECT date(c.calldate) as dia,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE c.dstchannel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= %s AND c.calldate <= %s AND c.disposition = "ANSWERED" AND ca.id = r.canal_id group by ca.nome;', [inicioDia,fimdia])
+        row = cursor.fetchall()
+
+    return row
+
+def chamDiaTodas_sql(inicioDia, fimdia, todas):
+    with connections['relatorios'].cursor() as cursor:
+        if todas:
+            cursor.execute("SELECT date(c.calldate) as dia,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE (c.dstchannel like CONCAT(\'%%\',r.expressao,\'%%\') OR c.channel like CONCAT(\'%%\',r.expressao,\'%%\')) AND c.calldate >= %s AND c.calldate <= %s AND ca.id = r.canal_id group by ca.nome;", [inicioDia,fimdia])
+        else:
+            cursor.execute('SELECT date(c.calldate) as dia,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE (c.dstchannel like CONCAT(\'%%\',r.expressao,\'%%\') OR c.channel like CONCAT(\'%%\',r.expressao,\'%%\')) AND c.calldate >= %s AND c.calldate <= %s AND c.disposition = "ANSWERED" AND ca.id = r.canal_id group by ca.nome;', [inicioDia,fimdia])
+        row = cursor.fetchall()
+
+    return row
+
 def chamHoje_sql(todas):
     with connections['relatorios'].cursor() as cursor:
         if todas:
             cursor.execute("SELECT date(c.calldate) as dia,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE c.channel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= CURDATE() AND ca.id = r.canal_id group by ca.nome;")
         else:
             cursor.execute('SELECT date(c.calldate) as dia,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE c.channel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= CURDATE() AND c.disposition = "ANSWERED" AND ca.id = r.canal_id group by ca.nome;')
+        row = cursor.fetchall()
+
+    return row
+
+def chamHojeDest_sql(todas):
+    with connections['relatorios'].cursor() as cursor:
+        if todas:
+            cursor.execute("SELECT date(c.calldate) as dia,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE c.dstchannel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= CURDATE() AND ca.id = r.canal_id group by ca.nome;")
+        else:
+            cursor.execute('SELECT date(c.calldate) as dia,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE c.dstchannel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= CURDATE() AND c.disposition = "ANSWERED" AND ca.id = r.canal_id group by ca.nome;')
+        row = cursor.fetchall()
+
+    return row
+
+def chamHojeTodas_sql(todas):
+    with connections['relatorios'].cursor() as cursor:
+        if todas:
+            cursor.execute("SELECT date(c.calldate) as dia,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE (c.dstchannel like CONCAT(\'%%\',r.expressao,\'%%\') OR c.channel like CONCAT(\'%%\',r.expressao,\'%%\')) AND c.calldate >= CURDATE() AND ca.id = r.canal_id group by ca.nome;")
+        else:
+            cursor.execute('SELECT date(c.calldate) as dia,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE (c.dstchannel like CONCAT(\'%%\',r.expressao,\'%%\') OR c.channel like CONCAT(\'%%\',r.expressao,\'%%\')) AND c.calldate >= CURDATE() AND c.disposition = "ANSWERED" AND ca.id = r.canal_id group by ca.nome;')
         row = cursor.fetchall()
 
     return row
@@ -434,12 +481,80 @@ def chamHora_sql(inicioDia, fimdia, todas):
 
     return row
 
+def chamHoraDest_sql(inicioDia, fimdia, todas):
+    with connections['relatorios'].cursor() as cursor:
+        if todas:
+            cursor.execute("SELECT hour(c.calldate) as hora,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE c.dstchannel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= %s AND c.calldate <= %s AND ca.id = r.canal_id group by ca.nome, hour(c.calldate);", [inicioDia,fimdia])
+        else:
+            cursor.execute('SELECT hour(c.calldate) as hora,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE c.dstchannel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= %s AND c.calldate <= %s AND c.disposition = "ANSWERED" AND ca.id = r.canal_id group by ca.nome, hour(c.calldate);', [inicioDia,fimdia])
+        row = cursor.fetchall()
+
+    return row
+
+def chamHoraTodas_sql(inicioDia, fimdia, todas):
+    with connections['relatorios'].cursor() as cursor:
+        if todas:
+            cursor.execute("SELECT hour(c.calldate) as hora,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE (c.dstchannel like CONCAT(\'%%\',r.expressao,\'%%\') OR c.channel like CONCAT(\'%%\',r.expressao,\'%%\')) AND c.calldate >= %s AND c.calldate <= %s AND ca.id = r.canal_id group by ca.nome, hour(c.calldate);", [inicioDia,fimdia])
+        else:
+            cursor.execute('SELECT hour(c.calldate) as hora,ca.nome as canal, count(c.uniqueid) as qtdChamadas from Canal ca, cdr c, Regex r WHERE (c.dstchannel like CONCAT(\'%%\',r.expressao,\'%%\') OR c.channel like CONCAT(\'%%\',r.expressao,\'%%\')) AND c.calldate >= %s AND c.calldate <= %s AND c.disposition = "ANSWERED" AND ca.id = r.canal_id group by ca.nome, hour(c.calldate);', [inicioDia,fimdia])
+        row = cursor.fetchall()
+
+    return row
+
 def chamMin_sql(inicioDia, fimdia,todas):
     with connections['relatorios'].cursor() as cursor:
         if todas:
             cursor.execute("SELECT minute(c.calldate) as minuto, second(c.calldate) as segundo, ca.nome as canal,  c.duration as duracao from Canal ca, cdr c, Regex r WHERE c.channel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= %s AND c.calldate <= %s AND ca.id = r.canal_id order by minuto, segundo;", [inicioDia,fimdia])
         else:
             cursor.execute('SELECT minute(c.calldate) as minuto, second(c.calldate) as segundo, ca.nome as canal,  c.duration as duracao from Canal ca, cdr c, Regex r WHERE c.channel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= %s AND c.calldate <= %s AND c.disposition = "ANSWERED" AND ca.id = r.canal_id order by minuto, segundo;', [inicioDia,fimdia])
+        row = cursor.fetchall()
+
+    return row
+
+def chamMinDest_sql(inicioDia, fimdia,todas):
+    with connections['relatorios'].cursor() as cursor:
+        if todas:
+            cursor.execute("SELECT minute(c.calldate) as minuto, second(c.calldate) as segundo, ca.nome as canal,  c.duration as duracao from Canal ca, cdr c, Regex r WHERE c.dstchannel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= %s AND c.calldate <= %s AND ca.id = r.canal_id order by minuto, segundo;", [inicioDia,fimdia])
+        else:
+            cursor.execute('SELECT minute(c.calldate) as minuto, second(c.calldate) as segundo, ca.nome as canal,  c.duration as duracao from Canal ca, cdr c, Regex r WHERE c.dstchannel like CONCAT(\'%%\',r.expressao,\'%%\') AND c.calldate >= %s AND c.calldate <= %s AND c.disposition = "ANSWERED" AND ca.id = r.canal_id order by minuto, segundo;', [inicioDia,fimdia])
+        row = cursor.fetchall()
+
+    return row
+
+def chamMinTodas_sql(inicioDia, fimdia,todas):
+    with connections['relatorios'].cursor() as cursor:
+        if todas:
+            cursor.execute("SELECT minute(c.calldate) as minuto, second(c.calldate) as segundo, ca.nome as canal,  c.duration as duracao from Canal ca, cdr c, Regex r WHERE (c.dstchannel like CONCAT(\'%%\',r.expressao,\'%%\') OR c.channel like CONCAT(\'%%\',r.expressao,\'%%\')) AND c.calldate >= %s AND c.calldate <= %s AND ca.id = r.canal_id order by minuto, segundo;", [inicioDia,fimdia])
+        else:
+            cursor.execute('SELECT minute(c.calldate) as minuto, second(c.calldate) as segundo, ca.nome as canal,  c.duration as duracao from Canal ca, cdr c, Regex r WHERE (c.dstchannel like CONCAT(\'%%\',r.expressao,\'%%\') OR c.channel like CONCAT(\'%%\',r.expressao,\'%%\')) AND c.calldate >= %s AND c.calldate <= %s AND c.disposition = "ANSWERED" AND ca.id = r.canal_id order by minuto, segundo;', [inicioDia,fimdia])
+        row = cursor.fetchall()
+
+    return row
+
+def originadosdia_sql(dia):
+    with connections['relatorios'].cursor() as cursor:
+        cursor.execute("SELECT Ca.nome, COUNT(ch.uniqueid) as qtd from cdr ch,Canal Ca, Regex r WHERE ch.calldate >= %s AND ch.channel like CONCAT(\'%%\' ,r.expressao , \'%%\') and r.canal_id = Ca.id group by Ca.nome;", [dia])
+        row = cursor.fetchall()
+
+    return row
+
+def destinadosdia_sql(dia):
+    with connections['relatorios'].cursor() as cursor:
+        cursor.execute("SELECT Ca.nome, COUNT(ch.uniqueid) as qtd from cdr ch,Canal Ca, Regex r WHERE ch.calldate >= %s AND ch.dstchannel like CONCAT(\'%%\' ,r.expressao , \'%%\') and r.canal_id = Ca.id group by Ca.nome;", [dia])
+        row = cursor.fetchall()
+
+    return row
+
+def originadoshora_sql(diaHoraInicial,diaHoraFinal):
+    with connections['relatorios'].cursor() as cursor:
+        cursor.execute("SELECT Ca.nome, COUNT(ch.uniqueid) as qtd from cdr ch,Canal Ca, Regex r WHERE ch.calldate >= %s AND ch.calldate <= %s AND  ch.channel like CONCAT(\'%%\' ,r.expressao , \'%%\') and r.canal_id = Ca.id group by Ca.nome;", [diaHoraInicial,diaHoraFinal])
+        row = cursor.fetchall()
+
+    return row
+
+def destinadoshora_sql(diaHoraInicial,diaHoraFinal):
+    with connections['relatorios'].cursor() as cursor:
+        cursor.execute("SELECT Ca.nome, COUNT(ch.uniqueid) as qtd from cdr ch,Canal Ca, Regex r WHERE ch.calldate >= %s AND ch.calldate <= %s AND ch.dstchannel like CONCAT(\'%%\' ,r.expressao , \'%%\') and r.canal_id = Ca.id group by Ca.nome;", [diaHoraInicial,diaHoraFinal])
         row = cursor.fetchall()
 
     return row
@@ -457,11 +572,11 @@ def lista_graficos(request):
     mesAtras = date.today() - timedelta(days=30)
     while mesAtras <= date.today():
         if mesAtras ==date.today():
-            linhaRel = chamHoje_sql(True)
+            linhaRel = chamHojeTodas_sql(True)
         else:
             inicioDia = datetime.combine(mesAtras, datetime.min.time())
             fimdia = datetime.combine(mesAtras, datetime.max.time())
-            linhaRel = chamDia_sql(inicioDia, fimdia, True)
+            linhaRel = chamDiaTodas_sql(inicioDia, fimdia, True)
         linhaRelatorio = []
         linhaRelatorio.append(mesAtras.strftime("%d/%m/%Y"))
         j=0;
@@ -525,39 +640,13 @@ def busca_pizza(request):
 
     return JsonResponse(js_data, safe=False)
 
-def originadosdia_sql(dia):
-    with connections['relatorios'].cursor() as cursor:
-        cursor.execute("SELECT Ca.nome, COUNT(ch.uniqueid) as qtd from cdr ch,Canal Ca, Regex r WHERE ch.calldate >= %s AND ch.channel like CONCAT(\'%%\' ,r.expressao , \'%%\') and r.canal_id = Ca.id group by Ca.nome;", [dia])
-        row = cursor.fetchall()
-
-    return row
-
-def destinadosdia_sql(dia):
-    with connections['relatorios'].cursor() as cursor:
-        cursor.execute("SELECT Ca.nome, COUNT(ch.uniqueid) as qtd from cdr ch,Canal Ca, Regex r WHERE ch.calldate >= %s AND ch.dstchannel like CONCAT(\'%%\' ,r.expressao , \'%%\') and r.canal_id = Ca.id group by Ca.nome;", [dia])
-        row = cursor.fetchall()
-
-    return row
-
-def originadoshora_sql(diaHoraInicial,diaHoraFinal):
-    with connections['relatorios'].cursor() as cursor:
-        cursor.execute("SELECT Ca.nome, COUNT(ch.uniqueid) as qtd from cdr ch,Canal Ca, Regex r WHERE ch.calldate >= %s AND ch.calldate <= %s AND  ch.channel like CONCAT(\'%%\' ,r.expressao , \'%%\') and r.canal_id = Ca.id group by Ca.nome;", [diaHoraInicial,diaHoraFinal])
-        row = cursor.fetchall()
-
-    return row
-
-def destinadoshora_sql(diaHoraInicial,diaHoraFinal):
-    with connections['relatorios'].cursor() as cursor:
-        cursor.execute("SELECT Ca.nome, COUNT(ch.uniqueid) as qtd from cdr ch,Canal Ca, Regex r WHERE ch.calldate >= %s AND ch.calldate <= %s AND ch.dstchannel like CONCAT(\'%%\' ,r.expressao , \'%%\') and r.canal_id = Ca.id group by Ca.nome;", [diaHoraInicial,diaHoraFinal])
-        row = cursor.fetchall()
-
-    return row
-
 @login_required
 def busca_linha(request):
     filtro = request.GET.get('apurar', None)
+    status = request.GET.get('status', None)
     cham = request.GET.get('chamadas', None)
-    if cham == "todas":
+
+    if status == "todas":
         todas = True
     else:
         todas = False
@@ -573,11 +662,23 @@ def busca_linha(request):
 
         while diaInicio <= diaFim:
             if diaInicio ==date.today():
-                linhaRel = chamHoje_sql(todas)
+                if cham == "todas":
+                    linhaRel = chamHojeTodas_sql(todas)
+                else:
+                    if cham == "originadas":
+                        linhaRel = chamHoje_sql(todas)
+                    else:
+                        linhaRel = chamHojeDest_sql(todas)
             else:
                 inicioDia = datetime.combine(diaInicio, datetime.min.time())
                 fimdia = datetime.combine(diaInicio, datetime.max.time())
-                linhaRel = chamDia_sql(inicioDia, fimdia,todas)
+                if cham == "todas":
+                    linhaRel = chamDiaTodas_sql(inicioDia, fimdia,todas)
+                else:
+                    if cham == "originadas":
+                        linhaRel = chamDia_sql(todas)
+                    else:
+                        linhaRel = chamDiaDest_sql(todas)
             linhaRelatorio = []
             linhaRelatorio.append(diaInicio.strftime("%d/%m/%Y"))
             j=0;
@@ -600,7 +701,13 @@ def busca_linha(request):
 
             inicioDia = datetime.combine(diaInicio, datetime.min.time())
             fimdia = datetime.combine(diaInicio, datetime.max.time())
-            linhaRel = chamHora_sql(inicioDia, fimdia, todas)
+            if cham == "todas":
+                linhaRel = chamHoraTodas_sql(inicioDia, fimdia, todas)
+            else:
+                if cham == "originadas":
+                    linhaRel = chamHora_sql(inicioDia, fimdia, todas)
+                else:
+                    linhaRel = chamHoraDest_sql(inicioDia, fimdia, todas)
             relatorio = []
             hora = 0
             while hora <24:
@@ -634,7 +741,13 @@ def busca_linha(request):
 
                 inicioDia = datetime.strptime(inicioDia, "%Y-%m-%d %H:%M")
                 fimdia = inicioDia.replace(minute=59, second=59)
-                linhaRel = chamMin_sql(inicioDia, fimdia,todas)
+                if cham == "todas":
+                    linhaRel = chamMinTodas_sql(inicioDia, fimdia,todas)
+                else:
+                    if cham == "originadas":
+                        linhaRel = chamMin_sql(inicioDia, fimdia,todas)
+                    else:
+                        linhaRel = chamMinDest_sql(inicioDia, fimdia,todas)
                 for i in range(len(linhaRel)):
                     min = linhaRel[i][0]
                     seg = linhaRel[i][1]

@@ -182,16 +182,23 @@ function montaRelatorios() {
       </td>
     </tr>
     <tr>
-      <td>Tipo de chamadas</td>
+      <td>Chamadas</td>
       <td>
         <select name="chamadas" id="chamadas">
-          <option value="todas" selected>Todas as chamadas</option>
+          <option value="todas"> Todas as chamadas</option>
+          <option value="originadas">Chamadas originadas</option>
+          <option value="destinadas">Chamadas destinadas</option>
+        </select>
+      </td>
+      <td>Status das chamadas</td>
+      <td>
+        <select name="status" id="status">
+          <option value="todas" selected>Todos os status</option>
           <option value="atend" >Chamadas atendidas</option>
         </select>
       </td>
       <td></td>
-      <td></td>
-      <td></td>
+
     </tr>
     <tr>
       <td><button type="submit" class="formobjects">Pesquisar</button></td>

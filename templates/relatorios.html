@@ -82,7 +82,14 @@
                     </tr>
                     <tr>
                       <td><label for="variavel">Variável:</label></td>
-                      <td><input type="text" name="variavel" value="{{variavel}}"></input></td>
+                      <td>
+                        <select name="variavel">
+                          <option value="">Nenhuma</option>
+                          {%for var in variaveis%}
+                            <option value="{{var.variavel}}">{{var.variavel}}</option>
+                          {%endfor%}
+                        </select>
+                      </td>
                     </tr>
                     <tr>
 
