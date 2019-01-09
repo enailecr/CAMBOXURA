@@ -24,6 +24,7 @@
                 </div>
 <div id='cssmenu'>
 <ul class="cssmenu">
+  {% if user.groups.all.0.name != "Visualiza relatório" %}
    <li class='last'><a href="/contas/logout/"><span>Sair</span></a></li>
    <li><a href='/aplicar/'><span>Aplicar alterações</span></a></li>
 
@@ -35,6 +36,7 @@
        <li class='has-sub'><a href='/logs/camboxura/'><span>CAMBOXURA</span></a></li>
      </ul>
    </li>
+   {%endif%}
    <li class='active has-sub'><a href='#'><span>Relatórios</span></a>
      <ul>
        <li class='has-sub'><a href='/relatorios/'><span>CDR</span></a></li>
@@ -42,6 +44,7 @@
        <li class='has-sub'><a href='/relatorios/graficos/'><span>Gráficos</span></a></li>
      </ul>
    </li>
+   {% if user.groups.all.0.name != "Visualiza relatório" %}
    <li class='active has-sub'><a href='#'><span>Administração</span></a>
     <ul>
        <li class='has-sub'><a href='/uras/'><span>URA</span></a></li>
@@ -54,6 +57,7 @@
        <li class='has-sub'><a href='/condicoestempo/'><span>Condições de tempo</span></a></li>
     </ul>
   </li>
+  {%endif%}
    <li><a href='/dashboard/'><span>CAMBOX URA</span></a></li>
 </ul>
 </div>

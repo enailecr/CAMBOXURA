@@ -10,7 +10,7 @@
       <input type="hidden" id="disponivelCPU" name="disponivelCPU" value="100">
       <!-- {{todos}} -->
       <input type="hidden" id="ocupadoCPU" name="ocupadoCPU" value="{{dashboard.CPU}}">
-      
+
       <input type="hidden" id="disponivelRAM" name="disponivelRAM" value="{{dashboard.RAMF}}">
       <input type="hidden" id="ocupadoRAM" name="ocupadoRAM" value="{{dashboard.RAMU}}">
 
@@ -19,7 +19,7 @@
       <input type="hidden" id="disponivelDR" name="disponivelDR" value="{{dashboard.discoLivre}}">
       <input type="hidden" id="ocupadoDR" name="ocupadoDR" value="{{dashboard.discoUsado}}">
       <input type="hidden" id="swapp" name="swapp" value="{{grafico}}">
-      
+
       <script>
             var dataGoogleGraphic = [];
             dataGoogleGraphic['CPU'] = [];
@@ -29,7 +29,7 @@
 
             var jsonSwapTesteObject = JSON.parse('{{ gtes1 | escapejs }}');
             var index, len;
-            
+
             var indexArray = 0;
             dataGoogleGraphic['CPU'][indexArray] = Array("Day", "CPU MAX", "CPU MIN", "CPU AVG");
             dataGoogleGraphic['RAM'][indexArray] = Array("Day", "RAM MAX", "RAM MIN", "RAM AVG");
@@ -51,7 +51,7 @@
       <div id="teste{{ forloop.counter0 }}">
       <input type="hidden" id="swapp" name="swapp" value="{{grafico |safe}}">
       <input type="hidden" id="swapp" name="swapp" value="{{gtes1}}">
-      
+
       {%endfor%} -->
 
    <tr>
@@ -69,13 +69,13 @@
               ['Ocupado',    ocupadoCPU],
               ['Disponível',   disponivelCPU],
             ]);
-    
+
             var options = {
               title: 'CPU',
               colors: ['7f0000','ff9999'],
               pieHole: 0.3,
             };
-    
+
             var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
             chart.draw(data, options);
           }
@@ -97,13 +97,13 @@
                 ['Ocupado',    ocupadoRAM ],
                 ['Disponível',     disponivelRAM ],
               ]);
-      
+
               var options = {
                 title: 'RAM',
                 colors: ['7f0000','ff9999'],
                 pieHole: 0.3,
               };
-      
+
               var chart = new google.visualization.PieChart(document.getElementById('donutRAM'));
               chart.draw(data, options);
             }
@@ -126,13 +126,13 @@
                 ['Ocupado',    ocupadoSWAP ],
                 ['Disponível',    disponivelSWAP ],
               ]);
-      
+
               var options = {
                 title: 'SWAP',
                 colors: ['7f0000','ff9999'],
                 pieHole: 0.3,
               };
-      
+
               var chart = new google.visualization.PieChart(document.getElementById('donutSWAP'));
               chart.draw(data, options);
             }
@@ -145,8 +145,8 @@
     <tr>
       <td>
         <label for="text">Tempo de Funcionamento:  {{dashboard.tempof}}</label>
-        
-        
+
+
        </td>
        <td></td>
        <td></td>
@@ -173,13 +173,13 @@
              ['Usado',     ocupadoDR],
              ['Livre',      disponivelDR],
            ]);
-   
+
            var options = {
              title: 'Disco Rígido',
              colors: ['7f0000','ff9999'],
              pieHole: 0.3,
            };
-   
+
            var chart = new google.visualization.PieChart(document.getElementById('donutdisc'));
            chart.draw(data, options);
          }
@@ -192,11 +192,11 @@
       <tr>
         <td>
           <label for="text">Capacidade de Disco: {{dashboard.capacidadeDisco}}</label>
-          
+
          </td>
          <td>
           <label for="text">Ultima atualização: {{dashboard.day}}/{{dashboard.month}}/{{dashboard.year}} Hora:{{dashboard.hour}}:{{dashboard.minute}}</label>
-          
+
          </td>
          <td></td>
     </table>
@@ -221,66 +221,66 @@
         google.charts.setOnLoadCallback(drawChartRAM);
         google.charts.setOnLoadCallback(drawChartSWAP);
         google.charts.setOnLoadCallback(drawChartDR);
-  
+
         function drawChartCPU() {
 
           var data = google.visualization.arrayToDataTable(dataGoogleGraphic["CPU"]);
-    
+
           var options = {
             title: 'Gráfico - CPU',
             curveType: 'function',
             legend: { position: 'bottom' }
           };
-  
+
           var chart = new google.visualization.LineChart(document.getElementById('curve_chart_CPU'));
-  
+
           chart.draw(data, options);
         }
 
         function drawChartRAM() {
-          
+
           var data = google.visualization.arrayToDataTable(dataGoogleGraphic["RAM"]);
-  
+
           var options = {
             title: 'Gráfico - RAM',
             curveType: 'function',
             legend: { position: 'bottom' }
           };
-  
+
           var chart = new google.visualization.LineChart(document.getElementById('curve_chart_RAM'));
-  
+
           chart.draw(data, options);
         }
 
         function drawChartSWAP() {
-                 
+
           var data = google.visualization.arrayToDataTable(dataGoogleGraphic["SWAP"]);
-  
-  
+
+
           var options = {
             title: 'Gráfico - SWAP',
             curveType: 'function',
             legend: { position: 'bottom' }
           };
-  
+
           var chart = new google.visualization.LineChart(document.getElementById('curve_chart_SWAP'));
-  
+
           chart.draw(data, options);
         }
 
         function drawChartDR() {
-                 
+
           var data = google.visualization.arrayToDataTable(dataGoogleGraphic["DISCO"]);
-  
-  
+
+
           var options = {
             title: 'Gráfico - Disco Rígido',
             curveType: 'function',
             legend: { position: 'bottom' }
           };
-  
+
           var chart = new google.visualization.LineChart(document.getElementById('curve_chart_DR'));
-  
+
           chart.draw(data, options);
         }
 
@@ -303,24 +303,24 @@
               document.getElementById("b_esconde").hidden=false;
               document.getElementById("curve_chart_CPU").hidden=true;
               document.getElementById("curve_chart_SWAP").hidden=true;
-              document.getElementById("curve_chart_DR").hidden=true; 
+              document.getElementById("curve_chart_DR").hidden=true;
           }
           function aparece_SWAP() {
               document.getElementById("curve_chart_SWAP").hidden=false;
               document.getElementById("b_esconde").hidden=false;
               document.getElementById("curve_chart_RAM").hidden=true;
               document.getElementById("curve_chart_CPU").hidden=true;
-              document.getElementById("curve_chart_DR").hidden=true; 
+              document.getElementById("curve_chart_DR").hidden=true;
           }
           function aparece_DR() {
               document.getElementById("curve_chart_DR").hidden=false;
               document.getElementById("b_esconde").hidden=false;
               document.getElementById("curve_chart_RAM").hidden=true;
               document.getElementById("curve_chart_CPU").hidden=true;
-              document.getElementById("curve_chart_SWAP").hidden=true; 
+              document.getElementById("curve_chart_SWAP").hidden=true;
           }
       </script>
-      
+
     </head>
     <body onload ="esconde()">
       <div id="curve_chart_CPU" style="width: 900px; height: 500px"></div>
@@ -333,5 +333,3 @@
   </html>
 
 {% endblock %}
-
-
