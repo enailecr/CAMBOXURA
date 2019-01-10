@@ -31,7 +31,8 @@ from django.db.models import Count
 
 @login_required
 def list(request):
-    relatorios = Cdr.objects.using('relatorios').all()
+    mesAtras = date.today() - timedelta(days=30)
+    relatorios = Cdr.objects.using('relatorios').filter(calldate__gte=mesAtras)
     regras = Regex.objects.using('relatorios').all()
     variaveis = Variaveis.objects.using('relatorios').values('variavel').annotate(dcount=Count('variavel'))
 
@@ -82,6 +83,9 @@ def list(request):
     data = {}
     data['table'] = table
     data['variaveis'] = variaveis
+    mesAtras = mesAtras.strftime('%Y-%m-%d')
+    print(mesAtras)
+    data['dataInicioRelatorio'] = mesAtras
 
     return render(request, 'relatorios.html',data)
 
@@ -189,6 +193,11 @@ def busca_relatorios(request):
         request.session['variavel'] = request.POST['variavel']
     else:
         variavel = request.session['variavel']
+    if 'valvar' in request.POST:
+        valvar = request.POST['valvar']
+        request.session['valvar'] = request.POST['valvar']
+    else:
+        variavel = request.session['valvar']
 
     dataInicio = None
     dataFim = None
@@ -249,22 +258,22 @@ def busca_relatorios(request):
                 if campo == "cano" or campo == "cand":
                     if ((campo == "cano" and re.match('(.*?)'+campo_input+'(.*?)', registro.channel, re.IGNORECASE)))  or (campo == "cand" and re.match('(.*?)'+campo_input+'(.*?)', registro.dstchannel, re.IGNORECASE)):
                         if variavel:
-                            variaveis = Variaveis.objects.using('relatorios').filter(variavel=variavel)
+                            if valvar:
+                                variaveis = Variaveis.objects.using('relatorios').filter(variavel=variavel,uniqueid=registro.uniqueid, valor__icontains=valvar)
+                            else:
+                                variaveis = Variaveis.objects.using('relatorios').filter(variavel=variavel,uniqueid=registro.uniqueid)
                             if variaveis:
-                                for var in variaveis:
-                                    if registro.uniqueid == var.uniqueid:
-                                        rel_filtrado.append(registro)
-                                        break
+                                rel_filtrado.append(registro)
                         else:
                             rel_filtrado.append(registro)
                 else:
                     if variavel:
-                        variaveis = Variaveis.objects.using('relatorios').filter(variavel=variavel)
+                        if valvar:
+                            variaveis = Variaveis.objects.using('relatorios').filter(variavel=variavel,uniqueid=registro.uniqueid, valor__icontains=valvar)
+                        else:
+                            variaveis = Variaveis.objects.using('relatorios').filter(variavel=variavel,uniqueid=registro.uniqueid)
                         if variaveis:
-                            for var in variaveis:
-                                if registro.uniqueid == var.uniqueid:
-                                    rel_filtrado.append(registro)
-                                    break
+                            rel_filtrado.append(registro)
 
                 relatorios = rel_filtrado
 
@@ -276,6 +285,7 @@ def busca_relatorios(request):
     data['status'] = status
     variaveis = Variaveis.objects.using('relatorios').values('variavel').annotate(dcount=Count('variavel'))
     data['variaveis'] = variaveis
+    data['valvar'] = valvar
     table = RelatoriosTable(relatorios)
     data['table'] = table
     RequestConfig(request, paginate={'per_page': 10}).configure(table)

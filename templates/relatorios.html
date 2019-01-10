@@ -41,7 +41,7 @@
                             <label for="data_inicio">Data Início: </label>
                             </td>
                             <td align="left">
-                            <input type="date" name="data_inicio" value="{{dataInicioRelatorio}}">
+                            <input type="date" name="data_inicio" value="{{dataInicioRelatorio}}"></input>
                             </td>
                             <td>
                                     <label for="campo">Campo</label>
@@ -89,6 +89,10 @@
                             <option value="{{var.variavel}}">{{var.variavel}}</option>
                           {%endfor%}
                         </select>
+                      </td>
+                      <td></td>
+                      <td>
+                        <input type="text" name="valvar" value="{{valvar}}"></input>
                       </td>
                     </tr>
                     <tr>
