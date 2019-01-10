@@ -86,7 +86,7 @@
                         <select name="variavel">
                           <option value="">Nenhuma</option>
                           {%for var in variaveis%}
-                            <option value="{{var.variavel}}">{{var.variavel}}</option>
+                            <option value="{{var.variavel}}" {%if vrl == var.variavel%}selected{%endif%}>{{var.variavel}}</option>
                           {%endfor%}
                         </select>
                       </td>

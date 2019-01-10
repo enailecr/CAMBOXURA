@@ -197,7 +197,7 @@ def busca_relatorios(request):
         valvar = request.POST['valvar']
         request.session['valvar'] = request.POST['valvar']
     else:
-        variavel = request.session['valvar']
+        valvar = request.session['valvar']
 
     dataInicio = None
     dataFim = None
@@ -285,6 +285,7 @@ def busca_relatorios(request):
     data['status'] = status
     variaveis = Variaveis.objects.using('relatorios').values('variavel').annotate(dcount=Count('variavel'))
     data['variaveis'] = variaveis
+    data['vrl'] = variavel
     data['valvar'] = valvar
     table = RelatoriosTable(relatorios)
     data['table'] = table
