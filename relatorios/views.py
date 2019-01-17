@@ -65,19 +65,46 @@ def list(request):
         return exporter.response('table.{}'.format(export_format))
 
     if export_format=="pdf":
-        html_string = render_to_string('pdf.html', {'relatorios': relatorios})
-        html = HTML(string=html_string)
-        result = html.write_pdf()
+        doc = SimpleDocTemplate("/tmp/relatorio.pdf", pagesize=A4, rightMargin=30,leftMargin=30, topMargin=30,bottomMargin=18)
+        doc.pagesize = landscape(A4)
+        elements = []
+        s = getSampleStyleSheet()
 
-        # Creating http response
-        response = HttpResponse(content_type='application/pdf;')
-        response['Content-Disposition'] = 'inline; filename=list_people.pdf'
-        response['Content-Transfer-Encoding'] = 'binary'
-        with tempfile.NamedTemporaryFile(delete=True) as output:
-            output.write(result)
-            output.flush()
-            output = open(output.name, 'r')
-            response.write(output.read())
+        data = [['Data','Origem','Destino','Canal Origem','Canal Destino','Duração','Status']]
+        for registro in relatorios:
+            linha = []
+            linha.append(registro.calldate.strftime('%m/%d/%Y %H:%M:%S'))
+            linha.append(str(registro.src))
+            linha.append(str(registro.dst))
+            linha.append(str(registro.channel))
+            linha.append(str(registro.dstchannel))
+            linha.append(str(registro.duration))
+            linha.append(str(registro.disposition))
+            data.append(linha)
+
+        style = TableStyle([('ALIGN',(1,1),(-2,-2),'RIGHT'),
+                       ('VALIGN',(0,0),(0,-1),'TOP'),
+                       ('ALIGN',(0,-1),(-1,-1),'CENTER'),
+                       ('VALIGN',(0,-1),(-1,-1),'MIDDLE'),
+                       ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                       ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                       ])
+
+        s = s["BodyText"]
+        s.wordWrap = 'CJK'
+        # data2 = [[Paragraph(cell, s) for cell in row] for row in data]
+        t=Table(data)
+        t.setStyle(style)
+
+        #Send the data and build the file
+        elements.append(t)
+        doc.build(elements)
+
+        fs = FileSystemStorage("/tmp")
+        with fs.open("relatorio.pdf") as pdf:
+            response = HttpResponse(pdf, content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename="relatorio.pdf"'
+            return response
 
         return response
     data = {}
